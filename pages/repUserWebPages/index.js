@@ -1,12 +1,12 @@
 import Header from "@/components/Header.js";
 import Navbar from "@/components/Navbar";
 
-const Home = () => {
+const UserWebPages = () => {
     return (
         <div className="">
-            HOME
+            REPORTE DE PAGINAS WEB PARA USUARIO
         </div>
     )
 }
 
-export default Home;
+export default UserWebPages;

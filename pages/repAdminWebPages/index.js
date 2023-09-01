@@ -1,12 +1,12 @@
 import Header from "@/components/Header.js";
 import Navbar from "@/components/Navbar";
 
-const Home = () => {
+const AdminWebPages = () => {
     return (
         <div className="">
-            HOME
+            REPORTE DE PAGINAS WEB ADMIN
         </div>
     )
 }
 
-export default Home;
+export default AdminWebPages;

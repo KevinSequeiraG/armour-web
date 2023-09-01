@@ -1,12 +1,12 @@
 import Header from "@/components/Header.js";
 import Navbar from "@/components/Navbar";
 
-const Home = () => {
+const SocialNetwork = () => {
     return (
         <div className="">
-            HOME
+            REPORTE DE REDES SOCIALES
         </div>
     )
 }
 
-export default Home;
+export default SocialNetwork;

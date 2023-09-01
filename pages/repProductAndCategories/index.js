@@ -1,12 +1,12 @@
 import Header from "@/components/Header.js";
 import Navbar from "@/components/Navbar";
 
-const Home = () => {
+const ProductAndCategories = () => {
     return (
         <div className="">
-            HOME
+            REPORTE DE PRODUCTOS Y CATEGORIAS
         </div>
     )
 }
 
-export default Home;
+export default ProductAndCategories;

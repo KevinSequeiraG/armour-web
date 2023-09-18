@@ -1,4 +1,12 @@
 {
-    "welcome": "Ahora si pa",
-    "greeting": "Hola, {{name}}!"
+  "navbar": {
+    "home": "Inicio",
+    "my-profile": "Mi perfil",
+    "contact-us": "Contáctanos",
+    "reports": "Reportes",
+    "pages-created": "Páginas creadas",
+    "products-and-categories": "Productos y categorías",
+    "interactions-on-social-networks": "Interacciones en redes sociales",
+    "sign-off": "Cerrar sesión"
   }
+}

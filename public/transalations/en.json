@@ -1,4 +1,12 @@
 {
-    "welcome": "Lets's do this shit :3",
-    "greeting": "Hello, {{name}}!"
+    "navbar": {
+        "home": "Home",
+        "my-profile": "My profile",
+        "contact-us": "Contact us",
+        "reports": "Reports",
+        "pages-created": "Pages created",
+        "products-and-categories": "Products and categories",
+        "interactions-on-social-networks": "Interactions on social networks",
+        "sign-off": "Sign off"
+    }
 }

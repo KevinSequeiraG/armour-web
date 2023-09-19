@@ -13,7 +13,8 @@ export default function Login() {
     const router = useRouter();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [formErrors, setFormErrors] = useState({});
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const [lngEsp, setLngEsp] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -65,47 +66,71 @@ export default function Login() {
         return Object.keys(errors).length === 0;
     };
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
+    useEffect(() => {
+        if (lngEsp) {
+            changeLanguage("es")
+        } else {
+            changeLanguage("en")
+        }
+    }, [lngEsp])
+
     return (
-        <div className='loginBody'>
-            <div className="loginMain">
-                <input className={`loginInput`} type="checkbox" id="chk" aria-hidden="true" />
-
-                <div className="login relative">
-                    <label className='loginLabel' htmlFor="chk" aria-hidden="true">{t("login.log-in")}</label>
-                    <div className='relative w-[60%] mx-auto'>
-                        <input className={`loginInput ${formErrors.email && '!border-red-600'}`}
-                            type="email" name="email" placeholder={t("login.email")}
-                            value={loginFormValues.email} onChange={handleInputChange} />
-                        {formErrors.email && <p className="absolute text-red-200 right-2 text-sm top-0.5">*</p>}
-                        {formErrors.email && formErrors.email != "*" && <p className="animate__animated animate__flipInX absolute text-red-950 right-1 text-xs -bottom-5 font-medium shadow-2xl bg-white rounded-es-[10px] px-2 py-0.5">{formErrors.email}</p>}
+        <>
+            <div className='absolute right-8 top-6 flex items-center bg-[#F5F5F5] px-4 py-2 rounded-[1rem] border border-1 border-gray-900'>
+                <span class="text-[1rem] font-medium text-gray-900 mr-3">EN</span>
+                <label class="relative inline-flex items-center cursor-pointer" >
+                    <div>
+                        <input type="checkbox" value="" class="sr-only peer" checked={lngEsp} onClick={(e) => setLngEsp(!lngEsp)} />
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-700 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-700"></div>
                     </div>
-
-                    <div className='relative w-[60%] mx-auto'>
-                        <input className={`loginInput ${formErrors.password && '!border-red-600'}`}
-                            type={isPasswordVisible ? "text" : "password"} name="password" placeholder={t("login.password")}
-                            value={loginFormValues.password} onChange={handleInputChange} />
-                        {formErrors.password && <p className="absolute text-red-200 right-2 text-sm top-0.5">*</p>}
-                        {formErrors.password && formErrors.password != "*" && <p className="animate__animated animate__flipInX absolute text-red-950 right-1 text-xs -bottom-5 font-medium shadow-2xl bg-white rounded-es-[10px] px-2 py-0.5">{formErrors.password}</p>}
-                        {isPasswordVisible ? <img src="/svgs/pwdEyeOpen.svg" className="right-3.5 top-2 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} /> : <img src="/svgs/pwdEyeClose.svg" className="right-3.5 top-2 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />}
-                    </div>
-
-                    <div className="flex items-center justify-center -mb-4">
-                        <input
-                            className="form-check-input appearance-none h-4 w-4 border border-[#AAB4C1] rounded-[5px] checked:bg-[#a39869] checked:border-[#c9c6ba] mr-1.5 cursor-pointer"
-                            type="checkbox" id="flexCheckDefault" checked={rememberMeChecked}
-                            onChange={() => setRememberMeChecked(!rememberMeChecked)}
-                        />
-                        <p className="hover:cursor-pointer text-white font-semibold text-[12px]" htmlFor="flexCheckDefault">{t("login.remember-me")}</p>
-                    </div>
-
-                    <button className='loginButton' onClick={(e) => handleLogin(e)}>{t("login.log-in")}</button>
-                <p className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
-                </div>
-                <div className="signup">
-                    <RegisterForm />
-                </div>
-
+                    <span class="ml-3 text-[1rem] font-medium text-gray-900">ES</span>
+                </label>
             </div>
-        </div>
+            <div className='loginBody'>
+                <div className="loginMain">
+                    <input className={`loginInput`} type="checkbox" id="chk" aria-hidden="true" />
+
+                    <div className="login relative">
+                        <label className='loginLabel' htmlFor="chk" aria-hidden="true">{t("login.log-in")}</label>
+                        <div className='relative w-[60%] mx-auto'>
+                            <input className={`loginInput ${formErrors.email && '!border-red-600'}`}
+                                type="email" name="email" placeholder={t("login.email")}
+                                value={loginFormValues.email} onChange={handleInputChange} />
+                            {formErrors.email && <p className="absolute text-red-200 right-2 text-sm top-0.5">*</p>}
+                            {formErrors.email && formErrors.email != "*" && <p className="animate__animated animate__flipInX absolute text-red-950 right-1 text-xs -bottom-5 font-medium shadow-2xl bg-white rounded-es-[10px] px-2 py-0.5">{formErrors.email}</p>}
+                        </div>
+
+                        <div className='relative w-[60%] mx-auto'>
+                            <input className={`loginInput ${formErrors.password && '!border-red-600'}`}
+                                type={isPasswordVisible ? "text" : "password"} name="password" placeholder={t("login.password")}
+                                value={loginFormValues.password} onChange={handleInputChange} />
+                            {formErrors.password && <p className="absolute text-red-200 right-2 text-sm top-0.5">*</p>}
+                            {formErrors.password && formErrors.password != "*" && <p className="animate__animated animate__flipInX absolute text-red-950 right-1 text-xs -bottom-5 font-medium shadow-2xl bg-white rounded-es-[10px] px-2 py-0.5">{formErrors.password}</p>}
+                            {isPasswordVisible ? <img src="/svgs/pwdEyeOpen.svg" className="right-3.5 top-2 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} /> : <img src="/svgs/pwdEyeClose.svg" className="right-3.5 top-2 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />}
+                        </div>
+
+                        <div className="flex items-center justify-center -mb-4">
+                            <input
+                                className="form-check-input appearance-none h-4 w-4 border border-[#AAB4C1] rounded-[5px] checked:bg-[#a39869] checked:border-[#c9c6ba] mr-1.5 cursor-pointer"
+                                type="checkbox" id="flexCheckDefault" checked={rememberMeChecked}
+                                onChange={() => setRememberMeChecked(!rememberMeChecked)}
+                            />
+                            <p className="hover:cursor-pointer text-white font-semibold text-[12px]" htmlFor="flexCheckDefault">{t("login.remember-me")}</p>
+                        </div>
+
+                        <button className='loginButton' onClick={(e) => handleLogin(e)}>{t("login.log-in")}</button>
+                        <p className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
+                    </div>
+                    <div className="signup">
+                        <RegisterForm />
+                    </div>
+
+                </div>
+            </div>
+        </>
     )
 }

@@ -37,5 +37,8 @@
     "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
     "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
     "unknown-error": "Ha sucedido un error desconocido."
+  },
+  "config":{
+    "language":"Lenguaje"
   }
 }

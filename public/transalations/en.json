@@ -37,5 +37,8 @@
         "wrong-password": "Incorrect password. Please try again.",
         "user-not-found": "User not found. Please verify your credentials or register an account.",
         "unknown-error": "An unknown error has occurred."
+    },
+    "config": {
+        "language": "Language"
     }
 }

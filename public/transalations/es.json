@@ -8,5 +8,34 @@
     "products-and-categories": "Productos y categorías",
     "interactions-on-social-networks": "Interacciones en redes sociales",
     "sign-off": "Cerrar sesión"
+  },
+  "login": {
+    "log-in": "Iniciar sesión",
+    "forgot-password": "Olvidé mi contraseña",
+    "remember-me": "Recuérdame",
+    "password": "Contraseña",
+    "email": "Correo electrónico",
+    "register": "Registrarme",
+    "name": "Nombre",
+    "surnames": "Apellidos",
+    "confirm-password": "Confirmar contraseña"
+  },
+  "validations": {
+    "name-required": "El nombre es requerido",
+    "surnames-required": "Los apellidos son requeridos",
+    "email-required": "El correo es requerido",
+    "email-invalid": "Correo no válido",
+    "email-already-exits": "El correo ingresado ya está asociado a otra cuenta.",
+    "email-in-use": "El correo ya está en uso",
+    "password-required": "La contraseña es requerida",
+    "password-dont-match": "Las contraseñas no coinciden"
+  },
+  "succes": {
+    "user-registered": "Usuario registrado con éxito. Puede iniciar sesión."
+  },
+  "errors": {
+    "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
+    "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
+    "unknown-error": "Ha sucedido un error desconocido."
   }
 }

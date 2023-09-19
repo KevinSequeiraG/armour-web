@@ -8,5 +8,34 @@
         "products-and-categories": "Products and categories",
         "interactions-on-social-networks": "Interactions on social networks",
         "sign-off": "Sign off"
+    },
+    "login": {
+        "log-in": "Log in",
+        "forgot-password": "Forgot my password",
+        "remember-me": "Remember me",
+        "password": "Password",
+        "email": "Email",
+        "register": "Register",
+        "name": "Name",
+        "surnames": "Surnames",
+        "confirm-password": "Confirm password"
+    },
+    "validations": {
+        "name-required": "Name is required",
+        "surnames-required": "Surnames are required",
+        "email-required": "Email is required",
+        "email-invalid": "Invalid email",
+        "email-already-exists": "The entered email is already associated with another account.",
+        "email-in-use": "Email is already in use",
+        "password-required": "Password is required",
+        "password-dont-match": "Passwords do not match"
+    },
+    "success": {
+        "user-registered": "User registered successfully. You can now log in."
+    },
+    "errors": {
+        "wrong-password": "Incorrect password. Please try again.",
+        "user-not-found": "User not found. Please verify your credentials or register an account.",
+        "unknown-error": "An unknown error has occurred."
     }
 }

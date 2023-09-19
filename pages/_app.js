@@ -6,7 +6,7 @@ import { UserProvider } from '@/context/UserContext.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '@/components/Navbar';
-import Header from '@/components/Header.js';
+import Header from '@/components/Header/index.js';
 import i18n from '../i18n.js'; //NO BORRAR
 
 export default function App({ Component, pageProps }) {

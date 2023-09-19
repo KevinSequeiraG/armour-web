@@ -1,4 +1,4 @@
-import Header from "@/components/Header.js";
+import Header from "@/components/Header/index.js";
 import Navbar from "@/components/Navbar";
 import { useTranslation } from "react-i18next";
 

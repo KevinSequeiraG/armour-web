@@ -171,3 +171,11 @@
 .form-check-input:checked[type=checkbox] {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/armourweb-7faf5.appspot.com/o/defaultImages%2FcheckInputIcon.svg?alt=media&token=24ba1caf-e883-49c0-8567-150f0ef7dca2") !important;
 }
+
+.bg-webPage-card {
+  background: rgb(180, 58, 58);
+  background: linear-gradient(156deg, rgba(180, 58, 58, 1) 0%, rgba(0, 0, 0, 1) 84%);
+  -webkit-box-shadow: 1px 11px 60px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 11px 60px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 11px 60px -10px rgba(0, 0, 0, 0.75);
+}

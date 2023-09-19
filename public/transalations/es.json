@@ -40,5 +40,11 @@
   },
   "config":{
     "language":"Lenguaje"
+  },
+  "buttons":{
+    "create-page":"Crear página"
+  },
+  "search":{
+    "search-page":"Buscar página"
   }
 }

@@ -16,7 +16,7 @@ const Navbar = () => {
                 <div>
                     <img src="/images/awLogo.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>
-                    <button className="button w-full"><img className="mr-2 w-[1.2rem]" src="/svgs/Profile.svg" />{t("navbar.my-profile")}</button>
+                    <Link href={"/myProfile"}><button className="button w-full"><img className="mr-2 w-[1.2rem]" src="/svgs/Profile.svg" />{t("navbar.my-profile")}</button></Link>
                     <button className="button w-full"><img src="/svgs/Phone.svg" className="mr-2" />{t("navbar.contact-us")}</button>
                     <div className="relative">
                         <button onClick={() => setShowReportsOptions(!showReportsOptions)} className="button w-full"><img src="/svgs/Report.svg" className="mr-2 w-[1.5rem]" />{t("navbar.reports")}</button>

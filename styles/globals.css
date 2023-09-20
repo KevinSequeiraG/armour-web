@@ -181,13 +181,13 @@
 }
 
 .bg-main{
-  background: linear-gradient(to bottom, #99916a, #212429) !important;
+  background:#808080 !important;
 }
 
 /* Scrollbar */
 .scrollbar {
   scrollbar-width: 8px !important;
-  scrollbar-color: linear-gradient(to top, #99916a, #212429) !important;
+  scrollbar-color:  #212429 !important;
 }
 
 /* For Chrome, EDGE, Opera, Others */
@@ -201,6 +201,6 @@
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(to top, #99916a, #212429) !important;
+  background: #212429 !important;
   border-radius: 50px !important;
 }

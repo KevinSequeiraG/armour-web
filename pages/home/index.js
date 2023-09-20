@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
 import WebPageCard from "../../components/Cards/webPageCard";
+import { useRouter } from "next/router";
 
 const Home = () => {
     const { t } = useTranslation();
-
+    const router = useRouter();
     return (
         <div className="bg-main">
             <div className="w-full px-4 py-7 bg-transparent">
@@ -18,7 +19,7 @@ const Home = () => {
                             <img src="./svgs/search.svg" className="w-[1rem] h-[1rem]" alt="rar"/>
                         </button>
                     </div>
-                    <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold">{t("buttons.create-page")}</button>
+                    <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold" onClick={()=>router.push('/managePageBuilder')}>{t("buttons.create-page")}</button>
                 </div>
             </div>
             <div className="grid grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">

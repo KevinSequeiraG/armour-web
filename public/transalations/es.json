@@ -7,7 +7,8 @@
     "pages-created": "Páginas creadas",
     "products-and-categories": "Productos y categorías",
     "interactions-on-social-networks": "Interacciones en redes sociales",
-    "sign-off": "Cerrar sesión"
+    "sign-off": "Cerrar sesión",
+    "editProfile": "Editar perfil"
   },
   "login": {
     "log-in": "Iniciar sesión",
@@ -38,13 +39,30 @@
     "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
     "unknown-error": "Ha sucedido un error desconocido."
   },
-  "config":{
-    "language":"Lenguaje"
+  "config": {
+    "language": "Lenguaje"
   },
-  "buttons":{
-    "create-page":"Crear página"
+  "buttons": {
+    "create-page": "Crear página",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
   },
-  "search":{
-    "search-page":"Buscar página"
+  "search": {
+    "search-page": "Buscar página"
+  },
+  "user-data": {
+    "name": "Nombre",
+    "lastname": "Apellidos",
+    "email": "Correo electrónico",
+    "social-network": "Redes sociales",
+    "phone": "Teléfono",
+    "basic-info": "Información básica",
+    "fb": "Facebook",
+    "twitter": "Twitter",
+    "linked-in": "Linked In",
+    "web-page":"Página web"
+  },
+  "page-builder":{
+    "new-page": "Página nueva"
   }
 }

@@ -7,7 +7,8 @@
         "pages-created": "Pages created",
         "products-and-categories": "Products and categories",
         "interactions-on-social-networks": "Interactions on social networks",
-        "sign-off": "Sign off"
+        "sign-off": "Sign off",
+        "editProfile": "Edit profile"
     },
     "login": {
         "log-in": "Log in",
@@ -42,9 +43,26 @@
         "language": "Language"
     },
     "buttons": {
-        "create-page": "Create Page"
+        "create-page": "Create Page",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     },
     "search": {
         "search-page": "Search Page"
+    },
+    "user-data": {
+        "name": "Name",
+        "lastname": "Last Names",
+        "email": "Email",
+        "social-network": "Social Network",
+        "phone": "Phone",
+        "basic-info": "Basic information",
+        "fb": "Facebook",
+        "twitter": "Twitter",
+        "linked-in": "Linked In",
+        "web-page": "Web page"
+    },
+    "page-builder": {
+        "new-page": "New page"
     }
 }

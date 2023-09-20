@@ -7,7 +7,7 @@ export default function ManagePageBuilder() {
     const { t } = useTranslation();
     const router = useRouter();
 
-    const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+    const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
 
     const handleTabMenuClick = (index) => {
         setActiveButtonIndex(index);
@@ -35,7 +35,7 @@ export default function ManagePageBuilder() {
                             Encabezado
                             <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 0 && "!rotate-0"}`} alt="icon" />
                         </button>
-                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 0 ? "animate__fadeInDown max-h-96 overflow-y-auto" : "animate__fadeOut max-h-0"} duration-75`}>
+                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 0 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
 
                             <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                             <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -60,7 +60,7 @@ export default function ManagePageBuilder() {
                             Encabezado 2
                             <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 1 && "!rotate-0"}`} alt="icon" />
                         </button>
-                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 1 ? "animate__fadeInDown max-h-96 overflow-y-auto" : "animate__fadeOut max-h-0"} duration-75`}>
+                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 1 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
 
                             <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                             <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -69,11 +69,11 @@ export default function ManagePageBuilder() {
                     </div>
 
                     <div className="relative">
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 1 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(1)}>
-                        Encabezado 2
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 1 && "!rotate-0"}`} alt="icon" />
-                    </button>
-                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 2 ? "animate__fadeInDown max-h-96 overflow-y-auto" : "animate__fadeOut max-h-0"} duration-75`}>
+                        <button className={`relative w-full py-2 border-y ${activeButtonIndex === 2 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(2)}>
+                            Título de sección
+                            <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 2 && "!rotate-0"}`} alt="icon" />
+                        </button>
+                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 2 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
 
                             <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                             <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -82,11 +82,23 @@ export default function ManagePageBuilder() {
                     </div>
 
                     <div className="relative">
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 2 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(2)}>
-                        Encabezado 3
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 2 && "!rotate-0"}`} alt="icon" />
-                    </button>
-                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 3 ? "animate__fadeInDown max-h-96 overflow-y-auto" : "animate__fadeOut max-h-0"} duration-75`}>
+                        <button className={`relative w-full py-2 border-y ${activeButtonIndex === 3 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(3)}>
+                            Título de sección
+                            <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 3 && "!rotate-0"}`} alt="icon" />
+                        </button>
+                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 3 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+
+                            <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
+                            <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
+
+                        </div>
+                    </div>
+                    <div className="relative">
+                        <button className={`relative w-full py-2 border-y ${activeButtonIndex === 4 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(4)}>
+                            Título de sección con nombre más largo
+                            <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 4 && "!rotate-0"}`} alt="icon" />
+                        </button>
+                        <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 4 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
 
                             <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                             <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -94,33 +106,6 @@ export default function ManagePageBuilder() {
                         </div>
                     </div>
 
-
-                 
-
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 4 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(4)}>
-                        Título de sección
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 4 && "!rotate-0"}`} alt="icon" />
-                    </button>
-
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 5 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(5)}>
-                        Título de sección
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 5 && "!rotate-0"}`} alt="icon" />
-                    </button>
-
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 6 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(6)}>
-                        Título de sección
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 6 && "!rotate-0"}`} alt="icon" />
-                    </button>
-
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 7 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(7)}>
-                        Título de sección con nombre más largo
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 7 && "!rotate-0"}`} alt="icon" />
-                    </button>
-
-                    <button className={`relative w-full py-2 border-y ${activeButtonIndex === 8 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(8)}>
-                        Título de sección con nombre más largo largo nombre
-                        <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 8 && "!rotate-0"}`} alt="icon" />
-                    </button>
 
 
                 </div>

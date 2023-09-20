@@ -6,13 +6,14 @@ import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
     const router = useRouter()
-    const [showReportsOptions, setShowReportsOptions] = useState(false)
-    const isLoginPage = router.pathname.includes("login")
+    const [showReportsOptions, setShowReportsOptions] = useState(false);
+    const isLoginPage = router.pathname.includes("login");
+    const isBuilderPage = router.pathname.includes("managePageBuilder");
     const { t } = useTranslation();
 
     return (
         <>
-            {isLoginPage ? null : <aside className="bg-[#212429] w-[18rem] h-full px-4 flex justify-between flex-col">
+            {isLoginPage || isBuilderPage ? null : <aside className="bg-[#212429] w-[18rem] h-full px-4 flex justify-between flex-col">
                 <div>
                     <img src="/images/awLogo.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>

@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
     <UserProvider>
       <I18nextProvider>
         <ToastContainer />
-        <div className="w-screen h-screen flex">
+        <div className="w-screen h-screen flex overflow-hidden">
           <Navbar />
           <div className="w-full h-full">
             <Header />

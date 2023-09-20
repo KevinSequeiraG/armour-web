@@ -179,3 +179,28 @@
   -moz-box-shadow: 1px 11px 60px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 11px 60px -10px rgba(0, 0, 0, 0.75);
 }
+
+.bg-main{
+  background: linear-gradient(to bottom, #99916a, #212429) !important;
+}
+
+/* Scrollbar */
+.scrollbar {
+  scrollbar-width: 8px !important;
+  scrollbar-color: linear-gradient(to top, #99916a, #212429) !important;
+}
+
+/* For Chrome, EDGE, Opera, Others */
+.scrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  height: 10px !important;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, #99916a, #212429) !important;
+  border-radius: 50px !important;
+}

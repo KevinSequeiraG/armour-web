@@ -5,8 +5,8 @@ const Home = () => {
     const { t } = useTranslation();
 
     return (
-        <div className="">
-            <div className="w-full px-4 my-7">
+        <div className="bg-main">
+            <div className="w-full px-4 py-7 bg-transparent">
                 <div className="flex justify-between">
                     <div className="relative">
                         <input
@@ -21,7 +21,15 @@ const Home = () => {
                     <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold">{t("buttons.create-page")}</button>
                 </div>
             </div>
-            <div className="grid grid-cols-5 mx-auto justify-items-center gap-4">
+            <div className="grid grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
+                <WebPageCard />
                 <WebPageCard />
                 <WebPageCard />
                 <WebPageCard />

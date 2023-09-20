@@ -1,6 +1,6 @@
 const WebPageCard = () => {
     return (
-        <div className="w-[18rem] h-[24rem] bg-webPage-card border border-7 border-black rounded-[1.5rem] mx-4 text-center py-4">
+        <div className="w-[18rem] h-[24rem] bg-webPage-card border border-7 border-black rounded-[1.5rem] m-4 text-center py-4">
             <img src="./images/awLogo.png" className="rounded-full w-[8rem] h-[8rem] mx-auto" />
             <p className="text-white font-bold italic mt-4">Nombre de la web</p>
             <div className="flex flex-col mt-6">

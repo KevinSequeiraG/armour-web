@@ -30,7 +30,7 @@ export default function ManagePageBuilder() {
             </Head>
             <div className='bg-[#212429] h-full w-full flex'>
                 <aside className="bg-[#212429] w-[25%] h-full flex justify-between flex-col border-r-2 border-[#EFE1A2] !text-[#F5F5F5]">
-                    <div className='font-medium text-[17px] w-full justify-center items-center'>
+                    <div className='font-medium text-[17px] h-[calc(100vh-1rem)] scrollbarDesign overflow-y-auto w-full justify-center items-center'>
 
                         <div className='flex items-center my-2 -space-x-1 justify-center'>
                             <img src="/images/awLogo.png" className="w-[5rem]" />
@@ -42,7 +42,7 @@ export default function ManagePageBuilder() {
                                 Encabezado
                                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 0 && "!rotate-0"}`} alt="icon" />
                             </button>
-                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 0 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 0 ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
 
                                 <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                                 <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -67,7 +67,7 @@ export default function ManagePageBuilder() {
                                 Encabezado 2
                                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 1 && "!rotate-0"}`} alt="icon" />
                             </button>
-                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 1 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 1 ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
 
                                 <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                                 <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -80,7 +80,7 @@ export default function ManagePageBuilder() {
                                 Título de sección
                                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 2 && "!rotate-0"}`} alt="icon" />
                             </button>
-                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 2 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 2 ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
 
                                 <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                                 <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -93,7 +93,7 @@ export default function ManagePageBuilder() {
                                 Título de sección
                                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 3 && "!rotate-0"}`} alt="icon" />
                             </button>
-                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 3 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 3 ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
 
                                 <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                                 <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -102,19 +102,16 @@ export default function ManagePageBuilder() {
                         </div>
                         <div className="relative">
                             <button className={`relative w-full py-2 border-y ${activeButtonIndex === 4 && "border-y-2 border-[#EFE1A2] bg-[#3d4f61] shadow-[inset_1px_2px_4px_1px_rgba(0,0,0,0.6)] py-2.5"} truncate px-10`} onClick={() => handleTabMenuClick(4)}>
-                                Título de sección con nombre más largo
+                                Título de sección
                                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${activeButtonIndex === 4 && "!rotate-0"}`} alt="icon" />
                             </button>
-                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 4 ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
+                            <div className={`scrollbarDesign grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${activeButtonIndex === 4 ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
 
                                 <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                                 <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
 
                             </div>
                         </div>
-
-
-
                     </div>
                     <button className="button w-fit !ml-5" onClick={handleCloseButton}><img src="/svgs/LogOut.svg" className="mr-2" />Cancelar progreso</button>
                 </aside>

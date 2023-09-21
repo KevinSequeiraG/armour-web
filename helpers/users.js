@@ -53,13 +53,17 @@ export const createUserFromLogin = async (newUser) => {
             await setDoc(usersTableRef, {
                 imageProfileUrl: "",
                 name: newUser.name.trim().toLocaleLowerCase(),
-                lastName: newUser.lastName.trim().toLocaleLowerCase(),
+                lastname: newUser.lastname.trim().toLocaleLowerCase(),
                 identification: "",
                 email: newUser.email.trim().toLowerCase(),
                 userType: "user",
-                superAdmin: false,
                 createdAt: todayDate,
-                active: true
+                active: true,
+                phone: "",
+                fb: "",
+                twitter: "",
+                linkedin: "",
+                webpage: ""
             }).then(async () => {
                 // sendFirstEmailToUser();
                 // localStorage.setItem("mainEmail", mainEmail);
@@ -81,18 +85,17 @@ export const updateUserData = async (user) => {
         // Referencia al documento del usuario en Firestore
         const userDocRef = doc(database, `admin/data/users/${user.uid}`);
 
-        // Datos actualizados (incluye solo los campos que deseas actualizar)
+        // Datos actualizados (incluye todos los campos)
         const updatedData = {
-            imageProfileUrl: user.imageProfileUrl || "", // Mantén los valores existentes o proporciona valores predeterminados si es necesario
+            imageProfileUrl: "",
             name: user.name.trim().toLocaleLowerCase(),
-            lastName: user.lastName.trim().toLocaleLowerCase(),
-            identification: user.identification || "",
-            email: user.email.trim().toLowerCase(),
-            userType: user.userType || "user", // Valor predeterminado si no se proporciona
-            superAdmin: user.superAdmin || false, // Valor predeterminado si no se proporciona
-            createdAt: user.createdAt || new Date(), // Fecha actual si no se proporciona
-            active: user.active || true, // Valor predeterminado si no se proporciona
-            // Agrega otros campos que desees actualizar
+            lastname: user.lastname.trim().toLocaleLowerCase(),
+            identification: "",
+            phone: user.phone || "", // Agrega el campo "phone"
+            fb: user.fb || "", // Agrega el campo "fb"
+            twitter: user.twitter || "", // Agrega el campo "twitter"
+            linkedin: user.linkedin || "", // Agrega el campo "linkedin"
+            webpage: user.webpage || "", // Agrega el campo "webpage"
         };
 
         // Actualiza los datos del usuario en Firestore con merge: true
@@ -104,3 +107,21 @@ export const updateUserData = async (user) => {
     }
 }
 
+export const deleteMyAccount = async (uid) => {
+    try {
+        // Referencia al documento del usuario en Firestore
+        const userDocRef = doc(database, `admin/data/users/${uid}`);
+
+        // Datos actualizados (incluye todos los campos)
+        const updatedData = {
+            active: false
+        };
+
+        // Actualiza los datos del usuario en Firestore con merge: true
+        await setDoc(userDocRef, updatedData, { merge: true });
+
+        console.log("Datos de usuario actualizados con éxito");
+    } catch (error) {
+        console.error("Error al actualizar los datos del usuario:", error);
+    }
+}

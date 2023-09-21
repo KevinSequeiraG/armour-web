@@ -21,6 +21,7 @@ export const UserProvider = ({ children }) => {
       const databaseRef = doc(database, `admin/data/users/${userUid}`);
       await getDoc(databaseRef).then((doc) => {
         let data = doc.data();
+        data.uid = doc.id
         sessionStorage.setItem('storage_loggedUser', JSON.stringify(data));
         setLoggedUser(data);
       });

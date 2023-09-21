@@ -1,0 +1,23 @@
+<svg
+            id="Ico_Info"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24.753"
+            height="24.753"
+            viewBox="0 0 24.753 24.753"
+            className="mr-2 w-9 h-9"
+        >
+            <path
+                id="Trazado_8"
+                data-name="Trazado 8"
+                d="M16.552,11.955a1.29,1.29,0,1,1,1.283,1.252A1.254,1.254,0,0,1,16.552,11.955Zm.088,2.235h2.392v9.022H16.639Z"
+                transform="translate(-5.465 -4.892)"
+                fill="#fe3a5c"
+            />
+            <path
+                id="Trazado_9"
+                data-name="Trazado 9"
+                d="M15.752,5.041A10.706,10.706,0,1,1,8.177,8.177a10.64,10.64,0,0,1,7.575-3.136m0-1.666A12.377,12.377,0,1,0,28.128,15.752,12.375,12.375,0,0,0,15.752,3.375Z"
+                transform="translate(-3.375 -3.375)"
+                fill="#fe3a5c"
+            />
+        </svg>

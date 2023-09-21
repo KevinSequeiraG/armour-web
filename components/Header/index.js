@@ -50,7 +50,7 @@ const Header = () => {
         <>
             {isLoginPage || isBuilderPage ? null : <div className="bg-[#212429] h-[5rem] flex justify-end items-center">
                 <div className="flex flex-col text-right">
-                    <p className="mr-4 text-[#EFE1A2] capitalize">{loggedUser?.name + " " + loggedUser?.lastName}</p>
+                    <p className="mr-4 text-[#EFE1A2] capitalize">{loggedUser?.name + " " + loggedUser?.lastname}</p>
                     <div className="relative mr-4" ref={configRef}>
                         <button onClick={() => setShowConfig(!showConfig)} className="mt-1 text-gray-400 bg-gray-200 rounded-full p-1"><img src="./svgs/config.svg"></img></button>
                         {showConfig && <div className="border border-1 border-[#F5F5F5] bg-gray-500 min-h-[5rem] min-w-[5rem] absolute right-3 px-3 py-4 rounded-xl text-left">

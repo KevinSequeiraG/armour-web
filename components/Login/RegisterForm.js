@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function RegisterForm() {
     const { t } = useTranslation();
-    const [registerFormValues, setRegisterFormValues] = useState({ name: '', lastName: '', email: '', password: '', confirmPassword: '' });
+    const [registerFormValues, setRegisterFormValues] = useState({ name: '', lastname: '', email: '', password: '', confirmPassword: '' });
     const [registrationError, setRegistrationError] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,7 @@ export default function RegisterForm() {
         const errors = {};
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!registerFormValues.name) errors.name = t("validations.name-required");
-        if (!registerFormValues.lastName) errors.lastName = t("validations.surnames-required");
+        if (!registerFormValues.lastname) errors.lastname = t("validations.surnames-required");
         if (!registerFormValues.email) errors.email = t("validations.email-required");
         else if (!emailRegex.test(registerFormValues.email)) errors.email = t("validations.email-invalid");
         else {
@@ -49,7 +49,7 @@ export default function RegisterForm() {
                     setIsLoading(false);
                     const registerLabel = document.getElementById('registerLabel');
                     registerLabel.click();
-                    setRegisterFormValues({ name: '', lastName: '', email: '', password: '', confirmPassword: '' });
+                    setRegisterFormValues({ name: '', lastname: '', email: '', password: '', confirmPassword: '' });
                 });
             } catch (error) {
                 console.error('Error al registrar al usuario:', error);
@@ -67,8 +67,8 @@ export default function RegisterForm() {
                 </div>
                 <div className='relative w-[60%] mx-auto'>
                     <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.surnames")}</p>
-                    <input className={`loginInput ${registrationError.lastName && '!border-red-400'}`} type="text" name="lastName" placeholder={t("login.surnames")} value={registerFormValues.lastName} onChange={handleInputChange} />
-                    {registrationError.lastName && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.lastName}</p>}
+                    <input className={`loginInput ${registrationError.lastname && '!border-red-400'}`} type="text" name="lastname" placeholder={t("login.surnames")} value={registerFormValues.lastname} onChange={handleInputChange} />
+                    {registrationError.lastname && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.lastname}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
                     <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.email")}</p>

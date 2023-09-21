@@ -32,12 +32,15 @@
         "password-dont-match": "Passwords do not match"
     },
     "success": {
-        "user-registered": "User registered successfully. You can now log in."
+        "user-registered": "User registered successfully. You can now log in.",
+        "account-deleted": "Your account has been successfully deleted",
+        "user-edited": "Your profile has been successfully edited"
     },
     "errors": {
         "wrong-password": "Incorrect password. Please try again.",
         "user-not-found": "User not found. Please verify your credentials or register an account.",
-        "unknown-error": "An unknown error has occurred."
+        "unknown-error": "An unknown error has occurred.",
+        "user-not-edited": "Your profile has not been edited successfully"
     },
     "config": {
         "language": "Language"
@@ -45,7 +48,9 @@
     "buttons": {
         "create-page": "Create Page",
         "confirm": "Confirm",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete-account": "Delete account"
     },
     "search": {
         "search-page": "Search Page"
@@ -61,9 +66,14 @@
         "twitter": "Twitter",
         "linked-in": "Linked In",
         "web-page": "Web page",
-        "id": "Identification"
+        "id": "Identification",
+        "undefined": "Undefined"
     },
     "page-builder": {
         "new-page": "New page"
+    },
+    "delete-modal": {
+        "sure": "Are you sure you want to delete your account?",
+        "alert": "This means that all your created pages and your information cannot be seen by anyone."
     }
 }

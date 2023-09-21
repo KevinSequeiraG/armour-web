@@ -204,3 +204,31 @@
   background: #212429 !important;
   border-radius: 50px !important;
 }
+
+@media screen and (min-width: 768px) {
+  .scrollbarDesignTiny {
+    scrollbar-width: 3px !important;
+    scrollbar-color: #968336 !important;
+  }
+
+  /* For Chrome, EDGE, Opera, Others */
+  .scrollbarDesignTiny::-webkit-scrollbar {
+    width: 3px !important;
+    height: 10px !important;
+  }
+
+  .scrollbarDesignTiny::-webkit-scrollbar-track {
+    background: transparent !important;
+    border-radius: 10px !important;
+  }
+
+  .scrollbarDesignTiny::-webkit-scrollbar-thumb {
+    background: #968336 !important;
+    border-radius: 50px !important;
+  }
+}
+.separator {
+  width: 3px;
+  background-color: #000; 
+  height: 40px;
+}

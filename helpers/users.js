@@ -56,7 +56,7 @@ export const createUserFromLogin = async (newUser) => {
                 lastName: newUser.lastName.trim().toLocaleLowerCase(),
                 identification: "",
                 email: newUser.email.trim().toLowerCase(),
-                userType: "",
+                userType: "user",
                 superAdmin: false,
                 createdAt: todayDate,
             }).then(async () => {

@@ -28,7 +28,7 @@ const Home = () => {
                     <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold" onClick={()=>router.push('/managePageBuilder')}>{t("buttons.create-page")}</button>
                 </div>
             </div>
-            <div className="grid grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
+            <div className="grid grid-cols-1 mdx800:grid-cols-2 mdx1100:grid-cols-3 mdx1400:grid-cols-4 mdx1900:grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
                 <WebPageCard />
                 <WebPageCard />
                 <WebPageCard />

@@ -60,7 +60,8 @@
         "fb": "Facebook",
         "twitter": "Twitter",
         "linked-in": "Linked In",
-        "web-page": "Web page"
+        "web-page": "Web page",
+        "id": "Identification"
     },
     "page-builder": {
         "new-page": "New page"

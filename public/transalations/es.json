@@ -60,7 +60,8 @@
     "fb": "Facebook",
     "twitter": "Twitter",
     "linked-in": "Linked In",
-    "web-page":"Página web"
+    "web-page":"Página web",
+    "id":"Cédula"
   },
   "page-builder":{
     "new-page": "Página nueva"

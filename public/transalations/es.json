@@ -31,7 +31,7 @@
     "password-required": "La contraseña es requerida",
     "password-dont-match": "Las contraseñas no coinciden"
   },
-  "succes": {
+  "success": {
     "user-registered": "Usuario registrado con éxito. Puede iniciar sesión."
   },
   "errors": {

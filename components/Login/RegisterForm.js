@@ -45,7 +45,7 @@ export default function RegisterForm() {
             setIsLoading(true);
             try {
                 await createUserFromLogin(registerFormValues).then(() => {
-                    toast.success(t("succes.user-registered"));
+                    toast.success(t("success.user-registered"));
                     setIsLoading(false);
                     const registerLabel = document.getElementById('registerLabel');
                     registerLabel.click();
@@ -58,7 +58,7 @@ export default function RegisterForm() {
     };
     return (
         <>
-            <label className='loginLabelRegister' htmlFor="chk" aria-hidden="true" id="registerLabel">{t("login.log-in")}</label>
+            <label className='loginLabelRegister' htmlFor="chk" aria-hidden="true" id="registerLabel">{t("login.register")}</label>
             <div className='max-h-[21rem] overflow-y-auto scrollbarDesign'>
                 <div className='relative w-[60%] mx-auto'>
                     <p className='text-[#11131C] font-semibold text-sm'>{t("login.name")}</p>

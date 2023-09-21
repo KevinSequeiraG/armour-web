@@ -32,13 +32,13 @@ export const UserProvider = ({ children }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (router.route != "/login" && localStorage.getItem('storage_loggedUser') != null) {
-  //     const loggedUserMemory = JSON.parse(localStorage.getItem('storage_loggedUser'));
-  //     setUser(loggedUserMemory);
-  //   } else if (router.route != "/login" && !router.route.includes("recoverPassword"))
-  //     router.push("/login");
-  // }, []);
+  useEffect(() => {
+    if (router.route != "/login" && localStorage.getItem('storage_loggedUser') != null) {
+      const loggedUserMemory = JSON.parse(localStorage.getItem('storage_loggedUser'));
+      setLoggedUser(loggedUserMemory);
+    } else if (router.route != "/login" && !router.route.includes("recoverPassword"))
+      router.push("/login");
+  }, []);
 
   return (
     <UserContext.Provider value={{ loggedUser, Login }}>

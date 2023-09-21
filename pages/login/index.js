@@ -9,7 +9,7 @@ import Head from 'next/head';
 
 export default function Login() {
     const [rememberMeChecked, setRememberMeChecked] = useState(false);
-    const { Login } = useContext(UserContext);
+    const { Login, UpdateUser } = useContext(UserContext);
     const [loginFormValues, setLoginFormValues] = useState({ email: '', password: '' });
     const router = useRouter();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -24,6 +24,7 @@ export default function Login() {
     };
 
     useEffect(() => {
+        sessionStorage.removeItem("storage_loggedUser");
         setRememberMeChecked(JSON.parse(localStorage.getItem("rememberMe")));
         setLoginFormValues({ ...loginFormValues, email: JSON.parse(localStorage.getItem("rememberMeEmail")) });
     }, []);
@@ -32,15 +33,17 @@ export default function Login() {
         e.preventDefault();
         if (validateForm()) {
             try {
-                await Login(loginFormValues.email, loginFormValues.password).then((user) => {
-                    if (rememberMeChecked) {
-                        localStorage.setItem("rememberMe", JSON.stringify(rememberMeChecked));
-                        localStorage.setItem("rememberMeEmail", JSON.stringify(loginFormValues.email));
-                    } else {
-                        localStorage.removeItem("rememberMe");
-                        localStorage.removeItem("rememberMeEmail");
-                    }
-                    router.push('/home');
+                await Login(loginFormValues.email, loginFormValues.password).then(async (user) => {
+                    await UpdateUser(user.user.uid).then(() => {
+                        if (rememberMeChecked) {
+                            localStorage.setItem("rememberMe", JSON.stringify(rememberMeChecked));
+                            localStorage.setItem("rememberMeEmail", JSON.stringify(loginFormValues.email));
+                        } else {
+                            localStorage.removeItem("rememberMe");
+                            localStorage.removeItem("rememberMeEmail");
+                        }
+                        router.push('/home');
+                    })
                 }).catch((error) => {
                     if (error.message.includes('auth/user-not-found')) toast.error(t("errors.wrong-password"));
                     else if (error.message.includes('password')) toast.error(t("errors.user-not-found"));
@@ -50,6 +53,7 @@ export default function Login() {
                     console.error('Error fetching user data:', error);
                 });
             } catch (error) {
+                console.log(error);
                 toast.error(error.message);
             }
         }
@@ -87,13 +91,13 @@ export default function Login() {
                 <link rel="icon" href="/images/awLogo.png" />
             </Head>
             <div className='absolute right-8 top-6 flex items-center bg-[#F5F5F5] px-4 py-2 rounded-[1rem] border border-1 border-gray-900'>
-                <span class="text-[1rem] font-medium text-gray-900 mr-3">EN</span>
-                <label class="relative inline-flex items-center cursor-pointer" >
+                <span className="text-[1rem] font-medium text-gray-900 mr-3">EN</span>
+                <label className="relative inline-flex items-center cursor-pointer" >
                     <div>
-                        <input type="checkbox" value="" class="sr-only peer" checked={lngEsp} onClick={(e) => setLngEsp(!lngEsp)} />
-                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-700 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-700"></div>
+                        <input type="checkbox" value="" className="sr-only peer" checked={lngEsp} onClick={(e) => setLngEsp(!lngEsp)} />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-700 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-700"></div>
                     </div>
-                    <span class="ml-3 text-[1rem] font-medium text-gray-900">ES</span>
+                    <span className="ml-3 text-[1rem] font-medium text-gray-900">ES</span>
                 </label>
             </div>
             <div className='loginBody'>

@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useRouter } from "next/router";
-import { auth, database } from '@/lib/firebaseConfig';
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+
+import { doc, getDoc } from "firebase/firestore";
+import { auth, database } from '@/lib/firebaseConfig';
 
 export const UserContext = createContext();
 
@@ -15,33 +16,29 @@ export const UserProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        const databaseRef = doc(database, `event+/data/users/${currentUser.uid}`);
-        const codeData = getDoc(databaseRef);
-        codeData.then((user) => {
-          const loggedUser = user.data();
-          setLoggedUser(loggedUser);
-          localStorage.setItem('storage_loggedUser', JSON.stringify(loggedUser));
-        });
-      }
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const UpdateUser = async (userUid) => {
+    try {
+      const databaseRef = doc(database, `admin/data/users/${userUid}`);
+      await getDoc(databaseRef).then((doc) => {
+        let data = doc.data();
+        sessionStorage.setItem('storage_loggedUser', JSON.stringify(data));
+        setLoggedUser(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    if (router.route != "/login" && localStorage.getItem('storage_loggedUser') != null) {
-      const loggedUserMemory = JSON.parse(localStorage.getItem('storage_loggedUser'));
+    if (router.route != "/login" && sessionStorage.getItem('storage_loggedUser') != null) {
+      const loggedUserMemory = JSON.parse(sessionStorage.getItem('storage_loggedUser'));
       setLoggedUser(loggedUserMemory);
     } else if (router.route != "/login" && !router.route.includes("recoverPassword"))
       router.push("/login");
-  }, []);
+  }, [router.route]);
 
   return (
-    <UserContext.Provider value={{ loggedUser, Login }}>
+    <UserContext.Provider value={{ loggedUser, Login, UpdateUser }}>
       {children}
     </UserContext.Provider>
   );

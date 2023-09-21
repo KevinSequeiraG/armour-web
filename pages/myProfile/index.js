@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const MyProfile = () => {
     const { t } = useTranslation();
+    
     return (
         <div className="bg-main h-[92vh] px-20 py-20 overflow-y-auto scrollbar">
             <Head>
@@ -15,11 +16,11 @@ const MyProfile = () => {
             <div className="flex items-center mx-auto italic rounded-[.5rem] border border-2 border-black w-[24rem] h-[6rem] justify-center"><h1 className="m-0 font-bold text-[4rem] ">{t("navbar.my-profile")}</h1></div>
             <div className="mt-10 w-[15rem] h-[15rem] bg-gray-800 rounded-full mx-auto"></div>
             <Link href={"/editProfile"}><div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-[#212429] hover:bg-gray-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200"><p className="">Editar</p><img className="w-[1rem] ml-2" src="./svgs/edit.svg" /></div></Link>
-            <div className="w-[35%] mx-auto mt-20">
+            <div className="w-[35%] mx-auto mt-10">
                 <p className="text-[1.8rem] font-bold mb-4">{t("user-data.basic-info")}</p>
                 <div className="flex items-center justify-between my-2">
                     <p className="text-[1.5rem] font-semibold">{t("user-data.name")}:</p>
-                    <p className="text-[1.5rem] font-semibold">Sin definir</p>
+                    <p className="text-[1.5rem] font-semibold">{}</p>
                 </div>
                 <div className="flex items-center justify-between my-2">
                     <p className="text-[1.5rem] font-semibold">{t("user-data.lastname")}:</p>

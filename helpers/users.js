@@ -59,6 +59,7 @@ export const createUserFromLogin = async (newUser) => {
                 userType: "user",
                 superAdmin: false,
                 createdAt: todayDate,
+                active: true
             }).then(async () => {
                 // sendFirstEmailToUser();
                 // localStorage.setItem("mainEmail", mainEmail);
@@ -66,7 +67,7 @@ export const createUserFromLogin = async (newUser) => {
                 // router.push("/preguntas");
             });
             return;
-        } else{
+        } else {
             console.log(res);
         }
         return;
@@ -74,3 +75,32 @@ export const createUserFromLogin = async (newUser) => {
         console.log(er);
     });
 }
+
+export const updateUserData = async (user) => {
+    try {
+        // Referencia al documento del usuario en Firestore
+        const userDocRef = doc(database, `admin/data/users/${user.uid}`);
+
+        // Datos actualizados (incluye solo los campos que deseas actualizar)
+        const updatedData = {
+            imageProfileUrl: user.imageProfileUrl || "", // Mantén los valores existentes o proporciona valores predeterminados si es necesario
+            name: user.name.trim().toLocaleLowerCase(),
+            lastName: user.lastName.trim().toLocaleLowerCase(),
+            identification: user.identification || "",
+            email: user.email.trim().toLowerCase(),
+            userType: user.userType || "user", // Valor predeterminado si no se proporciona
+            superAdmin: user.superAdmin || false, // Valor predeterminado si no se proporciona
+            createdAt: user.createdAt || new Date(), // Fecha actual si no se proporciona
+            active: user.active || true, // Valor predeterminado si no se proporciona
+            // Agrega otros campos que desees actualizar
+        };
+
+        // Actualiza los datos del usuario en Firestore con merge: true
+        await setDoc(userDocRef, updatedData, { merge: true });
+
+        console.log("Datos de usuario actualizados con éxito");
+    } catch (error) {
+        console.error("Error al actualizar los datos del usuario:", error);
+    }
+}
+

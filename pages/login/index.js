@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import 'animate.css';
 import RegisterForm from '@/components/Login/RegisterForm';
 import { useTranslation } from 'react-i18next';
+import Head from 'next/head';
 
 export default function Login() {
     const [rememberMeChecked, setRememberMeChecked] = useState(false);

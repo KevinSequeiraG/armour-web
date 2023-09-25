@@ -23,7 +23,8 @@ const MyProfile = () => {
                 <link rel="icon" href="/images/awLogo.png" />
             </Head>
             <div className="flex items-center mx-auto italic rounded-[.5rem] border border-2 border-black w-[20rem] h-[6rem] justify-center"><h1 className="m-0 font-bold text-[3rem] ">{t("navbar.my-profile")}</h1></div>
-            <div className="mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto"></div>
+            {loggedUser?.imageProfileUrl ? <img src={loggedUser?.imageProfileUrl} className="mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto object-cover shadow-md" alt="Image" />
+                : <div className="mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto"></div>}
             <div>
                 <Link href={"/editProfile"}><div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-[#212429] hover:bg-gray-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200"><p className="">{t("buttons.edit")}</p><img className="w-[1rem] ml-2" src="./svgs/edit.svg" /></div></Link>
                 <div onClick={() => { setShowDeleteModal(true) }} className="mx-auto cursor-pointer relative flex items-center justify-center w-[14rem] bg-red-900 hover:bg-red-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200"><p className="">{t("buttons.delete-account")}</p><img className="w-[1rem] ml-2" src="./svgs/delete.svg" /></div>

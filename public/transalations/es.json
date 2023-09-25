@@ -40,7 +40,8 @@
     "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
     "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
     "unknown-error": "Ha sucedido un error desconocido.",
-    "user-not-edited": "Tu perfil no ha sido editado exitosamente"
+    "user-not-edited": "Tu perfil no ha sido editado exitosamente",
+    "image-invalid": "El archivo seleccionado no es válido."
   },
   "config": {
     "language": "Lenguaje"

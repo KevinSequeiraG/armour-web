@@ -1,4 +1,5 @@
 
+import ImageUploader from "@/components/ImageUploader";
 import { UserContext } from "@/context/UserContext";
 import { updateUserData } from "@/helpers/users";
 import Head from "next/head";
@@ -12,7 +13,9 @@ const EditProfile = () => {
     const router = useRouter();
     const { loggedUser } = useContext(UserContext);
     const { t } = useTranslation();
+
     const [formData, setFormData] = useState({
+        imageProfileUrl: '',
         name: '',
         lastname: '',
         phone: '',
@@ -31,6 +34,14 @@ const EditProfile = () => {
         });
     };
 
+    // Función para actualizar el estado de la imagen
+    const handleImage = (imageUrl) => {
+        setFormData({
+            ...formData,
+            imageProfileUrl: imageUrl,
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         updateUserData(formData).then(() => {
@@ -45,6 +56,7 @@ const EditProfile = () => {
         if (loggedUser) {
             setFormData(
                 {
+                    imageProfileUrl: loggedUser.imageProfileUrl,
                     name: loggedUser.name.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
                     lastname: loggedUser.lastname.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
                     phone: loggedUser.phone,
@@ -67,10 +79,10 @@ const EditProfile = () => {
                 <link rel="icon" href="/images/awLogo.png" />
             </Head>
             <form onSubmit={handleSubmit} className="bg-main h-[92vh] px-20 py-20 overflow-y-auto scrollbar">
-                <div className="flex items-center mx-auto italic rounded-[.5rem] border border-2 border-black w-[20rem] h-[6rem] justify-center"><h1 className="m-0 font-bold text-[3rem] ">{t("navbar.my-profile")}</h1></div>
+                <div className="flex items-center mx-auto italic rounded-[.5rem] border-2 border-black w-[20rem] h-[6rem] justify-center"><h1 className="m-0 font-bold text-[3rem] ">{t("navbar.my-profile")}</h1></div>
 
                 <div className="w-[60%] mx-auto mt-10">
-                    <div className="mb-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto"></div>
+                    <ImageUploader divDesign="mb-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto shadow-md" setImage={handleImage} image={formData?.imageProfileUrl} />
                     <p className="text-[1.8rem] font-bold mb-4">{t('user-data.basic-info')}</p>
                     <div className="flex items-center justify-between my-2">
                         <label htmlFor="name" className="text-[1.5rem] font-semibold">
@@ -181,14 +193,14 @@ const EditProfile = () => {
                     </div>
                 </div>
                 <div className="flex w-[35%] mx-auto mt-10">
-                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-900 border border-2 border-gray-300 hover:bg-red-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
+                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-900 border-2 border-gray-300 hover:bg-red-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
                         <Link href={"/myProfile"}>
                             <button className="flex items-center">
                                 {t('buttons.cancel')}
                             </button>
                         </Link>
                     </div>
-                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-900 border border-2 border-gray-300 hover:bg-green-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
+                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-900 border-2 border-gray-300 hover:bg-green-700 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
                         <button type="submit" className="flex items-center">
                             {t('buttons.confirm')}
                         </button>

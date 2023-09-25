@@ -1,5 +1,6 @@
-import { database } from "@/lib/firebaseConfig";
+import { database, storage } from "@/lib/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const userAlreadyExists = async (email) => {
     let exists = false;
@@ -79,15 +80,27 @@ export const createUserFromLogin = async (newUser) => {
         console.log(er);
     });
 }
+const uploadImageInDB = async (file) => {
+    try {
+        const storageRef = ref(storage, "images/" + file.name);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        return downloadURL;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+
 
 export const updateUserData = async (user) => {
     try {
         // Referencia al documento del usuario en Firestore
         const userDocRef = doc(database, `admin/data/users/${user.uid}`);
-
+        const imageProfileUrlInDB = user.imageProfileUrl ? await uploadImageInDB(user.imageProfileUrl) : '';
         // Datos actualizados (incluye todos los campos)
         const updatedData = {
-            imageProfileUrl: "",
+            imageProfileUrl: imageProfileUrlInDB,
             name: user.name.trim().toLocaleLowerCase(),
             lastname: user.lastname.trim().toLocaleLowerCase(),
             identification: "",

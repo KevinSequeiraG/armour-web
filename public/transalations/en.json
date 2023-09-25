@@ -40,7 +40,8 @@
         "wrong-password": "Incorrect password. Please try again.",
         "user-not-found": "User not found. Please verify your credentials or register an account.",
         "unknown-error": "An unknown error has occurred.",
-        "user-not-edited": "Your profile has not been edited successfully"
+        "user-not-edited": "Your profile has not been edited successfully",
+        "image-invalid": "The selected file is not valid."
     },
     "config": {
         "language": "Language"

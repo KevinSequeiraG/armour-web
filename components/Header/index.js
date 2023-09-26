@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 const Header = () => {
     const router = useRouter();
     const isLoginPage = router.pathname.includes("login");
+    const isUserActionPage = router.pathname.includes("userAction");
+    const isSendEmailPassword = router.pathname.includes("sendEmailPassword");
     const isBuilderPage = router.pathname.includes("managePageBuilder");
     const [lngEsp, setLngEsp] = useState(false);
     const { t, i18n } = useTranslation();
@@ -48,7 +50,7 @@ const Header = () => {
 
     return (
         <>
-            {isLoginPage || isBuilderPage ? null : <div className="bg-[#212429] h-[5rem] flex justify-end items-center">
+            {isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#212429] h-[5rem] flex justify-end items-center">
                 <div className="flex flex-col text-right">
                     <p className="mr-4 text-[#EFE1A2] capitalize">{loggedUser?.name + " " + loggedUser?.lastname}</p>
                     <div className="relative mr-4" ref={configRef}>

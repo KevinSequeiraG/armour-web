@@ -1,4 +1,5 @@
-import { database, storage } from "@/lib/firebaseConfig";
+import { auth, database, storage } from "@/lib/firebaseConfig";
+import { confirmPasswordReset, sendPasswordResetEmail } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -136,5 +137,27 @@ export const deleteMyAccount = async (uid) => {
         console.log("Datos de usuario actualizados con éxito");
     } catch (error) {
         console.error("Error al actualizar los datos del usuario:", error);
+    }
+}
+
+export const sendResetEmailPassword = async(email) => {
+    try {
+        auth.languageCode = "es";
+        var actionCodeSettings = {
+            url: "http://localhost:5050/",
+            handleCodeInApp: false,
+        };
+        await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const resetPassword = async (oobCode, newPassword) => {
+    try {
+        await confirmPasswordReset(auth, oobCode, newPassword)
+        console.log("Contraseña restablecida con éxito");
+    } catch (error) {
+        throw new Error("Error al confirmar el restablecimiento de contraseña. " + error.message);
     }
 }

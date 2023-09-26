@@ -133,7 +133,7 @@ export default function Login() {
                         </div>
 
                         <button className='loginButton' onClick={(e) => handleLogin(e)}>{t("login.log-in")}</button>
-                        <p className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
+                        <p onClick={() => { router.push("sendEmailPassword")}} className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
                     </div>
                     <div className="signup">
                         <RegisterForm />

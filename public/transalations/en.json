@@ -34,14 +34,18 @@
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
         "account-deleted": "Your account has been successfully deleted",
-        "user-edited": "Your profile has been successfully edited"
+        "user-edited": "Your profile has been successfully edited",
+        "password-edited-correctly": "Password edited correctly",
+        "password-email-sended": "An email has been sent to your address, check your spam box."
     },
     "errors": {
         "wrong-password": "Incorrect password. Please try again.",
         "user-not-found": "User not found. Please verify your credentials or register an account.",
         "unknown-error": "An unknown error has occurred.",
         "user-not-edited": "Your profile has not been edited successfully",
-        "image-invalid": "The selected file is not valid."
+        "image-invalid": "The selected file is not valid.",
+        "password-not-edited-correctly": "Could not edit the password correctly.",
+        "password-email-not-sended": "The email could not be sent, try again later"
     },
     "config": {
         "language": "Language"
@@ -51,7 +55,10 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "edit": "Edit",
-        "delete-account": "Delete account"
+        "delete-account": "Delete account",
+        "change-password": "Change password",
+        "send-email": "Send email",
+        "return-to-login": "Return to login"
     },
     "search": {
         "search-page": "Search Page"
@@ -76,5 +83,13 @@
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",
         "alert": "This means that all your created pages and your information cannot be seen by anyone."
+    },
+    "reset-password": {
+        "reset-passord": "Reset your password",
+        "enter-password": "Enter the password you want to use from now on.",
+        "new-password": "New password",
+        "repeat-password": "Repeat password",
+        "recover-password": "Recover your password!",
+        "instructions-to-send-email": "In order to recover your password, tell us what your email is so we can send you the necessary instructions."
     }
 }

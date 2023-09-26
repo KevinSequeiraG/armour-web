@@ -34,14 +34,18 @@
   "success": {
     "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
     "account-deleted": "Su cuenta se ha borrado correctamente",
-    "user-edited": "Tu perfil ha sido editado exitosamente"
+    "user-edited": "Tu perfil ha sido editado exitosamente",
+    "password-edited-correctly": "Contraseña editada correctamente",
+    "password-email-sended": "Se a enviado un correo a tu dirección, revisa tu casilla de spam."
   },
   "errors": {
     "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
     "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
     "unknown-error": "Ha sucedido un error desconocido.",
     "user-not-edited": "Tu perfil no ha sido editado exitosamente",
-    "image-invalid": "El archivo seleccionado no es válido."
+    "image-invalid": "El archivo seleccionado no es válido.",
+    "password-not-edited-correctly": "No se pudo editar la contraseña correctamente.",
+    "password-email-not-sended": "The email could not be sent, try again later"
   },
   "config": {
     "language": "Lenguaje"
@@ -51,7 +55,10 @@
     "confirm": "Confirmar",
     "cancel": "Cancelar",
     "edit": "Editar",
-    "delete-account": "Eliminar cuenta"
+    "delete-account": "Eliminar cuenta",
+    "change-password": "Cambiar contraseña",
+    "send-email": "Enviar correo",
+    "return-to-login": "Volver al inicio de sesión"
   },
   "search": {
     "search-page": "Buscar página"
@@ -76,5 +83,13 @@
   "delete-modal": {
     "sure": "¿Está seguro que desea eliminar su cuenta?",
     "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser vista por nadie"
+  },
+  "reset-password": {
+    "reset-passord": "Restablece tu contraseña",
+    "enter-password": "Ingresa la contraseña que quieres utilizar a partir de ahora.",
+    "new-password": "Nueva contraseña",
+    "repeat-password": "Repetir contraseña",
+    "recover-password": "¡Recupera tu contraseña!",
+    "instructions-to-send-email": "Para poder recuperar tu contraseña indicanos cual es tu correo electrónico para poder enviarte las indicaciones necesarias."
   }
 }

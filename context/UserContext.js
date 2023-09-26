@@ -34,7 +34,7 @@ export const UserProvider = ({ children }) => {
     if (router.route != "/login" && sessionStorage.getItem('storage_loggedUser') != null) {
       const loggedUserMemory = JSON.parse(sessionStorage.getItem('storage_loggedUser'));
       setLoggedUser(loggedUserMemory);
-    } else if (router.route != "/login" && !router.route.includes("recoverPassword"))
+    } else if (router.route != "/login" && !router.route.includes("userAction") && !router.route.includes("sendEmailPassword"))
       router.push("/login");
   }, [router.route]);
 

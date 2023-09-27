@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const SocialNetwork = () => {
     const { t } = useTranslation();
+    
     return (
         <div className="">
             <Head>

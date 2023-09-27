@@ -1,5 +1,3 @@
-import Header from "@/components/Header/index.js";
-import Navbar from "@/components/Navbar";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
 

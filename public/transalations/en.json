@@ -91,5 +91,11 @@
         "repeat-password": "Repeat password",
         "recover-password": "Recover your password!",
         "instructions-to-send-email": "In order to recover your password, tell us what your email is so we can send you the necessary instructions."
+    },
+    "verify-page": {
+        "verify-your-email": "Verify your email.",
+        "we-need-to-know": "We need to know it is you, click on the button so we can send you a verification email.",
+        "email-verified" : "Verified email",
+        "desc-verified": "Now you can access the platform and create the pages you want"
     }
 }

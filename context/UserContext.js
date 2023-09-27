@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useRouter } from "next/router";
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { doc, getDoc } from "firebase/firestore";
 import { auth, database } from '@/lib/firebaseConfig';
@@ -14,6 +14,16 @@ export const UserProvider = ({ children }) => {
 
   function Login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  const sendUserEmailVerification = async () => {
+    const user = auth.currentUser;
+    try {
+      await sendEmailVerification(user)
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   const UpdateUser = async (userUid) => {
@@ -39,7 +49,7 @@ export const UserProvider = ({ children }) => {
   }, [router.route]);
 
   return (
-    <UserContext.Provider value={{ loggedUser, Login, UpdateUser }}>
+    <UserContext.Provider value={{ loggedUser, Login, UpdateUser, sendUserEmailVerification }}>
       {children}
     </UserContext.Provider>
   );

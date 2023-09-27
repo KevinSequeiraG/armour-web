@@ -91,5 +91,11 @@
     "repeat-password": "Repetir contraseña",
     "recover-password": "¡Recupera tu contraseña!",
     "instructions-to-send-email": "Para poder recuperar tu contraseña indicanos cual es tu correo electrónico para poder enviarte las indicaciones necesarias."
+  },
+  "verify-page": {
+    "verify-your-email": "Verifica tu correo electrónico.",
+    "we-need-to-know": "Necesitamos saber que eres tú, da click en el boton para que podamos enviarte un correo de verificación.",
+    "email-verified" : "Correo verificado",
+    "desc-verified": "Ahora puedes acceder a la plataforma y crear las páginas que quieras"
   }
 }

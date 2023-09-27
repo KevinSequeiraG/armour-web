@@ -8,6 +8,7 @@ const Navbar = () => {
     const router = useRouter()
     const [showReportsOptions, setShowReportsOptions] = useState(false);
     const isLoginPage = router.pathname.includes("login");
+    const isEmailNoVerified = router.pathname.includes("emailNoVerified");
     const isUserActionPage = router.pathname.includes("userAction");
     const isSendEmailPassword = router.pathname.includes("sendEmailPassword");
     const isBuilderPage = router.pathname.includes("managePageBuilder");
@@ -15,7 +16,7 @@ const Navbar = () => {
 
     return (
         <>
-            {isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-[#212429] w-[18rem] h-full px-4 flex justify-between flex-col">
+            {isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-[#212429] w-[18rem] h-full px-4 flex justify-between flex-col">
                 <div>
                     <img src="/images/awLogo.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>
@@ -31,7 +32,7 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
-                <button className="button w-full"><img src="/svgs/LogOut.svg" className="mr-2" />{t("navbar.sign-off")}</button>
+                <Link href={"/login"}><button className="button w-full"><img src="/svgs/LogOut.svg" className="mr-2" />{t("navbar.sign-off")}</button></Link>
             </aside>}
         </>
     )

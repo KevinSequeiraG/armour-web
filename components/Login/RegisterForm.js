@@ -16,7 +16,6 @@ export default function RegisterForm() {
     };
 
     const validateForm = async () => {
-        console.log(1);
         const errors = {};
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!registerFormValues.name) errors.name = t("validations.name-required");

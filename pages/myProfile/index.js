@@ -3,17 +3,13 @@ import DeleteAccount from "@/components/Modals/DeleteAccount";
 import { UserContext } from "@/context/UserContext";
 import Head from "next/head";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const MyProfile = () => {
     const { t } = useTranslation();
     const { loggedUser } = useContext(UserContext);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-    useEffect(() => {
-        console.log(loggedUser);
-    }, [loggedUser])
 
     return (
         <div className="bg-main h-[92vh] px-20 py-20 overflow-y-auto scrollbar">

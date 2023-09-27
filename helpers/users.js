@@ -1,5 +1,5 @@
 import { auth, database, storage } from "@/lib/firebaseConfig";
-import { confirmPasswordReset, sendPasswordResetEmail } from "firebase/auth";
+import { applyActionCode, confirmPasswordReset, sendPasswordResetEmail } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -140,7 +140,7 @@ export const deleteMyAccount = async (uid) => {
     }
 }
 
-export const sendResetEmailPassword = async(email) => {
+export const sendResetEmailPassword = async (email) => {
     try {
         auth.languageCode = "es";
         var actionCodeSettings = {
@@ -161,3 +161,32 @@ export const resetPassword = async (oobCode, newPassword) => {
         throw new Error("Error al confirmar el restablecimiento de contraseña. " + error.message);
     }
 }
+
+export const handleVerifyEmail = async (oobCode) => {
+    console.log(auth)
+    console.log(oobCode)
+    applyActionCode(auth, oobCode)
+}
+
+export const updateEmailVerified = async (userUid) => {
+    let exists = false;
+    await fetch("/api/updateEmailVerified", {
+        method: "POST",
+        headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userUid: userUid }),
+    })
+        .then((res) => {
+            if (res.status === 200) {
+                exists = true;
+                return true;
+            } else {
+                exists = false;
+                return false;
+            }
+        })
+        .catch();
+    return exists;
+};

@@ -1,4 +1,6 @@
 import { UserContext } from "@/context/UserContext";
+//No borrar el import, es para devs 
+// import { updateEmailVerified } from "@/helpers/users";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,6 +10,7 @@ const Header = () => {
     const isLoginPage = router.pathname.includes("login");
     const isUserActionPage = router.pathname.includes("userAction");
     const isSendEmailPassword = router.pathname.includes("sendEmailPassword");
+    const isEmailNoVerified = router.pathname.includes("emailNoVerified");
     const isBuilderPage = router.pathname.includes("managePageBuilder");
     const [lngEsp, setLngEsp] = useState(false);
     const { t, i18n } = useTranslation();
@@ -50,7 +53,11 @@ const Header = () => {
 
     return (
         <>
-            {isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#212429] h-[5rem] flex justify-end items-center">
+            {isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#212429] h-[5rem] flex justify-end items-center">
+                
+                {/* Button for testing, if you need to reset the verify email with the logged user, log in and then press this button */}
+                {/* <button className="text-white border border-1 border-white mr-10 w-[10rem]" onClick={() => { updateEmailVerified(loggedUser.uid).then(() => { console.log("Pueso a false"); }).catch((e) => { console.log("e", e); }) }}>Reiniciar verificacion a false</button> */}
+
                 <div className="flex flex-col text-right">
                     <p className="mr-4 text-[#EFE1A2] capitalize">{loggedUser?.name + " " + loggedUser?.lastname}</p>
                     <div className="relative mr-4" ref={configRef}>

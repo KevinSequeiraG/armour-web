@@ -22,7 +22,7 @@ const Navbar = () => {
                     <img src="/images/awLogo.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>
                     <Link href={"/myProfile"}><button className="button w-full"><img className="mr-2 w-[1.2rem]" src="/svgs/Profile.svg" />{t("navbar.my-profile")}</button></Link>
-                    <button className="button w-full"><img src="/svgs/Phone.svg" className="mr-2" />{t("navbar.contact-us")}</button>
+                    <Link href={"/contactUs"}><button className="button w-full"><img src="/svgs/Phone.svg" className="mr-2" />{t("navbar.contact-us")}</button></Link>
                     <div className="relative">
                         <button onClick={() => setShowReportsOptions(!showReportsOptions)} className="button w-full"><img src="/svgs/Report.svg" className="mr-2 w-[1.5rem]" />{t("navbar.reports")}</button>
                         <div className={`flex flex-col animate__animated ${showReportsOptions ? "animate__fadeInLeft" : "animate__fadeOutLeft"} transition-max-height duration-1000 ease-in-out ${showReportsOptions ? "max-h-[40rem]" : "max-h-0"}`}>

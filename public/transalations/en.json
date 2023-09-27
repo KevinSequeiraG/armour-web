@@ -21,6 +21,12 @@
         "surnames": "Surnames",
         "confirm-password": "Confirm password"
     },
+    "contact-us": {
+        "subtitle": "Through this form, you can send us your questions or comments by email. We are here to assist you and we will respond as soon as possible.",
+        "subject": "Subject",
+        "message": "Message",
+        "send": "Send"
+    },
     "validations": {
         "name-required": "Name is required",
         "surnames-required": "Surnames are required",
@@ -29,14 +35,18 @@
         "email-already-exists": "The entered email is already associated with another account.",
         "email-in-use": "Email is already in use",
         "password-required": "Password is required",
-        "password-dont-match": "Passwords do not match"
+        "password-length": "You need a minimum of 8 characters",
+        "password-dont-match": "Passwords do not match",
+        "subject-is-required": "Subject is required",
+        "message-is-required": "You must type a message"
     },
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
         "account-deleted": "Your account has been successfully deleted",
         "user-edited": "Your profile has been successfully edited",
         "password-edited-correctly": "Password edited correctly",
-        "password-email-sended": "An email has been sent to your address, check your spam box."
+        "password-email-sended": "An email has been sent to your address, check your spam box.",
+        "email-sended": "Mail sent successfully."
     },
     "errors": {
         "wrong-password": "Incorrect password. Please try again.",
@@ -95,7 +105,7 @@
     "verify-page": {
         "verify-your-email": "Verify your email.",
         "we-need-to-know": "We need to know it is you, click on the button so we can send you a verification email.",
-        "email-verified" : "Verified email",
+        "email-verified": "Verified email",
         "desc-verified": "Now you can access the platform and create the pages you want"
     }
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import SidebarMenuOption from './sidebarMenuOption';
+import NavbarOptions from './navbar/navbarOptions';
 
 
 const Sidebar = () => {
@@ -11,8 +12,6 @@ const Sidebar = () => {
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
-
-
         router.back();
     };
 
@@ -29,8 +28,9 @@ const Sidebar = () => {
                     <p className='text-xl font-bold uppercase'>Crear nueva página</p>
                 </div>
 
-                <SidebarMenuOption label="Encabezado" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0)}                    >
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
+                <SidebarMenuOption label="Menú de navegacion" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0)}                    >
+                    <NavbarOptions />
+                    {/* <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
@@ -40,55 +40,34 @@ const Sidebar = () => {
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
 
+                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
+                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
+                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
+                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button> */}
+                </SidebarMenuOption>
+
+                <SidebarMenuOption label="Sections" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1)}                    >
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                 </SidebarMenuOption>
 
-                <SidebarMenuOption label="Encabezado 2" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1)}                    >
+                <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2)}                    >
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                 </SidebarMenuOption>
 
-                <SidebarMenuOption label="Encabezado 3" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2)}                    >
+                <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3)}                    >
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                 </SidebarMenuOption>
 
-                <SidebarMenuOption label="Encabezado 4" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3)}                    >
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                </SidebarMenuOption>
-
-                <SidebarMenuOption label="Encabezado 5" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4)}                    >
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                </SidebarMenuOption>
-
-                <SidebarMenuOption label="Encabezado 6" isActive={activeButtonIndex === 5} onClick={() => handleTabMenuClick(5)}                    >
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                </SidebarMenuOption>
-
-                <SidebarMenuOption label="Encabezado 7" isActive={activeButtonIndex === 6} onClick={() => handleTabMenuClick(6)}                    >
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
-                    <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
-                </SidebarMenuOption>
-
-                <SidebarMenuOption label="Encabezado 8" isActive={activeButtonIndex === 7} onClick={() => handleTabMenuClick(7)}                    >
+                <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4)}                    >
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Arroba.svg" className="w-[1.5rem]" />Aquí un card</button>
                     <button className="button truncate w-full h-36"><img src="/svgs/Car.svg" className="w-[1.5rem]" />Aquí un card</button>

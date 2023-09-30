@@ -9,7 +9,7 @@ const SidebarMenuOption = ({ label, isActive, onClick, children }) => {
                 <img src="./svgs/DropdownArrow.svg" className={`rotate-180 absolute right-3 top-1 h-8 ${isActive && "!rotate-0"}`} alt="icon" />
             </button>
 
-            <div className={`scrollbarDesignTiny grid grid-cols-2 items-center justify-center px-4 gap-x-3 animate__animated ${isActive ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
+            <div className={`scrollbarDesignTiny px-4 gap-x-3 animate__animated ${isActive ? "animate__fadeIn max-h-80 overflow-y-auto" : "hidden max-h-0"}`}>
                 {children}
             </div>
         </div>

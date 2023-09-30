@@ -31,6 +31,7 @@ export default function RegisterForm() {
         }
 
         if (!registerFormValues.password) errors.password = t("validations.password-required");
+        else if (registerFormValues.password.length < 8) errors.password = t("validations.password-length");
         if (!registerFormValues.confirmPassword) errors.confirmPassword = t("validations.email-required");
         else if (registerFormValues.password !== registerFormValues.confirmPassword) { errors.confirmPassword = t("validations.password-dont-match"); errors.password = t("validations.password-dont-match"); }
 

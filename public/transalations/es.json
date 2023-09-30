@@ -21,6 +21,12 @@
     "surnames": "Apellidos",
     "confirm-password": "Confirmar contraseña"
   },
+  "contact-us": {
+    "subtitle": "A través de este formulario, puedes enviarnos tus consultas o comentarios por correo electrónico. Estamos aquí para atenderte y responderemos a la brevedad posible.",
+    "subject": "Asunto",
+    "message": "Mensaje",
+    "send": "Enviar"
+  },
   "validations": {
     "name-required": "El nombre es requerido",
     "surnames-required": "Los apellidos son requeridos",
@@ -29,14 +35,18 @@
     "email-already-exits": "El correo ingresado ya está asociado a otra cuenta.",
     "email-in-use": "El correo ya está en uso",
     "password-required": "La contraseña es requerida",
-    "password-dont-match": "Las contraseñas no coinciden"
+    "password-length": "Se requieren mínimo 8 caracteres.",
+    "password-dont-match": "Las contraseñas no coinciden",
+    "subject-is-required": "El asunto es requerido",
+    "message-is-required": "Debe digitar un mensaje"
   },
   "success": {
     "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
     "account-deleted": "Su cuenta se ha borrado correctamente",
     "user-edited": "Tu perfil ha sido editado exitosamente",
     "password-edited-correctly": "Contraseña editada correctamente",
-    "password-email-sended": "Se a enviado un correo a tu dirección, revisa tu casilla de spam."
+    "password-email-sended": "Se a enviado un correo a tu dirección, revisa tu casilla de spam.",
+    "email-sended": "Correo enviado satisfactoriamente."
   },
   "errors": {
     "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",

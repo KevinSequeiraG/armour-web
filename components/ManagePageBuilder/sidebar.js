@@ -21,11 +21,11 @@ const Sidebar = () => {
     };
 
     return (
-        <aside className="bg-[#212429] w-[25%] h-full flex justify-between flex-col border-r-2 border-[#EFE1A2] !text-[#F5F5F5]">
+        <aside className="bg-black w-[25%] h-full flex justify-between flex-col border-r-2 border-[#EFE1A2] !text-[#F5F5F5]">
             <div className='font-medium text-[17px] h-[calc(100vh-1rem)] scrollbarDesign overflow-y-auto w-full justify-center items-center'>
 
                 <div className='flex items-center my-2 -space-x-1 justify-center'>
-                    <img src="/images/awLogo.png" className="w-[5rem]" />
+                    <img src="/images/awLogo-nobg.png" className="w-[5rem]" />
                     <p className='text-xl font-bold uppercase'>Crear nueva página</p>
                 </div>
 

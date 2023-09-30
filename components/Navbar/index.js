@@ -17,9 +17,9 @@ const Navbar = () => {
 
     return (
         <>
-            {isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-[#212429] w-[18rem] h-full px-4 flex justify-between flex-col">
+            {isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-black w-[18rem] h-full px-4 flex justify-between flex-col">
                 <div>
-                    <img src="/images/awLogo.png" className="w-[10rem] mx-auto" />
+                    <img src="/images/awLogo-nobg.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>
                     <Link href={"/myProfile"}><button className="button w-full"><img className="mr-2 w-[1.2rem]" src="/svgs/Profile.svg" />{t("navbar.my-profile")}</button></Link>
                     <button className="button w-full"><img src="/svgs/Phone.svg" className="mr-2" />{t("navbar.contact-us")}</button>

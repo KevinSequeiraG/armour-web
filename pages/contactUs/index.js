@@ -70,33 +70,33 @@ const ContactUs = () => {
                 {t("contact-us.subtitle")}
             </div>
 
-            <div className="w-4/5 mx-auto mt-8 !bg-gray-600 rounded-[10px] p-8 shadow-md text-[#e5e7eb] grid grid-cols-2 gap-4">
+            <div className="w-4/5 mx-auto mt-8 !bg-gray-900 rounded-[10px] p-8 shadow-md text-[#e5e7eb] grid grid-cols-2 gap-4">
                 <div className='relative'>
                     <p className='font-semibold'>{t("login.email")}</p>
-                    <input className={`w-full rounded-[10px] bg-gray-800 shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues.email} onChange={handleInputChange} />
+                    <input className={`w-full rounded-[10px] bg-[#e5e7eb] text-black font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues.email} onChange={handleInputChange} />
                     {formError.email && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.email}</p>}
                 </div>
 
                 <div className='relative'>
                     <p className='font-semibold'>{t("user-data.phone")}</p>
-                    <input className={`w-full rounded-[10px] bg-gray-800 shadow mt-1 px-3 py-2`} type="number" placeholder={t("user-data.phone")} name="phone" value={formValues.phone} onChange={handleInputChange} />
+                    <input className={`w-full rounded-[10px] bg-[#e5e7eb] text-black font-medium shadow mt-1 px-3 py-2`} type="number" placeholder={t("user-data.phone")} name="phone" value={formValues.phone} onChange={handleInputChange} />
                 </div>
 
                 <div className='relative col-span-2'>
                     <p className='font-semibold'>{t("contact-us.subject")}</p>
-                    <input className={`w-full rounded-[10px] bg-gray-800 shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.subject")} name="subject" value={formValues.subject} onChange={handleInputChange} />
+                    <input className={`w-full rounded-[10px] bg-[#e5e7eb] text-black font-medium shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.subject")} name="subject" value={formValues.subject} onChange={handleInputChange} />
                     {formError.subject && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.subject}</p>}
                 </div>
 
                 <div className='relative col-span-2'>
                     <p className='font-semibold'>{t("contact-us.message")}</p>
-                    <textarea className={`w-full rounded-[10px] bg-gray-800 shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.message") + "..."} name="message" value={formValues.message} onChange={handleInputChange} rows="5" />
+                    <textarea className={`w-full rounded-[10px] bg-[#e5e7eb] text-black font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.message") + "..."} name="message" value={formValues.message} onChange={handleInputChange} rows="5" />
                     {formError.message && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.message}</p>}
                 </div>
 
                 <div className="col-span-2 w-full flex justify-end mt-3">
                     <button
-                        className='bg-[#EFE1A2] w-min px-12 py-2 shadow rounded-[10px] text-black font-bold text-lg'
+                        className='bg-[#EFE1A2] w-min px-12 py-1.5 shadow-md rounded-[10px] text-black font-bold text-lg'
                         onClick={handleRegister}
                         disabled={isLoading}>
                         {t("contact-us.send")}

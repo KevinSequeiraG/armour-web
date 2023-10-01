@@ -14,13 +14,13 @@ const NavbarOptions = () => {
     };
 
     return (
-        <div className="grid grid-cols-2 items-center justify-center gap-x-3">
+        <div className="space-y-2">
             {options.map((option) => {
                 return (
                     <button
                         key={option.id}
                         onClick={() => handleOptionClick(option.id)}
-                        className="button truncate w-full"
+                        className="optionButton flex justify-center w-full"
                         id={option.id}
                     >
                         {option.text}

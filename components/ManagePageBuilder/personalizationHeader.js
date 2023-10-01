@@ -14,20 +14,7 @@ const PersonalizationHeader = () => {
             <div className="border-r border-[#EFE1A2] h-full flex justify-center w-full items-center">
                 <p>Opciones de personalizar secciones</p>
             </div>
-            <div className="pl-5 h-full flex justify-center items-center space-x-4">
-                <div className='flex items-center '>
-                    <div className='bg-[#F5F5F5] w-full h-full rounded-l-[10px] shadow-md'>
-                        <AiOutlineMobile className='h-10 w-10 text-black cursor-pointer px-2' />
-                    </div>
 
-                    <div className='separator'></div> {/* Línea separadora */}
-                    <div className='bg-gray-950 w-full h-full rounded-r-[10px] shadow-md'>
-                        <AiOutlineDesktop className='h-10 w-10 text-white cursor-pointer px-2' />
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
     );

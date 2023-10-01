@@ -180,14 +180,14 @@
   box-shadow: 1px 11px 40px -10px rgba(0, 0, 0, 0.75);
 }
 
-.bg-main{
-  background:white !important;
+.bg-main {
+  background: white !important;
 }
 
 /* Scrollbar */
 .scrollbar {
   scrollbar-width: 8px !important;
-  scrollbar-color:  #212429 !important;
+  scrollbar-color: #212429 !important;
 }
 
 /* For Chrome, EDGE, Opera, Others */
@@ -227,8 +227,63 @@
     border-radius: 50px !important;
   }
 }
+
 .separator {
   width: 3px;
-  background-color: #000; 
+  background-color: #000;
   height: 40px;
+}
+
+/* Oculta los botones de incrementar y decrementar en el campo de entrada de tipo número */
+.hide-spin-buttons::-webkit-outer-spin-button,
+.hide-spin-buttons::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.hide-spin-buttons[type=number] {
+  -moz-appearance: textfield;
+}
+
+.inputColor {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  /* width: 35px;
+  height: 35px; */
+  cursor: pointer;
+}
+.inputColor::-webkit-color-swatch {
+  border-radius: 10px;
+  border: 2px solid #224553;
+  width: 50% !important;
+  height: 100%;
+}
+.inputColor::-moz-color-swatch {
+  border-radius: 10px;
+  border: 2px solid #224553;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone {
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1rem;
+  border: 2px dashed #224553;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
 }

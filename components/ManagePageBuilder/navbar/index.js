@@ -9,6 +9,7 @@ const Navbar = ({ position, children, isMobilePreview }) => {
     const [navbarBGColor, setNavbarBGColor] = useState("#000000");
     const [navbarWidth, setNavbarWidth] = useState("5%");
     const [navbarHeight, setNavbarHeight] = useState("5%");
+    const [bgImage, setBgImage] = useState(null)
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
@@ -27,11 +28,15 @@ const Navbar = ({ position, children, isMobilePreview }) => {
         const handleSetNavbarHeight = (event) => {
             setNavbarHeight(event.option);
         };
+        const handleSetNavbarBgImage = (event) => {
+            setBgImage(event.option);
+        };
 
         window.addEventListener("changeNavbarTextColor", handleSetNavbarTextColor);
         window.addEventListener("changeNavbarBGColor", handleSetNavbarBGColor);
         window.addEventListener("changeNavbarWidth", handleSetNavbarWidth);
         window.addEventListener("changeNavbarHeight", handleSetNavbarHeight);
+        window.addEventListener("changeNavbarBgImage", handleSetNavbarBgImage);
 
         return () => {
             // Limpia el event listener cuando el componente se desmonta
@@ -39,6 +44,7 @@ const Navbar = ({ position, children, isMobilePreview }) => {
             window.removeEventListener("changeNavbarBGColor", handleSetNavbarBGColor);
             window.removeEventListener("changeNavbarWidth", handleSetNavbarWidth);
             window.removeEventListener("changeNavbarHeight", handleSetNavbarHeight);
+            window.removeEventListener("changeNavbarBgImage", handleSetNavbarBgImage);
         };
     }, []);
 
@@ -46,7 +52,8 @@ const Navbar = ({ position, children, isMobilePreview }) => {
         color: navbarTextColor,
         backgroundColor: navbarBGColor,
         minWidth: position !== "top" && navbarWidth,
-        minHeight: position === "top" && navbarHeight
+        minHeight: position === "top" && navbarHeight,
+        backgroundImage: `url(${bgImage})`
     }
 
     const mobileMenuStyles = {

@@ -34,7 +34,7 @@ const Sidebar = (props) => {
     };
 
     // TEST
-    const [bgImage, setBgImage] = useState()
+    // const [bgImage, setBgImage] = useState()
     const removeImage = (dropZoneElement) => {
         const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
@@ -58,7 +58,7 @@ const Sidebar = (props) => {
         const dropZoneElement = document.querySelector(`.drop-zone`);
         if (dropZoneElement) {
             removeImage(dropZoneElement);
-            setBgImage(null)
+            // setBgImage(null)
         }
     };
 
@@ -72,14 +72,14 @@ const Sidebar = (props) => {
                 if (!clicked) {
                     if (i == 0) {
                         inputElement.click();
-                    } 
+                    }
                 }
             });
 
             inputElement.addEventListener("change", (e) => {
                 if (inputElement.files.length) {
                     if (inputElement.files.length) {
-                        setBgImage(inputElement.files[0]);
+                        // setBgImage(inputElement.files[0]);
                     }
                     updateThumbnail(dropZoneElement, inputElement.files[0]);
                 }
@@ -99,7 +99,7 @@ const Sidebar = (props) => {
                 if (e.dataTransfer.files.length) {
                     inputElement.files = e.dataTransfer.files;
                     updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-                    setBgImage(e.dataTransfer.files[0]);
+                    // setBgImage(e.dataTransfer.files[0]);
                 }
                 dropZoneElement.classList.remove("drop-zone--over");
             });
@@ -122,14 +122,12 @@ const Sidebar = (props) => {
         }
         thumbnailElement.dataset.label = file.name;
         // Show thumbnail for image files
-        console.log(file?.type.startsWith("image/"))
         if (file?.type?.startsWith("image/")) {
-            console.log(1)
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => {
-                console.log(2)
                 thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+                handleBgImageChange(reader.result)
             };
         } else if (typeof file === 'string' && file.startsWith('http')) {
             // If the file is a link, use it directly as the background image URL
@@ -145,7 +143,6 @@ const Sidebar = (props) => {
     }
 
     useEffect(() => {
-        console.log("sd")
         DragAndDropLogic();
     }, [])
     //FINISH TEST
@@ -172,12 +169,17 @@ const Sidebar = (props) => {
     };
 
     const handleHeightChange = (size) => {
-        console.log(size)
         setHeight(size)
         const customEvent = new Event("changeNavbarHeight");
         customEvent.option = size + "%";
         window.dispatchEvent(customEvent);
     };
+
+    const handleBgImageChange = (image) => {
+        const customEvent = new Event("changeNavbarBgImage");
+        customEvent.option = image;
+        window.dispatchEvent(customEvent);
+    }
 
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">

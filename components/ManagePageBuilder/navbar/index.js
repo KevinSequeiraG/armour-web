@@ -4,29 +4,6 @@ import { useEffect, useState } from "react";
 const Navbar = ({ position, children, isMobilePreview }) => {
     const [menuVisible, setMenuVisible] = useState(false);
 
-    // position top
-    let navbarClasses = "flex items-center w-full";
-
-    if (isMobilePreview) {
-        if (menuVisible) {
-            if (position === "top") {
-                // navbarClasses += " !h-auto";
-            } else {
-                // navbarClasses += " !h-auto";
-            }
-        } else {
-            if (position === "top") {
-                // navbarClasses += " !h-auto";
-            } else {
-                // navbarClasses += " !h-auto";
-            }
-        }
-    } else if (position === "top") {
-        navbarClasses += "pt-4";
-    } else if (position === "left" || position === "right") {
-        navbarClasses += " pt-8 w-48";
-    }
-
     // Colors Styles
     const [navbarTextColor, setNavbarTextColor] = useState("#ffffff");
     const [navbarBGColor, setNavbarBGColor] = useState("#000000");
@@ -84,7 +61,7 @@ const Navbar = ({ position, children, isMobilePreview }) => {
 
     return (
         <div className={`relative w-full h-full ${position === "top" ? "" : position === "left" ? "flex" : "flex flex-row-reverse"}`}>
-            <div style={styles} className={navbarClasses}>
+            <div style={styles} >
                 {isMobilePreview && (
                     <div className={`w-full`}>
                         <button onClick={toggleMenu} className={`px-4 py-2 ${isMobilePreview ? "my-2" : ""}`}>

@@ -7,8 +7,8 @@ const Navbar = ({ position, children, isMobilePreview }) => {
     // Colors Styles
     const [navbarTextColor, setNavbarTextColor] = useState("#ffffff");
     const [navbarBGColor, setNavbarBGColor] = useState("#000000");
-    const [navbarWidth, setNavbarWidth] = useState("");
-    const [navbarHeight, setNavbarHeight] = useState("");
+    const [navbarWidth, setNavbarWidth] = useState("5%");
+    const [navbarHeight, setNavbarHeight] = useState("5%");
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
@@ -45,8 +45,8 @@ const Navbar = ({ position, children, isMobilePreview }) => {
     const styles = {
         color: navbarTextColor,
         backgroundColor: navbarBGColor,
-        width: position !== "top" && navbarWidth,
-        height: position === "top" && navbarHeight
+        minWidth: position !== "top" && navbarWidth,
+        minHeight: position === "top" && navbarHeight
     }
 
     const mobileMenuStyles = {
@@ -61,28 +61,32 @@ const Navbar = ({ position, children, isMobilePreview }) => {
 
     return (
         <div className={`relative w-full h-full ${position === "top" ? "" : position === "left" ? "flex" : "flex flex-row-reverse"}`}>
-            <div style={styles} >
-                {isMobilePreview && (
+            <div style={styles} className={`${!isMobilePreview && ("flex items-center")}`}>
+                {isMobilePreview ? (
                     <div className={`w-full`}>
                         <button onClick={toggleMenu} className={`px-4 py-2 ${isMobilePreview ? "my-2" : ""}`}>
                             <NavbarIcon color={navbarTextColor} />
                         </button>
                     </div>
-                )}
-                {/* ... */}
+                ) : (<div className={`flex w-full ${(position === "top") && "flex-row"} ${(position === "left") && "flex-col"} ${(position === "right") && "flex-col"}`}>
+                    <button className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
+                    <button className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button>
+                </div>)}
             </div>
-            {menuVisible && (
-                <div style={mobileMenuStyles} className={` flex flex-col w-auto`}>
-                    {/* Aquí coloca las opciones del menú que deseas mostrar */}
-                    <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
-                    <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button>
-                    {/* ... */}
-                </div>
-            )}
+            {
+                menuVisible && (
+                    <div style={mobileMenuStyles} className={` flex flex-col w-auto`}>
+                        {/* Aquí coloca las opciones del menú que deseas mostrar */}
+                        <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
+                        <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button>
+                        {/* ... */}
+                    </div>
+                )
+            }
             <div className="flex flex-1">
                 <div>{children}</div>
             </div>
-        </div>
+        </div >
     );
 };
 

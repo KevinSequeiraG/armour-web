@@ -255,12 +255,14 @@
   height: 35px; */
   cursor: pointer;
 }
+
 .inputColor::-webkit-color-swatch {
   border-radius: 10px;
   border: 2px solid #224553;
   width: 50% !important;
   height: 100%;
 }
+
 .inputColor::-moz-color-swatch {
   border-radius: 10px;
   border: 2px solid #224553;
@@ -286,4 +288,27 @@
 
 .drop-zone--over {
   border-style: solid;
+}
+
+.drop-zone__thumb {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
 }

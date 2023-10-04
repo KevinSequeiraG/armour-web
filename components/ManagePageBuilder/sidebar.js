@@ -13,6 +13,10 @@ const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
     const { t } = useTranslation();
     const router = useRouter();
+    const [txtColor, setTxtColor] = useState("#ffffff");
+    const [bgColor, setBgColor] = useState("#000000");
+    const [width, setWidth] = useState("");
+    const [height, setHeight] = useState("10");
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -30,10 +34,121 @@ const Sidebar = (props) => {
     };
 
     // TEST
-    const [txtColor, setTxtColor] = useState("#ffffff");
-    const [bgColor, setBgColor] = useState("#000000");
-    const [width, setWidth] = useState("");
-    const [height, setHeight] = useState("10");
+    const [bgImage, setBgImage] = useState()
+    const removeImage = (dropZoneElement) => {
+        const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+        if (thumbnailElement) {
+            // Eliminar solo el thumbnailElement correspondiente
+            thumbnailElement.remove();
+        }
+        // Restablecer el prompt si existe
+        const promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
+        if (promptElement) {
+            promptElement.classList.remove("hidden");
+        }
+        // Restablecer el valor del input
+        const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+        if (inputElement) {
+            inputElement.value = "";
+        }
+    };
+
+    const handleDeleteImage = (type) => {
+        const dropZoneElement = document.querySelector(`.drop-zone`);
+        if (dropZoneElement) {
+            removeImage(dropZoneElement);
+            setBgImage(null)
+        }
+    };
+
+    const DragAndDropLogic = () => {
+        const dropZoneElements = document.querySelectorAll(".drop-zone");
+        dropZoneElements.forEach((dropZoneElement, i) => {
+            const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+            const type = dropZoneElement.getAttribute("data-type");
+            let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
+            dropZoneElement.addEventListener("click", (e) => {
+                if (!clicked) {
+                    if (i == 0) {
+                        inputElement.click();
+                    } 
+                }
+            });
+
+            inputElement.addEventListener("change", (e) => {
+                if (inputElement.files.length) {
+                    if (inputElement.files.length) {
+                        setBgImage(inputElement.files[0]);
+                    }
+                    updateThumbnail(dropZoneElement, inputElement.files[0]);
+                }
+                clicked = false; // Reiniciar el flag después de seleccionar el archivo
+            });
+            dropZoneElement.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZoneElement.classList.add("drop-zone--over");
+            });
+            ["dragleave", "dragend"].forEach((type) => {
+                dropZoneElement.addEventListener(type, (e) => {
+                    dropZoneElement.classList.remove("drop-zone--over");
+                });
+            });
+            dropZoneElement.addEventListener("drop", (e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files.length) {
+                    inputElement.files = e.dataTransfer.files;
+                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+                    setBgImage(e.dataTransfer.files[0]);
+                }
+                dropZoneElement.classList.remove("drop-zone--over");
+            });
+
+
+        });
+    };
+
+    function updateThumbnail(dropZoneElement, file) {
+        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+        // First time - remove the prompt
+        if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+            dropZoneElement.querySelector(".drop-zone__prompt").classList.add("hidden");
+        }
+        // First time - there is no thumbnail element, so lets create it
+        if (!thumbnailElement) {
+            thumbnailElement = document.createElement("div");
+            thumbnailElement.classList.add("drop-zone__thumb");
+            dropZoneElement.appendChild(thumbnailElement);
+        }
+        thumbnailElement.dataset.label = file.name;
+        // Show thumbnail for image files
+        console.log(file?.type.startsWith("image/"))
+        if (file?.type?.startsWith("image/")) {
+            console.log(1)
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                console.log(2)
+                thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+            };
+        } else if (typeof file === 'string' && file.startsWith('http')) {
+            // If the file is a link, use it directly as the background image URL
+            thumbnailElement.style.backgroundImage = `url('${file}')`;
+            var urlSections = file.split("/");
+            var imageName = urlSections[urlSections.length - 1];
+            imageName = decodeURIComponent(imageName.replace("images%2F", ""));
+            imageName = imageName.split("?")[0];
+            thumbnailElement.dataset.label = imageName;
+        } else {
+            thumbnailElement.style.backgroundImage = null;
+        }
+    }
+
+    useEffect(() => {
+        console.log("sd")
+        DragAndDropLogic();
+    }, [])
+    //FINISH TEST
 
     const handleTxtColorChange = (color) => {
         setTxtColor(color);
@@ -63,7 +178,6 @@ const Sidebar = (props) => {
         customEvent.option = size + "%";
         window.dispatchEvent(customEvent);
     };
-    // FINISH TEST
 
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
@@ -138,13 +252,13 @@ const Sidebar = (props) => {
                         <p>Altura</p>
                         <div className='flex justify-center items-center space-x-2'>
                             <AiOutlineColumnHeight className='w-8 h-8' />
-                            <input value={height} onChange={(e)=>handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                            <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                             <em className='font-normal text-sm'>%</em>
                         </div>
                         <p>Anchura</p>
                         <div className='flex justify-center items-center space-x-2'>
                             <AiOutlineColumnHeight className='w-8 h-8 rotate-90' />
-                            <input value={width} onChange={(e)=>handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                            <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                             <em className='font-normal text-sm'>%</em>
                         </div>
                     </div>
@@ -193,12 +307,13 @@ const Sidebar = (props) => {
 
                     <hr className='border border-[#224553]' />
 
-                    <div className='flex flex-col items-start border space-y-2'>
+                    <div className='flex flex-col items-start border space-y-2 relative'>
                         <p>Imagen de fondo</p>
-                        <div className="drop-zone" data-type="logo">
+                        <div className="drop-zone">
                             <label className="drop-zone__prompt">Arrastra una imagen o <span className="text-[#33CA75] underline underline-offset-4">Busca el archivo</span></label>
                             <input type="file" name="myFilee" className="drop-zone__input" />
                         </div>
+                        <button onClick={() => handleDeleteImage()} className="absolute top-5 bg-[#868686] text-[#cccccc] p-1 w-[25px] h-[25px] rounded-full -right-3">X</button>
                     </div>
 
                     <hr className='border border-[#224553]' />

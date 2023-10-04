@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import SidebarMenuOption from './sidebarMenuOption';
@@ -29,6 +29,42 @@ const Sidebar = (props) => {
         activeButtonIndex === index ? setActiveButtonIndex(-1) : setActiveButtonIndex(index);
     };
 
+    // TEST
+    const [txtColor, setTxtColor] = useState("#ffffff");
+    const [bgColor, setBgColor] = useState("#000000");
+    const [width, setWidth] = useState("");
+    const [height, setHeight] = useState("10");
+
+    const handleTxtColorChange = (color) => {
+        setTxtColor(color);
+        const customEvent = new Event("changeNavbarTextColor");
+        customEvent.option = color;
+        window.dispatchEvent(customEvent);
+    };
+
+    const handleBGColorChange = (color) => {
+        setBgColor(color);
+        const customEvent = new Event("changeNavbarBGColor");
+        customEvent.option = color;
+        window.dispatchEvent(customEvent);
+    };
+
+    const handleWidthChange = (size) => {
+        setWidth(size)
+        const customEvent = new Event("changeNavbarWidth");
+        customEvent.option = size + "%";
+        window.dispatchEvent(customEvent);
+    };
+
+    const handleHeightChange = (size) => {
+        console.log(size)
+        setHeight(size)
+        const customEvent = new Event("changeNavbarHeight");
+        customEvent.option = size + "%";
+        window.dispatchEvent(customEvent);
+    };
+    // FINISH TEST
+
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
             <div className='flex flex-col h-full w-1/2 border-r border-[#EFE1A2] pr-3 shadow-2xl'>
@@ -39,7 +75,7 @@ const Sidebar = (props) => {
                         {/* <p className='text-xl font-bold uppercase'>Crear nueva página</p> */}
                     </div>
 
-                    <SidebarMenuOption label="Menú" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0)}>
+                    <SidebarMenuOption label="Menú de navegación" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0)}>
                         <NavbarOptions />
                     </SidebarMenuOption>
 
@@ -102,8 +138,14 @@ const Sidebar = (props) => {
                         <p>Altura</p>
                         <div className='flex justify-center items-center space-x-2'>
                             <AiOutlineColumnHeight className='w-8 h-8' />
-                            <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                            <em className='font-normal text-sm'>px</em>
+                            <input value={height} onChange={(e)=>handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                            <em className='font-normal text-sm'>%</em>
+                        </div>
+                        <p>Anchura</p>
+                        <div className='flex justify-center items-center space-x-2'>
+                            <AiOutlineColumnHeight className='w-8 h-8 rotate-90' />
+                            <input value={width} onChange={(e)=>handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                            <em className='font-normal text-sm'>%</em>
                         </div>
                     </div>
 
@@ -140,7 +182,12 @@ const Sidebar = (props) => {
                         <p>Color de fondo</p>
                         <div className='flex justify-center items-center space-x-2 w-full px-2'>
                             <AiOutlineBgColors className='w-8 h-8' />
-                            <input type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                            <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                        </div>
+                        <p>Color de texto</p>
+                        <div className='flex justify-center items-center space-x-2 w-full px-2'>
+                            <AiOutlineBgColors className='w-8 h-8' />
+                            <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
                         </div>
                     </div>
 

@@ -49,7 +49,7 @@ export default function ManagePageBuilder() {
             // Limpia el event listener cuando el componente se desmonta
             window.removeEventListener("navbarPositionChange", handleNavbarPositionChange);
         };
-    }, []); // Asegura que el event listener se configure solo una vez
+    }, []);
 
     useEffect(() => {
         const handlePreviewModeChange = (event) => {
@@ -78,9 +78,9 @@ export default function ManagePageBuilder() {
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className={`${isMobilePreview ? "w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
-                        <Navbar position={navbarPosition} >
+                        <Navbar position={navbarPosition} isMobilePreview={isMobilePreview}>
                             <div>
-                                NUEVA SECCION
+                                {/* NUEVA SECCION */}
                             </div>
                         </Navbar>
                         {/* AQUI LAS SECCIONES */}

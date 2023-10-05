@@ -184,6 +184,12 @@ const Sidebar = (props) => {
         window.dispatchEvent(customEvent);
     }
 
+    const handleChangeContentPosition = (newPosition) => {
+        const customEvent = new Event("changeContentPosition");
+        customEvent.option = newPosition;
+        window.dispatchEvent(customEvent);
+    }
+
     useEffect(() => {
         const handleSetPagesOptions = (event) => {
             setPagesOptions(event.option);
@@ -372,15 +378,15 @@ const Sidebar = (props) => {
                                 <div className='flex justify-center items-center space-x-5'>
                                     {props.navbarPosition === "top" ?
                                         <>
-                                            <AiOutlineAlignLeft className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                            <AiOutlineAlignCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                            <AiOutlineAlignRight className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <AiOutlineAlignLeft className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-left")} />
+                                            <AiOutlineAlignCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-center")} />
+                                            <AiOutlineAlignRight className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-right")} />
                                         </>
                                         :
                                         <>
-                                            <BiVerticalTop className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                            <BiVerticalCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                            <BiVerticalBottom className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <BiVerticalTop className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("top")} />
+                                            <BiVerticalCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("center")} />
+                                            <BiVerticalBottom className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("bottom")} />
                                         </>
                                     }
                                 </div>

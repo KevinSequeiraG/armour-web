@@ -21,7 +21,7 @@ const MyypagesDragDrop = () => {
     }
   };
 
-  const handleAddSection = async () => {
+  const handleAddPage = async () => {
     const { value: sectionNameSelected } = await Swal.fire({
       title: 'Nombre de la página',
       input: 'text',
@@ -30,15 +30,73 @@ const MyypagesDragDrop = () => {
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) return 'La sección requiere un nombre.'
-        console.log(pages.findIndex((page) => page.name === value));
-        if (pages.findIndex((page) => page.name === value) != -1) return 'Ya existe una sección con ese nombre.'
+        if (pages.findIndex((page) => page.name === value) != -1) return 'Ya existe una página con ese nombre.'
       }
     })
+
     if (!sectionNameSelected) return;
     const newSections = [...pages, { id: pages.length + 1, name: sectionNameSelected }];
     setPages(newSections);
     // handleSetPagesOptions(newSections)
+    
   };
+
+  const handleEditPageName = async (pageId) => {
+    const { value: sectionNameSelected } = await Swal.fire({
+      title: 'Editar nombre de la página',
+      input: 'text',
+      showCloseButton: true,
+      confirmButtonText: 'Aceptar',
+      inputValue: pages.find((page) => page.id === pageId)?.name || '',
+      allowOutsideClick: false,
+      inputValidator: (value) => {
+        if (!value) return 'La sección requiere un nombre.'
+        if (pages.findIndex((page) => page.name === value) != -1) return 'Ya existe una página con ese nombre.'
+      }
+    })
+
+    if (!sectionNameSelected) return;
+    const updatedPages = pages.map((page) => page.id === pageId ? { ...page, name: sectionNameSelected } : page);
+    setPages(updatedPages);
+    // handleSetPagesOptions(newSections)
+
+  };
+
+  const handleDeletePage = async (pageId) => {
+
+    // Validates if is last page in array
+    if (pages.length === 1) {
+      Swal.fire({
+        text: 'Esta es tu única página',
+        icon: 'error',
+        confirmButtonText: 'Entendido',
+        allowOutsideClick: false,
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: '¿Desea eliminar la página creada?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      allowOutsideClick: false,
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+        const updatedPages = pages.filter((page) => page.id !== pageId);
+        setPages(updatedPages);
+        // handleSetPagesOptions(newSections)
+      }
+
+    })
+  };
+
 
   useEffect(() => {
     handleSetPagesOptions(pages)
@@ -60,14 +118,14 @@ const MyypagesDragDrop = () => {
             strategy={verticalListSortingStrategy}
           >
             {pages.map((page, i) => (
-              <DraggableItem key={i} page={page} />
+              <DraggableItem key={i} page={page} handleEditPageName={handleEditPageName} handleDeletePage={handleDeletePage} />
             ))}
           </SortableContext>
         </DndContext>
       </div>
       <button
         className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
-        onClick={handleAddSection}
+        onClick={handleAddPage}
       >
         <FiPlus className='text-base mr-1' />Añadir página
       </button>

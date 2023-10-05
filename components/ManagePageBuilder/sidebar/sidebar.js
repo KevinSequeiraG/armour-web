@@ -255,8 +255,8 @@ const Sidebar = (props) => {
                 </div>
 
                 <div className="flex justify-center w-full mx-auto items-center mt-4 ">
-                    <div className="w-auto mx-auto relative">
-                        <select className="appearance-none block w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer">
+                    <div className="min-w-[80%] mx-auto relative">
+                        <select className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
 
                             {pagesOptions.map((option) => {
                                 return (
@@ -264,7 +264,7 @@ const Sidebar = (props) => {
                                 )
                             })}
                         </select>
-                        <AiOutlineDownCircle className='absolute top-2.5 w-5 h-5 right-2' />
+                        <AiOutlineDownCircle className='absolute top-2.5 w-5 h-5 right-2 z-0' />
                     </div>
                 </div>
 

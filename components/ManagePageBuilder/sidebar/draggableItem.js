@@ -5,7 +5,7 @@ import { MdDragIndicator } from "react-icons/md";
 
 function DraggableItem(props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: props.page.id });
+    useSortable({ id: props?.page?.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -24,11 +24,11 @@ function DraggableItem(props) {
         <div className="cursor-grab" {...attributes} {...listeners} ref={setNodeRef}>
           <MdDragIndicator />
         </div>
-        <p className="leading-5 mdx1700:leading-normal">{props.page.name.toString().length < 17 ? props.page.name : props.page.name.substring(0, 17) + "..."}</p>
+        <p className="leading-5 mdx1700:leading-normal">{props?.page?.name?.toString()?.length < 17 ? props?.page?.name : props?.page?.name?.substring(0, 17) + "..."}</p>
       </div>
       <div className="flex items-center w-full justify-end space-x-1">
-        <AiTwotoneEdit className="w-5 h-5 cursor-pointer text-gray-600" onClick={() => alert("ayuda" + props.page.name)} />
-        <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500" onClick={() => alert("ayuda" + props.page.name)} />
+        <AiTwotoneEdit className="w-5 h-5 cursor-pointer text-gray-600" onClick={() => props.handleEditPageName(props?.page?.id)} />
+        <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500" onClick={() => props.handleDeletePage(props?.page?.id)} />
       </div>
     </div>
   );

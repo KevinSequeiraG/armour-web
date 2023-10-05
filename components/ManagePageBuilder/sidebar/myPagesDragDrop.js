@@ -1,5 +1,5 @@
 import { DndContext, DragOverlay, closestCenter } from "@dnd-kit/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import DraggableItem from "./draggableItem";
 import { FiPlus } from "react-icons/fi";
@@ -8,11 +8,6 @@ import Swal from "sweetalert2";
 const MyypagesDragDrop = () => {
   const [pages, setPages] = useState([
     { id: 1, name: "Home" },
-    { id: 2, name: "Ubicación" },
-    { id: 3, name: "Ejemplo 1" },
-    { id: 4, name: "Ejemplo 2" },
-    { id: 5, name: "Ejemplo 3" },
-    { id: 6, name: "Ejemplo 4 texto grande" },
   ]);
 
   const handleDragEnd = (event) => {
@@ -42,8 +37,18 @@ const MyypagesDragDrop = () => {
     if (!sectionNameSelected) return;
     const newSections = [...pages, { id: pages.length + 1, name: sectionNameSelected }];
     setPages(newSections);
+    // handleSetPagesOptions(newSections)
   };
 
+  useEffect(() => {
+    handleSetPagesOptions(pages)
+  }, [pages])
+
+  const handleSetPagesOptions = (options) => {
+    const customEvent = new Event("changePagesOptions");
+    customEvent.option = options;
+    window.dispatchEvent(customEvent);
+  }
 
   return (
     <>

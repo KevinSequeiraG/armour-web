@@ -20,6 +20,7 @@ const Sidebar = (props) => {
     const [bgColor, setBgColor] = useState("#000000");
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("10");
+    const [pagesOptions, setPagesOptions] = useState(["Home"])
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -36,7 +37,6 @@ const Sidebar = (props) => {
         activeButtonIndex === index ? setActiveButtonIndex(-1) : setActiveButtonIndex(index);
     };
 
-    // TEST
     // const [bgImage, setBgImage] = useState()
     const removeImage = (dropZoneElement) => {
         const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
@@ -62,6 +62,7 @@ const Sidebar = (props) => {
         if (dropZoneElement) {
             removeImage(dropZoneElement);
             // setBgImage(null)
+            handleBgImageChange(null)
         }
     };
 
@@ -148,7 +149,6 @@ const Sidebar = (props) => {
     useEffect(() => {
         DragAndDropLogic();
     }, [])
-    //FINISH TEST
 
     const handleTxtColorChange = (color) => {
         setTxtColor(color);
@@ -183,6 +183,19 @@ const Sidebar = (props) => {
         customEvent.option = image;
         window.dispatchEvent(customEvent);
     }
+
+    useEffect(() => {
+        const handleSetPagesOptions = (event) => {
+            setPagesOptions(event.option);
+        };
+
+        window.addEventListener("changePagesOptions", handleSetPagesOptions);
+
+        return () => {
+            window.removeEventListener("changePagesOptions", handleSetPagesOptions);
+        }
+    }, [])
+
 
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
@@ -238,10 +251,12 @@ const Sidebar = (props) => {
                 <div className="flex justify-center w-full mx-auto items-center mt-4 ">
                     <div className="w-auto mx-auto relative">
                         <select className="appearance-none block w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer">
-                            <option className='text-black' value="">Selecciona un página</option>
-                            <option className='text-black' value="opcion1">Opción 1</option>
-                            <option className='text-black' value="opcion2">Opción 2</option>
-                            <option className='text-black' value="opcion3">Opción 3</option>
+
+                            {pagesOptions.map((option) => {
+                                return (
+                                    <option className='text-black' value="">{option.name}</option>
+                                )
+                            })}
                         </select>
                         <AiOutlineDownCircle className='absolute top-2.5 w-5 h-5 right-2' />
                     </div>

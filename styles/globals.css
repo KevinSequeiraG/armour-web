@@ -291,12 +291,14 @@
 }
 
 .drop-zone__thumb {
-  width: 200px;
+  width: inherit;
   height: 200px;
   border-radius: 10px;
   overflow: hidden;
   background-color: #cccccc;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
 }
 

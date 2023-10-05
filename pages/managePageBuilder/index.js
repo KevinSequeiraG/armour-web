@@ -1,7 +1,7 @@
 import FirstStep from '@/components/ManagePageBuilder/firstStep';
 import Navbar from '@/components/ManagePageBuilder/navbar';
-import PersonalizationHeader from '@/components/ManagePageBuilder/personalizationHeader';
-import Sidebar from '@/components/ManagePageBuilder/sidebar';
+import PersonalizationHeader from '@/components/ManagePageBuilder/sidebar/personalizationHeader';
+import Sidebar from '@/components/ManagePageBuilder/sidebar/sidebar';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -77,7 +77,7 @@ export default function ManagePageBuilder() {
                 <Sidebar isMobilePreview={isMobilePreview} />
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
-                    <div className={`${isMobilePreview ? "w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
+                    <div className={`${isMobilePreview ? "w-full max-w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full max-w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
                         <Navbar position={navbarPosition} isMobilePreview={isMobilePreview}>
                             <div>
                                 {/* NUEVA SECCION */}

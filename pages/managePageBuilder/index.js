@@ -74,7 +74,7 @@ export default function ManagePageBuilder() {
             </Head>
             <div className="bg-black h-screen w-screen flex">
                 {showFirstStep && <FirstStep setShowFirstStep={setShowFirstStep} />}
-                <Sidebar isMobilePreview={isMobilePreview} />
+                <Sidebar isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full max-w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>

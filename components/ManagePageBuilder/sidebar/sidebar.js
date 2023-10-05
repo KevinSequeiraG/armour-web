@@ -6,8 +6,8 @@ import NavbarOptions from '../navbar/navbarOptions';
 import { FiArrowLeftCircle } from 'react-icons/fi';
 import Section from '../sections';
 import { BsSquare, BsSquareHalf, BsImage, BsCardText } from "react-icons/bs";
-import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineDown, AiOutlineDownCircle, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
-import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBookmarks, BiText } from "react-icons/bi";
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineDownCircle, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
+import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBookmarks, BiText, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
 import MyypagesDragDrop from './myPagesDragDrop';
 
@@ -370,9 +370,19 @@ const Sidebar = (props) => {
                             <div className='flex flex-col items-center space-y-2'>
                                 <p>Posición del contenido</p>
                                 <div className='flex justify-center items-center space-x-5'>
-                                    <AiOutlineAlignLeft className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                    <AiOutlineAlignCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
-                                    <AiOutlineAlignRight className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                    {props.navbarPosition === "top" ?
+                                        <>
+                                            <AiOutlineAlignLeft className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <AiOutlineAlignCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <AiOutlineAlignRight className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                        </>
+                                        :
+                                        <>
+                                            <BiVerticalTop className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <BiVerticalCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                            <BiVerticalBottom className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => alert("ayuda")} />
+                                        </>
+                                    }
                                 </div>
                             </div>
                         </>

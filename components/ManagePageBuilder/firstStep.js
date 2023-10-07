@@ -1,11 +1,21 @@
 import { useTranslation } from "react-i18next";
 import ImageUploader from "../ImageUploader";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const FirstStep = (props) => {
     const { t } = useTranslation();
     const router = useRouter();
-    
+    const [newWebPageLogo, setNewWebPageLogo] = useState()
+
+    const handleSetNewLogo = (imageUrl) => {
+        setNewWebPageLogo(imageUrl)
+        const urlImage = URL.createObjectURL(imageUrl)
+        console.log(urlImage)
+        props.setLogoPage(urlImage)
+        props.setWebPageData({ ...props.webPageData, logo: urlImage })
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-white">
             <div className="relative rounded-lg p-5 mx-auto z-50 border border-[.2rem]">
@@ -17,7 +27,7 @@ const FirstStep = (props) => {
                         <input type="text" className="border border-1 border-gray-400 rounded-xl mx-auto h-[2rem] mt-2" />
                     </div>
                     <div>
-                        <ImageUploader divDesign="mb-5 mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto shadow-md" />
+                        <ImageUploader setImage={handleSetNewLogo} image={newWebPageLogo} divDesign="mb-5 mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto shadow-md" />
                         <p className="text-center font-semibold">Logo</p>
                     </div>
                 </div>

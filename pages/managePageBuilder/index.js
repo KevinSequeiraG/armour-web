@@ -8,6 +8,10 @@ import { useTranslation } from 'react-i18next';
 
 export default function ManagePageBuilder() {
     const { t } = useTranslation();
+    const [logoPage, setLogoPage] = useState();
+    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", navbar: {}, sections: {} }] })
+    const [currentPage, setCurrentPage] = useState(1)
+
     const [showFirstStep, setShowFirstStep] = useState(true);
 
     const [isMobilePreview, setIsMobilePreview] = useState(false);
@@ -38,9 +42,11 @@ export default function ManagePageBuilder() {
     // cardSelection - el card que eligió entre las opciones
 
     useEffect(() => {
+
         const handleNavbarPositionChange = (event) => {
             const selectedOption = event.option;
             setNavbarPosition(selectedOption);
+            console.log("z", window.localStorage.getItem("newWebPageLogo"))
         };
 
         window.addEventListener("navbarPositionChange", handleNavbarPositionChange);
@@ -65,6 +71,16 @@ export default function ManagePageBuilder() {
         };
     }, []);
 
+    useEffect(() => {
+        console.log("webPageData", webPageData)
+        window.localStorage.setItem("actualPage", 1)
+    }, [webPageData])
+
+    useEffect(() => {
+        console.log(currentPage)
+    }, [currentPage])
+
+
     return (
         <>
             <Head>
@@ -73,12 +89,12 @@ export default function ManagePageBuilder() {
                 <link rel="icon" href="/images/awLogo-nobg.png" />
             </Head>
             <div className="bg-black h-screen w-screen flex">
-                {showFirstStep && <FirstStep setShowFirstStep={setShowFirstStep} />}
-                <Sidebar isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
+                {showFirstStep && <FirstStep setWebPageData={setWebPageData} webPageData={webPageData} setLogoPage={setLogoPage} setShowFirstStep={setShowFirstStep} />}
+                <Sidebar setCurrentPage={setCurrentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full max-w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
-                        <Navbar position={navbarPosition} isMobilePreview={isMobilePreview}>
+                        <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>
                             <div>
                                 {/* NUEVA SECCION */}
                             </div>

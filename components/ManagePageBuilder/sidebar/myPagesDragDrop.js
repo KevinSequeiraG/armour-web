@@ -5,7 +5,7 @@ import DraggableItem from "./draggableItem";
 import { FiPlus } from "react-icons/fi";
 import Swal from "sweetalert2";
 
-const MyypagesDragDrop = () => {
+const MypagesDragDrop = (props) => {
   const [pages, setPages] = useState([
     { id: 1, name: "Home" },
   ]);
@@ -16,7 +16,19 @@ const MyypagesDragDrop = () => {
       setPages((pages) => {
         const oldIndex = pages.findIndex((page) => page.id === active.id);
         const newIndex = pages.findIndex((page) => page.id === over.id);
-        return arrayMove(pages, oldIndex, newIndex);
+        const updatedPages = arrayMove(pages, oldIndex, newIndex);
+
+        // Actualiza el objeto 'updatedWebPageData'
+        const updatedWebPageData = { ...props.webPageData };
+        const movedPage = updatedWebPageData.pages.find((page) => page.id === active.id);
+        if (movedPage) {
+          updatedWebPageData.pages = arrayMove(updatedWebPageData.pages, oldIndex, newIndex);
+        }
+
+        // Establece la copia actualizada como el nuevo estado
+        props.setWebPageData(updatedWebPageData);
+
+        return updatedPages;
       });
     }
   };
@@ -38,7 +50,22 @@ const MyypagesDragDrop = () => {
     const newSections = [...pages, { id: pages.length + 1, name: sectionNameSelected }];
     setPages(newSections);
     // handleSetPagesOptions(newSections)
-    
+
+    // Clona el objeto webPageData para no modificar el estado original directamente
+    const updatedWebPageData = { ...props.webPageData };
+
+    // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
+    const newPage = {
+      id: pages.length + 1,
+      name: sectionNameSelected,
+      sections: {},
+    };
+
+    // Agrega el nuevo objeto 'page' al arreglo 'pages'
+    updatedWebPageData.pages.push(newPage);
+
+    // Establece la copia actualizada como el nuevo estado
+    props.setWebPageData(updatedWebPageData);
   };
 
   const handleEditPageName = async (pageId) => {
@@ -59,6 +86,15 @@ const MyypagesDragDrop = () => {
     const updatedPages = pages.map((page) => page.id === pageId ? { ...page, name: sectionNameSelected } : page);
     setPages(updatedPages);
     // handleSetPagesOptions(newSections)
+    // Actualiza el objeto 'updatedWebPageData'
+    const updatedWebPageData = { ...props.webPageData };
+    const pageToUpdate = updatedWebPageData.pages.find((page) => page.id === pageId);
+    if (pageToUpdate) {
+      pageToUpdate.name = sectionNameSelected;
+    }
+
+    // Establece la copia actualizada como el nuevo estado
+    props.setWebPageData(updatedWebPageData);
 
   };
 
@@ -92,9 +128,16 @@ const MyypagesDragDrop = () => {
         const updatedPages = pages.filter((page) => page.id !== pageId);
         setPages(updatedPages);
         // handleSetPagesOptions(newSections)
+        const updatedWebPageData = { ...props.webPageData };
+        updatedWebPageData.pages = updatedWebPageData.pages.filter((page) => page.id !== pageId);
+        console.log("?")
+        // Establece la copia actualizada como el nuevo estado
+        props.setWebPageData(updatedWebPageData);
       }
 
     })
+
+
   };
 
 
@@ -133,4 +176,4 @@ const MyypagesDragDrop = () => {
   );
 };
 
-export default MyypagesDragDrop;
+export default MypagesDragDrop;

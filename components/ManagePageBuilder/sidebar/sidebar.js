@@ -9,7 +9,7 @@ import { BsSquare, BsSquareHalf, BsImage, BsCardText } from "react-icons/bs";
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineDownCircle, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBookmarks, BiText, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
-import MyypagesDragDrop from './myPagesDragDrop';
+import MypagesDragDrop from './myPagesDragDrop';
 
 
 const Sidebar = (props) => {
@@ -20,7 +20,7 @@ const Sidebar = (props) => {
     const [bgColor, setBgColor] = useState("#000000");
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("10");
-    const [pagesOptions, setPagesOptions] = useState(["Home"])
+    const [pagesOptions, setPagesOptions] = useState([{ id: 1, name: "Home" }])
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -256,11 +256,11 @@ const Sidebar = (props) => {
 
                 <div className="flex justify-center w-full mx-auto items-center mt-4 ">
                     <div className="min-w-[80%] mx-auto relative">
-                        <select className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
+                        <select onChange={(e) => { window.localStorage.setItem("actualPage", e.target.value); props.setCurrentPage(e.target.value) }} className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
 
-                            {pagesOptions.map((option) => {
+                            {pagesOptions?.map((option) => {
                                 return (
-                                    <option className='text-black' value="">{option.name}</option>
+                                    <option className='text-black' value={option.id}>{option.name}</option>
                                 )
                             })}
                         </select>
@@ -365,7 +365,7 @@ const Sidebar = (props) => {
                     {activeButtonIndex === 0 &&
                         <div className='flex flex-col items-center'>
                             Mis páginas
-                            <MyypagesDragDrop />
+                            <MypagesDragDrop setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
                         </div>
                     }
 

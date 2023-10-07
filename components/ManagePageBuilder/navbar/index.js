@@ -116,7 +116,6 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
 
     useEffect(() => {
         setWebPageData()
-        console.log("webPageData", webPageData)
         updateNavbarData()
     }, [navbarTextColor, navbarBGColor, navbarWidth, navbarHeight, bgImage, contentPosition, navbarOptions, position])
 

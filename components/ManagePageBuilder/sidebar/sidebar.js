@@ -5,11 +5,12 @@ import SidebarMenuOption from './sidebarMenuOption';
 import NavbarOptions from '../navbar/navbarOptions';
 import { FiArrowLeftCircle } from 'react-icons/fi';
 import Section from '../sections';
-import { BsSquare, BsSquareHalf, BsImage, BsCardText } from "react-icons/bs";
+import { BsSquare, BsSquareHalf } from "react-icons/bs";
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineDownCircle, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
-import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBookmarks, BiText, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
+import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
 import MypagesDragDrop from './myPagesDragDrop';
+import { ContentDragDrop } from '../sections/contentDragDrop';
 
 
 const Sidebar = (props) => {
@@ -221,11 +222,11 @@ const Sidebar = (props) => {
                         <Section />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2)}                    >
+                    <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2)}>
                         <Section />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3)}                    >
+                    <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3)}>
                         <Section />
                     </SidebarMenuOption>
 
@@ -268,14 +269,14 @@ const Sidebar = (props) => {
                     </div>
                 </div>
 
-                <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-10rem)] mt-4 py-4 px-6 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
+                <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-10rem)] mt-4 py-4 px-4 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
                     {activeButtonIndex !== 0 &&
                         <>
                             <div className='flex flex-col items-center'>
                                 Tipo de sección
-                                <div className='flex'>
-                                    <BsSquare className='w-12 h-12 cursor-pointer hover:bg-gray-300 hover:shadow-md p-1.5 rounded-[10px]' />
-                                    <BsSquareHalf className='w-12 h-12 cursor-pointer hover:bg-gray-300 hover:shadow-md p-1.5 rounded-[10px]' />
+                                <div className='flex mt-0.5'>
+                                    <BsSquare className={`w-11 h-11 cursor-pointer hover:w-12 p-1.5 rounded-[10px] ${true && "bg-gray-600 text-white"}`} onClick={() => alert("Izq")} />
+                                    <BsSquareHalf className={`w-11 h-11 cursor-pointer hover:w-12 p-1.5 rounded-[10px] ${false && "bg-gray-600 text-white"}`} onClick={() => alert("der")} />
                                 </div>
                             </div>
 
@@ -288,14 +289,14 @@ const Sidebar = (props) => {
                     <div className='flex flex-col items-start border space-y-2'>
                         <p>Altura</p>
                         <div className='flex justify-center items-center space-x-2'>
-                            <AiOutlineColumnHeight className='w-8 h-8' />
+                            <AiOutlineColumnHeight className='w-7 h-7' />
                             <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                             <em className='font-normal text-sm'>%</em>
                         </div>
                         {activeButtonIndex === 0 && <>
                             <p>Anchura</p>
                             <div className='flex justify-center items-center space-x-2'>
-                                <AiOutlineColumnHeight className='w-8 h-8 rotate-90' />
+                                <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
                                 <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
@@ -311,24 +312,24 @@ const Sidebar = (props) => {
                             <div className='flex flex-col items-start border space-y-2'>
                                 <p>Relleno</p>
                                 <div className='flex justify-center items-center space-x-2'>
-                                    <BiArrowToLeft className='w-8 h-8' />
+                                    <BiArrowToLeft className='w-7 h-7' />
                                     <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                                    <em className='font-normal text-sm'>px</em>
+                                    <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
-                                    <BiArrowToBottom className='w-8 h-8' />
+                                    <BiArrowToBottom className='w-7 h-7' />
                                     <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                                    <em className='font-normal text-sm'>px</em>
+                                    <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
-                                    <BiArrowToRight className='w-8 h-8' />
+                                    <BiArrowToRight className='w-7 h-7' />
                                     <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                                    <em className='font-normal text-sm'>px</em>
+                                    <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
-                                    <BiArrowToTop className='w-8 h-8' />
+                                    <BiArrowToTop className='w-7 h-7' />
                                     <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                                    <em className='font-normal text-sm'>px</em>
+                                    <em className='font-normal text-sm'>%</em>
                                 </div>
                             </div>
 
@@ -339,14 +340,16 @@ const Sidebar = (props) => {
                     <div className='flex flex-col items-start border space-y-2'>
                         <p>Color de fondo</p>
                         <div className='flex justify-center items-center space-x-2 w-full px-2'>
-                            <AiOutlineBgColors className='w-8 h-8' />
+                            <AiOutlineBgColors className='w-7 h-7' />
                             <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
                         </div>
-                        <p>Color de texto</p>
-                        <div className='flex justify-center items-center space-x-2 w-full px-2'>
-                            <AiOutlineFontColors className='w-8 h-8' />
-                            <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
-                        </div>
+                        {activeButtonIndex === 0 && <>
+                            <p>Color de texto</p>
+                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
+                                <AiOutlineFontColors className='w-7 h-7' />
+                                <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                            </div>
+                        </>}
                     </div>
 
                     <hr className='border border-[#224553]' />
@@ -396,28 +399,15 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex !== 0 &&
                         <>
-                            <div className='flex flex-col items-center border space-y-2'>
+                            <div className='flex flex-col items-center'>
                                 <p>Contenido</p>
-                                {/* EMPIEZA CONTENIDO DEL SECTION */}
-                                {/* LOS ELEMENTO DEBEN SER DRAG & DROP */}
-                                {/* TERMINA CONTENIDO DEL SECTION */}
 
+                                {/* SE DEBE PASAR COMO PARÁMETRO EL CONTENT DE LA SECCIÓN seleccionada*/}
+                                <ContentDragDrop />
 
-                                {/* BOTONES PARA AGREGAR NUEVO ELEMENTO */}
-                                <div className='flex justify-center items-center space-x-4'>
-                                    <BsImage className='w-7 h-7 cursor-pointer' />
-                                    <BiText className='w-7 h-7 cursor-pointer' />
-                                    <BsCardText className='w-7 h-7 cursor-pointer' />
-                                    <BiBookmarks className='w-7 h-7 cursor-pointer' />
-                                </div>
                             </div>
                         </>
                     }
-                    {/* TERMINA FLUJO PARA DIV SIN DIVISIÓN */}
-
-                    {/* EMPIEZA FLUJO PARA DIV CON DIVISIÓN */}
-                    {/* TERMINA FLUJO PARA DIV CON DIVISIÓN */}
-
                 </div>
             </div>
         </aside >

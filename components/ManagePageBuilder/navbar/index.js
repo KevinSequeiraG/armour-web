@@ -60,7 +60,10 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         backgroundColor: navbarBGColor,
         minWidth: position !== "top" && navbarWidth,
         minHeight: position === "top" && navbarHeight,
-        backgroundImage: `url(${bgImage})`
+        backgroundImage: `url(${bgImage})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover"
     }
 
     const mobileMenuStyles = {

@@ -213,7 +213,7 @@ export const ContentDragDrop = (props) => {
           >
             {content.map((content, i) => (
               <>
-                <DraggableItem key={i} content={content} handleDeleteContent={handleDeleteContent} />
+                <DraggableItem currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={content} handleDeleteContent={handleDeleteContent} />
                 {i + 1 !== content.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
               </>
             ))}

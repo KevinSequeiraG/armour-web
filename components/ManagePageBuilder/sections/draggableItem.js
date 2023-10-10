@@ -37,7 +37,7 @@ function DraggableItem(props) {
         {props?.content?.type == "image" && <Imagen content={props.content} />}
 
         {/* TEXT */}
-        {props?.content?.type == "text" && <Text content={props.content} />}
+        {props?.content?.type == "text" && <Text currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData}/>}
 
         {/* TEXTAREA */}
         {props?.content?.type == "textArea" && <TextArea content={props.content} />}

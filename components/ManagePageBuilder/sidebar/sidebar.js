@@ -264,7 +264,7 @@ const Sidebar = (props) => {
                     </SidebarMenuOption>
 
                     <SidebarMenuOption label="Sections" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
-                        <Section setActiveSection={props.setActiveSection} />
+                        <Section setWebPageData={props.setWebPageData} webPageData={props.webPageData} setActiveSection={props.setActiveSection} />
                     </SidebarMenuOption>
 
                     <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
@@ -448,7 +448,7 @@ const Sidebar = (props) => {
                                 <p>Contenido</p>
 
                                 {/* SE DEBE PASAR COMO PARÁMETRO EL CONTENT DE LA SECCIÓN seleccionada*/}
-                                <ContentDragDrop />
+                                <ContentDragDrop currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
 
                             </div>
                         </>

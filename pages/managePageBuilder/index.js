@@ -19,7 +19,7 @@ export default function ManagePageBuilder() {
     const [isMobilePreview, setIsMobilePreview] = useState(false);
 
     const [navbarPosition, setNavbarPosition] = useState("top"); // Cambia esta variable según tu preferencia ("left", "top", "right")
-    const [activeSection, setActiveSection] = useState();
+    const [activeSection, setActiveSection] = useState("section-0");
 
     const [sections, setSections] = useState([]);
     // Cada sección será un objeto
@@ -97,7 +97,7 @@ export default function ManagePageBuilder() {
             </Head>
             <div className="bg-black h-screen w-screen flex">
                 {showFirstStep && <FirstStep setWebPageData={setWebPageData} webPageData={webPageData} setLogoPage={setLogoPage} setShowFirstStep={setShowFirstStep} />}
-                <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setActiveSection={setActiveSection} activeSection={activeSection} setCurrentPage={setCurrentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
+                <Sidebar activeSection={activeSection} currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setActiveSection={setActiveSection} setCurrentPage={setCurrentPage} currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full max-w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
@@ -105,7 +105,7 @@ export default function ManagePageBuilder() {
                             {/* <div>
                                 NUEVA SECCION
                             </div> */}
-                            <SectionView />
+                            <SectionView setWebPageData={setWebPageData} webPageData={webPageData} />
                         </Navbar>
                         {/* AQUI LAS SECCIONES */}
                         {/* LAS SECCIONES VAN A SER POR PÁGINA */}

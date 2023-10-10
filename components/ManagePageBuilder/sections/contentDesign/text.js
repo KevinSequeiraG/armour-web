@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
 
@@ -14,6 +14,21 @@ export const Text = (props) => {
     const handleTextPositionChange = (newPosition) => {
         setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
     };
+
+    useEffect(() => {
+        // props.setWebPageData()
+        if (props.webPageData !== undefined) {
+            console.log(contentValues)
+            console.log(props.activeSection, "zzzz", props.webPageData, "yyy", props.currentPage)
+            const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
+            const pageToEdit = updatedWebPageData.pages.find((page) => page.id === parseInt(props.currentPage));
+            pageToEdit.sections = contentValues;
+
+            // Ahora, puedes utilizar props.setWebPageData() para actualizar el estado con el nuevo objeto
+            props.setWebPageData(updatedWebPageData);
+        }
+
+    }, [contentValues])
 
     return (
         <div>
@@ -83,7 +98,7 @@ export const Text = (props) => {
 
                 <div className='flex justify-center items-center space-x-1'>
                     <AiOutlineFontColors className='w-5 h-5' />
-                    <input name="color" value={contentValues?.color} onChange={handleInputChange} type="color"  className='inputColor' />
+                    <input name="color" value={contentValues?.color} onChange={handleInputChange} type="color" className='inputColor' />
                 </div>
 
             </div>

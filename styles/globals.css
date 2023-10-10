@@ -314,3 +314,51 @@
   font-size: 14px;
   text-align: center;
 }
+
+
+.drop-zone__input-1 {
+  display: none;
+}
+
+.drop-zone-1 {
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1rem;
+  border: 2px dashed #224553;
+  border-radius: 10px;
+}
+
+.drop-zone--over-1 {
+  border-style: solid;
+}
+
+.drop-zone__thumb-1 {
+  width: inherit;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.drop-zone__thumb-1::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}

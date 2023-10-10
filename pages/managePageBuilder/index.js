@@ -1,5 +1,6 @@
 import FirstStep from '@/components/ManagePageBuilder/firstStep';
 import Navbar from '@/components/ManagePageBuilder/navbar';
+import SectionView from '@/components/ManagePageBuilder/sections/sectionView';
 import PersonalizationHeader from '@/components/ManagePageBuilder/sidebar/personalizationHeader';
 import Sidebar from '@/components/ManagePageBuilder/sidebar/sidebar';
 import Head from 'next/head';
@@ -11,12 +12,14 @@ export default function ManagePageBuilder() {
     const [logoPage, setLogoPage] = useState();
     const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", navbar: {}, sections: {} }] })
     const [currentPage, setCurrentPage] = useState(1)
+    const [currentMenuOption, setCurrentMenuOption] = useState("navbar-webpage");
 
     const [showFirstStep, setShowFirstStep] = useState(true);
 
     const [isMobilePreview, setIsMobilePreview] = useState(false);
 
     const [navbarPosition, setNavbarPosition] = useState("top"); // Cambia esta variable según tu preferencia ("left", "top", "right")
+    const [activeSection, setActiveSection] = useState();
 
     const [sections, setSections] = useState([]);
     // Cada sección será un objeto
@@ -80,6 +83,10 @@ export default function ManagePageBuilder() {
         console.log(currentPage)
     }, [currentPage])
 
+    useEffect(() => {
+        console.log(currentMenuOption)
+    }, [activeSection, currentMenuOption])
+
 
     return (
         <>
@@ -90,14 +97,15 @@ export default function ManagePageBuilder() {
             </Head>
             <div className="bg-black h-screen w-screen flex">
                 {showFirstStep && <FirstStep setWebPageData={setWebPageData} webPageData={webPageData} setLogoPage={setLogoPage} setShowFirstStep={setShowFirstStep} />}
-                <Sidebar setCurrentPage={setCurrentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
+                <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setActiveSection={setActiveSection} activeSection={activeSection} setCurrentPage={setCurrentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
                 <div className="w-[75%] h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] h-[667px] m-auto shadow-md bg-white relative" : "w-full max-w-full mx-3 h-[calc(100vh-2rem)] my-auto shadow-md bg-white relative"}`}>
                         <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>
-                            <div>
-                                {/* NUEVA SECCION */}
-                            </div>
+                            {/* <div>
+                                NUEVA SECCION
+                            </div> */}
+                            <SectionView />
                         </Navbar>
                         {/* AQUI LAS SECCIONES */}
                         {/* LAS SECCIONES VAN A SER POR PÁGINA */}

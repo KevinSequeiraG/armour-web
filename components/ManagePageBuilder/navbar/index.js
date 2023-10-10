@@ -158,8 +158,8 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
                     </div>
                 )
             }
-            <div className="flex flex-1">
-                <div>{children}</div>
+            <div className="w-full h-full">
+                {children}
             </div>
         </div >
     );

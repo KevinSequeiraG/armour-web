@@ -6,26 +6,26 @@ export const Imagen = (props) => {
     const [contentValues, setContentValues] = useState(props?.content);
 
     const removeImage = (dropZoneElement) => {
-        const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+        const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb-1");
 
         if (thumbnailElement) {
             // Eliminar solo el thumbnailElement correspondiente
             thumbnailElement.remove();
         }
         // Restablecer el prompt si existe
-        const promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
+        const promptElement = dropZoneElement.querySelector(".drop-zone__prompt-1");
         if (promptElement) {
             promptElement.classList.remove("hidden");
         }
         // Restablecer el valor del input
-        const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+        const inputElement = dropZoneElement.querySelector(".drop-zone__input-1");
         if (inputElement) {
             inputElement.value = "";
         }
     };
 
     const handleDeleteImage = (type) => {
-        const dropZoneElement = document.querySelector(`.drop-zone`);
+        const dropZoneElement = document.querySelector(`.drop-zone-1`);
         if (dropZoneElement) {
             removeImage(dropZoneElement);
             // setBgImage(null)
@@ -34,9 +34,9 @@ export const Imagen = (props) => {
     };
 
     const DragAndDropLogic = () => {
-        const dropZoneElements = document.querySelectorAll(".drop-zone");
+        const dropZoneElements = document.querySelectorAll(".drop-zone-1");
         dropZoneElements.forEach((dropZoneElement, i) => {
-            const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+            const inputElement = dropZoneElement.querySelector(".drop-zone__input-1");
             const type = dropZoneElement.getAttribute("data-type");
             let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
             dropZoneElement.addEventListener("click", (e) => {
@@ -58,11 +58,11 @@ export const Imagen = (props) => {
             });
             dropZoneElement.addEventListener("dragover", (e) => {
                 e.preventDefault();
-                dropZoneElement.classList.add("drop-zone--over");
+                dropZoneElement.classList.add("drop-zone--over-1");
             });
             ["dragleave", "dragend"].forEach((type) => {
                 dropZoneElement.addEventListener(type, (e) => {
-                    dropZoneElement.classList.remove("drop-zone--over");
+                    dropZoneElement.classList.remove("drop-zone--over-1");
                 });
             });
             dropZoneElement.addEventListener("drop", (e) => {
@@ -72,7 +72,7 @@ export const Imagen = (props) => {
                     updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
                     // setBgImage(e.dataTransfer.files[0]);
                 }
-                dropZoneElement.classList.remove("drop-zone--over");
+                dropZoneElement.classList.remove("drop-zone--over-1");
             });
 
 
@@ -80,15 +80,15 @@ export const Imagen = (props) => {
     };
 
     function updateThumbnail(dropZoneElement, file) {
-        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb-1");
         // First time - remove the prompt
-        if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-            dropZoneElement.querySelector(".drop-zone__prompt").classList.add("hidden");
+        if (dropZoneElement.querySelector(".drop-zone__prompt-1")) {
+            dropZoneElement.querySelector(".drop-zone__prompt-1").classList.add("hidden");
         }
         // First time - there is no thumbnail element, so lets create it
         if (!thumbnailElement) {
             thumbnailElement = document.createElement("div");
-            thumbnailElement.classList.add("drop-zone__thumb");
+            thumbnailElement.classList.add("drop-zone__thumb-1");
             dropZoneElement.appendChild(thumbnailElement);
         }
         thumbnailElement.dataset.label = file.name;
@@ -124,9 +124,9 @@ export const Imagen = (props) => {
 
     return (
         <div>
-            <div className="drop-zone cursor-pointer w-full">
-                <label className="drop-zone__prompt font-bold">Añadir imagen</label>
-                <input type="file" name="myFilee" className="drop-zone__input" />
+            <div className="drop-zone-1 cursor-pointer w-full">
+                <label className="drop-zone__prompt-1 font-bold">Añadir imagen</label>
+                <input type="file" name="myFilee" className="drop-zone__input-1" />
             </div>
             <AiOutlineClose className='w-4 h-4 text-[#d8d8d8] absolute -top-1 -right-1 bg-gray-500 rounded-full p-1 cursor-pointer' onClick={() => handleDeleteImage()} />
 

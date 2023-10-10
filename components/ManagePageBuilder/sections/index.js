@@ -3,7 +3,7 @@ import { FiPlus } from 'react-icons/fi';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2'
 
-const Section = () => {
+const Section = (props) => {
     const [sections, setSections] = useState([
         {
             // pageFrom: "1",
@@ -193,7 +193,7 @@ const Section = () => {
                                                 provided.draggableProps.style
                                             )}
                                         >
-                                            <div className="optionButton h-14 truncate" onClick={() => alert("a")}>
+                                            <div className="optionButton h-14 truncate" onClick={() => props.setActiveSection("test-" + index)}>
                                                 {section.name}
                                             </div>
                                         </div>

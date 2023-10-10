@@ -34,8 +34,9 @@ const Sidebar = (props) => {
         window.dispatchEvent(customEvent); // Despacha el evento personalizado
     };
 
-    const handleTabMenuClick = (index) => {
+    const handleTabMenuClick = (index, name) => {
         activeButtonIndex === index ? setActiveButtonIndex(-1) : setActiveButtonIndex(index);
+        props.setCurrentMenuOption(name);
     };
 
     // const [bgImage, setBgImage] = useState()
@@ -152,43 +153,87 @@ const Sidebar = (props) => {
     }, [])
 
     const handleTxtColorChange = (color) => {
-        setTxtColor(color);
-        const customEvent = new Event("changeNavbarTextColor");
-        customEvent.option = color;
-        window.dispatchEvent(customEvent);
+        if (props.currentMenuOption === "navbar-webpage") {
+            setTxtColor(color);
+            const customEvent = new Event("changeNavbarTextColor");
+            customEvent.option = color;
+            window.dispatchEvent(customEvent);
+        }
     };
 
     const handleBGColorChange = (color) => {
-        setBgColor(color);
-        const customEvent = new Event("changeNavbarBGColor");
-        customEvent.option = color;
-        window.dispatchEvent(customEvent);
+        if (props.currentMenuOption === "navbar-webpage") {
+            setBgColor(color);
+            const customEvent = new Event("changeNavbarBGColor");
+            customEvent.option = color;
+            window.dispatchEvent(customEvent);
+        } else if (props.currentMenuOption === "sections-webpage") {
+            setBgColor(color);
+            const customEvent = new Event("changeSectionBgColor");
+            customEvent.option = color;
+            window.dispatchEvent(customEvent);
+        }
     };
 
     const handleWidthChange = (size) => {
-        setWidth(size)
-        const customEvent = new Event("changeNavbarWidth");
-        customEvent.option = size + "%";
-        window.dispatchEvent(customEvent);
+        if (props.currentMenuOption === "navbar-webpage") {
+            setWidth(size)
+            const customEvent = new Event("changeNavbarWidth");
+            customEvent.option = size + "%";
+            window.dispatchEvent(customEvent);
+        }
     };
 
     const handleHeightChange = (size) => {
-        setHeight(size)
-        const customEvent = new Event("changeNavbarHeight");
-        customEvent.option = size + "%";
-        window.dispatchEvent(customEvent);
+        if (props.currentMenuOption === "navbar-webpage") {
+            setHeight(size)
+            const customEvent = new Event("changeNavbarHeight");
+            customEvent.option = size + "%";
+            window.dispatchEvent(customEvent);
+        } else if (props.currentMenuOption === "sections-webpage") {
+            setHeight(size)
+            const customEvent = new Event("changeSectionHeight");
+            customEvent.option = size + "%";
+            window.dispatchEvent(customEvent);
+        }
     };
 
     const handleBgImageChange = (image) => {
-        const customEvent = new Event("changeNavbarBgImage");
-        customEvent.option = image;
-        window.dispatchEvent(customEvent);
+        console.log("S", props.currentMenuOption)
+        if (props.currentMenuOption === "navbar-webpage") {
+            console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
+            const customEvent = new Event("changeNavbarBgImage");
+            customEvent.option = image;
+            window.dispatchEvent(customEvent);
+        }
     }
 
     const handleChangeContentPosition = (newPosition) => {
-        const customEvent = new Event("changeContentPosition");
-        customEvent.option = newPosition;
-        window.dispatchEvent(customEvent);
+        if (props.currentMenuOption === "navbar-webpage") {
+            const customEvent = new Event("changeContentPosition");
+            customEvent.option = newPosition;
+            window.dispatchEvent(customEvent);
+        }
+    }
+
+    const handleChangePadding = (side, size) => {
+        if (side === "top") {
+            const customEvent = new Event("changeSectionPadingTop");
+            customEvent.option = size + "%"
+            window.dispatchEvent(customEvent);
+        } else if (side === "right") {
+            const customEvent = new Event("changeSectionPadingRight");
+            customEvent.option = size + "%"
+            window.dispatchEvent(customEvent);
+        } else if (side === "bottom") {
+            const customEvent = new Event("changeSectionPadingBottom");
+            customEvent.option = size + "%"
+            window.dispatchEvent(customEvent);
+        } else if (side === "left") {
+            const customEvent = new Event("changeSectionPadingLeft");
+            customEvent.option = size + "%"
+            window.dispatchEvent(customEvent);
+        }
     }
 
     useEffect(() => {
@@ -214,23 +259,23 @@ const Sidebar = (props) => {
                         {/* <p className='text-xl font-bold uppercase'>Crear nueva página</p> */}
                     </div>
 
-                    <SidebarMenuOption label="Menú de navegación" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0)}>
+                    <SidebarMenuOption label="Menú de navegación" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0, "navbar-webpage")}>
                         <NavbarOptions />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Sections" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1)}>
+                    <SidebarMenuOption label="Sections" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
+                        <Section setActiveSection={props.setActiveSection} />
+                    </SidebarMenuOption>
+
+                    <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
                         <Section />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2)}>
+                    <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3, "pages-webpage")}>
                         <Section />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3)}>
-                        <Section />
-                    </SidebarMenuOption>
-
-                    <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4)}>
+                    <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
                         <Section />
                     </SidebarMenuOption>
 
@@ -313,22 +358,22 @@ const Sidebar = (props) => {
                                 <p>Relleno</p>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToLeft className='w-7 h-7' />
-                                    <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToBottom className='w-7 h-7' />
-                                    <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToRight className='w-7 h-7' />
-                                    <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToTop className='w-7 h-7' />
-                                    <input type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                             </div>

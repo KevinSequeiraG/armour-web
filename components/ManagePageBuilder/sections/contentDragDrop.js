@@ -20,17 +20,6 @@ export const ContentDragDrop = (props) => {
         const oldIndex = content.findIndex((content) => content.id === active.id);
         const newIndex = content.findIndex((content) => content.id === over.id);
         const updatedContent = arrayMove(content, oldIndex, newIndex);
-
-        // Actualiza el objeto 'updatedWebPageData'
-        // const updatedWebPageData = { ...props.webPageData };
-        // const movedPage = updatedWebPageData.content.find((content) => content.id === active.id);
-        // if (movedPage) {
-        //   updatedWebPageData.pages = arrayMove(updatedWebPageData.content, oldIndex, newIndex);
-        // }
-
-        // Establece la copia actualizada como el nuevo estado
-        // props.setWebPageData(updatedWebPageData);
-
         return updatedContent;
       });
     }
@@ -80,23 +69,6 @@ export const ContentDragDrop = (props) => {
     }
 
     setContent(newContent);
-    // handleSetPagesOptions(newSections)
-
-    // Clona el objeto webPageData para no modificar el estado original directamente
-    // const updatedWebPageData = { ...props.webPageData };
-
-    // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
-    // const newPage = {
-    //   id: pages.length + 1,
-    //   name: sectionNameSelected,
-    //   sections: {},
-    // };
-
-    // Agrega el nuevo objeto 'page' al arreglo 'pages'
-    // updatedWebPageData.pages.push(newPage);
-
-    // Establece la copia actualizada como el nuevo estado
-    // props.setWebPageData(updatedWebPageData);
   };
 
   const handleDeleteContent = async (contentId) => {
@@ -127,32 +99,15 @@ export const ContentDragDrop = (props) => {
       if (result.isConfirmed) {
         const updatedContent = content.filter((content) => content.id !== contentId);
         setContent(updatedContent);
-        // handleSetPagesOptions(newSections)
-        // const updatedWebPageData = { ...props.webPageData };
-        // updatedWebPageData.pages = updatedWebPageData.pages.filter((page) => page.id !== pageId);
-        // Establece la copia actualizada como el nuevo estado
-        // props.setWebPageData(updatedWebPageData);
       }
 
     })
   };
 
-
-  // useEffect(() => {
-  //   handleSetContentOptions(content)
-  // }, [content])
-
-  const handleSetContentOptions = (options) => {
-    const customEvent = new Event("changePagesOptions");
-    customEvent.option = options;
-    window.dispatchEvent(customEvent);
-  }
-
   useEffect(() => {
     const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
     const pageToEdit = updatedWebPageData.pages.find((page) => page.id === parseInt(props.currentPage));
     pageToEdit.sections = content;
-    // Ahora, puedes utilizar props.setWebPageData() para actualizar el estado con el nuevo objeto
     props.setWebPageData(updatedWebPageData);
   }, [content])
 
@@ -212,7 +167,7 @@ export const ContentDragDrop = (props) => {
           >
             {content !== null && content.map((contentInfo, i) => (
               <>
-                <DraggableItem position={i} setContent={setContent} contentComplete={content} currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={contentInfo} handleDeleteContent={handleDeleteContent} />
+                <DraggableItem position={i} setContent={setContent} contentComplete={content} currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={contentInfo} handleDeleteContent={handleDeleteContent} />
                 {i + 1 !== content.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
               </>
             ))}

@@ -5,8 +5,7 @@ import SidebarMenuOption from './sidebarMenuOption';
 import NavbarOptions from '../navbar/navbarOptions';
 import { FiArrowLeftCircle } from 'react-icons/fi';
 import Section from '../sections';
-import { BsSquare, BsSquareHalf } from "react-icons/bs";
-import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineDownCircle, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
 import MypagesDragDrop from './myPagesDragDrop';
@@ -17,11 +16,17 @@ const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
     const { t } = useTranslation();
     const router = useRouter();
-    const [txtColor, setTxtColor] = useState("#ffffff");
-    const [bgColor, setBgColor] = useState("#000000");
+
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("10");
-    const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
+    const [txtColor, setTxtColor] = useState("#ffffff");
+    const [bgColor, setBgColor] = useState("#000000");
+
+    const [pagePaddingLeft, setPagePaddingLeft] = useState("25");
+    const [pagePaddingRight, setPagePaddingRight] = useState("25");
+    const [pagePaddingTop, setPagePaddingTop] = useState("50");
+    const [pagePaddingBottom, setPagePaddingBottom] = useState("50");
+    // const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -169,6 +174,18 @@ const Sidebar = (props) => {
             window.dispatchEvent(customEvent);
         } else if (props.currentMenuOption === "sections-webpage") {
             setBgColor(color);
+            props.setWebPageData(prevData => {
+                const updatedPages = prevData?.pages?.map(page => {
+                    if (page?.id === props?.currentPage)
+                        return { ...page, backgroundColor: color };
+
+                    return page;
+                });
+                return {
+                    ...prevData,
+                    pages: updatedPages
+                };
+            });
             const customEvent = new Event("changeSectionBgColor");
             customEvent.option = color;
             window.dispatchEvent(customEvent);
@@ -205,6 +222,8 @@ const Sidebar = (props) => {
             window.dispatchEvent(customEvent);
         }
     }
+
+    // pone color a la opción seleccionada (solo visual)
     const [posiitionDesignColor, setPosiitionDesignColor] = useState(props.navbarPosition == "top" ? "t-left" : "top");
     useEffect(() => {
         setPosiitionDesignColor(props.navbarPosition == "top" ? "t-left" : "top")
@@ -220,37 +239,80 @@ const Sidebar = (props) => {
     }
 
     const handleChangePadding = (side, size) => {
+        let updatedPages = [];
+
+        // Actualizar el estado con las páginas actualizadas
         if (side === "top") {
+            updatedPages = props?.webPageData?.pages?.map(page => {
+                if (page?.id === props?.currentPage)
+                    return { ...page, paddingTop: size + "%" };
+                return page;
+            });
+            setPagePaddingTop(size);
             const customEvent = new Event("changeSectionPadingTop");
             customEvent.option = size + "%"
             window.dispatchEvent(customEvent);
         } else if (side === "right") {
+            updatedPages = props?.webPageData?.pages?.map(page => {
+                if (page?.id === props?.currentPage)
+                    return { ...page, paddingRight: size + "%" };
+                return page;
+            });
+            setPagePaddingRight(size);
             const customEvent = new Event("changeSectionPadingRight");
             customEvent.option = size + "%"
             window.dispatchEvent(customEvent);
         } else if (side === "bottom") {
+            updatedPages = props?.webPageData?.pages?.map(page => {
+                if (page?.id === props?.currentPage)
+                    return { ...page, paddingBottom: size + "%" };
+                return page;
+            });
+            setPagePaddingBottom(size);
             const customEvent = new Event("changeSectionPadingBottom");
             customEvent.option = size + "%"
             window.dispatchEvent(customEvent);
         } else if (side === "left") {
+            updatedPages = props?.webPageData?.pages?.map(page => {
+                if (page?.id === props?.currentPage)
+                    return { ...page, paddingLeft: size + "%" };
+                return page;
+            });
+            setPagePaddingLeft(size);
             const customEvent = new Event("changeSectionPadingLeft");
             customEvent.option = size + "%"
             window.dispatchEvent(customEvent);
         }
+        props.setWebPageData(prevState => ({
+            ...prevState,
+            pages: updatedPages
+        }));
     }
+    // const [width, setWidth] = useState("");
+    // const [height, setHeight] = useState("10");
+    // const [txtColor, setTxtColor] = useState("#ffffff");
+    // const [bgColor, setBgColor] = useState("#000000");
 
+    // const [pagePaddingLeft, setPagePaddingLeft] = useState("25");
+    // const [pagePaddingLRight, setPagePaddingLRight] = useState("25");
+    // const [pagePaddingLTop, setPagePaddingLTop] = useState("50");
+    // const [pagePaddingLBottom, setPagePaddingLBottom] = useState("50");
     useEffect(() => {
-        const handleSetPagesOptions = (event) => {
-            setPagesOptions(event.option);
-        };
+        if (props?.currentMenuOption === "navbar-webpage") {
+            setWidth(parseInt(props?.webPageData?.navbar?.minWidth.replace('%', '')));
+            setHeight(parseInt(props?.webPageData?.navbar?.minHeight.replace('%', '')));
+            setTxtColor(props?.webPageData?.navbar?.color);
+            setBgColor(props?.webPageData?.navbar?.backgroundColor);
 
-        window.addEventListener("changePagesOptions", handleSetPagesOptions);
-
-        return () => {
-            window.removeEventListener("changePagesOptions", handleSetPagesOptions);
+        } else if (props?.currentMenuOption === "sections-webpage") {
+            const currentPageSectionsData = props?.webPageData?.pages?.find((pagesData) => pagesData?.id == props?.currentPage);
+            setBgColor(currentPageSectionsData?.backgroundColor);
+            setPagePaddingLeft(parseInt(currentPageSectionsData?.paddingLeft?.replace('%', '')));
+            setPagePaddingRight(parseInt(currentPageSectionsData?.paddingRight?.replace('%', '')));
+            setPagePaddingTop(parseInt(currentPageSectionsData?.paddingTop?.replace('%', '')));
+            setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
         }
-    }, [])
-
+    }, [props.currentMenuOption, props?.currentPage])
 
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
@@ -267,12 +329,11 @@ const Sidebar = (props) => {
                     </SidebarMenuOption>
 
                     <SidebarMenuOption label="Mis páginas" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
-                        {/* <Section setWebPageData={props.setWebPageData} webPageData={props.webPageData} setActiveSection={props.setActiveSection} /> */}
 
-                        {props.webPageData.pages?.map((pageData, i) => {
+                        {props?.webPageData?.pages?.map((pageData, i) => {
                             return (
-                                <div key={i} className={`optionButton h-14 truncate cursor-pointer ${props.currentPage === pageData.id && "bg-[#C69434]"}`} onClick={(e) => { window.localStorage.setItem("actualPage", pageData.id); props.setCurrentPage(pageData.id) }}>
-                                    {pageData.name}
+                                <div key={i} className={`optionButton h-14 truncate cursor-pointer ${props?.currentPage === pageData?.id && "bg-[#C69434]"}`} onClick={(e) => { window.localStorage.setItem("actualPage", pageData?.id); props?.setCurrentPage(pageData?.id) }}>
+                                    {pageData?.name}
                                 </div>
                             )
                         })}
@@ -282,10 +343,6 @@ const Sidebar = (props) => {
                     <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
                         {/* <Section /> */}
                     </SidebarMenuOption>
-
-                    {/* <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3, "pages-webpage")}>
-                        <Section />
-                    </SidebarMenuOption> */}
 
                     <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
                         <Section />
@@ -297,11 +354,14 @@ const Sidebar = (props) => {
                     Cancelar
                 </button>
             </div>
-            <div className={`flex flex-col items-center w-1/2 max-w-[50%] overflow-x-hidden ml-2.5`}>
+
+            <div className={`flex flex-col items-center w-1/2 max-w-[50%] overflow-x-hidden ml-3`}>
+
+                {/* Change mobile/desktop preview */}
                 <div className="flex justify-center items-center space-x-4 mt-8">
-                    <div className='flex items-center '>
+                    <div className='flex items-center'>
                         <div className={`${props.isMobilePreview ? "bg-white text-black" : "bg-[#224553] text-white"} w-full h-full rounded-l-[10px] shadow-md`} onClick={() => handlePreviewModeClick(false)}>
-                            <AiOutlineDesktop className='h-10 w-10  cursor-pointer px-2' />
+                            <AiOutlineDesktop className='h-10 w-10 cursor-pointer px-2' />
                         </div>
 
                         <div className='separator'></div> {/* Línea separadora */}
@@ -312,80 +372,52 @@ const Sidebar = (props) => {
                     </div>
                 </div>
 
-                {/* <div className="flex justify-center w-full mx-auto items-center mt-4 ">
-                    <div className="min-w-[80%] mx-auto relative">
-                        <select onChange={(e) => { window.localStorage.setItem("actualPage", e.target.value); props.setCurrentPage(e.target.value) }} className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
-{console.log("pagesOptions",pagesOptions)}
-                            {pagesOptions?.map((option) => {
-                                return (
-                                    <option className='text-black' value={option.id}>{option.name}</option>
-                                )
-                            })}
-                        </select>
-                        <AiOutlineDownCircle className='absolute top-2.5 w-5 h-5 right-2 z-0' />
-                    </div>
-                </div> */}
-
                 <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-10rem)] mt-4 py-4 px-4 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
-                    {/* {activeButtonIndex !== 0 &&
-                        <>
-                            <div className='flex flex-col items-center'>
-                                Tipo de sección
-                                <div className='flex mt-0.5'>
-                                    <BsSquare className={`w-11 h-11 cursor-pointer hover:w-12 p-1.5 rounded-[10px] ${true && "bg-gray-600 text-white"}`} onClick={() => alert("Izq")} />
-                                    <BsSquareHalf className={`w-11 h-11 cursor-pointer hover:w-12 p-1.5 rounded-[10px] ${false && "bg-gray-600 text-white"}`} onClick={() => alert("der")} />
-                                </div>
-                            </div>
 
-                            <hr className='border border-[#224553]' />
-                        </>
-                    } */}
-
-                    {/* EMPIEZA FLUJO PARA DIV SIN DIVISIÓN */}
-
-                    <div className='flex flex-col items-start border space-y-2'>
-                        <p>Altura</p>
-                        <div className='flex justify-center items-center space-x-2'>
-                            <AiOutlineColumnHeight className='w-7 h-7' />
-                            <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
-                            <em className='font-normal text-sm'>%</em>
-                        </div>
-                        {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
-                            <p>Anchura</p>
+                    {activeButtonIndex === 0 && <>
+                        <div className='flex flex-col items-start border space-y-2'>
+                            <p>Altura</p>
                             <div className='flex justify-center items-center space-x-2'>
-                                <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
-                                <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                <AiOutlineColumnHeight className='w-7 h-7' />
+                                <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
-                        </>
-                        }
-                    </div>
+                            {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
+                                <p>Anchura</p>
+                                <div className='flex justify-center items-center space-x-2'>
+                                    <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
+                                    <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <em className='font-normal text-sm'>%</em>
+                                </div>
+                            </>
+                            }
+                        </div>
 
-                    <hr className='border border-[#224553]' />
+                        <hr className='border border-[#224553]' />
+                    </>}
 
-                    {/* PONER POR DEFECTO UN PADDING, COMO EL CONTAINER DE BOOTSTRAP */}
                     {activeButtonIndex !== 0 &&
                         <>
                             <div className='flex flex-col items-start border space-y-2'>
                                 <p>Relleno</p>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToLeft className='w-7 h-7' />
-                                    <input type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToBottom className='w-7 h-7' />
-                                    <input type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingTop} type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToRight className='w-7 h-7' />
-                                    <input type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingLeft} type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToTop className='w-7 h-7' />
-                                    <input type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingBottom} type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                             </div>
@@ -411,7 +443,7 @@ const Sidebar = (props) => {
 
                     <hr className='border border-[#224553]' />
 
-                    <div className='flex flex-col items-start border space-y-2 relative '>
+                    <div className='flex flex-col items-start border space-y-2 relative'>
                         <p>Imagen de fondo</p>
                         <div className="drop-zone cursor-pointer w-full">
                             <label className="drop-zone__prompt">Arrastra una imagen o <span className="text-[#33CA75] underline underline-offset-4">Busca el archivo</span></label>
@@ -430,7 +462,6 @@ const Sidebar = (props) => {
                     }
 
                     {activeButtonIndex === 0 &&
-
                         <>
                             <hr className='border border-[#224553]' />
                             <div className='flex flex-col items-center space-y-2'>
@@ -454,17 +485,14 @@ const Sidebar = (props) => {
                         </>
                     }
 
-                    {activeButtonIndex !== 0 &&
-                        <>
-                            <div className='flex flex-col items-center'>
-                                <p>Contenido</p>
+                    {activeButtonIndex !== 0 && <>
+                        <div className='flex flex-col items-center'>
+                            <p>Contenido</p>
 
-                                {/* SE DEBE PASAR COMO PARÁMETRO EL CONTENT DE LA SECCIÓN seleccionada*/}
-                                <ContentDragDrop currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
+                            <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
 
-                            </div>
-                        </>
-                    }
+                        </div>
+                    </>}
                 </div>
             </div>
         </aside >

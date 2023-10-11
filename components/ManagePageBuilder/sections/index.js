@@ -193,7 +193,7 @@ const Section = (props) => {
                                                 provided.draggableProps.style
                                             )}
                                         >
-                                            <div className="optionButton h-14 truncate" onClick={() => props.setActiveSection("section-" + index)}>
+                                            <div className="optionButton h-14 truncate" onClick={() => ""}>
                                                 {section.name}
                                             </div>
                                         </div>

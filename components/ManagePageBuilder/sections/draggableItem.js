@@ -34,17 +34,17 @@ function DraggableItem(props) {
       </div>
       <div className="relative mt-4">
         {/* IMAGEN */}
-        {props?.content?.type == "image" && <Imagen contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "image" && <Imagen contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
         {/* TEXT */}
-        {props?.content?.type == "text" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "text" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
         {/* TEXTAREA */}
-        {props?.content?.type == "textArea" && <TextArea contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "textArea" && <TextArea contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
         {/* CARD */}
         {/* PENDIENTEEEEEEEEEEEEEEEEE */}
-        {props?.content?.type == "card" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "card" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
       </div>
     </div>

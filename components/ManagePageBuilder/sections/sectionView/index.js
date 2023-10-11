@@ -71,23 +71,26 @@ const SectionView = (props) => {
 
     useEffect(() => {
         console.log(props.webPageData)
-        props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
-            console.log(data)
-        })
-        console.log("currentPage", props.currentPage)
+        if (props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null) {
+            console.log(props.webPageData)
+            props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
+                console.log(data)
+            })
+            console.log("currentPage", props.currentPage)
+        }
     }, [props.webPageData])
 
     return (
         <div style={styles} className={`bg-red-500 w-full h-full overflow-x-hidden`}>
-            {props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
+            {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
                 const styles = {
                     fontSize: data.textSize + "px",
                     color: data.color,
                     textAlign: data.position === "center" ? "center" : data.position === "left" ? "start" : "end",
-                    marginBottom:data.marginBottom+'%',
-                    marginLeft:data.marginLeft+'%',
-                    marginRight:data.marginRight+'%',
-                    marginTop:data.marginTop+'%',
+                    marginBottom: data.marginBottom + '%',
+                    marginLeft: data.marginLeft + '%',
+                    marginRight: data.marginRight + '%',
+                    marginTop: data.marginTop + '%',
                 }
                 return (
                     <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>

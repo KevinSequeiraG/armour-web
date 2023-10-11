@@ -11,59 +11,7 @@ export const ContentDragDrop = (props) => {
 
   // ESTE CONTENT ES EL QUE SE RECIBE POR PARÁMETRO
   // ES EL CONTENT DE LA SECCIÓN SELECCIONADA, DE LA PÁGINA SELECCIONADA
-  const [content, setContent] = useState([
-    // {
-    //   type: "image", //image
-    //   id: 1, // drag And Drop
-    //   imageUrl: "",
-    //   width: "20",
-    //   height: "20",
-    //   paddingLeft: "5",
-    //   paddingRight: "5",
-    //   paddingTop: "5",
-    //   paddingBottom: "5",
-    //   rounded: "10"
-    // },
-    {
-      type: "text", //text
-      id: 2, // drag And Drop
-      text: "",
-      isBold: false,
-      height: "20",
-      width: "20",
-      marginLeft: "5",
-      marginBottom: "5",
-      marginRight: "5",
-      marginTop: "5",
-      position: "center",
-      textSize: "16", //px
-      color: "black",
-    },
-    {
-      type: "textArea", //text
-      id: 3, // drag And Drop
-      text: "",
-      height: "20",
-      width: "20",
-      position: "center",
-      marginLeft: "5",
-      marginRight: "5",
-      marginTop: "5",
-      marginBottom: "5",
-      color: "black",
-      textSize: "16", //px
-      isBold: false
-    },
-    // {
-    //   type: "card", //card
-    //   id: 4, // drag And Drop
-    //   cardSelected: "1",
-    //   paddingLeft: "5",
-    //   paddingRight: "5",
-    //   paddingTop: "5",
-    //   paddingBottom: "5",
-    // }
-  ]);
+  const [content, setContent] = useState(props.webPageData.pages[parseInt(props.currentPage) - 1].sections);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -89,7 +37,6 @@ export const ContentDragDrop = (props) => {
   };
 
   const handleAddContent = async (contentType) => {
-
     const newContent = [...content];
     if (contentType == "image") {
       newContent.push({
@@ -210,32 +157,76 @@ export const ContentDragDrop = (props) => {
   }, [content])
 
 
+  useEffect(() => {
+    console.log("dataaaaaaaaaaaaaa",props.webPageData)
+    if (props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null) {
+      console.log(2)
+      setContent(props.webPageData.pages[parseInt(props.currentPage) - 1].sections)
+    } else {
+      console.log(1)
+      // setContent([
+      //   {
+      //     type: "text", //text
+      //     id: 2, // drag And Drop
+      //     text: "empty",
+      //     isBold: false,
+      //     height: "20",
+      //     width: "20",
+      //     marginLeft: "5",
+      //     marginBottom: "5",
+      //     marginRight: "5",
+      //     marginTop: "5",
+      //     position: "center",
+      //     textSize: "16", //px
+      //     color: "black",
+      //   },
+      //   {
+      //     type: "textArea", //text
+      //     id: 3, // drag And Drop
+      //     text: "",
+      //     height: "20",
+      //     width: "20",
+      //     position: "center",
+      //     marginLeft: "5",
+      //     marginRight: "5",
+      //     marginTop: "5",
+      //     marginBottom: "5",
+      //     color: "black",
+      //     textSize: "16", //px
+      //     isBold: false
+      //   }
+      // ])
+    }
+  }, [props.webPageData])
+
+
+
   return (
     <>
       <div className="flex flex-col space-y-2 justify-center items-center w-full h-auto overflow-x-hidden  rounded-[10px] mt-1 p-1.5 overflow-hidden">
 
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        {content !== null && < DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext
             items={content}
             strategy={verticalListSortingStrategy}
           >
-            {content.map((contentInfo, i) => (
+            {content !== null && content.map((contentInfo, i) => (
               <>
                 <DraggableItem position={i} setContent={setContent} contentComplete={content} currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={contentInfo} handleDeleteContent={handleDeleteContent} />
                 {i + 1 !== content.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
               </>
             ))}
           </SortableContext>
-        </DndContext>
-      </div>
+        </DndContext>}
+      </div >
 
       {/* BOTONES PARA AGREGAR NUEVO ELEMENTO */}
-      <div className='flex justify-center items-center space-x-3 mt-3'>
+      < div className='flex justify-center items-center space-x-3 mt-3' >
         <BsImage className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("image")} />
         <BiText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("text")} />
         <BsCardText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("textArea")} />
         <BiBookmarks className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("card")} />
-      </div>
+      </div >
     </>
   );
 }

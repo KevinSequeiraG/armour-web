@@ -81,7 +81,7 @@ const SectionView = (props) => {
 
     return (
         <>
-            <div style={styles} className={`bg-red-500 w-full h-full overflow-x-hidden`}>
+            <div style={styles} className={`bg-red-500 w-full h-full`}>
                 {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
                     const styles = {
                         fontSize: data.textSize + "px",

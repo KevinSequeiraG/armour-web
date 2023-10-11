@@ -445,18 +445,20 @@ const Sidebar = (props) => {
                     </div>
 
                     <hr className='border border-[#224553]' />
+                    {activeButtonIndex === 0 &&
+                        <>
+                            <div className='flex flex-col items-start border space-y-2 relative'>
+                                <p>Imagen de fondo</p>
+                                <div className="drop-zone cursor-pointer w-full">
+                                    <label className="drop-zone__prompt">Arrastra una imagen o <span className="text-[#33CA75] underline underline-offset-4">Busca el archivo</span></label>
+                                    <input type="file" name="myFilee" className="drop-zone__input" />
+                                </div>
+                                <AiOutlineClose className='w-6 h-6 text-[#d8d8d8] absolute top-3.5 -right-2.5 bg-gray-500 rounded-full p-1 cursor-pointer' onClick={() => handleDeleteImage()} />
+                            </div>
 
-                    <div className='flex flex-col items-start border space-y-2 relative'>
-                        <p>Imagen de fondo</p>
-                        <div className="drop-zone cursor-pointer w-full">
-                            <label className="drop-zone__prompt">Arrastra una imagen o <span className="text-[#33CA75] underline underline-offset-4">Busca el archivo</span></label>
-                            <input type="file" name="myFilee" className="drop-zone__input" />
-                        </div>
-                        <AiOutlineClose className='w-6 h-6 text-[#d8d8d8] absolute top-3.5 -right-2.5 bg-gray-500 rounded-full p-1 cursor-pointer' onClick={() => handleDeleteImage()} />
-                    </div>
-
-                    <hr className='border border-[#224553]' />
-
+                            <hr className='border border-[#224553]' />
+                        </>
+                    }
                     {activeButtonIndex === 0 &&
                         <div className='flex flex-col items-center'>
                             Mis páginas

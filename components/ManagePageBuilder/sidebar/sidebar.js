@@ -205,8 +205,13 @@ const Sidebar = (props) => {
             window.dispatchEvent(customEvent);
         }
     }
+    const [posiitionDesignColor, setPosiitionDesignColor] = useState(props.navbarPosition == "top" ? "t-left" : "top");
+    useEffect(() => {
+        setPosiitionDesignColor(props.navbarPosition == "top" ? "t-left" : "top")
+    }, [props.navbarPosition])
 
     const handleChangeContentPosition = (newPosition) => {
+        setPosiitionDesignColor(newPosition);
         if (props.currentMenuOption === "navbar-webpage") {
             const customEvent = new Event("changeContentPosition");
             customEvent.option = newPosition;
@@ -261,17 +266,26 @@ const Sidebar = (props) => {
                         <NavbarOptions />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Sections" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
-                        <Section setWebPageData={props.setWebPageData} webPageData={props.webPageData} setActiveSection={props.setActiveSection} />
+                    <SidebarMenuOption label="Mis páginas" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
+                        {/* <Section setWebPageData={props.setWebPageData} webPageData={props.webPageData} setActiveSection={props.setActiveSection} /> */}
+
+                        {props.webPageData.pages?.map((pageData, i) => {
+                            return (
+                                <div key={i} className={`optionButton h-14 truncate cursor-pointer ${props.currentPage === pageData.id && "bg-[#C69434]"}`} onClick={(e) => { window.localStorage.setItem("actualPage", pageData.id); props.setCurrentPage(pageData.id) }}>
+                                    {pageData.name}
+                                </div>
+                            )
+                        })}
+
                     </SidebarMenuOption>
 
                     <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
-                        <Section />
+                        {/* <Section /> */}
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3, "pages-webpage")}>
+                    {/* <SidebarMenuOption label="Paginas extras" isActive={activeButtonIndex === 3} onClick={() => handleTabMenuClick(3, "pages-webpage")}>
                         <Section />
-                    </SidebarMenuOption>
+                    </SidebarMenuOption> */}
 
                     <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
                         <Section />
@@ -298,7 +312,7 @@ const Sidebar = (props) => {
                     </div>
                 </div>
 
-                <div className="flex justify-center w-full mx-auto items-center mt-4 ">
+                {/* <div className="flex justify-center w-full mx-auto items-center mt-4 ">
                     <div className="min-w-[80%] mx-auto relative">
                         <select onChange={(e) => { window.localStorage.setItem("actualPage", e.target.value); props.setCurrentPage(e.target.value) }} className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
 {console.log("pagesOptions",pagesOptions)}
@@ -310,10 +324,10 @@ const Sidebar = (props) => {
                         </select>
                         <AiOutlineDownCircle className='absolute top-2.5 w-5 h-5 right-2 z-0' />
                     </div>
-                </div>
+                </div> */}
 
                 <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-10rem)] mt-4 py-4 px-4 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
-                    {activeButtonIndex !== 0 &&
+                    {/* {activeButtonIndex !== 0 &&
                         <>
                             <div className='flex flex-col items-center'>
                                 Tipo de sección
@@ -325,7 +339,7 @@ const Sidebar = (props) => {
 
                             <hr className='border border-[#224553]' />
                         </>
-                    }
+                    } */}
 
                     {/* EMPIEZA FLUJO PARA DIV SIN DIVISIÓN */}
 
@@ -336,7 +350,7 @@ const Sidebar = (props) => {
                             <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                             <em className='font-normal text-sm'>%</em>
                         </div>
-                        {activeButtonIndex === 0 && <>
+                        {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
                             <p>Anchura</p>
                             <div className='flex justify-center items-center space-x-2'>
                                 <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
@@ -424,15 +438,15 @@ const Sidebar = (props) => {
                                 <div className='flex justify-center items-center space-x-5'>
                                     {props.navbarPosition === "top" ?
                                         <>
-                                            <AiOutlineAlignLeft className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-left")} />
-                                            <AiOutlineAlignCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-center")} />
-                                            <AiOutlineAlignRight className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("t-right")} />
+                                            <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
+                                            <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-center" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-center")} />
+                                            <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-right" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-right")} />
                                         </>
                                         :
                                         <>
-                                            <BiVerticalTop className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("top")} />
-                                            <BiVerticalCenter className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("center")} />
-                                            <BiVerticalBottom className='w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md' onClick={() => handleChangeContentPosition("bottom")} />
+                                            <BiVerticalTop className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "top" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("top")} />
+                                            <BiVerticalCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "center" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("center")} />
+                                            <BiVerticalBottom className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "bottom" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("bottom")} />
                                         </>
                                     }
                                 </div>

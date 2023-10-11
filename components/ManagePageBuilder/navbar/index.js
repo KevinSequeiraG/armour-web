@@ -59,7 +59,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         color: navbarTextColor,
         backgroundColor: navbarBGColor,
         minWidth: position !== "top" && navbarWidth,
-        minHeight: position === "top" && navbarHeight,
+        minHeight: !isMobilePreview && position === "top" && navbarHeight,
         backgroundImage: `url(${bgImage})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -69,7 +69,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     const mobileMenuStyles = {
         color: navbarTextColor,
         backgroundColor: navbarBGColor,
-        border: "1px solid " + navbarTextColor
+        // border: "1px solid " + navbarTextColor
     }
 
     const mobileOptionInMenuStyle = {
@@ -145,20 +145,20 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
             </div>
             {
                 menuVisible && (
-                    <div style={mobileMenuStyles} className={` flex flex-col w-auto`}>
+                    <div style={mobileMenuStyles} className={`flex flex-col w-auto`}>
                         {/* Aquí coloca las opciones del menú que deseas mostrar */}
                         {/* <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
                         <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button> */}
                         {navbarOptions.map(option => {
                             return (
-                                <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
+                                <button style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
                             )
                         })}
                         {/* ... */}
                     </div>
                 )
             }
-            <div className="w-full h-full">
+            <div className="w-full h-full flex-1">
                 {children}
             </div>
         </div >

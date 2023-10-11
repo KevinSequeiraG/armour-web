@@ -113,44 +113,8 @@ export const ContentDragDrop = (props) => {
 
 
   useEffect(() => {
-    console.log("dataaaaaaaaaaaaaa",props.webPageData)
     if (props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null) {
-      console.log(2)
       setContent(props.webPageData.pages[parseInt(props.currentPage) - 1].sections)
-    } else {
-      console.log(1)
-      // setContent([
-      //   {
-      //     type: "text", //text
-      //     id: 2, // drag And Drop
-      //     text: "empty",
-      //     isBold: false,
-      //     height: "20",
-      //     width: "20",
-      //     marginLeft: "5",
-      //     marginBottom: "5",
-      //     marginRight: "5",
-      //     marginTop: "5",
-      //     position: "center",
-      //     textSize: "16", //px
-      //     color: "black",
-      //   },
-      //   {
-      //     type: "textArea", //text
-      //     id: 3, // drag And Drop
-      //     text: "",
-      //     height: "20",
-      //     width: "20",
-      //     position: "center",
-      //     marginLeft: "5",
-      //     marginRight: "5",
-      //     marginTop: "5",
-      //     marginBottom: "5",
-      //     color: "black",
-      //     textSize: "16", //px
-      //     isBold: false
-      //   }
-      // ])
     }
   }, [props.webPageData])
 

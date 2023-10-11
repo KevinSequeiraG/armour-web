@@ -1,4 +1,5 @@
 import { UserContext } from "@/context/UserContext";
+import { getUserByUid } from "@/helpers/users";
 //No borrar el import, es para devs 
 // import { updateEmailVerified } from "@/helpers/users";
 import { useRouter } from "next/router";
@@ -18,6 +19,7 @@ const Header = () => {
     const [showConfig, setShowConfig] = useState(false);
     const configRef = useRef(null);
     const { loggedUser } = useContext(UserContext);
+    const [userData, setUserData] = useState();
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
@@ -52,6 +54,16 @@ const Header = () => {
         };
     }, [showConfig]);
 
+    useEffect(() => {
+        if (loggedUser) {
+            getUserByUid(loggedUser.uid).then(user => {
+                setUserData(user)
+                console.log(user)
+            })
+        }
+
+    }, [loggedUser])
+
     return (
         <>
             {isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-black h-[5rem] flex justify-end items-center">
@@ -60,7 +72,7 @@ const Header = () => {
                 {/* <button className="text-white border border-1 border-white mr-10 w-[10rem]" onClick={() => { updateEmailVerified(loggedUser.uid).then(() => { console.log("Pueso a false"); }).catch((e) => { console.log("e", e); }) }}>Reiniciar verificacion a false</button> */}
 
                 <div className="flex flex-col text-right">
-                    <p className="mr-4 text-[#EFE1A2] capitalize">{loggedUser?.name + " " + loggedUser?.lastname}</p>
+                    <p className="mr-4 text-[#EFE1A2] capitalize">{userData?.name + " " + userData?.lastname}</p>
                     <div className="relative mr-4" ref={configRef}>
                         <button onClick={() => setShowConfig(!showConfig)} className="mt-1 text-gray-400 bg-gray-200 rounded-full p-1"><img src="./svgs/config.svg"></img></button>
                         {showConfig && <div className="border border-1 border-[#F5F5F5] bg-gray-500 min-h-[5rem] min-w-[5rem] absolute right-3 px-3 py-4 rounded-xl text-left">
@@ -78,7 +90,7 @@ const Header = () => {
                         </div>}
                     </div>
                 </div>
-                <div className="rounded-full w-[4rem] mr-4 h-[4rem] bg-[#EFE1A2]"></div>
+                {userData?.imageProfileUrl === "" ? <div className="rounded-full w-[4rem] mr-4 h-[4rem] bg-[#EFE1A2]"></div> : <img className="rounded-full w-[4rem] mr-4 h-[4rem]" src={userData?.imageProfileUrl} />}
             </div>}
         </>
     )

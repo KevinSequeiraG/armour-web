@@ -1,7 +1,7 @@
 
 import ImageUploader from "@/components/ImageUploader";
 import { UserContext } from "@/context/UserContext";
-import { updateUserData } from "@/helpers/users";
+import { getUserByUid, updateUserData } from "@/helpers/users";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 
 const EditProfile = () => {
+    const [newPhoto, setNewPhoto] = useState(false)
     const router = useRouter();
     const { loggedUser } = useContext(UserContext);
     const { t } = useTranslation();
@@ -40,6 +41,7 @@ const EditProfile = () => {
             ...formData,
             imageProfileUrl: imageUrl,
         });
+        setNewPhoto(true);
     };
 
     const handleSubmit = (e) => {
@@ -54,20 +56,22 @@ const EditProfile = () => {
 
     useEffect(() => {
         if (loggedUser) {
-            setFormData(
-                {
-                    imageProfileUrl: loggedUser.imageProfileUrl,
-                    name: loggedUser.name.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
-                    lastname: loggedUser.lastname.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
-                    phone: loggedUser.phone,
-                    identification: loggedUser.identification,
-                    fb: loggedUser.fb,
-                    linkedin: loggedUser.linkedin,
-                    twitter: loggedUser.twitter,
-                    webpage: loggedUser.webpage,
-                    uid: loggedUser.uid
-                }
-            )
+            getUserByUid(loggedUser.uid).then(user => {
+                setFormData(
+                    {
+                        imageProfileUrl: user.imageProfileUrl,
+                        name: user.name.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
+                        lastname: user.lastname.replace(/(^\w{1})|(\s+\w{1})/g, (letra) => letra.toUpperCase()),
+                        phone: user.phone,
+                        identification: user.identification,
+                        fb: user.fb,
+                        linkedin: user.linkedin,
+                        twitter: user.twitter,
+                        webpage: user.webpage,
+                        uid: user.uid
+                    }
+                )
+            })
         }
     }, [loggedUser])
 

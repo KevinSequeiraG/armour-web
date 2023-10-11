@@ -1,6 +1,6 @@
 import { auth, database, storage } from "@/lib/firebaseConfig";
 import { applyActionCode, confirmPasswordReset, sendPasswordResetEmail } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const userAlreadyExists = async (email) => {
@@ -93,29 +93,62 @@ const uploadImageInDB = async (file) => {
     }
 };
 
+export const getUserByUid = async (uid) => {
+    const userRef = doc(database, `admin/data/users/${uid}`)
+
+    return await getDoc(userRef).then((user) => {
+        return { ...user.data(), uid: user.id };
+    })
+}
+
 
 export const updateUserData = async (user) => {
     try {
         // Referencia al documento del usuario en Firestore
         const userDocRef = doc(database, `admin/data/users/${user.uid}`);
-        const imageProfileUrlInDB = user.imageProfileUrl ? await uploadImageInDB(user.imageProfileUrl) : '';
+        if (!(typeof user.imageProfileUrl === 'object')) {
+            user.imageProfileUrl
+            const updatedData = {
+                imageProfileUrl: user.imageProfileUrl,
+                name: user.name.trim().toLocaleLowerCase(),
+                lastname: user.lastname.trim().toLocaleLowerCase(),
+                identification: "",
+                phone: user.phone || "", // Agrega el campo "phone"
+                fb: user.fb || "", // Agrega el campo "fb"
+                twitter: user.twitter || "", // Agrega el campo "twitter"
+                linkedin: user.linkedin || "", // Agrega el campo "linkedin"
+                webpage: user.webpage || "", // Agrega el campo "webpage"
+            };
+
+            // Actualiza los datos del usuario en Firestore con merge: true
+            await setDoc(userDocRef, updatedData, { merge: true });
+
+            console.log("Datos de usuario actualizados con éxito");
+        }
+        if (typeof user.imageProfileUrl === 'object') {
+            await uploadImageInDB(user.imageProfileUrl).then(async (imageProfileUrlInDB) => {
+                const updatedData = {
+                    imageProfileUrl: imageProfileUrlInDB,
+                    name: user.name.trim().toLocaleLowerCase(),
+                    lastname: user.lastname.trim().toLocaleLowerCase(),
+                    identification: "",
+                    phone: user.phone || "", // Agrega el campo "phone"
+                    fb: user.fb || "", // Agrega el campo "fb"
+                    twitter: user.twitter || "", // Agrega el campo "twitter"
+                    linkedin: user.linkedin || "", // Agrega el campo "linkedin"
+                    webpage: user.webpage || "", // Agrega el campo "webpage"
+                };
+
+                // Actualiza los datos del usuario en Firestore con merge: true
+                await setDoc(userDocRef, updatedData, { merge: true });
+
+                console.log("Datos de usuario actualizados con éxito");
+            });
+        }
+
+
         // Datos actualizados (incluye todos los campos)
-        const updatedData = {
-            imageProfileUrl: imageProfileUrlInDB,
-            name: user.name.trim().toLocaleLowerCase(),
-            lastname: user.lastname.trim().toLocaleLowerCase(),
-            identification: "",
-            phone: user.phone || "", // Agrega el campo "phone"
-            fb: user.fb || "", // Agrega el campo "fb"
-            twitter: user.twitter || "", // Agrega el campo "twitter"
-            linkedin: user.linkedin || "", // Agrega el campo "linkedin"
-            webpage: user.webpage || "", // Agrega el campo "webpage"
-        };
 
-        // Actualiza los datos del usuario en Firestore con merge: true
-        await setDoc(userDocRef, updatedData, { merge: true });
-
-        console.log("Datos de usuario actualizados con éxito");
     } catch (error) {
         console.error("Error al actualizar los datos del usuario:", error);
     }

@@ -12,18 +12,18 @@ export const ContentDragDrop = (props) => {
   // ESTE CONTENT ES EL QUE SE RECIBE POR PARÁMETRO
   // ES EL CONTENT DE LA SECCIÓN SELECCIONADA, DE LA PÁGINA SELECCIONADA
   const [content, setContent] = useState([
-    {
-      type: "image", //image
-      id: 1, // drag And Drop
-      imageUrl: "",
-      width: "20",
-      height: "20",
-      paddingLeft: "5",
-      paddingRight: "5",
-      paddingTop: "5",
-      paddingBottom: "5",
-      rounded: "10"
-    },
+    // {
+    //   type: "image", //image
+    //   id: 1, // drag And Drop
+    //   imageUrl: "",
+    //   width: "20",
+    //   height: "20",
+    //   paddingLeft: "5",
+    //   paddingRight: "5",
+    //   paddingTop: "5",
+    //   paddingBottom: "5",
+    //   rounded: "10"
+    // },
     {
       type: "text", //text
       id: 2, // drag And Drop
@@ -31,10 +31,10 @@ export const ContentDragDrop = (props) => {
       isBold: false,
       height: "20",
       width: "20",
-      paddingLeft: "5",
-      paddingBottom: "5",
-      paddingRight: "5",
-      paddingTop: "5",
+      marginLeft: "5",
+      marginBottom: "5",
+      marginRight: "5",
+      marginTop: "5",
       position: "center",
       textSize: "16", //px
       color: "black",
@@ -46,23 +46,23 @@ export const ContentDragDrop = (props) => {
       height: "20",
       width: "20",
       position: "center",
-      paddingLeft: "5",
-      paddingRight: "5",
-      paddingTop: "5",
-      paddingBottom: "5",
+      marginLeft: "5",
+      marginRight: "5",
+      marginTop: "5",
+      marginBottom: "5",
       color: "black",
       textSize: "16", //px
       isBold: false
     },
-    {
-      type: "card", //card
-      id: 4, // drag And Drop
-      cardSelected: "1",
-      paddingLeft: "5",
-      paddingRight: "5",
-      paddingTop: "5",
-      paddingBottom: "5",
-    }
+    // {
+    //   type: "card", //card
+    //   id: 4, // drag And Drop
+    //   cardSelected: "1",
+    //   paddingLeft: "5",
+    //   paddingRight: "5",
+    //   paddingTop: "5",
+    //   paddingBottom: "5",
+    // }
   ]);
 
   const handleDragEnd = (event) => {
@@ -98,10 +98,10 @@ export const ContentDragDrop = (props) => {
         imageUrl: "",
         width: "20",
         height: "20",
-        paddingLeft: "5",
-        paddingBottom: "5",
-        paddingRight: "5",
-        paddingTop: "5",
+        marginLeft: "5",
+        marginBottom: "5",
+        marginRight: "5",
+        marginTop: "5",
         rounded: "10"
       })
     } else if (contentType == "text" || contentType == "textArea") {
@@ -112,10 +112,10 @@ export const ContentDragDrop = (props) => {
         height: "20",
         width: "20",
         position: "center",
-        paddingLeft: "5",
-        paddingRight: "5",
-        paddingTop: "5",
-        paddingBottom: "5",
+        marginLeft: "5",
+        marginRight: "5",
+        marginTop: "5",
+        marginBottom: "5",
         color: "black",
         textSize: "16", //px
         isBold: false

@@ -46,7 +46,7 @@ const EditProfile = () => {
         e.preventDefault();
         updateUserData(formData).then(() => {
             toast.success(t("success.user-edited"));
-            router.push("/login")
+            router.back()
         }).catch(() => {
             toast.error(t("errors.user-not-edited"));
         })

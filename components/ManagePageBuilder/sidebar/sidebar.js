@@ -21,7 +21,7 @@ const Sidebar = (props) => {
     const [bgColor, setBgColor] = useState("#000000");
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("10");
-    const [pagesOptions, setPagesOptions] = useState([{ id: 1, name: "Home" }])
+    const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -301,7 +301,7 @@ const Sidebar = (props) => {
                 <div className="flex justify-center w-full mx-auto items-center mt-4 ">
                     <div className="min-w-[80%] mx-auto relative">
                         <select onChange={(e) => { window.localStorage.setItem("actualPage", e.target.value); props.setCurrentPage(e.target.value) }} className="appearance-none block min-w-full pl-4 pr-8 py-1.5 bg-transparent border-2 border-gray-300 text-white rounded-[10px] cursor-pointer relative z-10">
-
+{console.log("pagesOptions",pagesOptions)}
                             {pagesOptions?.map((option) => {
                                 return (
                                     <option className='text-black' value={option.id}>{option.name}</option>

@@ -75,6 +75,7 @@ export default function ManagePageBuilder() {
 
     useEffect(() => {
         window.localStorage.setItem("actualPage", 1)
+        console.log("wev", webPageData)
     }, [webPageData])
 
     useEffect(() => {

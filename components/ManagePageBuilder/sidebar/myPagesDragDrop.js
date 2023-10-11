@@ -6,9 +6,7 @@ import { FiPlus } from "react-icons/fi";
 import Swal from "sweetalert2";
 
 const MypagesDragDrop = (props) => {
-  const [pages, setPages] = useState([
-    { id: 1, name: "Home" },
-  ]);
+  const [pages, setPages] = useState(props.webPageData.pages);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -32,6 +30,11 @@ const MypagesDragDrop = (props) => {
       });
     }
   };
+
+  useEffect(() => {
+    console.log("oages", pages)
+  }, [pages])
+  
 
   const handleAddPage = async () => {
     const { value: sectionNameSelected } = await Swal.fire({
@@ -58,7 +61,7 @@ const MypagesDragDrop = (props) => {
     const newPage = {
       id: pages.length + 1,
       name: sectionNameSelected,
-      sections: {},
+      sections: [],
     };
 
     // Agrega el nuevo objeto 'page' al arreglo 'pages'

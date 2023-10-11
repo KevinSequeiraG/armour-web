@@ -11,7 +11,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     const [navbarHeight, setNavbarHeight] = useState("5%");
     const [bgImage, setBgImage] = useState(null)
     const [contentPosition, setContentPosition] = useState(position === "top" ? "t-left" : "top")
-    const [navbarOptions, setNavbarOptions] = useState([{ id: 1, name: "Home" }])
+    const [navbarOptions, setNavbarOptions] = useState(webPageData.pages)
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);

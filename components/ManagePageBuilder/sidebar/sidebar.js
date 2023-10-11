@@ -27,6 +27,7 @@ const Sidebar = (props) => {
     const [pagePaddingTop, setPagePaddingTop] = useState("50");
     const [pagePaddingBottom, setPagePaddingBottom] = useState("50");
     // const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
+    const [pageContentData, setPageContentData] = useState([]);
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -306,11 +307,13 @@ const Sidebar = (props) => {
 
         } else if (props?.currentMenuOption === "sections-webpage") {
             const currentPageSectionsData = props?.webPageData?.pages?.find((pagesData) => pagesData?.id == props?.currentPage);
+            console.log("asdasdasda", currentPageSectionsData);
             setBgColor(currentPageSectionsData?.backgroundColor);
             setPagePaddingLeft(parseInt(currentPageSectionsData?.paddingLeft?.replace('%', '')));
             setPagePaddingRight(parseInt(currentPageSectionsData?.paddingRight?.replace('%', '')));
             setPagePaddingTop(parseInt(currentPageSectionsData?.paddingTop?.replace('%', '')));
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
+            setPageContentData(currentPageSectionsData?.sections);
         }
     }, [props.currentMenuOption, props?.currentPage])
 
@@ -489,7 +492,7 @@ const Sidebar = (props) => {
                         <div className='flex flex-col items-center'>
                             <p>Contenido</p>
 
-                            <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
+                            <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} pageContentData={pageContentData} setPageContentData={setPageContentData} />
 
                         </div>
                     </>}

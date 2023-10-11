@@ -14,7 +14,7 @@ export const Text = (props) => {
     const handleBoldTextChange = () => {
         setContentValues((prevValues) => ({ ...prevValues, isBold: !prevValues.isBold }));
     };
-    
+
     const handleTextPositionChange = (newPosition) => {
         setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
     };
@@ -28,7 +28,17 @@ export const Text = (props) => {
             // props.setContent();
             props.setContent(updateTest)
         }
+
+
     }, [contentValues])
+
+    useEffect(() => {
+        const dataToUpdate = { ...contentValues }
+        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
+        if (sectionToEdit) {
+            setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
+        }
+    }, [props.currentPage])
 
     return (
         <div>

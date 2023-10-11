@@ -183,7 +183,6 @@ export const ContentDragDrop = (props) => {
         // handleSetPagesOptions(newSections)
         // const updatedWebPageData = { ...props.webPageData };
         // updatedWebPageData.pages = updatedWebPageData.pages.filter((page) => page.id !== pageId);
-        // console.log("?")
         // Establece la copia actualizada como el nuevo estado
         // props.setWebPageData(updatedWebPageData);
       }
@@ -203,8 +202,6 @@ export const ContentDragDrop = (props) => {
   }
 
   useEffect(() => {
-    console.log("xxxxx", content)
-
     const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
     const pageToEdit = updatedWebPageData.pages.find((page) => page.id === parseInt(props.currentPage));
     pageToEdit.sections = content;

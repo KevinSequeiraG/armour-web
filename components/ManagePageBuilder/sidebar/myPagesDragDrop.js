@@ -130,7 +130,6 @@ const MypagesDragDrop = (props) => {
         // handleSetPagesOptions(newSections)
         const updatedWebPageData = { ...props.webPageData };
         updatedWebPageData.pages = updatedWebPageData.pages.filter((page) => page.id !== pageId);
-        console.log("?")
         // Establece la copia actualizada como el nuevo estado
         props.setWebPageData(updatedWebPageData);
       }

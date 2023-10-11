@@ -10,7 +10,6 @@ const UserAction = () => {
     const [showVerifiedEmail, setShowVerifiedEmail] = useState(false);
 
     useEffect(() => {
-        console.log(mode);
         if (mode == "resetPassword") {
             setShowResetPasswordSection(true);
         }

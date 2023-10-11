@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
 
@@ -14,6 +14,19 @@ export const TextArea = (props) => {
     const handleTextPositionChange = (newPosition) => {
         setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
     };
+
+    useEffect(() => {
+        // props.setWebPageData()
+        if (props.webPageData !== undefined) {
+            const updateTest = [...props.contentComplete]
+            updateTest[parseInt(props.positionInContent)] = contentValues
+            // infoToEdit = contentValues;
+            // props.setContent();
+            props.setContent(updateTest)
+
+        }
+
+    }, [contentValues])
     return (
         <div>
             <div className='relative'>

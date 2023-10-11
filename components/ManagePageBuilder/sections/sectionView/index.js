@@ -70,20 +70,19 @@ const SectionView = (props) => {
     }, []);
 
     useEffect(() => {
-        props.currentPage, "xxx",props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data=>{
-console.log(data)
+        props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
+            console.log(data)
         })
+        console.log("currentPage", props.currentPage)
     }, [props.webPageData])
 
     return (
         <div style={styles} className={`bg-red-500 w-full h-full overflow-hidden`}>
-            {/* {props.webPageData?.pages[parseInt(props.currentPage) - 1]?.sections.map(data => {
-                if (data.type === "text") {
-                    return (
-                        <div>{data.text}</div>
-                    )
-                }
-            })} */}
+            {props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
+                return(
+                    <div>{data.text}</div>
+                )
+            })}
         </div>
     )
 }

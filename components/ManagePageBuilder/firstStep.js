@@ -11,7 +11,6 @@ const FirstStep = (props) => {
     const handleSetNewLogo = (imageUrl) => {
         setNewWebPageLogo(imageUrl)
         const urlImage = URL.createObjectURL(imageUrl)
-        console.log(urlImage)
         props.setLogoPage(urlImage)
         props.setWebPageData({ ...props.webPageData, logo: urlImage })
     }

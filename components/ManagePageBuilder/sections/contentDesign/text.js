@@ -18,24 +18,13 @@ export const Text = (props) => {
     useEffect(() => {
         // props.setWebPageData()
         if (props.webPageData !== undefined) {
-            console.log(contentValues)
-            console.log(props.activeSection, "zzzz", props.webPageData, "yyy", props.currentPage)
-            const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
-            const pageToEdit = updatedWebPageData.pages.find((page) => page.id === parseInt(props.currentPage));
-            pageToEdit.sections = contentValues;
-            // Ahora, puedes utilizar props.setWebPageData() para actualizar el estado con el nuevo objeto
-            props.setWebPageData(updatedWebPageData);
-
             const updateTest = [...props.contentComplete]
             updateTest[parseInt(props.positionInContent)] = contentValues
-            console.log("z",updateTest[parseInt(props.positionInContent)])
-            console.log(props.positionInContent, "x", updateTest)
             // infoToEdit = contentValues;
             // props.setContent();
             props.setContent(updateTest)
 
         }
-
     }, [contentValues])
 
     return (

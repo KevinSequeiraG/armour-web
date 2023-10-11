@@ -199,9 +199,7 @@ const Sidebar = (props) => {
     };
 
     const handleBgImageChange = (image) => {
-        console.log("S", props.currentMenuOption)
         if (props.currentMenuOption === "navbar-webpage") {
-            console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
             const customEvent = new Event("changeNavbarBgImage");
             customEvent.option = image;
             window.dispatchEvent(customEvent);

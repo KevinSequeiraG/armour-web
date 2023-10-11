@@ -142,7 +142,6 @@ const Section = (props) => {
         if (!result.destination || (result.source.index === result.destination.index && result.source.droppableId === result.destination.droppableId)) return;
         const { source, destination } = result;
         setSections((sections) => reorder(sections, source.index, destination.index));
-        console.log(sections);
     };
 
     const reorder = (list, startIndex, endIndex) => {

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 export default function ManagePageBuilder() {
     const { t } = useTranslation();
     const [logoPage, setLogoPage] = useState();
-    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", navbar: {}, sections: {} }] })
+    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", navbar: {}, sections: [] }] })
     const [currentPage, setCurrentPage] = useState(1)
     const [currentMenuOption, setCurrentMenuOption] = useState("navbar-webpage");
 
@@ -49,7 +49,6 @@ export default function ManagePageBuilder() {
         const handleNavbarPositionChange = (event) => {
             const selectedOption = event.option;
             setNavbarPosition(selectedOption);
-            console.log("z", window.localStorage.getItem("newWebPageLogo"))
         };
 
         window.addEventListener("navbarPositionChange", handleNavbarPositionChange);
@@ -75,16 +74,15 @@ export default function ManagePageBuilder() {
     }, []);
 
     useEffect(() => {
-        console.log("webPageData", webPageData)
         window.localStorage.setItem("actualPage", 1)
     }, [webPageData])
 
     useEffect(() => {
-        console.log(currentPage)
+        // console.log(currentPage)
     }, [currentPage])
 
     useEffect(() => {
-        console.log(currentMenuOption)
+        // console.log(currentMenuOption)
     }, [activeSection, currentMenuOption])
 
 

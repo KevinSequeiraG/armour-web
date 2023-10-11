@@ -469,15 +469,15 @@ const Sidebar = (props) => {
                                 <div className='flex justify-center items-center space-x-5'>
                                     {props.navbarPosition === "top" ?
                                         <>
-                                            <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
-                                            <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-center" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-center")} />
-                                            <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-right" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-right")} />
+                                            <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
+                                            <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-center")} />
+                                            <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-right" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-right")} />
                                         </>
                                         :
                                         <>
-                                            <BiVerticalTop className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "top" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("top")} />
-                                            <BiVerticalCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "center" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("center")} />
-                                            <BiVerticalBottom className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "bottom" && "bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("bottom")} />
+                                            <BiVerticalTop className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "top" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("top")} />
+                                            <BiVerticalCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("center")} />
+                                            <BiVerticalBottom className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "bottom" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("bottom")} />
                                         </>
                                     }
                                 </div>

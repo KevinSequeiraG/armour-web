@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
-import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
+import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop } from 'react-icons/bi'
 
 export const Text = (props) => {
+
     const [contentValues, setContentValues] = useState(props?.content);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setContentValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
+
     const handleBoldTextChange = () => {
         setContentValues((prevValues) => ({ ...prevValues, isBold: !prevValues.isBold }));
     };
+    
     const handleTextPositionChange = (newPosition) => {
         setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
     };

@@ -34,7 +34,7 @@ const MypagesDragDrop = (props) => {
   useEffect(() => {
     console.log("oages", pages)
   }, [pages])
-  
+
 
   const handleAddPage = async () => {
     const { value: sectionNameSelected } = await Swal.fire({
@@ -58,11 +58,7 @@ const MypagesDragDrop = (props) => {
     const updatedWebPageData = { ...props.webPageData };
 
     // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
-    const newPage = {
-      id: pages.length + 1,
-      name: sectionNameSelected,
-      sections: [],
-    };
+    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] };
 
     // Agrega el nuevo objeto 'page' al arreglo 'pages'
     updatedWebPageData.pages.push(newPage);

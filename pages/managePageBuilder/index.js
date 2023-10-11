@@ -105,7 +105,7 @@ export default function ManagePageBuilder() {
                             {/* <div>
                                 NUEVA SECCION
                             </div> */}
-                            <SectionView setWebPageData={setWebPageData} webPageData={webPageData} />
+                            <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} />
                         </Navbar>
                         {/* AQUI LAS SECCIONES */}
                         {/* LAS SECCIONES VAN A SER POR PÁGINA */}

@@ -202,6 +202,17 @@ export const ContentDragDrop = (props) => {
     window.dispatchEvent(customEvent);
   }
 
+  useEffect(() => {
+    console.log("xxxxx", content)
+
+    const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
+    const pageToEdit = updatedWebPageData.pages.find((page) => page.id === parseInt(props.currentPage));
+    pageToEdit.sections = content;
+    // Ahora, puedes utilizar props.setWebPageData() para actualizar el estado con el nuevo objeto
+    props.setWebPageData(updatedWebPageData);
+  }, [content])
+
+
   return (
     <>
       <div className="flex flex-col space-y-2 justify-center items-center w-full h-auto overflow-x-hidden  rounded-[10px] mt-1 p-1.5 overflow-hidden">
@@ -211,9 +222,9 @@ export const ContentDragDrop = (props) => {
             items={content}
             strategy={verticalListSortingStrategy}
           >
-            {content.map((content, i) => (
+            {content.map((contentInfo, i) => (
               <>
-                <DraggableItem currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={content} handleDeleteContent={handleDeleteContent} />
+                <DraggableItem position={i} setContent={setContent} contentComplete={content} currentPage={props.currentPage} activeSection={props.activeSection} setWebPageData={props.setWebPageData} webPageData={props.webPageData} key={i} content={contentInfo} handleDeleteContent={handleDeleteContent} />
                 {i + 1 !== content.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
               </>
             ))}

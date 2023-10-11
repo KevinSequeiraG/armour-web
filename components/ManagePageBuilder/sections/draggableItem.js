@@ -37,14 +37,14 @@ function DraggableItem(props) {
         {props?.content?.type == "image" && <Imagen content={props.content} />}
 
         {/* TEXT */}
-        {props?.content?.type == "text" && <Text currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData}/>}
+        {props?.content?.type == "text" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} activeSection={props.activeSection} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
         {/* TEXTAREA */}
         {props?.content?.type == "textArea" && <TextArea content={props.content} />}
 
-        {/* CARD */} 
+        {/* CARD */}
         {/* PENDIENTEEEEEEEEEEEEEEEEE */}
-        {props?.content?.type == "card" && <Text content={props.content}/>}
+        {props?.content?.type == "card" && <Text content={props.content} />}
 
       </div>
     </div>

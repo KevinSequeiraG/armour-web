@@ -11,12 +11,11 @@ const SectionView = (props) => {
     const [sectionBgImage, setSectionBgImage] = useState();
 
     const styles = {
-        maxHeight: sectionHeight ? sectionHeight : "100%",
-        paddingTop: sectionPadingTop ? sectionPadingTop : "0",
-        paddingLeft: sectionPadingLeft ? sectionPadingLeft : "0",
-        paddingRight: sectionPadingRight ? sectionPadingRight : "0",
-        paddingBottom: sectionPadingBottom ? sectionPadingBottom : "0",
-        backgroundColor: sectionBgColor ? sectionBgColor : "#ffffff",
+        paddingTop: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingTop,
+        paddingLeft: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingLeft,
+        paddingRight: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingRight,
+        paddingBottom: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingBottom,
+        backgroundColor: props.webPageData.pages[parseInt(props.currentPage) - 1].backgroundColor
     }
 
     useEffect(() => {
@@ -81,22 +80,24 @@ const SectionView = (props) => {
     }, [props.webPageData])
 
     return (
-        <div style={styles} className={`bg-red-500 w-full h-full overflow-x-hidden`}>
-            {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
-                const styles = {
-                    fontSize: data.textSize + "px",
-                    color: data.color,
-                    textAlign: data.position === "center" ? "center" : data.position === "left" ? "start" : "end",
-                    marginBottom: data.marginBottom + '%',
-                    marginLeft: data.marginLeft + '%',
-                    marginRight: data.marginRight + '%',
-                    marginTop: data.marginTop + '%',
-                }
-                return (
-                    <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
-                )
-            })}
-        </div>
+        <>
+            <div style={styles} className={`bg-red-500 w-full h-full overflow-x-hidden`}>
+                {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
+                    const styles = {
+                        fontSize: data.textSize + "px",
+                        color: data.color,
+                        textAlign: data.position === "center" ? "center" : data.position === "left" ? "start" : "end",
+                        marginBottom: data.marginBottom + '%',
+                        marginLeft: data.marginLeft + '%',
+                        marginRight: data.marginRight + '%',
+                        marginTop: data.marginTop + '%',
+                    }
+                    return (
+                        <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
+                    )
+                })}
+            </div>
+        </>
     )
 }
 

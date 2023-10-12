@@ -158,7 +158,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
                     </div>
                 )
             }
-            <div className="w-full h-full flex-1">
+            <div className="w-full h-full flex-1 scrollbarDesign !overflow-auto">
                 {children}
             </div>
         </div >

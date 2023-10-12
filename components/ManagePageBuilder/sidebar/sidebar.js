@@ -156,7 +156,7 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         DragAndDropLogic();
-    }, [])
+    }, [activeButtonIndex])
 
     const handleTxtColorChange = (color) => {
         if (props.currentMenuOption === "navbar-webpage") {

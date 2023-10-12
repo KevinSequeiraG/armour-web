@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 const ChangeLng = () => {
     const { t, i18n } = useTranslation();
-    const [lngEsp, setLngEsp] = useState(false);
+    const [lngEsp, setLngEsp] = useState(i18n.language == "es");
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);

@@ -32,7 +32,7 @@
     "surnames-required": "Los apellidos son requeridos",
     "email-required": "El correo es requerido",
     "email-invalid": "Correo no válido",
-    "email-already-exits": "El correo ingresado ya está asociado a otra cuenta.",
+    "email-already-exists": "El correo ingresado ya está asociado a otra cuenta.",
     "email-in-use": "El correo ya está en uso",
     "password-required": "La contraseña es requerida",
     "password-length": "Se requieren mínimo 8 caracteres.",

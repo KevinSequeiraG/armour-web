@@ -5,6 +5,8 @@ import { createUserFromLogin, userAlreadyExists } from '@/helpers/users';
 import { useTranslation } from 'react-i18next';
 
 export default function RegisterForm() {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const { t } = useTranslation();
     const [registerFormValues, setRegisterFormValues] = useState({ name: '', lastname: '', email: '', password: '', confirmPassword: '' });
     const [registrationError, setRegistrationError] = useState({});
@@ -25,7 +27,7 @@ export default function RegisterForm() {
         else {
             const userExistResult = await userAlreadyExists(registerFormValues.email);
             if (userExistResult.userExist) {
-                toast.warning(t("validations.email-already-exits"));
+                toast.warning(t("validations.email-already-exists"));
                 errors.email = t("validations.email-in-use");
             }
         }
@@ -77,12 +79,22 @@ export default function RegisterForm() {
                 </div>
                 <div className='relative w-[60%] mx-auto'>
                     <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.password")}</p>
-                    <input className={`loginInput ${registrationError.password && '!border-red-400'}`} type="Password" name="password" placeholder={t("login.password")} value={registerFormValues.password} onChange={handleInputChange} />
+                    <input className={`loginInput ${registrationError.password && '!border-red-400'}`} type={isPasswordVisible ? "text" : "password"} name="password" placeholder={t("login.password")} value={registerFormValues.password} onChange={handleInputChange} />
+                    {isPasswordVisible ?
+                        <img src="/svgs/pwdEyeOpenBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />
+                        :
+                        <img src="/svgs/pwdEyeCloseBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />
+                    }
                     {registrationError.password && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.password}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
                     <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.confirm-password")}</p>
-                    <input className={`loginInput ${registrationError.confirmPassword && '!border-red-400'}`} type="Password" name="confirmPassword" placeholder={t("login.confirm-password")} value={registerFormValues.confirmPassword} onChange={handleInputChange} />
+                    <input className={`loginInput ${registrationError.confirmPassword && '!border-red-400'}`} type={isConfirmPasswordVisible ? "text" : "password"} name="confirmPassword" placeholder={t("login.confirm-password")} value={registerFormValues.confirmPassword} onChange={handleInputChange} />
+                    {isConfirmPasswordVisible ?
+                        <img src="/svgs/pwdEyeOpenBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)} />
+                        :
+                        <img src="/svgs/pwdEyeCloseBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)} />
+                    }
                     {registrationError.confirmPassword && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.confirmPassword}</p>}
                 </div>
                 <button className='loginButton' onClick={!isLoading && handleRegister}>{isLoading ? <div

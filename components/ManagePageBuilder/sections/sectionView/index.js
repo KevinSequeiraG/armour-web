@@ -15,7 +15,8 @@ const SectionView = (props) => {
         paddingLeft: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingLeft,
         paddingRight: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingRight,
         paddingBottom: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingBottom,
-        backgroundColor: props.webPageData.pages[parseInt(props.currentPage) - 1].backgroundColor
+        backgroundColor: props.webPageData.pages[parseInt(props.currentPage) - 1].backgroundColor,
+        backgroundImage: `url(${props.webPageData.pages[parseInt(props.currentPage) - 1].bgImage})`
     }
 
     useEffect(() => {

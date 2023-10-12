@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import SidebarMenuOption from './sidebarMenuOption';
@@ -15,12 +15,14 @@ import { ContentDragDrop } from '../sections/contentDragDrop';
 const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
     const { t } = useTranslation();
+    const fileInputRef = useRef();
     const router = useRouter();
 
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("10");
     const [txtColor, setTxtColor] = useState("#ffffff");
     const [bgColor, setBgColor] = useState("#000000");
+    const [imageSrc, setImageSrc] = useState(null);
 
     const [pagePaddingLeft, setPagePaddingLeft] = useState("25");
     const [pagePaddingRight, setPagePaddingRight] = useState("25");
@@ -43,6 +45,40 @@ const Sidebar = (props) => {
     const handleTabMenuClick = (index, name) => {
         activeButtonIndex === index ? setActiveButtonIndex(-1) : setActiveButtonIndex(index);
         props.setCurrentMenuOption(name);
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImageSrc(e.target.result);
+                console.log(props.webPageData)
+                props.setWebPageData(prevData => {
+                    const updatedPages = prevData?.pages?.map(page => {
+                        if (page?.id === props?.currentPage)
+                            return { ...page, bgImage: e.target.result };
+
+                        return page;
+                    });
+                    return {
+                        ...prevData,
+                        pages: updatedPages
+                    };
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    useEffect(() => {
+        console.log(props.webPageData)
+    }, [props.webPageData])
+
+
+    const handleDeleteBGImage = () => {
+        setImageSrc(null);
+        fileInputRef.current.value = '';
     };
 
     // const [bgImage, setBgImage] = useState()
@@ -458,6 +494,67 @@ const Sidebar = (props) => {
                             <hr className='border border-[#224553]' />
                         </>
                     }
+                    {activeButtonIndex === 1 && <labe>Imagen de fondo</labe>}
+                    {activeButtonIndex === 1 && <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                    />}
+
+                    {activeButtonIndex === 1 && imageSrc ? (
+                        <div style={{ position: 'relative' }}>
+                            <img
+                                src={imageSrc}
+                                alt="Uploaded"
+                                // style={{ ...imageStyles }}
+                                className='object-cover w-full h-[12rem] rounded-[10px]'
+                            />
+                            <button
+                                onClick={handleDeleteBGImage}
+                                style={{
+                                    position: 'absolute',
+                                    top: "-10px",
+                                    right: "-5px",
+                                    background: 'red',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    cursor: 'pointer',
+                                    padding: '0.2rem 0.4rem',
+                                }}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ) : activeButtonIndex === 1 ? (
+                        <label
+                            style={{
+                                padding: '15px 10px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                fontWeight: 500,
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                lineHeight: '1rem',
+                                border: '2px dashed #224553',
+                                borderRadius: '10px',
+                            }}
+                            className='w-full h-[12rem]'
+                        >
+                            Añadir imagen
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                            />
+                        </label>
+                    ) : null}
+
                     {activeButtonIndex === 0 &&
                         <div className='flex flex-col items-center'>
                             Mis páginas

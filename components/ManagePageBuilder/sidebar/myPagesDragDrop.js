@@ -31,11 +31,6 @@ const MypagesDragDrop = (props) => {
     }
   };
 
-  useEffect(() => {
-    console.log("oages", pages)
-  }, [pages])
-
-
   const handleAddPage = async () => {
     const { value: sectionNameSelected } = await Swal.fire({
       title: 'Nombre de la página',

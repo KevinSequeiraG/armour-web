@@ -58,7 +58,6 @@ const Header = () => {
         if (loggedUser) {
             getUserByUid(loggedUser.uid).then(user => {
                 setUserData(user)
-                console.log(user)
             })
         }
 

@@ -1,147 +1,138 @@
-import React, { useEffect, useState } from 'react'
-import { AiOutlineClose, AiOutlineColumnHeight } from 'react-icons/ai'
+import React, { useEffect, useRef, useState } from 'react'
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineClose, AiOutlineColumnHeight } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
 
 export const Imagen = (props) => {
+    const [imageSrc, setImageSrc] = useState(null);
     const [contentValues, setContentValues] = useState(props?.content);
+    const fileInputRef = useRef();
 
-    const removeImage = (dropZoneElement) => {
-        const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb-1");
-
-        if (thumbnailElement) {
-            // Eliminar solo el thumbnailElement correspondiente
-            thumbnailElement.remove();
-        }
-        // Restablecer el prompt si existe
-        const promptElement = dropZoneElement.querySelector(".drop-zone__prompt-1");
-        if (promptElement) {
-            promptElement.classList.remove("hidden");
-        }
-        // Restablecer el valor del input
-        const inputElement = dropZoneElement.querySelector(".drop-zone__input-1");
-        if (inputElement) {
-            inputElement.value = "";
-        }
-    };
-
-    const handleDeleteImage = (type) => {
-        const dropZoneElement = document.querySelector(`.drop-zone-1`);
-        if (dropZoneElement) {
-            removeImage(dropZoneElement);
-            // setBgImage(null)
-            handleBgImageChange(null)
-        }
-    };
-
-    const DragAndDropLogic = () => {
-        const dropZoneElements = document.querySelectorAll(".drop-zone-1");
-        dropZoneElements.forEach((dropZoneElement, i) => {
-            const inputElement = dropZoneElement.querySelector(".drop-zone__input-1");
-            const type = dropZoneElement.getAttribute("data-type");
-            let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
-            dropZoneElement.addEventListener("click", (e) => {
-                if (!clicked) {
-                    if (i == 0) {
-                        inputElement.click();
-                    }
-                }
-            });
-
-            inputElement.addEventListener("change", (e) => {
-                if (inputElement.files.length) {
-                    if (inputElement.files.length) {
-                        // setBgImage(inputElement.files[0]);
-                    }
-                    updateThumbnail(dropZoneElement, inputElement.files[0]);
-                }
-                clicked = false; // Reiniciar el flag después de seleccionar el archivo
-            });
-            dropZoneElement.addEventListener("dragover", (e) => {
-                e.preventDefault();
-                dropZoneElement.classList.add("drop-zone--over-1");
-            });
-            ["dragleave", "dragend"].forEach((type) => {
-                dropZoneElement.addEventListener(type, (e) => {
-                    dropZoneElement.classList.remove("drop-zone--over-1");
-                });
-            });
-            dropZoneElement.addEventListener("drop", (e) => {
-                e.preventDefault();
-                if (e.dataTransfer.files.length) {
-                    inputElement.files = e.dataTransfer.files;
-                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-                    // setBgImage(e.dataTransfer.files[0]);
-                }
-                dropZoneElement.classList.remove("drop-zone--over-1");
-            });
-
-
-        });
-    };
-
-    function updateThumbnail(dropZoneElement, file) {
-        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb-1");
-        // First time - remove the prompt
-        if (dropZoneElement.querySelector(".drop-zone__prompt-1")) {
-            dropZoneElement.querySelector(".drop-zone__prompt-1").classList.add("hidden");
-        }
-        // First time - there is no thumbnail element, so lets create it
-        if (!thumbnailElement) {
-            thumbnailElement = document.createElement("div");
-            thumbnailElement.classList.add("drop-zone__thumb-1");
-            dropZoneElement.appendChild(thumbnailElement);
-        }
-        thumbnailElement.dataset.label = file.name;
-        // Show thumbnail for image files
-        if (file?.type?.startsWith("image/")) {
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
             const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-                handleBgImageChange(reader.result)
+            reader.onload = (e) => {
+                setImageSrc(e.target.result);
+                setContentValues((prevValues) => ({
+                    ...prevValues,
+                    imageUrl: e.target.result,
+                }));
             };
-        } else if (typeof file === 'string' && file.startsWith('http')) {
-            // If the file is a link, use it directly as the background image URL
-            thumbnailElement.style.backgroundImage = `url('${file}')`;
-            var urlSections = file.split("/");
-            var imageName = urlSections[urlSections.length - 1];
-            imageName = decodeURIComponent(imageName.replace("images%2F", ""));
-            imageName = imageName.split("?")[0];
-            thumbnailElement.dataset.label = imageName;
-        } else {
-            thumbnailElement.style.backgroundImage = null;
+            reader.readAsDataURL(file);
         }
-    }
-
-    useEffect(() => {
-        DragAndDropLogic();
-    }, []);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setContentValues((prevValues) => ({ ...prevValues, [name]: value }));
+        setContentValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
     };
+
+    const handleDeleteImage = () => {
+        setImageSrc(null);
+        fileInputRef.current.value = '';
+
+        setContentValues((prevValues) => ({
+            ...prevValues,
+            imageUrl: null,
+        }));
+    };
+
+    const handleTextPositionChange = (newPosition) => {
+        setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
+    };
+
+    useEffect(() => {
+        if (props.webPageData !== undefined) {
+            const updateTest = [...props.contentComplete]
+            updateTest[parseInt(props.positionInContent)] = contentValues
+            props.setContent(updateTest)
+        }
+    }, [contentValues])
+
+    useEffect(() => {
+        const dataToUpdate = { ...contentValues }
+        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
+        if (sectionToEdit) {
+            setImageSrc(sectionToEdit.imageUrl)
+            setContentValues({ ...dataToUpdate, width: sectionToEdit.width, paddingLeft: sectionToEdit.paddingLeft, paddingBottom: sectionToEdit.paddingBottom, paddingRight: sectionToEdit.paddingRight, paddingTop: sectionToEdit.paddingTop, rounded: sectionToEdit.rounded, imageUrl: sectionToEdit.imageUrl, type: sectionToEdit.type, id: sectionToEdit.id, position: sectionToEdit.position })
+        }
+    }, [props.currentPage])
 
     return (
         <div>
-            <div className="drop-zone-1 cursor-pointer w-full">
-                <label className="drop-zone__prompt-1 font-bold">Añadir imagen</label>
-                <input type="file" name="myFilee" className="drop-zone__input-1" />
-            </div>
-            <AiOutlineClose className='w-4 h-4 text-[#d8d8d8] absolute -top-1 -right-1 bg-gray-500 rounded-full p-1 cursor-pointer' onClick={() => handleDeleteImage()} />
-
+            <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+            />
+            {imageSrc ? (
+                <div style={{ position: 'relative' }}>
+                    <img
+                        src={imageSrc}
+                        alt="Uploaded"
+                        // style={{ ...imageStyles }}
+                        className='object-cover w-full h-[12rem] rounded-[10px]'
+                    />
+                    <button
+                        onClick={handleDeleteImage}
+                        style={{
+                            position: 'absolute',
+                            top: "-10px",
+                            right: "-5px",
+                            background: 'red',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '50%',
+                            cursor: 'pointer',
+                            padding: '0.2rem 0.4rem',
+                        }}
+                    >
+                        X
+                    </button>
+                </div>
+            ) : (
+                <label
+                    style={{
+                        padding: '15px 10px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        fontWeight: 500,
+                        fontSize: '14px',
+                        cursor: 'pointer',
+                        lineHeight: '1rem',
+                        border: '2px dashed #224553',
+                        borderRadius: '10px',
+                    }}
+                    className='w-full h-[12rem]'
+                >
+                    Añadir imagen
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                    />
+                </label>
+            )}
             <div className="flex items-center space-x-1.5 justify-between mt-5">
 
                 <div className='flex justify-center items-center space-x-1'>
                     <AiOutlineColumnHeight className='w-5 h-5' />
                     <input name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
+                    <em className='font-normal text-xs'>px</em>
                 </div>
 
                 <div className='flex justify-center items-center space-x-1'>
                     <AiOutlineColumnHeight className='w-5 h-5 rotate-90' />
                     <input name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
+                    <em className='font-normal text-xs'>px</em>
                 </div>
 
             </div>
@@ -150,13 +141,13 @@ export const Imagen = (props) => {
 
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToLeft className='w-5 h-5' />
-                    <input name="paddingLeft" value={contentValues?.paddingLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input name="paddingRight" value={contentValues?.paddingRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
                     <em className='font-normal text-xs'>%</em>
                 </div>
 
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToBottom className='w-5 h-5' />
-                    <input name="paddingBottom" value={contentValues?.paddingBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input name="paddingTop" value={contentValues?.paddingTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
                     <em className='font-normal text-xs'>%</em>
                 </div>
 
@@ -165,14 +156,20 @@ export const Imagen = (props) => {
             <div className='flex items-center space-x-1.5 justify-between mt-2'>
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToRight className='w-5 h-5' />
-                    <input name="paddingRight" value={contentValues?.paddingRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input name="paddingLeft" value={contentValues?.paddingLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
                     <em className='font-normal text-xs'>%</em>
                 </div>
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToTop className='w-5 h-5' />
-                    <input name="paddingTop" value={contentValues?.paddingTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input name="paddingBottom" value={contentValues?.paddingBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
                     <em className='font-normal text-xs'>%</em>
                 </div>
+            </div>
+
+            <div className='flex justify-between px-4 items-center mt-5'>
+                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
+                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
+                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
             </div>
 
             <div className='flex justify-center items-center space-x-1 my-5'>
@@ -180,7 +177,6 @@ export const Imagen = (props) => {
                 <input name="rounded" value={contentValues?.rounded} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
                 <em className='font-normal text-xs'>%</em>
             </div>
-
         </div>
-    )
+    );
 }

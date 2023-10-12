@@ -68,33 +68,42 @@ const SectionView = (props) => {
 
     }, []);
 
-    useEffect(() => {
-        console.log(props.webPageData)
-        if (props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null) {
-            console.log(props.webPageData)
-            props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
-                console.log(data)
-            })
-            console.log("currentPage", props.currentPage)
-        }
-    }, [props.webPageData])
-
     return (
         <>
             <div style={styles} className={`bg-red-500 w-full h-full`}>
                 {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
-                    const styles = {
-                        fontSize: data.textSize + "px",
-                        color: data.color,
-                        textAlign: data.position === "center" ? "center" : data.position === "left" ? "start" : "end",
-                        marginBottom: data.marginBottom + '%',
-                        marginLeft: data.marginLeft + '%',
-                        marginRight: data.marginRight + '%',
-                        marginTop: data.marginTop + '%',
+                    if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
+                        const styles = {
+                            height: data.height + "px",
+                            width: data.width + "px",
+                            borderRadius: data.rounded + "%"
+                        }
+                        const stylesForContainter = {
+                            paddingBottom: data.paddingBottom + '%',
+                            paddingLeft: data.paddingLeft + '%',
+                            paddingRight: data.paddingRight + '%',
+                            paddingTop: data.paddingTop + '%',
+                        }
+                        return (
+                            <div style={stylesForContainter} className="w-full">
+                                <img style={styles} className={`object-cover ${data.position === "right" ? "ml-auto" : data.position === "left" ? "mr-auto" : "mx-auto"}`} src={data.imageUrl} />
+                            </div>
+                        )
+                    } else {
+                        const styles = {
+                            fontSize: data.textSize + "px",
+                            color: data.color,
+                            textAlign: data.position === "center" ? "center" : data.position === "left" ? "start" : "end",
+                            marginBottom: data.marginBottom + '%',
+                            marginLeft: data.marginLeft + '%',
+                            marginRight: data.marginRight + '%',
+                            marginTop: data.marginTop + '%',
+                        }
+                        return (
+                            <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
+                        )
                     }
-                    return (
-                        <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
-                    )
+
                 })}
             </div>
         </>

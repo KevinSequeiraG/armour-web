@@ -307,7 +307,6 @@ const Sidebar = (props) => {
 
         } else if (props?.currentMenuOption === "sections-webpage") {
             const currentPageSectionsData = props?.webPageData?.pages?.find((pagesData) => pagesData?.id == props?.currentPage);
-            console.log("asdasdasda", currentPageSectionsData);
             setBgColor(currentPageSectionsData?.backgroundColor);
             setPagePaddingLeft(parseInt(currentPageSectionsData?.paddingLeft?.replace('%', '')));
             setPagePaddingRight(parseInt(currentPageSectionsData?.paddingRight?.replace('%', '')));

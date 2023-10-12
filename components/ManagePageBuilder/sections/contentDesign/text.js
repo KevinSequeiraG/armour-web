@@ -28,8 +28,6 @@ export const Text = (props) => {
             // props.setContent();
             props.setContent(updateTest)
         }
-
-
     }, [contentValues])
 
     useEffect(() => {

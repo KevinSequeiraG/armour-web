@@ -45,21 +45,19 @@ export const Imagen = (props) => {
     };
 
     useEffect(() => {
-        if (props.webPageData !== undefined) {
-            const updateTest = [...props.contentComplete]
-            updateTest[parseInt(props.positionInContent)] = contentValues
-            props.setContent(updateTest)
-        }
+        const allDataInContent = [...props?.pageContentDataSections];
+        allDataInContent[props?.position] = contentValues;
+
+        props?.setPageContentDataSections(allDataInContent)
     }, [contentValues])
 
     useEffect(() => {
-        const dataToUpdate = { ...contentValues }
-        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
+        const sectionToEdit = props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.find(section => section?.id === props?.content?.id);
         if (sectionToEdit) {
+            setContentValues(sectionToEdit)
             setImageSrc(sectionToEdit.imageUrl)
-            setContentValues({ ...dataToUpdate, width: sectionToEdit.width, paddingLeft: sectionToEdit.paddingLeft, paddingBottom: sectionToEdit.paddingBottom, paddingRight: sectionToEdit.paddingRight, paddingTop: sectionToEdit.paddingTop, rounded: sectionToEdit.rounded, imageUrl: sectionToEdit.imageUrl, type: sectionToEdit.type, id: sectionToEdit.id, position: sectionToEdit.position })
         }
-    }, [props.currentPage])
+    }, [props.currentPage, props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections])
 
     return (
         <div>

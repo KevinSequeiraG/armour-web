@@ -6,6 +6,8 @@ import { MdDragIndicator } from "react-icons/md";
 import { Imagen } from "./contentDesign/image";
 import { Text } from "./contentDesign/text";
 import { TextArea } from "./contentDesign/textArea";
+import { Card } from "./contentDesign/card";
+import { useEffect } from "react";
 
 function DraggableItem(props) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -28,23 +30,23 @@ function DraggableItem(props) {
           {props?.content?.type == "image" && "Imagen"}
           {props?.content?.type == "text" && "Texto"}
           {props?.content?.type == "textArea" && "Párrafo"}
-          {props?.content?.type == "card" && "Card"}
+          {props?.content?.type == "card" && "Tarjeta"}
         </div>
         <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500 hover:text-red-700" onClick={() => props.handleDeleteContent(props?.content?.id)} />
       </div>
       <div className="relative mt-4">
         {/* IMAGEN */}
-        {props?.content?.type == "image" && <Imagen contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "image" && <Imagen content={props?.content} position={props?.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections} currentPage={props?.currentPage} webPageData={props.webPageData} />}
 
         {/* TEXT */}
-        {props?.content?.type == "text" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "text" && <Text content={props?.content} position={props?.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections} currentPage={props?.currentPage} webPageData={props.webPageData} />}
 
         {/* TEXTAREA */}
-        {props?.content?.type == "textArea" && <TextArea contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "textArea" && <TextArea content={props?.content} position={props?.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections} currentPage={props?.currentPage} webPageData={props.webPageData} />}
 
         {/* CARD */}
         {/* PENDIENTEEEEEEEEEEEEEEEEE */}
-        {props?.content?.type == "card" && <Text contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "card" && <Card contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
       </div>
     </div>

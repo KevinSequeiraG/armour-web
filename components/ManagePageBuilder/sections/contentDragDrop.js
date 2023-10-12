@@ -1,5 +1,5 @@
 import { DndContext, closestCenter } from "@dnd-kit/core";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 import Swal from "sweetalert2";
@@ -9,12 +9,18 @@ import DraggableItem from "./draggableItem";
 
 export const ContentDragDrop = (props) => {
 
+  const [pageContentDataSections, setPageContentDataSections] = useState(props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections);
+
+  useEffect(() => {
+    setPageContentDataSections(props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections);
+  }, [props?.currentPage]);
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
-      props.setPageContentData((content) => {
-        const oldIndex = content.findIndex((content) => content?.id === active.id);
-        const newIndex = content.findIndex((content) => content?.id === over.id);
+    if (active?.id !== over?.id) {
+      setPageContentDataSections((content) => {
+        const oldIndex = content?.findIndex((content) => content?.id === active?.id);
+        const newIndex = content?.findIndex((content) => content?.id === over?.id);
         const updatedContent = arrayMove(content, oldIndex, newIndex);
         return updatedContent;
       });
@@ -22,32 +28,32 @@ export const ContentDragDrop = (props) => {
   };
 
   const handleAddContent = async (contentType) => {
-    const newContent = [...props?.pageContentData];
+    const newContent = [...pageContentDataSections];
     if (contentType == "image") {
       newContent.push({
         type: "image", //image
-        id: props?.pageContentData?.length + 1, // drag And Drop
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
         imageUrl: "",
-        width: "20",
-        height: "20",
-        marginLeft: "5",
-        marginBottom: "5",
-        marginRight: "5",
-        marginTop: "5",
-        rounded: "10"
+        width: "100",
+        height: "100",
+        marginLeft: "0",
+        marginBottom: "0",
+        marginRight: "0",
+        marginTop: "0",
+        rounded: "0"
       })
     } else if (contentType == "text" || contentType == "textArea") {
       newContent.push({
         type: contentType, //text or textArea
-        id: props?.pageContentData?.length + 1, // drag And Drop
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
         text: "",
-        height: "20",
-        width: "20",
+        height: "0",
+        width: "0",
         position: "center",
-        marginLeft: "5",
-        marginRight: "5",
-        marginTop: "5",
-        marginBottom: "5",
+        marginLeft: "0",
+        marginRight: "0",
+        marginTop: "0",
+        marginBottom: "0",
         color: "black",
         textSize: "16", //px
         isBold: false
@@ -55,21 +61,21 @@ export const ContentDragDrop = (props) => {
     } else if (contentType == "card") {
       newContent.push({
         type: "card", //card
-        id: props?.pageContentData?.length + 1, // drag And Drop
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
         cardSelected: "1",
-        paddingLeft: "5",
-        paddingRight: "5",
-        paddingTop: "5",
-        paddingBottom: "5",
+        paddingLeft: "0",
+        paddingRight: "0",
+        paddingTop: "0",
+        paddingBottom: "0",
       })
     }
 
-    props.setPageContentData(newContent);
+    setPageContentDataSections(newContent);
   };
 
   const handleDeleteContent = async (contentId) => {
     // Validates if is last content in array
-    if (props?.pageContentData?.length === 1) {
+    if (pageContentDataSections?.length === 1) {
       Swal.fire({
         text: 'Esta es tu último contenido',
         icon: 'error',
@@ -93,48 +99,63 @@ export const ContentDragDrop = (props) => {
     }).then((result) => {
 
       if (result.isConfirmed) {
-        const updatedContent = props?.pageContentData?.filter((content) => content?.id !== contentId);
-        props.setPageContentData(updatedContent);
+        const updatedContent = pageContentDataSections?.filter((content) => content?.id !== contentId);
+        setPageContentDataSections(updatedContent);
       }
 
     })
   };
 
   useEffect(() => {
-    const updatedWebPageData = { ...props.webPageData }; // Copia el objeto principal para no mutarlo directamente
-    const pageToEdit = updatedWebPageData?.pages?.find((page) => page?.id === parseInt(props?.currentPage));
-    pageToEdit.sections = props?.pageContentData;
-    props?.setWebPageData(updatedWebPageData);
-  }, [props?.pageContentData])
+    if (!props.webPageData) return;
+
+    const { webPageData, currentPage, setWebPageData } = props;
+    const updatedWebPageData = { ...webPageData };
+
+    const updatedPages = updatedWebPageData?.pages?.map((page) => {
+      if (page?.id === parseInt(currentPage))
+        return { ...page, sections: pageContentDataSections };
+      return page;
+    });
+
+    updatedWebPageData.pages = updatedPages;
+    setWebPageData(updatedWebPageData);
+  }, [pageContentDataSections, props.currentPage]);
 
   return (
     <>
       <div className="flex flex-col space-y-2 justify-center items-center w-full h-auto overflow-x-hidden  rounded-[10px] mt-1 p-1.5 overflow-hidden">
 
-        {props?.pageContentData !== null &&
+        {pageContentDataSections !== null &&
           <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext
-              items={props?.pageContentData}
-              strategy={verticalListSortingStrategy}
-            >
-              {props?.pageContentData !== null &&
-                props?.pageContentData?.map((contentInfo, i) => (
-                  <>
-                    <DraggableItem key={i} position={i} setContent={props.setPageContentData} setPageContentData={props.setPageContentData} contentComplete={props?.pageContentData} currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} content={contentInfo} handleDeleteContent={handleDeleteContent} />
-                    {i + 1 !== props?.pageContentData?.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
-                  </>
-                ))}
+            <SortableContext items={pageContentDataSections} strategy={verticalListSortingStrategy}>
+
+              {pageContentDataSections?.map((content, i) => (
+                <Fragment key={i}>
+                  <DraggableItem
+                    key={content?.id}
+                    content={content}
+                    position={i}
+                    pageContentDataSections={pageContentDataSections}
+                    setPageContentDataSections={setPageContentDataSections}
+                    webPageData={props.webPageData}
+                    currentPage={props.currentPage}
+                  />
+                  {i + 1 !== pageContentDataSections?.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
+                </Fragment>
+              ))}
+
             </SortableContext>
           </DndContext>}
       </div>
 
       {/* BOTONES PARA AGREGAR NUEVO ELEMENTO */}
-      < div className='flex justify-center items-center space-x-3 mt-3' >
+      <div className='flex justify-center items-center space-x-3 mt-3'>
         <BsImage className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("image")} />
         <BiText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("text")} />
         <BsCardText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("textArea")} />
         <BiBookmarks className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("card")} />
-      </div >
+      </div>
     </>
   );
 }

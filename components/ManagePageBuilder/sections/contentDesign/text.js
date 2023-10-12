@@ -20,29 +20,23 @@ export const Text = (props) => {
     };
 
     useEffect(() => {
-        // props.setWebPageData()
-        if (props.webPageData !== undefined) {
-            const updateTest = [...props.contentComplete]
-            updateTest[parseInt(props.positionInContent)] = contentValues
-            // infoToEdit = contentValues;
-            // props.setContent();
-            props.setContent(updateTest)
-        }
-    }, [contentValues])
+        const allDataInContent = [...props?.pageContentDataSections];
+        allDataInContent[props?.position] = contentValues;
+
+        props?.setPageContentDataSections(allDataInContent)
+    }, [contentValues]);
 
     useEffect(() => {
-        const dataToUpdate = { ...contentValues }
-        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
-        if (sectionToEdit) {
-            setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
-        }
-    }, [props.currentPage])
+        const sectionToEdit = props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.find(section => section?.id === props?.content?.id);
+        
+        if (sectionToEdit) setContentValues(sectionToEdit)
+    }, [props.currentPage, props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections])
 
     return (
         <div>
             <div className='relative'>
                 <input name="text" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
-                <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues.isBold && "bg-gray-800 text-white"}`} />
+                <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} />
             </div>
 
             {/* <div className="flex items-center space-x-1.5 justify-between mt-5">
@@ -91,9 +85,9 @@ export const Text = (props) => {
             </div>
 
             <div className='flex justify-between px-4 items-center mt-5'>
-                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
-                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
-                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
+                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues?.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
+                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues?.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
+                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues?.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
             </div>
 
 

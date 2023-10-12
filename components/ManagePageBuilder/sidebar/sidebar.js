@@ -29,7 +29,6 @@ const Sidebar = (props) => {
     const [pagePaddingTop, setPagePaddingTop] = useState("50");
     const [pagePaddingBottom, setPagePaddingBottom] = useState("50");
     // const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
-    const [pageContentData, setPageContentData] = useState([]);
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -53,7 +52,7 @@ const Sidebar = (props) => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 setImageSrc(e.target.result);
-                console.log(props.webPageData)
+
                 props.setWebPageData(prevData => {
                     const updatedPages = prevData?.pages?.map(page => {
                         if (page?.id === props?.currentPage)
@@ -70,10 +69,6 @@ const Sidebar = (props) => {
             reader.readAsDataURL(file);
         }
     };
-
-    useEffect(() => {
-        console.log(props.webPageData)
-    }, [props.webPageData])
 
 
     const handleDeleteBGImage = () => {
@@ -348,7 +343,6 @@ const Sidebar = (props) => {
             setPagePaddingRight(parseInt(currentPageSectionsData?.paddingRight?.replace('%', '')));
             setPagePaddingTop(parseInt(currentPageSectionsData?.paddingTop?.replace('%', '')));
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
-            setPageContentData(currentPageSectionsData?.sections);
         }
     }, [props.currentMenuOption, props?.currentPage])
 
@@ -590,7 +584,7 @@ const Sidebar = (props) => {
                         <div className='flex flex-col items-center'>
                             <p>Contenido</p>
 
-                            <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} pageContentData={pageContentData} setPageContentData={setPageContentData} />
+                            <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
 
                         </div>
                     </>}

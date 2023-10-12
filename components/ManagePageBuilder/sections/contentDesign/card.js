@@ -1,0 +1,120 @@
+import React, { useEffect, useState } from 'react'
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
+import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop } from 'react-icons/bi'
+import Switch from 'react-switch';
+
+export const Card = (props) => {
+
+    const [contentValues, setContentValues] = useState(props?.content);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setContentValues((prevValues) => ({ ...prevValues, [name]: value }));
+    };
+
+    const handleBoldTextChange = () => {
+        setContentValues((prevValues) => ({ ...prevValues, isBold: !prevValues.isBold }));
+    };
+
+    const handleTextPositionChange = (newPosition) => {
+        setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
+    };
+
+    useEffect(() => {
+        // props.setWebPageData()
+        if (props.webPageData !== undefined) {
+            const updateTest = [...props.contentComplete]
+            updateTest[parseInt(props.positionInContent)] = contentValues
+            // infoToEdit = contentValues;
+            // props.setContent();
+            props.setContent(updateTest)
+        }
+    }, [contentValues])
+
+    useEffect(() => {
+        const dataToUpdate = { ...contentValues }
+        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
+        if (sectionToEdit) {
+            setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
+        }
+    }, [props.currentPage])
+
+    // NEW DATA
+    const [isCatergory, setIsCatergory] = useState(true);
+    return (
+        <div>
+            <div className='relative flex items-center justify-between'>
+                <p>Categoría</p>
+                <Switch onChange={() => setIsCatergory(!isCatergory)} checked={isCatergory} offColor="#3d4f61" onColor="#3d4f61" uncheckedIcon={false} checkedIcon={false} width={40} handleDiameter={10}/>
+                <p>Producto</p>
+            </div>
+
+            {/* <div className="flex items-center space-x-1.5 justify-between mt-5">
+
+                <div className='flex justify-center items-center space-x-1'>
+                    <AiOutlineColumnHeight className='w-5 h-5' />
+                    <input name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+
+                <div className='flex justify-center items-center space-x-1'>
+                    <AiOutlineColumnHeight className='w-5 h-5 rotate-90' />
+                    <input name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+
+            </div> */}
+
+            <div className='flex items-center space-x-1.5 justify-between mt-5'>
+
+                <div className='flex justify-center items-center space-x-1'>
+                    <BiArrowToLeft className='w-5 h-5' />
+                    <input name="marginRight" value={contentValues?.marginRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+
+                <div className='flex justify-center items-center space-x-1'>
+                    <BiArrowToBottom className='w-5 h-5' />
+                    <input name="marginTop" value={contentValues?.marginTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+
+            </div>
+
+            <div className='flex items-center space-x-1.5 justify-between mt-2'>
+                <div className='flex justify-center items-center space-x-1'>
+                    <BiArrowToRight className='w-5 h-5' />
+                    <input name="marginLeft" value={contentValues?.marginLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+                <div className='flex justify-center items-center space-x-1'>
+                    <BiArrowToTop className='w-5 h-5' />
+                    <input name="marginBottom" value={contentValues?.marginBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <em className='font-normal text-xs'>%</em>
+                </div>
+            </div>
+
+            <div className='flex justify-between px-4 items-center mt-5'>
+                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
+                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
+                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
+            </div>
+
+
+
+            <div className='flex items-center space-x-1.5 justify-between my-5'>
+                <div className='flex justify-center items-center space-x-1'>
+                    <AiOutlineFontSize className='w-5 h-5' />
+                    <input name="textSize" value={contentValues?.textSize} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                </div>
+
+                <div className='flex justify-center items-center space-x-1'>
+                    <AiOutlineFontColors className='w-5 h-5' />
+                    <input name="color" value={contentValues?.color} onChange={handleInputChange} type="color" className='inputColor' />
+                </div>
+
+            </div>
+
+        </div>
+    )
+}

@@ -30,7 +30,7 @@ export const Text = (props) => {
         const sectionToEdit = props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.find(section => section?.id === props?.content?.id);
         
         if (sectionToEdit) setContentValues(sectionToEdit)
-    }, [props.currentPage, props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections])
+    }, [props.currentPage])
 
     return (
         <div>

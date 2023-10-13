@@ -12,7 +12,7 @@ export const Imagen = (props) => {
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setImageSrc(e.target.result);
+                // setImageSrc(e.target.result);
                 setContentValues((prevValues) => ({
                     ...prevValues,
                     imageUrl: e.target.result,
@@ -31,7 +31,7 @@ export const Imagen = (props) => {
     };
 
     const handleDeleteImage = () => {
-        setImageSrc(null);
+        // setImageSrc(null);
         fileInputRef.current.value = '';
 
         setContentValues((prevValues) => ({
@@ -55,9 +55,9 @@ export const Imagen = (props) => {
         const sectionToEdit = props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.find(section => section?.id === props?.content?.id);
         if (sectionToEdit) {
             setContentValues(sectionToEdit)
-            setImageSrc(sectionToEdit.imageUrl)
+            // setImageSrc(sectionToEdit?.imageUrl)
         }
-    }, [props.currentPage, props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections])
+    }, [props.currentPage])
 
     return (
         <div>
@@ -68,10 +68,10 @@ export const Imagen = (props) => {
                 onChange={handleFileChange}
                 style={{ display: 'none' }}
             />
-            {imageSrc ? (
+            {contentValues.imageUrl ? (
                 <div style={{ position: 'relative' }}>
                     <img
-                        src={imageSrc}
+                        src={contentValues.imageUrl}
                         alt="Uploaded"
                         // style={{ ...imageStyles }}
                         className='object-cover w-full h-[12rem] rounded-[10px]'

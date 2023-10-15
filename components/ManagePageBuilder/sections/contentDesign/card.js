@@ -74,7 +74,7 @@ export const Card = (props) => {
                 setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
             }
         }
-    }, [props.currentPage])    
+    }, [props.currentPage])
 
     // NEW DATA
     const [isCategory, setIsCategory] = useState(true);
@@ -99,8 +99,23 @@ export const Card = (props) => {
                 <p>Categoría</p>
             </div>
 
-            <button onClick={() => {setShowCardDesign(!showCardDesign);}} className={`${showCardDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-4 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos card</button>
+            <button onClick={() => { setShowCardDesign(!showCardDesign); }} className={`${showCardDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-4 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos card</button>
             {showCardDesign && <div className='mb-4'>
+                <div className="flex items-center space-x-1.5 justify-between mt-5">
+
+                    <div className='flex justify-center items-center space-x-1'>
+                        <AiOutlineColumnHeight className='w-5 h-5' />
+                        <input name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>px</em>
+                    </div>
+
+                    <div className='flex justify-center items-center space-x-1'>
+                        <AiOutlineColumnHeight className='w-5 h-5 rotate-90' />
+                        <input name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>px</em>
+                    </div>
+
+                </div>
                 <div className='flex items-center space-x-1.5 justify-between mt-2'>
 
                     <div className='flex justify-center items-center space-x-1'>
@@ -241,8 +256,9 @@ export const Card = (props) => {
             <button onClick={() => setShowButtonDesign(!showButtonDesign)} className={`${showButtonDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos de boton</button>
             {showButtonDesign &&
                 <>
-                    {isCategory && <div className='relative mt-2'>
-                        <input name="textButton" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
+                    {!isCategory && <div className='relative mt-2'>
+                        <label>Precio base:</label>
+                        <input name="prodPrize" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 px-2 border-[#224553]' type='number'/>
                         {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
                     </div>}
                     <div className='flex justify-between px-4 items-center mt-2'>

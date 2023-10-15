@@ -7,12 +7,18 @@ const FirstStep = (props) => {
     const { t } = useTranslation();
     const router = useRouter();
     const [newWebPageLogo, setNewWebPageLogo] = useState()
+    const [newWebPageName, setNewWebPageName] = useState()
 
     const handleSetNewLogo = (imageUrl) => {
         setNewWebPageLogo(imageUrl)
         const urlImage = URL.createObjectURL(imageUrl)
         props.setLogoPage(urlImage)
         props.setWebPageData({ ...props.webPageData, logo: urlImage })
+    }
+
+    const handleSetNeName = (e) => {
+        setNewWebPageName(e.target.value)
+        props.setWebPageData({ ...props.webPageData, name: e.target.value })
     }
 
     return (
@@ -23,7 +29,7 @@ const FirstStep = (props) => {
                 <div className="flex flex-col items-center mt-5">
                     <div>
                         <p className="text-center font-semibold">Nombre de página</p>
-                        <input type="text" className="border border-gray-400 rounded-xl mx-auto h-[2rem] mt-2" />
+                        <input onChange={handleSetNeName} type="text" className="border border-gray-400 rounded-xl mx-auto h-[2rem] mt-2" />
                     </div>
                     <div>
                         <ImageUploader setImage={handleSetNewLogo} image={newWebPageLogo} divDesign="mb-5 mt-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto shadow-md" />

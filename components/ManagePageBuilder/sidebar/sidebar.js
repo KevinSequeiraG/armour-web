@@ -16,6 +16,7 @@ const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
     const { t } = useTranslation();
     const fileInputRef = useRef();
+    const fileInputRefNavbar = useRef();
     const router = useRouter();
 
     const [width, setWidth] = useState("");
@@ -23,6 +24,7 @@ const Sidebar = (props) => {
     const [txtColor, setTxtColor] = useState("#ffffff");
     const [bgColor, setBgColor] = useState("#000000");
     const [imageSrc, setImageSrc] = useState(null);
+    const [imageSrcNavbar, setImageSrcNavbar] = useState(null);
 
     const [pagePaddingLeft, setPagePaddingLeft] = useState("25");
     const [pagePaddingRight, setPagePaddingRight] = useState("25");
@@ -70,6 +72,23 @@ const Sidebar = (props) => {
         }
     };
 
+    const handleNavbarFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImageSrcNavbar(e.target.result);
+                props.setWebPageData(prevData => {
+                    return {
+                        ...prevData,
+                        navbar: { ...prevData.navbar, backgroundImage: e.target.result }
+                    };
+                });
+                handleBgImageChange(e.target.result)
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleDeleteBGImage = () => {
         setImageSrc(null);
@@ -88,118 +107,130 @@ const Sidebar = (props) => {
         fileInputRef.current.value = '';
     };
 
-    // const [bgImage, setBgImage] = useState()
-    const removeImage = (dropZoneElement) => {
-        const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-        if (thumbnailElement) {
-            // Eliminar solo el thumbnailElement correspondiente
-            thumbnailElement.remove();
-        }
-        // Restablecer el prompt si existe
-        const promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
-        if (promptElement) {
-            promptElement.classList.remove("hidden");
-        }
-        // Restablecer el valor del input
-        const inputElement = dropZoneElement.querySelector(".drop-zone__input");
-        if (inputElement) {
-            inputElement.value = "";
-        }
-    };
-
-    const handleDeleteImage = (type) => {
-        const dropZoneElement = document.querySelector(`.drop-zone`);
-        if (dropZoneElement) {
-            removeImage(dropZoneElement);
-            // setBgImage(null)
-            handleBgImageChange(null)
-        }
-    };
-
-    const DragAndDropLogic = () => {
-        const dropZoneElements = document.querySelectorAll(".drop-zone");
-        dropZoneElements.forEach((dropZoneElement, i) => {
-            const inputElement = dropZoneElement.querySelector(".drop-zone__input");
-            const type = dropZoneElement.getAttribute("data-type");
-            let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
-            dropZoneElement.addEventListener("click", (e) => {
-                if (!clicked) {
-                    if (i == 0) {
-                        inputElement.click();
-                    }
-                }
-            });
-
-            inputElement.addEventListener("change", (e) => {
-                if (inputElement.files.length) {
-                    if (inputElement.files.length) {
-                        // setBgImage(inputElement.files[0]);
-                    }
-                    updateThumbnail(dropZoneElement, inputElement.files[0]);
-                }
-                clicked = false; // Reiniciar el flag después de seleccionar el archivo
-            });
-            dropZoneElement.addEventListener("dragover", (e) => {
-                e.preventDefault();
-                dropZoneElement.classList.add("drop-zone--over");
-            });
-            ["dragleave", "dragend"].forEach((type) => {
-                dropZoneElement.addEventListener(type, (e) => {
-                    dropZoneElement.classList.remove("drop-zone--over");
-                });
-            });
-            dropZoneElement.addEventListener("drop", (e) => {
-                e.preventDefault();
-                if (e.dataTransfer.files.length) {
-                    inputElement.files = e.dataTransfer.files;
-                    updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-                    // setBgImage(e.dataTransfer.files[0]);
-                }
-                dropZoneElement.classList.remove("drop-zone--over");
-            });
-
-
-        });
-    };
-
-    function updateThumbnail(dropZoneElement, file) {
-        let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-        // First time - remove the prompt
-        if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-            dropZoneElement.querySelector(".drop-zone__prompt").classList.add("hidden");
-        }
-        // First time - there is no thumbnail element, so lets create it
-        if (!thumbnailElement) {
-            thumbnailElement = document.createElement("div");
-            thumbnailElement.classList.add("drop-zone__thumb");
-            dropZoneElement.appendChild(thumbnailElement);
-        }
-        thumbnailElement.dataset.label = file.name;
-        // Show thumbnail for image files
-        if (file?.type?.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-                handleBgImageChange(reader.result)
+    const handleDeleteBGImageNavbar = () => {
+        handleBgImageChange(null)
+        setImageSrcNavbar(null);
+        props.setWebPageData(prevData => {
+            return {
+                ...prevData,
+                navbar: { ...prevData.navbar, backgroundImage: null }
             };
-        } else if (typeof file === 'string' && file.startsWith('http')) {
-            // If the file is a link, use it directly as the background image URL
-            thumbnailElement.style.backgroundImage = `url('${file}')`;
-            var urlSections = file.split("/");
-            var imageName = urlSections[urlSections.length - 1];
-            imageName = decodeURIComponent(imageName.replace("images%2F", ""));
-            imageName = imageName.split("?")[0];
-            thumbnailElement.dataset.label = imageName;
-        } else {
-            thumbnailElement.style.backgroundImage = null;
-        }
-    }
+        });
+        fileInputRefNavbar.current.value = '';
+    };
 
-    useEffect(() => {
-        DragAndDropLogic();
-    }, [activeButtonIndex])
+    // const [bgImage, setBgImage] = useState()
+    // const removeImage = (dropZoneElement) => {
+    //     const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+    //     if (thumbnailElement) {
+    //         // Eliminar solo el thumbnailElement correspondiente
+    //         thumbnailElement.remove();
+    //     }
+    //     // Restablecer el prompt si existe
+    //     const promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
+    //     if (promptElement) {
+    //         promptElement.classList.remove("hidden");
+    //     }
+    //     // Restablecer el valor del input
+    //     const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+    //     if (inputElement) {
+    //         inputElement.value = "";
+    //     }
+    // };
+
+    // const handleDeleteImage = (type) => {
+    //     const dropZoneElement = document.querySelector(`.drop-zone`);
+    //     if (dropZoneElement) {
+    //         removeImage(dropZoneElement);
+    //         // setBgImage(null)
+    //         handleBgImageChange(null)
+    //     }
+    // };
+
+    // const DragAndDropLogic = () => {
+    //     const dropZoneElements = document.querySelectorAll(".drop-zone");
+    //     dropZoneElements.forEach((dropZoneElement, i) => {
+    //         const inputElement = dropZoneElement.querySelector(".drop-zone__input");
+    //         const type = dropZoneElement.getAttribute("data-type");
+    //         let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
+    //         dropZoneElement.addEventListener("click", (e) => {
+    //             if (!clicked) {
+    //                 if (i == 0) {
+    //                     inputElement.click();
+    //                 }
+    //             }
+    //         });
+
+    //         inputElement.addEventListener("change", (e) => {
+    //             if (inputElement.files.length) {
+    //                 if (inputElement.files.length) {
+    //                     // setBgImage(inputElement.files[0]);
+    //                 }
+    //                 updateThumbnail(dropZoneElement, inputElement.files[0]);
+    //             }
+    //             clicked = false; // Reiniciar el flag después de seleccionar el archivo
+    //         });
+    //         dropZoneElement.addEventListener("dragover", (e) => {
+    //             e.preventDefault();
+    //             dropZoneElement.classList.add("drop-zone--over");
+    //         });
+    //         ["dragleave", "dragend"].forEach((type) => {
+    //             dropZoneElement.addEventListener(type, (e) => {
+    //                 dropZoneElement.classList.remove("drop-zone--over");
+    //             });
+    //         });
+    //         dropZoneElement.addEventListener("drop", (e) => {
+    //             e.preventDefault();
+    //             if (e.dataTransfer.files.length) {
+    //                 inputElement.files = e.dataTransfer.files;
+    //                 updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    //                 // setBgImage(e.dataTransfer.files[0]);
+    //             }
+    //             dropZoneElement.classList.remove("drop-zone--over");
+    //         });
+
+
+    //     });
+    // };
+
+    // function updateThumbnail(dropZoneElement, file) {
+    //     let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+    //     // First time - remove the prompt
+    //     if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    //         dropZoneElement.querySelector(".drop-zone__prompt").classList.add("hidden");
+    //     }
+    //     // First time - there is no thumbnail element, so lets create it
+    //     if (!thumbnailElement) {
+    //         thumbnailElement = document.createElement("div");
+    //         thumbnailElement.classList.add("drop-zone__thumb");
+    //         dropZoneElement.appendChild(thumbnailElement);
+    //     }
+    //     thumbnailElement.dataset.label = file.name;
+    //     // Show thumbnail for image files
+    //     if (file?.type?.startsWith("image/")) {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => {
+    //             thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+    //             handleBgImageChange(reader.result)
+    //         };
+    //     } else if (typeof file === 'string' && file.startsWith('http')) {
+    //         // If the file is a link, use it directly as the background image URL
+    //         thumbnailElement.style.backgroundImage = `url('${file}')`;
+    //         var urlSections = file.split("/");
+    //         var imageName = urlSections[urlSections.length - 1];
+    //         imageName = decodeURIComponent(imageName.replace("images%2F", ""));
+    //         imageName = imageName.split("?")[0];
+    //         thumbnailElement.dataset.label = imageName;
+    //     } else {
+    //         thumbnailElement.style.backgroundImage = null;
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     DragAndDropLogic();
+    // }, [activeButtonIndex])
 
     const handleTxtColorChange = (color) => {
         if (props.currentMenuOption === "navbar-webpage") {
@@ -487,7 +518,7 @@ const Sidebar = (props) => {
                     </div>
 
                     <hr className='border border-[#224553]' />
-                    {activeButtonIndex === 0 &&
+                    {/* {activeButtonIndex === 0 &&
                         <>
                             <div className='flex flex-col items-start border space-y-2 relative'>
                                 <p>Imagen de fondo</p>
@@ -500,8 +531,70 @@ const Sidebar = (props) => {
 
                             <hr className='border border-[#224553]' />
                         </>
-                    }
-                    {activeButtonIndex === 1 && <labe>Imagen de fondo</labe>}
+                    } */}
+
+                    {activeButtonIndex === 0 && <label>Imagen de fondo</label>}
+                    {activeButtonIndex === 0 && <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRefNavbar}
+                        onChange={handleNavbarFileChange}
+                        style={{ display: 'none' }}
+                    />}
+
+                    {activeButtonIndex === 0 && imageSrcNavbar ? (
+                        <div style={{ position: 'relative' }}>
+                            <img
+                                src={imageSrcNavbar}
+                                alt="Uploaded"
+                                // style={{ ...imageStyles }}
+                                className='object-cover w-full h-[12rem] rounded-[10px]'
+                            />
+                            <button
+                                onClick={handleDeleteBGImageNavbar}
+                                style={{
+                                    position: 'absolute',
+                                    top: "-10px",
+                                    right: "-5px",
+                                    background: 'red',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    cursor: 'pointer',
+                                    padding: '0.2rem 0.4rem',
+                                }}
+                            >
+                                X
+                            </button>
+                        </div>
+                    ) : activeButtonIndex === 0 ? (
+                        <label
+                            style={{
+                                padding: '15px 10px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                fontWeight: 500,
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                lineHeight: '1rem',
+                                border: '2px dashed #224553',
+                                borderRadius: '10px',
+                            }}
+                            className='w-full h-[12rem]'
+                        >
+                            Añadir imagen
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleNavbarFileChange}
+                                style={{ display: 'none' }}
+                            />
+                        </label>
+                    ) : null}
+
+                    {activeButtonIndex === 1 && <label>Imagen de fondo</label>}
                     {activeButtonIndex === 1 && <input
                         type="file"
                         accept="image/*"

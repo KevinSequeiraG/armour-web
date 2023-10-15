@@ -81,9 +81,9 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         backgroundColor: navbarBGColor,
         minWidth: navbarWidth,
         minHeight: navbarHeight,
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: bgImage,
         contentPosition: contentPosition,
-        navbarOptions: navbarOptions
+        // navbarOptions: navbarOptions
         // O si deseas actualizar el título del navbar, puedes hacerlo así:
 
         // Agrega cualquier otra propiedad que necesites actualizar

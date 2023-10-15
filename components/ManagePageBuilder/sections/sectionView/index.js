@@ -83,7 +83,7 @@ const SectionView = (props) => {
 
     return (
         <>
-            <div style={styles} className={`w-full h-full object-cover scrollbarDesign overflow-y-auto`}>
+            <div style={styles} className={`w-full h-full object-cover`}>
                 {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {

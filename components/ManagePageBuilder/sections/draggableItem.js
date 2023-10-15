@@ -46,7 +46,7 @@ function DraggableItem(props) {
 
         {/* CARD */}
         {/* PENDIENTEEEEEEEEEEEEEEEEE */}
-        {props?.content?.type == "card" && <Card contentComplete={props.contentComplete} positionInContent={props.position} setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
+        {props?.content?.type == "card" && <Card contentComplete={props.contentComplete} position={props?.position} positionInContent={props.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections}  setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
       </div>
     </div>

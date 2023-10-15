@@ -1,3 +1,7 @@
+import Option1 from "@/components/Cards/OptionalCards/option1";
+import Option2 from "@/components/Cards/OptionalCards/option2";
+import Option3 from "@/components/Cards/OptionalCards/option3";
+import Option4 from "@/components/Cards/OptionalCards/option4";
 import { useEffect, useState } from "react";
 
 const SectionView = (props) => {
@@ -16,7 +20,10 @@ const SectionView = (props) => {
         paddingRight: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingRight,
         paddingBottom: props.webPageData.pages[parseInt(props.currentPage) - 1].paddingBottom,
         backgroundColor: props.webPageData.pages[parseInt(props.currentPage) - 1].backgroundColor,
-        backgroundImage: `url(${props.webPageData.pages[parseInt(props.currentPage) - 1].bgImage})`
+        backgroundImage: `url(${props.webPageData.pages[parseInt(props.currentPage) - 1].bgImage})`,
+        backgroundPosition: "center", /* Center the image */
+        backgroundRepeat: "no-repeat", /* Do not repeat the image */
+        backgroundSize: "cover",
     }
 
     useEffect(() => {
@@ -69,9 +76,14 @@ const SectionView = (props) => {
 
     }, []);
 
+    useEffect(() => {
+        console.log(props.webPageData)
+    }, [props.webPageData])
+
+
     return (
         <>
-            <div style={styles} className={`bg-red-500 w-full h-full`}>
+            <div style={styles} className={`h-full object-cover scrollbarDesign overflow-y-auto`}>
                 {props.webPageData.pages[parseInt(props.currentPage) - 1].sections !== null && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.length > 0 && props.webPageData.pages[parseInt(props.currentPage) - 1].sections.map(data => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {
@@ -90,7 +102,7 @@ const SectionView = (props) => {
                                 <img style={styles} className={`object-cover ${data.position === "right" ? "ml-auto" : data.position === "left" ? "mr-auto" : "mx-auto"}`} src={data.imageUrl} />
                             </div>
                         )
-                    } else {
+                    } else if (data.type === "text" || data.type === "textArea") {
                         const styles = {
                             fontSize: data.textSize + "px",
                             color: data.color,
@@ -103,8 +115,18 @@ const SectionView = (props) => {
                         return (
                             <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
                         )
+                    } else if (data.type === "card") {
+                        return (
+                            // <div className="grid grid-cols-2 gap-4">
+                            <>
+                                {data.cardSelected === "card1" && <Option1 data={data} />}
+                                {data.cardSelected === "card2" && <Option2 data={data} />}
+                                {data.cardSelected === "card3" && <Option3 data={data} />}
+                                {data.cardSelected === "card4" && <Option4 data={data} />}
+                            </>
+                            // </div>
+                        )
                     }
-
                 })}
             </div>
         </>

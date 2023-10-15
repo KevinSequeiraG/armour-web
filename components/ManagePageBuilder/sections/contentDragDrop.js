@@ -61,12 +61,14 @@ export const ContentDragDrop = (props) => {
     } else if (contentType == "card") {
       newContent.push({
         type: "card", //card
+        cardSelected: 'card1',
+        isCategory: true,
         id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
-        cardSelected: "1",
-        paddingLeft: "0",
-        paddingRight: "0",
-        paddingTop: "0",
-        paddingBottom: "0",
+        // cardSelected: "1",
+        // paddingLeft: "0",
+        // paddingRight: "0",
+        // paddingTop: "0",
+        // paddingBottom: "0",
       })
     }
 
@@ -133,6 +135,7 @@ export const ContentDragDrop = (props) => {
               {pageContentDataSections?.map((content, i) => (
                 <Fragment key={i}>
                   <DraggableItem
+                    handleDeleteContent={handleDeleteContent}
                     key={content?.id}
                     content={content}
                     position={i}

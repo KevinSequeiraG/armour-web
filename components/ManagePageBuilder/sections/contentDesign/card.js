@@ -1,11 +1,44 @@
 import React, { useEffect, useState } from 'react'
-import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop } from 'react-icons/bi'
 import Switch from 'react-switch';
 
 export const Card = (props) => {
-
+    const [showTitleDesign, setShowTitleDesign] = useState(false);
+    const [showDescDesign, setShowDescDesign] = useState(false);
+    const [showButtonDesign, setShowButtonDesign] = useState(false);
+    const [showCardDesign, setShowCardDesign] = useState(false);
     const [contentValues, setContentValues] = useState(props?.content);
+    const [imageSrc, setImageSrc] = useState(null);
+    const options = [
+        { label: 'Opción 1', value: 'card1' },
+        { label: 'Opción 2', value: 'card2' },
+        { label: 'Opción 3', value: 'card3' },
+        { label: 'Opción 4', value: 'card4' },
+    ];
+    const [cardOption, setCardOption] = useState();
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImageSrc(e.target.result);
+                setContentValues((prevValues) => ({ ...prevValues, image: e.target.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleDeleteBGImage = () => {
+        setImageSrc(null);
+        setContentValues((prevValues) => ({ ...prevValues, image: null }));
+    };
+
+    const onChangeCardOption = (e) => {
+        setCardOption(e.target.value)
+        handleInputChange(e)
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -16,105 +49,225 @@ export const Card = (props) => {
         setContentValues((prevValues) => ({ ...prevValues, isBold: !prevValues.isBold }));
     };
 
-    const handleTextPositionChange = (newPosition) => {
-        setContentValues((prevValues) => ({ ...prevValues, position: newPosition }));
+    const handleTextPositionChange = (newPosition, name) => {
+        const completeName = name + "Position"
+        setContentValues((prevValues) => ({ ...prevValues, [completeName]: newPosition }));
     };
 
     useEffect(() => {
-        // props.setWebPageData()
-        if (props.webPageData !== undefined) {
-            const updateTest = [...props.contentComplete]
-            updateTest[parseInt(props.positionInContent)] = contentValues
-            // infoToEdit = contentValues;
-            // props.setContent();
-            props.setContent(updateTest)
-        }
-    }, [contentValues])
+        const allDataInContent = [...props?.pageContentDataSections];
+        allDataInContent[props?.position] = contentValues;
+        console.log(props?.position, "zzz", allDataInContent)
+        props?.setPageContentDataSections(allDataInContent)
+    }, [contentValues]);
 
     useEffect(() => {
-        const dataToUpdate = { ...contentValues }
-        const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
-        if (sectionToEdit) {
-            setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
+        if (props.webPageData.pages[props.currentPage - 1].sections.lenght > 1) {
+            const dataToUpdate = { ...contentValues }
+            console.log("props.currentPage", dataToUpdate.id)
+            console.log(props.currentPage)
+            console.log("zzz", props.webPageData.pages[props.currentPage - 1].sections)
+
+            const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
+            console.log("sec", sectionToEdit)
+            if (sectionToEdit) {
+                setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
+            }
         }
-    }, [props.currentPage])
+    }, [props.currentPage])    
 
     // NEW DATA
-    const [isCatergory, setIsCatergory] = useState(true);
+    const [isCategory, setIsCategory] = useState(true);
     return (
         <div>
-            <div className='relative flex items-center justify-between'>
-                <p>Categoría</p>
-                <Switch onChange={() => setIsCatergory(!isCatergory)} checked={isCatergory} offColor="#3d4f61" onColor="#3d4f61" uncheckedIcon={false} checkedIcon={false} width={40} handleDiameter={10}/>
+            <label>Tipo de card</label>
+            <select
+                className="p-2 border rounded-lg w-full my-2"
+                value={cardOption}
+                name="cardSelected"
+                onChange={onChangeCardOption}
+            >
+                {options.map((option, index) => (
+                    <option key={index} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+            <div className='relative flex items-center justify-between mx-2'>
                 <p>Producto</p>
+                <Switch name='cardType' onChange={(value) => { setIsCategory(!isCategory); setContentValues((prevValues) => ({ ...prevValues, 'isCategory': value })); }} checked={isCategory} offColor="#3d4f61" onColor="#3d4f61" uncheckedIcon={false} checkedIcon={false} width={40} handleDiameter={10} />
+                <p>Categoría</p>
             </div>
 
-            {/* <div className="flex items-center space-x-1.5 justify-between mt-5">
+            <button onClick={() => {setShowCardDesign(!showCardDesign);}} className={`${showCardDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-4 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos card</button>
+            {showCardDesign && <div className='mb-4'>
+                <div className='flex items-center space-x-1.5 justify-between mt-2'>
 
-                <div className='flex justify-center items-center space-x-1'>
-                    <AiOutlineColumnHeight className='w-5 h-5' />
-                    <input name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
+                    <div className='flex justify-center items-center space-x-1'>
+                        <BiArrowToLeft className='w-5 h-5' />
+                        <input name="marginRight" value={contentValues?.marginRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>%</em>
+                    </div>
+
+                    <div className='flex justify-center items-center space-x-1'>
+                        <BiArrowToBottom className='w-5 h-5' />
+                        <input name="marginTop" value={contentValues?.marginTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>%</em>
+                    </div>
+
                 </div>
 
-                <div className='flex justify-center items-center space-x-1'>
-                    <AiOutlineColumnHeight className='w-5 h-5 rotate-90' />
-                    <input name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
+                <div className='flex items-center space-x-1.5 justify-between mt-2'>
+                    <div className='flex justify-center items-center space-x-1'>
+                        <BiArrowToRight className='w-5 h-5' />
+                        <input name="marginLeft" value={contentValues?.marginLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>%</em>
+                    </div>
+                    <div className='flex justify-center items-center space-x-1'>
+                        <BiArrowToTop className='w-5 h-5' />
+                        <input name="marginBottom" value={contentValues?.marginBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        <em className='font-normal text-xs'>%</em>
+                    </div>
                 </div>
-
-            </div> */}
-
-            <div className='flex items-center space-x-1.5 justify-between mt-5'>
-
-                <div className='flex justify-center items-center space-x-1'>
-                    <BiArrowToLeft className='w-5 h-5' />
-                    <input name="marginRight" value={contentValues?.marginRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
+                {imageSrc ? (
+                    <div className='my-4' style={{ position: 'relative' }}>
+                        <img
+                            src={imageSrc}
+                            alt="Uploaded"
+                            // style={{ ...imageStyles }}
+                            className='object-cover w-full h-[12rem] rounded-[10px]'
+                        />
+                        <button
+                            onClick={handleDeleteBGImage}
+                            style={{
+                                position: 'absolute',
+                                top: "-10px",
+                                right: "-5px",
+                                background: 'red',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '50%',
+                                cursor: 'pointer',
+                                padding: '0.2rem 0.4rem',
+                            }}
+                        >
+                            X
+                        </button>
+                    </div>
+                ) : (
+                    <label
+                        style={{
+                            padding: '15px 10px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                            fontWeight: 500,
+                            fontSize: '14px',
+                            cursor: 'pointer',
+                            lineHeight: '1rem',
+                            border: '2px dashed #224553',
+                            borderRadius: '10px',
+                        }}
+                        className='w-full h-[12rem] my-4'
+                    >
+                        Añadir imagen
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            style={{ display: 'none' }}
+                        />
+                    </label>
+                )}
+                <div className='mt-2'>
+                    <p className=''>Color de fondo</p>
+                    <div className='flex justify-center items-center w-full'>
+                        <AiOutlineBgColors className='w-7 h-7' />
+                        <input value={contentValues?.bgColorButton} onChange={handleInputChange} type="color" id="colorPicker" name="bgColor" className='inputColor w-2/3 h-[1.5rem]' />
+                    </div>
                 </div>
-
-                <div className='flex justify-center items-center space-x-1'>
-                    <BiArrowToBottom className='w-5 h-5' />
-                    <input name="marginTop" value={contentValues?.marginTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
-                </div>
-
             </div>
+            }
 
-            <div className='flex items-center space-x-1.5 justify-between mt-2'>
-                <div className='flex justify-center items-center space-x-1'>
-                    <BiArrowToRight className='w-5 h-5' />
-                    <input name="marginLeft" value={contentValues?.marginLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
-                </div>
-                <div className='flex justify-center items-center space-x-1'>
-                    <BiArrowToTop className='w-5 h-5' />
-                    <input name="marginBottom" value={contentValues?.marginBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
-                    <em className='font-normal text-xs'>%</em>
-                </div>
-            </div>
+            <button onClick={() => setShowTitleDesign(!showTitleDesign)} className={`${showTitleDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos titulo</button>
+            {showTitleDesign &&
+                <>
+                    <div className='relative mt-2'>
+                        <input name="textTitle" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
+                        {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
+                    </div>
+                    <div className='flex justify-between px-4 items-center mt-2'>
+                        <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.titlePosition == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left", "title")} />
+                        <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.titlePosition == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center", "title")} />
+                        <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.titlePosition == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right", "title")} />
+                    </div>
+                    <div className='flex items-center space-x-1.5 justify-between my-5'>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontSize className='w-5 h-5' />
+                            <input name="textSizeTitle" value={contentValues?.textSizeTitle} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        </div>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontColors className='w-5 h-5' />
+                            <input name="textColorTitle" value={contentValues?.textColorTitle} onChange={handleInputChange} type="color" className='inputColor' />
+                        </div>
+                    </div>
+                </>}
 
-            <div className='flex justify-between px-4 items-center mt-5'>
-                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
-                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
-                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
-            </div>
+            <button onClick={() => setShowDescDesign(!showDescDesign)} className={`${showDescDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos Descripcion</button>
+            {showDescDesign &&
+                <>
+                    <div className='relative mt-2'>
+                        <input name="textDesc" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
+                        {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
+                    </div>
+                    <div className='flex justify-between px-4 items-center mt-2'>
+                        <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.descPosition == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left", "desc")} />
+                        <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.descPosition == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center", "desc")} />
+                        <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.descPosition == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right", "desc")} />
+                    </div>
+                    <div className='flex items-center space-x-1.5 justify-between my-5'>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontSize className='w-5 h-5' />
+                            <input name="textSizeDesc" value={contentValues?.textSizeDesc} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        </div>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontColors className='w-5 h-5' />
+                            <input name="textColorDesc" value={contentValues?.textColorDesc} onChange={handleInputChange} type="color" className='inputColor' />
+                        </div>
+                    </div>
+                </>}
 
-
-
-            <div className='flex items-center space-x-1.5 justify-between my-5'>
-                <div className='flex justify-center items-center space-x-1'>
-                    <AiOutlineFontSize className='w-5 h-5' />
-                    <input name="textSize" value={contentValues?.textSize} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
-                </div>
-
-                <div className='flex justify-center items-center space-x-1'>
-                    <AiOutlineFontColors className='w-5 h-5' />
-                    <input name="color" value={contentValues?.color} onChange={handleInputChange} type="color" className='inputColor' />
-                </div>
-
-            </div>
-
+            <button onClick={() => setShowButtonDesign(!showButtonDesign)} className={`${showButtonDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos de boton</button>
+            {showButtonDesign &&
+                <>
+                    {isCategory && <div className='relative mt-2'>
+                        <input name="textButton" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
+                        {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
+                    </div>}
+                    <div className='flex justify-between px-4 items-center mt-2'>
+                        <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.buttonPosition == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left", "button")} />
+                        <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.buttonPosition == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center", "button")} />
+                        <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.buttonPosition == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right", "button")} />
+                    </div>
+                    <div className='flex items-center space-x-1.5 justify-between '>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontSize className='w-5 h-5' />
+                            <input name="textSizeButton" value={contentValues?.textSizeButton} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                        </div>
+                        <div className='flex justify-center items-center space-x-1'>
+                            <AiOutlineFontColors className='w-5 h-5' />
+                            <input name="textColorButton" value={contentValues?.textColorButton} onChange={handleInputChange} type="color" className='inputColor' />
+                        </div>
+                    </div>
+                    <div className='mx-2'>
+                        <p className=''>Color de fondo</p>
+                        <div className='flex justify-center items-center w-full'>
+                            <AiOutlineBgColors className='w-7 h-7' />
+                            <input value={contentValues?.bgColorButton} onChange={handleInputChange} type="color" id="colorPicker" name="bgColorButton" className='inputColor w-2/3 h-[1.5rem]' />
+                        </div>
+                    </div>
+                </>}
         </div>
     )
 }

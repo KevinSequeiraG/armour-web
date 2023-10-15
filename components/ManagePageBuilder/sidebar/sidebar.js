@@ -73,6 +73,18 @@ const Sidebar = (props) => {
 
     const handleDeleteBGImage = () => {
         setImageSrc(null);
+        props.setWebPageData(prevData => {
+            const updatedPages = prevData?.pages?.map(page => {
+                if (page?.id === props?.currentPage)
+                    return { ...page, bgImage: null };
+
+                return page;
+            });
+            return {
+                ...prevData,
+                pages: updatedPages
+            };
+        });
         fileInputRef.current.value = '';
     };
 
@@ -343,6 +355,7 @@ const Sidebar = (props) => {
             setPagePaddingRight(parseInt(currentPageSectionsData?.paddingRight?.replace('%', '')));
             setPagePaddingTop(parseInt(currentPageSectionsData?.paddingTop?.replace('%', '')));
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
+            setImageSrc(currentPageSectionsData?.bgImage)
         }
     }, [props.currentMenuOption, props?.currentPage])
 

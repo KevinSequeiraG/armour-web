@@ -6,28 +6,28 @@ const EditCategoryPage = () => {
     const sampleProducts = [
         {
             id: 1,
-            name: 'Producto 1',
-            description: 'Descripción del Producto 1',
+            name: 'Categoria 1',
+            description: 'Descripción del Categoria 1',
         },
         {
             id: 2,
-            name: 'Producto 2',
-            description: 'Descripción del Producto 2',
+            name: 'Categoria 2',
+            description: 'Descripción del Categoria 2',
         },
         {
             id: 3,
-            name: 'Producto 3',
-            description: 'Descripción del Producto 3',
+            name: 'Categoria 3',
+            description: 'Descripción del Categoria 3',
         },
         {
             id: 4,
-            name: 'Producto 4',
-            description: 'Descripción del Producto 4',
+            name: 'Categoria 4',
+            description: 'Descripción del Categoria 4',
         },
         {
             id: 5,
-            name: 'Producto 5',
-            description: 'Descripción del Producto 5',
+            name: 'Categoria 5',
+            description: 'Descripción del Categoria 5',
         },
     ];
 

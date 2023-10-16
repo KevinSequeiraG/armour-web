@@ -362,3 +362,13 @@
   font-size: 14px;
   text-align: center;
 }
+
+
+.my-swal label {
+  display: block;
+}
+
+.my-swal input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}

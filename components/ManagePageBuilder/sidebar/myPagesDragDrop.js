@@ -53,7 +53,56 @@ const MypagesDragDrop = (props) => {
     const updatedWebPageData = { ...props.webPageData };
 
     // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
-    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] };
+    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", isContactPage: false, sections: [] };
+
+    // Agrega el nuevo objeto 'page' al arreglo 'pages'
+    updatedWebPageData.pages.push(newPage);
+
+    // Establece la copia actualizada como el nuevo estado
+    props.setWebPageData(updatedWebPageData);
+  };
+
+  const handleAddContactForm = async () => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const { value: formValues } = await Swal.fire({
+      title: 'Formulario de contacto',
+      html:
+        '<label for="swal-input1">Nombre de la página:</label>' +
+        '<input id="swal-input1" class="swal2-input">' +
+        '<label for="swal-input2">Correo para recibir comentarios:</label>' +
+        '<input id="swal-input2" class="swal2-input">',
+      showCloseButton: true,
+      confirmButtonText: 'Aceptar',
+      allowOutsideClick: false,
+      customClass: {
+        container: 'my-swal'
+      },
+      preConfirm: () => {
+        const input1 = document.getElementById('swal-input1').value;
+        const input2 = document.getElementById('swal-input2').value;
+
+        if (!input1 || !input2) Swal.showValidationMessage('Por favor, completa todos los campos');
+
+        else if (pages.findIndex((page) => page.name === input1) != -1) Swal.showValidationMessage('Ya existe una página con ese nombre.')
+
+        else if (!emailRegex.test(input2)) Swal.showValidationMessage('El formato del email no es válido.')
+
+        return { name: input1, email: input2 };
+      }
+    })
+
+    if (!formValues || !formValues.email || !formValues.name) return;
+
+    const newPage = { id: pages?.length + 1, name: formValues.name, paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", insta: "", linkedin: "", google: "", emailRecieve: formValues.email, inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#EFE1A2", language: "es", sections: [] };
+
+    const newSections = [...pages, newPage];
+    setPages(newSections);
+    // handleSetPagesOptions(newSections)
+
+    // Clona el objeto webPageData para no modificar el estado original directamente
+    const updatedWebPageData = { ...props.webPageData };
+
+    // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
 
     // Agrega el nuevo objeto 'page' al arreglo 'pages'
     updatedWebPageData.pages.push(newPage);
@@ -72,7 +121,7 @@ const MypagesDragDrop = (props) => {
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) return 'La sección requiere un nombre.'
-        if (pages.findIndex((page) => page.name === value) != -1) return 'Ya existe una página con ese nombre.'
+        if (pages.some((page) => page.name === value && page.id !== pageId)) return 'Ya existe una página con ese nombre.'
       }
     })
 
@@ -91,6 +140,54 @@ const MypagesDragDrop = (props) => {
     props.setWebPageData(updatedWebPageData);
 
   };
+
+  const handleEditContactPage = async (pageId) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const currentPage = pages.find((page) => page.id === pageId);
+    const { value: formValues } = await Swal.fire({
+      title: 'Formulario de contacto',
+      html:
+        '<label for="swal-input1">Nombre de la página:</label>' +
+        `<input id="swal-input1" class="swal2-input" value="${currentPage?.name || ''}">` +
+        '<label for="swal-input2">Correo para recibir comentarios:</label>' +
+        `<input id="swal-input2" class="swal2-input" value="${currentPage?.emailRecieve || ''}">`,
+      showCloseButton: true,
+      confirmButtonText: 'Aceptar',
+      allowOutsideClick: false,
+      customClass: {
+        container: 'my-swal'
+      },
+      preConfirm: () => {
+        const input1 = document.getElementById('swal-input1').value;
+        const input2 = document.getElementById('swal-input2').value;
+
+        if (!input1 || !input2) Swal.showValidationMessage('Por favor, completa todos los campos');
+
+        else if (pages.some((page) => page?.name === input1 && page?.id !== pageId)) Swal.showValidationMessage('Ya existe una página con ese nombre.')
+
+        else if (!emailRegex.test(input2)) Swal.showValidationMessage('El formato del email no es válido.')
+
+        return { name: input1, email: input2 };
+      }
+    })
+
+    if (!formValues || !formValues.email || !formValues.name) return;
+    const updatedPages = pages.map((page) => page.id === pageId ? { ...page, name: formValues.name, emailRecieve: formValues.email } : page);
+    setPages(updatedPages);
+    // handleSetPagesOptions(newSections)
+    // Actualiza el objeto 'updatedWebPageData'
+    const updatedWebPageData = { ...props.webPageData };
+    const pageToUpdate = updatedWebPageData.pages.find((page) => page.id === pageId);
+    if (pageToUpdate) {
+      pageToUpdate.name = formValues.name;
+      pageToUpdate.emailRecieve = formValues.email;
+    }
+
+    // Establece la copia actualizada como el nuevo estado
+    props.setWebPageData(updatedWebPageData);
+
+  };
+
 
   const handleDeletePage = async (pageId) => {
 
@@ -154,7 +251,8 @@ const MypagesDragDrop = (props) => {
             strategy={verticalListSortingStrategy}
           >
             {pages.map((page, i) => (
-              <DraggableItem key={i} page={page} handleEditPageName={handleEditPageName} handleDeletePage={handleDeletePage} />
+              console.log(page),
+              <DraggableItem key={i} page={page} handleEditPageName={handleEditPageName} handleEditContactPage={handleEditContactPage} handleDeletePage={handleDeletePage} />
             ))}
           </SortableContext>
         </DndContext>
@@ -165,6 +263,13 @@ const MypagesDragDrop = (props) => {
       >
         <FiPlus className='text-base mr-1' />Añadir página
       </button>
+      {!props?.webPageData?.pages?.find((page) => page.isContactPage === true) &&
+        <button
+          className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
+          onClick={handleAddContactForm}
+        >
+          <FiPlus className='text-base mr-1' />Añadir formulario contácto
+        </button>}
     </>
   );
 };

@@ -27,7 +27,7 @@ function DraggableItem(props) {
         <p className="leading-5 mdx1700:leading-normal">{props?.page?.name?.toString()?.length < 17 ? props?.page?.name : props?.page?.name?.substring(0, 17) + "..."}</p>
       </div>
       <div className="flex items-center w-full justify-end space-x-1">
-        <AiTwotoneEdit className="w-5 h-5 cursor-pointer text-gray-600" onClick={() => props.handleEditPageName(props?.page?.id)} />
+        <AiTwotoneEdit className="w-5 h-5 cursor-pointer text-gray-600" onClick={() => props?.page?.isContactPage ? props.handleEditContactPage(props?.page?.id) : props.handleEditPageName(props?.page?.id)} />
         <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500" onClick={() => props.handleDeletePage(props?.page?.id)} />
       </div>
     </div>

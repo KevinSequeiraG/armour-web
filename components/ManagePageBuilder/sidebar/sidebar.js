@@ -10,7 +10,8 @@ import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiVertica
 import 'animate.css';
 import MypagesDragDrop from './myPagesDragDrop';
 import { ContentDragDrop } from '../sections/contentDragDrop';
-
+import Switch from 'react-switch';
+import SocialMediaInput from '@/components/ContactUsPreview/socialMediaInputs';
 
 const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -416,13 +417,13 @@ const Sidebar = (props) => {
 
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Redes sociales" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
-                        {/* <Section /> */}
-                    </SidebarMenuOption>
+                    {/* <SidebarMenuOption label="Contácto" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
+   
+                    </SidebarMenuOption> */}
 
-                    <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
+                    {/* <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
                         <Section />
-                    </SidebarMenuOption>
+                    </SidebarMenuOption> */}
 
                 </div>
                 <button className="optionButton w-fit !ml-5 !flex !items-center !justify-center" onClick={handleCloseButton}>
@@ -686,7 +687,7 @@ const Sidebar = (props) => {
                         </>
                     }
 
-                    {activeButtonIndex !== 0 && <>
+                    {activeButtonIndex === 1 && !props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
                         <div className='flex flex-col items-center'>
                             <p>Contenido</p>
 
@@ -694,6 +695,85 @@ const Sidebar = (props) => {
 
                         </div>
                     </>}
+
+                    {activeButtonIndex === 1 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
+                        <hr className='border border-[#224553]' />
+                        <div className='relative flex items-center justify-center space-x-4'>
+                            <p>Redes sociales</p>
+                            <Switch name='cardType'
+
+                                onChange={(value) => { }}
+                                checked={props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage}
+
+                                offColor="#3d4f61" onColor="#3d4f61"
+                                uncheckedIcon={false} checkedIcon={false}
+                                width={40} handleDiameter={10}
+                            />
+                        </div>
+                        <div className="grid grid-cols-5 gap-y-5">
+                            <div className="col-span-5">
+                                <SocialMediaInput
+                                    facebookIcon
+                                    inputValue={"hola"}
+                                    setInputValue={null}
+                                    inputDisabled={props.basicInfoReady}
+                                />
+                            </div>
+                            <div className="col-span-5">
+                                <SocialMediaInput
+                                    twitterIcon
+                                    inputValue={"hola"}
+                                    setInputValue={null}
+                                    inputDisabled={props.basicInfoReady}
+                                />
+                            </div>
+                            <div className="col-span-5">
+                                <SocialMediaInput
+                                    linkedInIcon
+                                    inputValue={"hola"}
+                                    setInputValue={null}
+                                    inputDisabled={props.basicInfoReady}
+                                />
+                            </div>
+                            <div className="col-span-5">
+                                <SocialMediaInput
+                                    googleIcon
+                                    inputValue={"hola"}
+                                    setInputValue={null}
+                                    inputDisabled={props.basicInfoReady}
+                                />
+                            </div>
+                        </div>
+                    </>}
+
+
+                    {activeButtonIndex === 1 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
+                        <hr className='border border-[#224553]' />
+                        <div className='flex flex-col items-start border space-y-2'>
+                            <p>Color de texto</p>
+                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
+                            <AiOutlineFontColors className='w-7 h-7' />
+                                <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                            </div>
+
+                            <p>Color de campos de entrada</p>
+                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
+                                
+                                <AiOutlineBgColors className='w-7 h-7' />
+                                <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                            </div>
+
+                            <p>Color del botón</p>
+                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
+                            <AiOutlineBgColors className='w-7 h-7' />
+                                <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
+                            </div>
+
+                        </div>
+                    </>}
+
+
+
                 </div>
             </div>
         </aside >

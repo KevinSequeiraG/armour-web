@@ -39,7 +39,7 @@ const processAndUploadWebPageImages = async (webPageData) => {
 
     newWebPageData.logo = webPageData?.logo ? await uploadImageToFirebaseStorage(webPageData?.logo) : "";
 
-    newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
+    newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage?.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
 
     newWebPageData.pages = await Promise.all(
         webPageData?.pages?.map(async (page) => {

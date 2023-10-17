@@ -13,7 +13,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] }] });
+    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] }, { id: 2, name: "ContactUs", paddingLeft: "10%", paddingRight: "10%", paddingTop: "5%", paddingBottom: "0%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", google: "", emailRecieve: "ayuda@help.com", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", language: "es", inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5",sections: [] }] });
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -69,12 +69,12 @@ export default function ManagePageBuilder() {
 
                 <div className="w-[75%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
                     {/* <PersonalizationHeader /> */}
-                    <button className='bg-white text-black absolute right-5 top-5 px-4 py-2 rounded-xl' onClick={()=>{SaveWebPage(webPageData)}}>Save</button>
+                    <button className='bg-white text-black absolute right-5 top-5 px-4 py-2 rounded-xl' onClick={() => { SaveWebPage(webPageData) }}>Save</button>
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] max-h-[667px] h-full !overflow-hidden m-auto shadow-md bg-white relative" : "!overflow-hidden w-full max-w-full mx-3 h-full max-h-[calc(100vh-8rem)] !my-auto shadow-md bg-white relative"}`}>
 
                         <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>
 
-                            <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} />
+                            <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} />
 
                         </Navbar>
 

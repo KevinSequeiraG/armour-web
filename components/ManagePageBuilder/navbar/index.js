@@ -9,7 +9,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     const [navbarBGColor, setNavbarBGColor] = useState("#000000");
     const [navbarWidth, setNavbarWidth] = useState("5%");
     const [navbarHeight, setNavbarHeight] = useState("5%");
-    const [bgImage, setBgImage] = useState(null)
+    const [bgImage, setBgImage] = useState(webPageData?.navbar?.backgroundImage)
     const [contentPosition, setContentPosition] = useState(position === "top" ? "t-left" : "top")
     const [navbarOptions, setNavbarOptions] = useState(webPageData.pages)
 
@@ -121,6 +121,10 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         setWebPageData()
         updateNavbarData()
     }, [navbarTextColor, navbarBGColor, navbarWidth, navbarHeight, bgImage, contentPosition, navbarOptions, position])
+
+    useEffect(() => {
+        setBgImage(webPageData?.navbar?.backgroundImage)
+    }, [webPageData?.navbar])    
 
     return (
         <div className={`relative w-full h-full ${position === "top" ? "" : position === "left" ? "flex" : "flex flex-row-reverse"}`}>

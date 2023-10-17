@@ -1,5 +1,5 @@
 import { database } from "@/lib/firebaseConfig";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const GetWebpage = async (webpageName) => {
@@ -15,6 +15,25 @@ export const GetWebpage = async (webpageName) => {
         } else {
             console.log("El documento no existe.");
         }
+    } catch (error) {
+        console.error("Error al obtener el documento:", error);
+    }
+}
+
+export const GetWebpagesByCreatedBy = async (userUid) => {
+    try {
+        const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
+        const q = query(
+            collectionRef,
+            where("createdBy", "==", userUid)
+        ); // Construir la referencia al documento
+        return await getDocs(q).then(response => {
+            const resp = []
+            response.docs.map(data => {
+                resp.push(data.data())
+            })
+            return resp;
+        });
     } catch (error) {
         console.error("Error al obtener el documento:", error);
     }
@@ -37,19 +56,27 @@ const uploadImageToFirebaseStorage = async (imageUrl) => {
 const processAndUploadWebPageImages = async (webPageData) => {
     const newWebPageData = { ...webPageData };
 
-    newWebPageData.logo = webPageData?.logo ? await uploadImageToFirebaseStorage(webPageData?.logo) : "";
+    if (webPageData?.logo.includes("https://firebasestorage")) {
+        newWebPageData.logo = webPageData?.logo;
+    } else {
+        newWebPageData.logo = webPageData?.logo ? await uploadImageToFirebaseStorage(webPageData?.logo) : "";
+    }
 
-    newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
+    if (webPageData?.navbar?.backgroundImage.includes("https://firebasestorage")) {
+        newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage;
+    } else {
+        newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
+    }
 
     newWebPageData.pages = await Promise.all(
         webPageData?.pages?.map(async (page) => {
             return {
                 ...page,
-                bgImage: page?.bgImage ? await uploadImageToFirebaseStorage(page?.bgImage) : "",
+                bgImage: page?.bgImage ? page?.bgImage.includes("https://firebasestorage") ? page?.bgImage : await uploadImageToFirebaseStorage(page?.bgImage) : "",
                 sections: await Promise.all(
                     page?.sections?.map(async (section) => {
                         if (section?.type === 'image')
-                            return { ...section, imageUrl: section?.imageUrl ? await uploadImageToFirebaseStorage(section?.imageUrl) : "" };
+                            return { ...section, imageUrl: section?.imageUrl ? section?.imageUrl.includes("https://firebasestorage") ? section?.imageUrl : await uploadImageToFirebaseStorage(section?.imageUrl) : "" };
 
                         return section;
                     })
@@ -61,10 +88,10 @@ const processAndUploadWebPageImages = async (webPageData) => {
     return newWebPageData;
 };
 
-export const SaveWebPage = async (webPageData) => {
+export const SaveWebPage = async (webPageData, loggedUserUid) => {
     try {
-        const updatedWebPageData = await processAndUploadWebPageImages(webPageData);
-
+        const dataToSave = { ...webPageData, createdBy: loggedUserUid }
+        const updatedWebPageData = await processAndUploadWebPageImages(dataToSave);
         const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.name}`);
         await setDoc(usersTableRef, updatedWebPageData).then(async () => {
             console.log("listo")

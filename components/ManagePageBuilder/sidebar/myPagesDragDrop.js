@@ -251,7 +251,6 @@ const MypagesDragDrop = (props) => {
             strategy={verticalListSortingStrategy}
           >
             {pages.map((page, i) => (
-              console.log(page),
               <DraggableItem key={i} page={page} handleEditPageName={handleEditPageName} handleEditContactPage={handleEditContactPage} handleDeletePage={handleDeletePage} />
             ))}
           </SortableContext>

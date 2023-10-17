@@ -57,19 +57,14 @@ export const Card = (props) => {
     useEffect(() => {
         const allDataInContent = [...props?.pageContentDataSections];
         allDataInContent[props?.position] = contentValues;
-        console.log(props?.position, "zzz", allDataInContent)
         props?.setPageContentDataSections(allDataInContent)
     }, [contentValues]);
 
     useEffect(() => {
         if (props.webPageData.pages[props.currentPage - 1].sections.lenght > 1) {
             const dataToUpdate = { ...contentValues }
-            console.log("props.currentPage", dataToUpdate.id)
-            console.log(props.currentPage)
-            console.log("zzz", props.webPageData.pages[props.currentPage - 1].sections)
 
             const sectionToEdit = props.webPageData.pages[props.currentPage - 1].sections.find(section => section.id === dataToUpdate.id)
-            console.log("sec", sectionToEdit)
             if (sectionToEdit) {
                 setContentValues({ ...dataToUpdate, color: sectionToEdit.color, text: sectionToEdit.text, height: sectionToEdit.height, isBold: sectionToEdit.isBold, marginBottom: sectionToEdit.marginBottom, marginLeft: sectionToEdit.marginLeft, marginRight: sectionToEdit.marginRight, marginTop: sectionToEdit.marginTop, position: sectionToEdit.position, textSize: sectionToEdit.textSize, width: sectionToEdit.width })
             }

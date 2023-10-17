@@ -77,11 +77,6 @@ const SectionView = (props) => {
 
     }, []);
 
-    useEffect(() => {
-        console.log(props.webPageData)
-    }, [props.webPageData])
-
-
     return (
         <>
             <div style={styles} className={`w-full h-full object-cover overflow-y-auto scrollbarDesign`}>

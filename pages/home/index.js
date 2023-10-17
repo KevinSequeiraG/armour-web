@@ -2,20 +2,28 @@ import { useTranslation } from "react-i18next";
 import WebPageCard from "../../components/Cards/webPageCard";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { GetWebpage } from "@/helpers/webpage";
+import { useContext, useEffect, useState } from "react";
+import { GetWebpage, GetWebpagesByCreatedBy } from "@/helpers/webpage";
+import { UserContext } from "@/context/UserContext";
 
 const Home = () => {
     const { t } = useTranslation();
     const router = useRouter();
-    const [webpageData, setWebpageData] = useState()
+    const [webpageData, setWebpageData] = useState([]);
+    const { loggedUser } = useContext(UserContext);
 
     useEffect(() => {
-        GetWebpage("nammme").then(data => {
-            console.log("webbb", data)
-            setWebpageData(data)
-        })
-    }, [])
+        // GetWebpage("completo").then(data => {
+        //     console.log("webbb", data)
+        //     setWebpageData(data)
+        // })
+        if (loggedUser) {
+            GetWebpagesByCreatedBy(loggedUser.uid).then((data) => {
+                setWebpageData(data)
+            })
+        }
+
+    }, [loggedUser])
 
 
     return (
@@ -41,24 +49,11 @@ const Home = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 mdx800:grid-cols-2 mdx1100:grid-cols-3 mdx1400:grid-cols-4 mdx1900:grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
-                <WebPageCard webpageData={webpageData} />
-
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
-                <WebPageCard />
+                {webpageData?.map((webpage => {
+                    return (
+                        <WebPageCard webpageData={webpage} />
+                    )
+                }))}
             </div>
         </div>
     )

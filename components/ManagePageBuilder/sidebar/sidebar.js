@@ -391,6 +391,11 @@ const Sidebar = (props) => {
         }
     }, [props.currentMenuOption, props?.currentPage])
 
+    useEffect(() => {
+      setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)
+    }, [props.webPageData])
+    
+
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
             <div className='flex flex-col h-full w-1/2 border-r border-[#EFE1A2] pr-3 shadow-2xl bg-black relative z-10'>

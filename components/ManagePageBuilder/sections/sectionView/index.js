@@ -2,7 +2,7 @@ import Option1 from "@/components/Cards/OptionalCards/option1";
 import Option2 from "@/components/Cards/OptionalCards/option2";
 import Option3 from "@/components/Cards/OptionalCards/option3";
 import Option4 from "@/components/Cards/OptionalCards/option4";
-import { ContactUsPreview } from "@/components/ContactUsPreview";
+import { ContactUsPreview } from "@/components/ManagePageBuilder/ContactUs";
 import { useEffect, useState } from "react";
 
 const SectionView = (props) => {
@@ -76,13 +76,12 @@ const SectionView = (props) => {
         };
 
     }, []);
-
+    
     return (
         <>
             <div style={styles} className={`w-full h-full object-cover overflow-y-auto scrollbarDesign`}>
                 {props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage ?
-                    <ContactUsPreview />
-                    // <></>
+                    <ContactUsPreview isMobilePreview={props?.isMobilePreview} webPageData={props?.webPageData} currentPage={props?.currentPage}/>
                     :
 
                     !props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {

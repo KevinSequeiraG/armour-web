@@ -4,14 +4,12 @@ import { useRouter } from 'next/router';
 import SidebarMenuOption from './sidebarMenuOption';
 import NavbarOptions from '../navbar/navbarOptions';
 import { FiArrowLeftCircle } from 'react-icons/fi';
-import Section from '../sections';
-import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineClose, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
+import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
 import MypagesDragDrop from './myPagesDragDrop';
 import { ContentDragDrop } from '../sections/contentDragDrop';
-import Switch from 'react-switch';
-import SocialMediaInput from '@/components/ContactUsPreview/socialMediaInputs';
+import { ContactUsSocialMediaAndColors } from '../ContactUs/SocialMediaAndColors';
 
 const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -31,7 +29,6 @@ const Sidebar = (props) => {
     const [pagePaddingRight, setPagePaddingRight] = useState("25");
     const [pagePaddingTop, setPagePaddingTop] = useState("50");
     const [pagePaddingBottom, setPagePaddingBottom] = useState("50");
-    // const [pagesOptions, setPagesOptions] = useState(props.webPageData.pages)
 
     const handleCloseButton = () => {
         //CLEAN STORAGE RELATED TO CREATE/EDIT
@@ -119,119 +116,6 @@ const Sidebar = (props) => {
         });
         fileInputRefNavbar.current.value = '';
     };
-
-    // const [bgImage, setBgImage] = useState()
-    // const removeImage = (dropZoneElement) => {
-    //     const thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-    //     if (thumbnailElement) {
-    //         // Eliminar solo el thumbnailElement correspondiente
-    //         thumbnailElement.remove();
-    //     }
-    //     // Restablecer el prompt si existe
-    //     const promptElement = dropZoneElement.querySelector(".drop-zone__prompt");
-    //     if (promptElement) {
-    //         promptElement.classList.remove("hidden");
-    //     }
-    //     // Restablecer el valor del input
-    //     const inputElement = dropZoneElement.querySelector(".drop-zone__input");
-    //     if (inputElement) {
-    //         inputElement.value = "";
-    //     }
-    // };
-
-    // const handleDeleteImage = (type) => {
-    //     const dropZoneElement = document.querySelector(`.drop-zone`);
-    //     if (dropZoneElement) {
-    //         removeImage(dropZoneElement);
-    //         // setBgImage(null)
-    //         handleBgImageChange(null)
-    //     }
-    // };
-
-    // const DragAndDropLogic = () => {
-    //     const dropZoneElements = document.querySelectorAll(".drop-zone");
-    //     dropZoneElements.forEach((dropZoneElement, i) => {
-    //         const inputElement = dropZoneElement.querySelector(".drop-zone__input");
-    //         const type = dropZoneElement.getAttribute("data-type");
-    //         let clicked = false; // Flag para controlar si se hizo clic en la zona de soltar
-    //         dropZoneElement.addEventListener("click", (e) => {
-    //             if (!clicked) {
-    //                 if (i == 0) {
-    //                     inputElement.click();
-    //                 }
-    //             }
-    //         });
-
-    //         inputElement.addEventListener("change", (e) => {
-    //             if (inputElement.files.length) {
-    //                 if (inputElement.files.length) {
-    //                     // setBgImage(inputElement.files[0]);
-    //                 }
-    //                 updateThumbnail(dropZoneElement, inputElement.files[0]);
-    //             }
-    //             clicked = false; // Reiniciar el flag después de seleccionar el archivo
-    //         });
-    //         dropZoneElement.addEventListener("dragover", (e) => {
-    //             e.preventDefault();
-    //             dropZoneElement.classList.add("drop-zone--over");
-    //         });
-    //         ["dragleave", "dragend"].forEach((type) => {
-    //             dropZoneElement.addEventListener(type, (e) => {
-    //                 dropZoneElement.classList.remove("drop-zone--over");
-    //             });
-    //         });
-    //         dropZoneElement.addEventListener("drop", (e) => {
-    //             e.preventDefault();
-    //             if (e.dataTransfer.files.length) {
-    //                 inputElement.files = e.dataTransfer.files;
-    //                 updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-    //                 // setBgImage(e.dataTransfer.files[0]);
-    //             }
-    //             dropZoneElement.classList.remove("drop-zone--over");
-    //         });
-
-
-    //     });
-    // };
-
-    // function updateThumbnail(dropZoneElement, file) {
-    //     let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-    //     // First time - remove the prompt
-    //     if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-    //         dropZoneElement.querySelector(".drop-zone__prompt").classList.add("hidden");
-    //     }
-    //     // First time - there is no thumbnail element, so lets create it
-    //     if (!thumbnailElement) {
-    //         thumbnailElement = document.createElement("div");
-    //         thumbnailElement.classList.add("drop-zone__thumb");
-    //         dropZoneElement.appendChild(thumbnailElement);
-    //     }
-    //     thumbnailElement.dataset.label = file.name;
-    //     // Show thumbnail for image files
-    //     if (file?.type?.startsWith("image/")) {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(file);
-    //         reader.onload = () => {
-    //             thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-    //             handleBgImageChange(reader.result)
-    //         };
-    //     } else if (typeof file === 'string' && file.startsWith('http')) {
-    //         // If the file is a link, use it directly as the background image URL
-    //         thumbnailElement.style.backgroundImage = `url('${file}')`;
-    //         var urlSections = file.split("/");
-    //         var imageName = urlSections[urlSections.length - 1];
-    //         imageName = decodeURIComponent(imageName.replace("images%2F", ""));
-    //         imageName = imageName.split("?")[0];
-    //         thumbnailElement.dataset.label = imageName;
-    //     } else {
-    //         thumbnailElement.style.backgroundImage = null;
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     DragAndDropLogic();
-    // }, [activeButtonIndex])
 
     const handleTxtColorChange = (color) => {
         if (props.currentMenuOption === "navbar-webpage") {
@@ -364,15 +248,7 @@ const Sidebar = (props) => {
             pages: updatedPages
         }));
     }
-    // const [width, setWidth] = useState("");
-    // const [height, setHeight] = useState("10");
-    // const [txtColor, setTxtColor] = useState("#ffffff");
-    // const [bgColor, setBgColor] = useState("#000000");
 
-    // const [pagePaddingLeft, setPagePaddingLeft] = useState("25");
-    // const [pagePaddingLRight, setPagePaddingLRight] = useState("25");
-    // const [pagePaddingLTop, setPagePaddingLTop] = useState("50");
-    // const [pagePaddingLBottom, setPagePaddingLBottom] = useState("50");
     useEffect(() => {
         if (props?.currentMenuOption === "navbar-webpage") {
             setWidth(parseInt(props?.webPageData?.navbar?.minWidth.replace('%', '')));
@@ -403,7 +279,6 @@ const Sidebar = (props) => {
 
                     <div className='flex items-center my-2 -space-x-1 justify-center'>
                         <img src="/images/awLogo-nobg.png" className="w-[6rem]" />
-                        {/* <p className='text-xl font-bold uppercase'>Crear nueva página</p> */}
                     </div>
 
                     <SidebarMenuOption label="Menú de navegación" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0, "navbar-webpage")}>
@@ -421,14 +296,6 @@ const Sidebar = (props) => {
                         })}
 
                     </SidebarMenuOption>
-
-                    {/* <SidebarMenuOption label="Contácto" isActive={activeButtonIndex === 2} onClick={() => handleTabMenuClick(2, "social-media-webpage")}>
-   
-                    </SidebarMenuOption> */}
-
-                    {/* <SidebarMenuOption label="Footer" isActive={activeButtonIndex === 4} onClick={() => handleTabMenuClick(4, "footer-webpage")}>
-                        <Section />
-                    </SidebarMenuOption> */}
 
                 </div>
                 <button className="optionButton w-fit !ml-5 !flex !items-center !justify-center" onClick={handleCloseButton}>
@@ -454,7 +321,7 @@ const Sidebar = (props) => {
                     </div>
                 </div>
 
-                <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-10rem)] mt-4 py-4 px-4 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
+                <div className={`bg-gray-200 drop-shadow-2xl shadow-md text-black rounded-[10px] flex flex-col space-y-5 h-auto max-h-[calc(100vh-8rem)] mt-4 py-4 px-4 font-medium text-base overflow-y-auto scrollbarDesignTiny animate__animated animate__faster relative z-0 ${activeButtonIndex !== -1 ? "animate__slideInLeft" : "animate__slideOutLeft"}`}>
 
                     {activeButtonIndex === 0 && <>
                         <div className='flex flex-col items-start border space-y-2'>
@@ -524,20 +391,6 @@ const Sidebar = (props) => {
                     </div>
 
                     <hr className='border border-[#224553]' />
-                    {/* {activeButtonIndex === 0 &&
-                        <>
-                            <div className='flex flex-col items-start border space-y-2 relative'>
-                                <p>Imagen de fondo</p>
-                                <div className="drop-zone cursor-pointer w-full">
-                                    <label className="drop-zone__prompt">Arrastra una imagen o <span className="text-[#33CA75] underline underline-offset-4">Busca el archivo</span></label>
-                                    <input type="file" name="myFilee" className="drop-zone__input" />
-                                </div>
-                                <AiOutlineClose className='w-6 h-6 text-[#d8d8d8] absolute top-3.5 -right-2.5 bg-gray-500 rounded-full p-1 cursor-pointer' onClick={() => handleDeleteImage()} />
-                            </div>
-
-                            <hr className='border border-[#224553]' />
-                        </>
-                    } */}
 
                     {activeButtonIndex === 0 && <label>Imagen de fondo</label>}
                     {activeButtonIndex === 0 && <input
@@ -701,83 +554,12 @@ const Sidebar = (props) => {
                         </div>
                     </>}
 
-                    {activeButtonIndex === 1 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
-                        <hr className='border border-[#224553]' />
-                        <div className='relative flex items-center justify-center space-x-4'>
-                            <p>Redes sociales</p>
-                            <Switch name='cardType'
-
-                                onChange={(value) => { }}
-                                checked={props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage}
-
-                                offColor="#3d4f61" onColor="#3d4f61"
-                                uncheckedIcon={false} checkedIcon={false}
-                                width={40} handleDiameter={10}
-                            />
-                        </div>
-                        <div className="grid grid-cols-5 gap-y-5">
-                            <div className="col-span-5">
-                                <SocialMediaInput
-                                    facebookIcon
-                                    inputValue={"hola"}
-                                    setInputValue={null}
-                                    inputDisabled={props.basicInfoReady}
-                                />
-                            </div>
-                            <div className="col-span-5">
-                                <SocialMediaInput
-                                    twitterIcon
-                                    inputValue={"hola"}
-                                    setInputValue={null}
-                                    inputDisabled={props.basicInfoReady}
-                                />
-                            </div>
-                            <div className="col-span-5">
-                                <SocialMediaInput
-                                    linkedInIcon
-                                    inputValue={"hola"}
-                                    setInputValue={null}
-                                    inputDisabled={props.basicInfoReady}
-                                />
-                            </div>
-                            <div className="col-span-5">
-                                <SocialMediaInput
-                                    googleIcon
-                                    inputValue={"hola"}
-                                    setInputValue={null}
-                                    inputDisabled={props.basicInfoReady}
-                                />
-                            </div>
-                        </div>
-                    </>}
-
-
-                    {activeButtonIndex === 1 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
-                        <hr className='border border-[#224553]' />
-                        <div className='flex flex-col items-start border space-y-2'>
-                            <p>Color de texto</p>
-                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
-                            <AiOutlineFontColors className='w-7 h-7' />
-                                <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
-                            </div>
-
-                            <p>Color de campos de entrada</p>
-                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
-                                
-                                <AiOutlineBgColors className='w-7 h-7' />
-                                <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
-                            </div>
-
-                            <p>Color del botón</p>
-                            <div className='flex justify-center items-center space-x-2 w-full px-2'>
-                            <AiOutlineBgColors className='w-7 h-7' />
-                                <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
-                            </div>
-
-                        </div>
-                    </>}
-
-
+                    {activeButtonIndex === 1 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage &&
+                        <>
+                            <hr className='border border-[#224553]' />
+                            <ContactUsSocialMediaAndColors currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
+                        </>
+                    }
 
                 </div>
             </div>

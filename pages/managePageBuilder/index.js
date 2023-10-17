@@ -15,7 +15,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] }] });
+    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", sections: [] }, { id: 2, name: "ContactUs", paddingLeft: "10%", paddingRight: "10%", paddingTop: "5%", paddingBottom: "0%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", google: "", emailRecieve: "ayuda@help.com", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", language: "es", inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5",sections: [] }] });
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -88,7 +88,7 @@ export default function ManagePageBuilder() {
 
                         <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>
 
-                            <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} />
+                            <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} />
 
                         </Navbar>
 

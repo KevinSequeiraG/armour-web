@@ -144,57 +144,6 @@ export const Card = (props) => {
                         <em className='font-normal text-xs'>%</em>
                     </div>
                 </div>
-                {imageSrc ? (
-                    <div className='my-4' style={{ position: 'relative' }}>
-                        <img
-                            src={imageSrc}
-                            alt="Uploaded"
-                            // style={{ ...imageStyles }}
-                            className='object-cover w-full h-[12rem] rounded-[10px]'
-                        />
-                        <button
-                            onClick={handleDeleteBGImage}
-                            style={{
-                                position: 'absolute',
-                                top: "-10px",
-                                right: "-5px",
-                                background: 'red',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '50%',
-                                cursor: 'pointer',
-                                padding: '0.2rem 0.4rem',
-                            }}
-                        >
-                            X
-                        </button>
-                    </div>
-                ) : (
-                    <label
-                        style={{
-                            padding: '15px 10px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            textAlign: 'center',
-                            fontWeight: 500,
-                            fontSize: '14px',
-                            cursor: 'pointer',
-                            lineHeight: '1rem',
-                            border: '2px dashed #224553',
-                            borderRadius: '10px',
-                        }}
-                        className='w-full h-[12rem] my-4'
-                    >
-                        Añadir imagen
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            style={{ display: 'none' }}
-                        />
-                    </label>
-                )}
                 <div className='mt-2'>
                     <p className=''>Color de fondo</p>
                     <div className='flex justify-center items-center w-full'>
@@ -208,10 +157,6 @@ export const Card = (props) => {
             <button onClick={() => setShowTitleDesign(!showTitleDesign)} className={`${showTitleDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos titulo</button>
             {showTitleDesign &&
                 <>
-                    <div className='relative mt-2'>
-                        <input name="textTitle" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
-                        {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
-                    </div>
                     <div className='flex justify-between px-4 items-center mt-2'>
                         <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.titlePosition == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left", "title")} />
                         <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.titlePosition == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center", "title")} />
@@ -232,10 +177,6 @@ export const Card = (props) => {
             <button onClick={() => setShowDescDesign(!showDescDesign)} className={`${showDescDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos Descripcion</button>
             {showDescDesign &&
                 <>
-                    <div className='relative mt-2'>
-                        <input name="textDesc" value={contentValues?.text} onChange={handleInputChange} className='w-full rounded-[10px] shadow border py-1 pl-2 pr-7 border-[#224553]' />
-                        {/* <AiOutlineBold onClick={handleBoldTextChange} className={`absolute top-2 right-1 font-bold w-5 h-5 cursor-pointer hover:bg-gray-500 rounded-full hover:text-white p-0.5 ${contentValues?.isBold && "bg-gray-800 text-white"}`} /> */}
-                    </div>
                     <div className='flex justify-between px-4 items-center mt-2'>
                         <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.descPosition == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left", "desc")} />
                         <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.descPosition == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center", "desc")} />

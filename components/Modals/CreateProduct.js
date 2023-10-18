@@ -35,13 +35,13 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
         if (editProduct) {
             const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc }
             EditProductByUid(productToEdit.id, dataToSave).then(() => {
-                toast.success("Categoria actualizada");
+                toast.success("Producto actualizado");
                 getProducts();
                 handleShow(false);
             }).catch((e) => console.log(e))
         } else {
             SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc }).then(() => {
-                toast.success("Categoria hecha");
+                toast.success("Producto hecho");
                 getProducts();
                 handleShow(false);
             })

@@ -15,8 +15,15 @@ const WebPageCard = (props) => {
             <p className="text-white font-bold italic mt-4">{props.webpageData?.name ? props.webpageData.name : "Nombre de la web"}</p>
             <div className="flex flex-col mt-6">
                 <button onClick={handleEditPage} className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-4 py-2 rounded-md my-1 border border-1 border-white">Editar web</button>
-                <Link href={"editProducts"} ><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-4 py-2 rounded-md my-1 border border-1 border-white">Editar productos</button></Link>
-                <Link href={"editCategories"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-4 py-2 rounded-md my-1 border border-1 border-white">Editar categorías</button></Link>
+                <Link href={{
+                    pathname: "/editProducts",
+                    query: { webpageNameByRouter: props.webpageData?.name },
+                }} as={"/editProducts"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-4 py-2 rounded-md my-1 border border-1 border-white">Editar productos</button></Link>
+                <Link href={{
+                    pathname: "/editCategories",
+                    query: { webpageNameByRouter: props.webpageData?.name },
+                }}
+                    as={"/editCategories"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-4 py-2 rounded-md my-1 border border-1 border-white">Editar categorías</button></Link>
             </div>
         </div>
     )

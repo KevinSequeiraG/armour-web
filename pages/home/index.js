@@ -13,10 +13,8 @@ const Home = () => {
     const { loggedUser } = useContext(UserContext);
 
     useEffect(() => {
-        // GetWebpage("completo").then(data => {
-        //     console.log("webbb", data)
-        //     setWebpageData(data)
-        // })
+        window.localStorage.removeItem("pageToEdit")
+        window.localStorage.removeItem("webpageName")
         if (loggedUser) {
             GetWebpagesByCreatedBy(loggedUser.uid).then((data) => {
                 setWebpageData(data)

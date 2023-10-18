@@ -1,7 +1,4 @@
-import ProductsModal from "@/components/webpageUser/ProductsModal"
-import { useEffect } from "react"
-
-const Option1 = (props) => {
+const ProductCard = (props) => {
     const titleStyles = {
         color: props.data.textColorTitle,
         fontSize: props.data.textSizeTitle + "px",
@@ -30,9 +27,8 @@ const Option1 = (props) => {
         marginTop: props.data.marginTop + '%',
     }
 
-    return (
-        <>
-            <div style={cardStyles} className="w-[15rem] mx-4 bg-white rounded-xl shadow-md overflow-hidden">
+    return(
+        <div style={cardStyles} className="w-[15rem] mx-4 bg-white rounded-xl shadow-md overflow-hidden">
                 <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-full" />
                 <div className="px-6 py-4 h-full">
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.sectionInfo.name ? props.sectionInfo.name : 'Title'}</h2>
@@ -44,9 +40,7 @@ const Option1 = (props) => {
                     </div>
                 </div>
             </div>
-            <ProductsModal data={props.data} webPageData={props.webPageData} isOpen={true} handleShow={() => { }} />
-        </>
     )
 }
 
-export default Option1;
+export default ProductCard;

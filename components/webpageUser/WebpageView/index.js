@@ -2,9 +2,13 @@ import Option1 from "@/components/Cards/OptionalCards/option1"
 import Option2 from "@/components/Cards/OptionalCards/option2"
 import Option3 from "@/components/Cards/OptionalCards/option3"
 import Option4 from "@/components/Cards/OptionalCards/option4"
-import { useEffect } from "react"
+import { GetCategoriesByWebpage } from "@/helpers/categories"
+import { useEffect, useState } from "react"
 
 const WebpageView = (props) => {
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [cardsData, setCardsData] = useState([]);
     const styles = {
         paddingTop: props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.paddingTop,
         paddingLeft: props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.paddingLeft,
@@ -20,7 +24,21 @@ const WebpageView = (props) => {
     useEffect(() => {
         console.log(props.webPageData)
         console.log(props.currentPage)
+        GetCategoriesByWebpage(props?.webPageData?.name).then(data => {
+            setCategories(data)
+        })
     }, [])
+
+    // useEffect(() => {
+    //     console.log(categories)
+    //     categories.map((cat) => {
+    //         let dataCompleted = { ...cat }
+    //         let sectionData = props?.webPageData?.pages[props.currentPage]?.sections?.find(section => section.type === "card" && section.isCategory);
+    //         console.log("sectionData", sectionData)
+
+    //     })
+    // }, [categories])
+
 
 
     return (
@@ -59,14 +77,22 @@ const WebpageView = (props) => {
                         )
                     } else if (data.type === "card") {
                         return (
-                            // <div className="grid grid-cols-2 gap-4">
-                            <>
-                                {data.cardSelected === "card1" && <Option1 data={data} />}
-                                {data.cardSelected === "card2" && <Option2 data={data} />}
-                                {data.cardSelected === "card3" && <Option3 data={data} />}
-                                {data.cardSelected === "card4" && <Option4 data={data} />}
-                            </>
-                            // </div>
+                            <div className="flex w-full mt-2">
+                                {categories.map(cat => {
+                                    console.log("cat", cat)
+                                    console.log("data", data)
+                                    return (
+                                        // <div className="grid grid-cols-2 gap-4">
+                                        <>
+                                            {data.cardSelected === "card1" && <Option1 webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {data.cardSelected === "card2" && <Option2 webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {data.cardSelected === "card3" && <Option3 webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {data.cardSelected === "card4" && <Option4 webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                        </>
+                                        // </div>
+                                    )
+                                })}
+                            </div>
                         )
                     }
                 })}

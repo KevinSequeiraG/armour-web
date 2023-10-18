@@ -124,6 +124,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
 
     useEffect(() => {
         setBgImage(webPageData?.navbar?.backgroundImage)
+        console.log("pos", position)
     }, [webPageData?.navbar])    
 
     return (

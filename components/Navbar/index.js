@@ -13,11 +13,12 @@ const Navbar = () => {
     const isUserActionPage = router.pathname.includes("userAction");
     const isSendEmailPassword = router.pathname.includes("sendEmailPassword");
     const isBuilderPage = router.pathname.includes("managePageBuilder");
+    const isAwPage = router.pathname.includes("/aw/");
     const { t } = useTranslation();
 
     return (
         <>
-            {isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-black w-[18rem] h-full px-4 flex justify-between flex-col">
+            {isAwPage || isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <aside className="bg-black w-[18rem] h-full px-4 flex justify-between flex-col">
                 <div>
                     <img src="/images/awLogo-nobg.png" className="w-[10rem] mx-auto" />
                     <Link href={"/home"}><button className="button w-full"><img src="/svgs/home.svg" className="mr-2 w-[1.5rem]" />{t("navbar.home")}</button></Link>

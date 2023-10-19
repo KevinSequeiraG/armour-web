@@ -25,17 +25,12 @@ const ProductsModal = (props) => {
                     return (
                         <>
                             <ProductCard currentPage={props.currentPage} webPageData={props.webPageData} data={props.data} sectionInfo={prod} />
-                            {/* {<Option1 webPageData={props.webPageData} data={{}} sectionInfo={prod} />}
-                            {<Option2 webPageData={props.webPageData} data={{}} sectionInfo={prod} />}
-                            {<Option3 webPageData={props.webPageData} data={{}} sectionInfo={prod} />}
-                            {<Option4 webPageData={props.webPageData} data={{}} sectionInfo={prod} />} */}
                         </>
                     )
                 })}
                 </div> : <p>No hay productos en esta categoría</p>}
                 <div className="flex">
                     <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.cancel")}</button>
-                    {/* <button onClick={handleConfirm} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-600 border border-2 border-gray-300 hover:bg-green-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.confirm")}</button> */}
                 </div>
             </div>
         </div>

@@ -33,14 +33,14 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
 
     const handleConfirm = () => {
         if (editProduct) {
-            const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected?.toString() }
+            const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected ? pageSelected?.toString() : "" }
             EditProductByUid(productToEdit.id, dataToSave).then(() => {
                 toast.success("Producto actualizado");
                 getProducts();
                 handleShow(false);
             }).catch((e) => console.log(e))
         } else {
-            SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected?.toString() }).then(() => {
+            SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected ? pageSelected?.toString() : "" }).then(() => {
                 toast.success("Producto hecho");
                 getProducts();
                 handleShow(false);

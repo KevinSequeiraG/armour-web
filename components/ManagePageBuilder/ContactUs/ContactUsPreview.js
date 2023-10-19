@@ -35,7 +35,7 @@ export const ContactUsPreview = (props) => {
                 <div className="w-full mx-auto rounded-[10px] pt-8 pb-14 grid grid-cols-2 gap-4">
 
                     <div className='relative'>
-                        <p className='font-semibold'>Nombre</p>
+                        <p className='font-semibold'>{t("login.name")}</p>
                         <input style={inputStyles} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2`} type="text" disabled value={"Ana Marie"} />
                     </div>
 

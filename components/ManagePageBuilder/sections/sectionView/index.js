@@ -2,8 +2,9 @@ import Option1 from "@/components/Cards/OptionalCards/option1";
 import Option2 from "@/components/Cards/OptionalCards/option2";
 import Option3 from "@/components/Cards/OptionalCards/option3";
 import Option4 from "@/components/Cards/OptionalCards/option4";
-import { ContactUsPreview } from "@/components/ManagePageBuilder/ContactUs";
+
 import { useEffect, useState } from "react";
+import { ContactUsPreview } from "../../ContactUs/ContactUsPreview";
 
 const SectionView = (props) => {
     const [sectionType, setSectionType] = useState();

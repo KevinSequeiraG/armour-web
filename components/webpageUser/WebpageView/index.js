@@ -4,6 +4,7 @@ import Option3 from "@/components/Cards/OptionalCards/option3"
 import Option4 from "@/components/Cards/OptionalCards/option4"
 import { GetCategoriesByWebpage } from "@/helpers/categories"
 import { useEffect, useState } from "react"
+import { ContactUs } from "@/components/ManagePageBuilder/ContactUs/contactUs"
 
 const WebpageView = (props) => {
     const [categories, setCategories] = useState([]);
@@ -44,7 +45,7 @@ const WebpageView = (props) => {
     return (
         <>
             <div style={styles} className={`w-full h-full object-cover overflow-y-auto scrollbarDesign`}>
-                {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
+                {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {
                             height: data.height + "px",
@@ -95,7 +96,9 @@ const WebpageView = (props) => {
                             </div>
                         )
                     }
-                })}
+                }) :
+                    <ContactUs webPageData={props?.webPageData} currentPage={props?.currentPage} />
+                }
             </div>
         </>
     )

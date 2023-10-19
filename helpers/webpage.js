@@ -56,27 +56,27 @@ const uploadImageToFirebaseStorage = async (imageUrl) => {
 const processAndUploadWebPageImages = async (webPageData) => {
     const newWebPageData = { ...webPageData };
 
-    if (webPageData?.logo.includes("https://firebasestorage")) {
+    if (webPageData?.logo?.includes("https://firebasestorage")) {
         newWebPageData.logo = webPageData?.logo;
     } else {
         newWebPageData.logo = webPageData?.logo ? await uploadImageToFirebaseStorage(webPageData?.logo) : "";
     }
 
-    if (webPageData?.navbar?.backgroundImage.includes("https://firebasestorage")) {
+    if (webPageData?.navbar?.backgroundImage && webPageData?.navbar?.backgroundImage?.includes("https://firebasestorage")) {
         newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage;
     } else {
-        newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
+        newWebPageData.navbar.backgroundImage = webPageData?.navbar?.backgroundImage && webPageData?.navbar?.backgroundImage.length > 10 ? await uploadImageToFirebaseStorage(webPageData?.navbar?.backgroundImage) : "";
     }
 
     newWebPageData.pages = await Promise.all(
         webPageData?.pages?.map(async (page) => {
             return {
                 ...page,
-                bgImage: page?.bgImage ? page?.bgImage.includes("https://firebasestorage") ? page?.bgImage : await uploadImageToFirebaseStorage(page?.bgImage) : "",
+                bgImage: page?.bgImage ? page?.bgImage?.includes("https://firebasestorage") ? page?.bgImage : await uploadImageToFirebaseStorage(page?.bgImage) : "",
                 sections: await Promise.all(
                     page?.sections?.map(async (section) => {
                         if (section?.type === 'image')
-                            return { ...section, imageUrl: section?.imageUrl ? section?.imageUrl.includes("https://firebasestorage") ? section?.imageUrl : await uploadImageToFirebaseStorage(section?.imageUrl) : "" };
+                            return { ...section, imageUrl: section?.imageUrl ? section?.imageUrl?.includes("https://firebasestorage") ? section?.imageUrl : await uploadImageToFirebaseStorage(section?.imageUrl) : "" };
 
                         return section;
                     })

@@ -1,5 +1,5 @@
 import ProductsModal from "@/components/webpageUser/ProductsModal"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const Option1 = (props) => {
     const [showProducts, setShowProducts] = useState(false);

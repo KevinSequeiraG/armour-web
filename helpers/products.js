@@ -35,6 +35,24 @@ export const GetProductsByWebpage = async (webpageName) => {
     }
 }
 
+export const GetProductsByCatUid = async (uid) => {
+    try {
+        const productsTableRef = collection(database, `admin/data/products`);
+        const q = query(productsTableRef, where("categoryId", "==", uid))
+
+        return await getDocs(q).then(response => {
+            let finalData = []
+            response.docs.map(product => {
+                finalData.push({ ...product.data(), id: product.id })
+            })
+            return finalData;
+        }
+        );
+    } catch (error) {
+        console.error('Error al guardar el objeto en Firestore:', error);
+    }
+}
+
 export const EditProductByUid = async (uid, data) => {
     try {
         const productsTableRef = doc(database, `admin/data/products`, uid);

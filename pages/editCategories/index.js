@@ -1,6 +1,7 @@
 import ConfirmDeleteCategory from '@/components/Modals/ConfirmDeleteCategory';
 import CreateCategory from '@/components/Modals/CreateCategory';
 import { DeleteCategoryByUid, GetCategoriesByWebpage } from '@/helpers/categories';
+import { GetWebpage } from '@/helpers/webpage';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -15,6 +16,8 @@ const EditCategoryPage = () => {
     const [showDeleteCategory, setShowDeleteCategory] = useState(false);
     const [categoryToEdit, setCategoryToEdit] = useState();
     const [categoryToDelete, setCategoryToDelete] = useState();
+    const [pagesWithCategoryCards, setPagesWithCategoryCards] = useState([]);
+    const [pageSelected, setPageSelected] = useState();
 
     const getCategories = () => {
         const fetchCategories = async () => {
@@ -43,9 +46,20 @@ const EditCategoryPage = () => {
     useEffect(() => {
         if (webpageName) {
             getCategories();
+            GetWebpage(webpageName).then(data => {
+                if (data && data.pages) {
+                    const pagesWithCategoryCards = data.pages
+                        .filter(page => page.sections.some(section => section?.type === "card" && section?.isCategory))
+                        .map(page => ({ id: page?.id, name: page?.name }));
+
+                    if (pagesWithCategoryCards.length > 0) {
+                        setPagesWithCategoryCards(pagesWithCategoryCards);
+                        setPageSelected(pagesWithCategoryCards[0].id);
+                    }
+                }
+            });
         }
     }, [webpageName])
-
 
     const editCategory = (category) => {
         setCategoryToEdit(category);
@@ -98,8 +112,8 @@ const EditCategoryPage = () => {
                     </tbody>
                 </table>
             </div>
-            <CreateCategory getCategories={getCategories} webpageName={webpageName} handleShow={setShowNewCategory} isOpen={showNewCategory} />
-            <CreateCategory editCategory categoryToEdit={categoryToEdit} getCategories={getCategories} webpageName={webpageName} handleShow={setShowEditCategory} isOpen={showEditCategory} />
+            <CreateCategory getCategories={getCategories} webpageName={webpageName} handleShow={setShowNewCategory} isOpen={showNewCategory} pagesWithCategoryCards={pagesWithCategoryCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
+            <CreateCategory editCategory categoryToEdit={categoryToEdit} getCategories={getCategories} webpageName={webpageName} handleShow={setShowEditCategory} isOpen={showEditCategory} pagesWithCategoryCards={pagesWithCategoryCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
             <ConfirmDeleteCategory getCategories={getCategories} isOpen={showDeleteCategory} handleShow={setShowDeleteCategory} categoryName={categoryToDelete?.name} categoryId={categoryToDelete?.id} />
         </>
     );

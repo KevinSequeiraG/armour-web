@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EditProductByUid, SaveProduct } from "@/helpers/products";
 
-const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpageName, getProducts }) => {
+const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpageName, getProducts, pagesWithProductsCards, setPageSelected, pageSelected }) => {
     if (!isOpen) return null;
     const { t } = useTranslation();
     const [name, setName] = useState();
@@ -33,14 +33,14 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
 
     const handleConfirm = () => {
         if (editProduct) {
-            const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc }
+            const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected?.toString() }
             EditProductByUid(productToEdit.id, dataToSave).then(() => {
                 toast.success("Producto actualizado");
                 getProducts();
                 handleShow(false);
             }).catch((e) => console.log(e))
         } else {
-            SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc }).then(() => {
+            SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected, prize: prize, image: imageSrc, webpagePage: pageSelected?.toString() }).then(() => {
                 toast.success("Producto hecho");
                 getProducts();
                 handleShow(false);
@@ -58,6 +58,10 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
             setImageSrc(productToEdit.image);
             setDesc(productToEdit.desc)
             setPrize(productToEdit.prize)
+            // setCategorySelected(productToEdit.categoryId)
+            if (pagesWithProductsCards.find(page => page.id == productToEdit?.webpagePage))
+                setPageSelected(productToEdit?.webpagePage)
+            else setPageSelected("")
         }
     }, [])
 
@@ -100,18 +104,39 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                         onChange={(e) => setPrize(e.target.value)}
                     />
 
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">Categoria a la que pertenece</label>
-                    <select
-                        className="p-2 border rounded-lg w-[20rem] my-2"
-                        value={categorySelected}
-                        onChange={(e) => { setCategorySelected(e.target.value) }}
-                    >
-                        {categories.map((category) => (
-                            <option key={category?.id} value={category?.id}>
-                                {category?.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="flex space-x-8">
+                        <div>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">Categoria a la que pertenece</label>
+                            <select
+                                className="p-2 border rounded-lg w-[20rem] my-2 shadow"
+                                value={categorySelected}
+                                onChange={(e) => { setCategorySelected(e.target.value) }}
+                            >
+                                {categories.map((category) => (
+                                    <option key={category?.id} value={category?.id}>
+                                        {category?.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pages">Página a la que pertenece</label>
+                            <select
+                                id="pages"
+                                className="p-2 border rounded-lg w-[20rem] my-2 shadow"
+                                value={pageSelected}
+                                onChange={(e) => { setPageSelected(e.target.value) }}
+                            >
+                                <option value={""}>Sin relacionar</option>
+                                {pagesWithProductsCards.map((page, i) => (
+                                    <option key={i} value={page?.id}>
+                                        {page?.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
                     <input
                         name="category"

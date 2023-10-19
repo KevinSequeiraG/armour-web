@@ -1,11 +1,9 @@
-import { UserContext } from "@/context/UserContext";
 import { EditCategoryByUid, SaveCategory } from "@/helpers/categories";
 import { toast } from 'react-toastify';
-import { useRouter } from "next/router";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webpageName, getCategories }) => {
+const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webpageName, getCategories, pageSelected, setPageSelected, pagesWithCategoryCards }) => {
     if (!isOpen) return null;
     const { t } = useTranslation();
     const [name, setName] = useState();
@@ -31,14 +29,14 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
 
     const handleConfirm = () => {
         if (editCategory) {
-            const dataToSave = { name: name, desc: desc, webpageName: webpageName, image: imageSrc }
+            const dataToSave = { name: name, desc: desc, webpageName: webpageName, image: imageSrc, webpagePage: pageSelected.toString() }
             EditCategoryByUid(categoryToEdit.id, dataToSave).then(() => {
                 toast.success("Categoria actualizada");
                 getCategories();
                 handleShow(false);
-            }).catch((e)=>console.log(e))
+            }).catch((e) => console.log(e))
         } else {
-            SaveCategory({ name: name, desc: desc, webpageName: webpageName, image: imageSrc }).then(() => {
+            SaveCategory({ name: name, desc: desc, webpageName: webpageName, image: imageSrc, webpagePage: pageSelected.toString() }).then(() => {
                 toast.success("Categoria hecha");
                 getCategories();
                 handleShow(false);
@@ -51,6 +49,9 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
             setName(categoryToEdit.name);
             setImageSrc(categoryToEdit.image);
             setDesc(categoryToEdit.desc)
+            if (pagesWithCategoryCards.find(page => page.id == categoryToEdit?.webpagePage))
+                setPageSelected(categoryToEdit?.webpagePage)
+            else setPageSelected(pagesWithCategoryCards[0]?.id || null)
         }
     }, [])
 
@@ -82,6 +83,20 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
                         value={desc}
                         onChange={(e) => setDesc(e.target.value)}
                     />
+
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pages">Página a la que pertenece</label>
+                    <select
+                        id="pages"
+                        className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+                        value={pageSelected}
+                        onChange={(e) => { setPageSelected(e.target.value) }}
+                    >
+                        {pagesWithCategoryCards.map((page, i) => (
+                            <option key={i} value={page?.id}>
+                                {page?.name}
+                            </option>
+                        ))}
+                    </select>
 
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">Imagen de fondo</label>
                     <input
@@ -146,8 +161,8 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
                     }
                 </div>
                 <div className="flex">
-                    <button onClick={() => handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.cancel")}</button>
-                    <button onClick={handleConfirm} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-600 border border-2 border-gray-300 hover:bg-green-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.confirm")}</button>
+                    <button onClick={() => handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.cancel")}</button>
+                    <button onClick={handleConfirm} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-600 border-2 border-gray-300 hover:bg-green-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.confirm")}</button>
                 </div>
             </div>
         </div>

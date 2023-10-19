@@ -2,6 +2,7 @@ import ConfirmDeleteProduct from '@/components/Modals/ConfirmDeleteProduct';
 import CreateProduct from '@/components/Modals/CreateProduct';
 import { GetCategoryByUid } from '@/helpers/categories';
 import { GetProductsByWebpage } from '@/helpers/products';
+import { GetWebpage } from '@/helpers/webpage';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -17,6 +18,8 @@ const EditProductPage = () => {
     const [webpageName, setWebpageName] = useState();
     const [productToEdit, setProductToEdit] = useState();
     const [productToDelete, setProductToDelete] = useState();
+    const [pagesWithProductsCards, setPagesWithProductsCards] = useState([]);
+    const [pageSelected, setPageSelected] = useState();
 
     // Función para cargar los productos
     const getProducts = async () => {
@@ -39,8 +42,8 @@ const EditProductPage = () => {
                 const completeData = await Promise.all(
                     products.map(async (product) => {
                         const productComplete = { ...product };
-                        const categoryData = await GetCategoryByUid(product.categoryId);
-                        productComplete.categoryName = categoryData.name;
+                        const categoryData = await GetCategoryByUid(product?.categoryId);
+                        productComplete.categoryName = categoryData?.name;
                         return productComplete;
                     })
                 );
@@ -57,6 +60,18 @@ const EditProductPage = () => {
     useEffect(() => {
         if (webpageName) {
             getProducts();
+            GetWebpage(webpageName).then(data => {
+                if (data && data.pages) {
+                    const pagesWithCategoryCards = data.pages
+                        .filter(page => page.sections.some(section => section?.type === "card" && !section?.isCategory))
+                        .map(page => ({ id: page?.id, name: page?.name }));
+
+                    if (pagesWithCategoryCards.length > 0) {
+                        setPagesWithProductsCards(pagesWithCategoryCards);
+                        setPageSelected("");
+                    }
+                }
+            });
         }
     }, [webpageName]);
 
@@ -126,8 +141,8 @@ const EditProductPage = () => {
                     </tbody>
                 </table>
             </div>
-            <CreateProduct getProducts={getProducts} webpageName={webpageName} handleShow={setShowNewProduct} isOpen={showNewProduct} />
-            <CreateProduct editProduct productToEdit={productToEdit} getProducts={getProducts} webpageName={webpageName} handleShow={setShowEditProduct} isOpen={showEditProduct} />
+            <CreateProduct getProducts={getProducts} webpageName={webpageName} handleShow={setShowNewProduct} isOpen={showNewProduct} pagesWithProductsCards={pagesWithProductsCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
+            <CreateProduct editProduct productToEdit={productToEdit} getProducts={getProducts} webpageName={webpageName} handleShow={setShowEditProduct} isOpen={showEditProduct} pagesWithProductsCards={pagesWithProductsCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
             <ConfirmDeleteProduct getProducts={getProducts} isOpen={showDeleteProduct} handleShow={setShowDeleteProduct} productName={productToDelete?.name} productId={productToDelete?.id} />
         </>
     );

@@ -47,7 +47,7 @@ const Navbar = ({ children, webpageData, setCurrentPage }) => {
                         <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button> */}
                         {navbarOptions.map(option => {
                             return (
-                                <button onClick={() => { setCurrentPage(option.id); console.log(option.id) }} style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
+                                <button onClick={() => { setCurrentPage(option.id)}} style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
                             )
                         })}
                         {/* ... */}

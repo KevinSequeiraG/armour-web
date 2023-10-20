@@ -124,7 +124,6 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
 
     useEffect(() => {
         setBgImage(webPageData?.navbar?.backgroundImage)
-        console.log("pos", position)
     }, [webPageData?.navbar])    
 
     return (
@@ -140,9 +139,9 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
                     </div>
                 ) : (<div className={`flex items-center w-full ${(position === "top") ? "flex-row" : ""} ${(position === "top" && contentPosition === "t-center") ? "justify-center" : ""} ${(position === "top" && contentPosition === "t-left") ? "justify-start mx-3" : ""} ${(position === "top" && contentPosition === "t-right") ? "justify-end mr-3" : ""} ${(position !== "top" && contentPosition === "center") ? "justify-center" : ""} ${(position !== "top" && contentPosition === "top") ? "justify-start" : ""} ${(position !== "top" && contentPosition === "bottom") ? "justify-end" : ""}  ${(position === "left") ? "flex-col" : ""} ${(position === "right") ? "flex-col" : ""}`}>
                     {(logoPage && contentPosition !== "bottom" && contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
-                    {navbarOptions.map(option => {
+                    {navbarOptions.map((option, i) => {
                         return (
-                            <button className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
+                            <button key={i} className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
                         )
                     })}
                     {(logoPage && (contentPosition === "bottom" || contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}

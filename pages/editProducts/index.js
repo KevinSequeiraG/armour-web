@@ -32,11 +32,6 @@ const EditProductPage = () => {
     };
 
     useEffect(() => {
-        console.log(productToShow)
-    }, [productToShow])
-
-
-    useEffect(() => {
         if (products.length > 0) {
             const fetchData = async () => {
                 const completeData = await Promise.all(
@@ -48,7 +43,6 @@ const EditProductPage = () => {
                     })
                 );
 
-                console.log(completeData);
                 setProductToShow(completeData);
             };
 

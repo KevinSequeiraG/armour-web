@@ -123,7 +123,6 @@ export const updateUserData = async (user) => {
             // Actualiza los datos del usuario en Firestore con merge: true
             await setDoc(userDocRef, updatedData, { merge: true });
 
-            console.log("Datos de usuario actualizados con éxito");
         }
         if (typeof user.imageProfileUrl === 'object') {
             await uploadImageInDB(user.imageProfileUrl).then(async (imageProfileUrlInDB) => {
@@ -142,7 +141,6 @@ export const updateUserData = async (user) => {
                 // Actualiza los datos del usuario en Firestore con merge: true
                 await setDoc(userDocRef, updatedData, { merge: true });
 
-                console.log("Datos de usuario actualizados con éxito");
             });
         }
 
@@ -166,8 +164,6 @@ export const deleteMyAccount = async (uid) => {
 
         // Actualiza los datos del usuario en Firestore con merge: true
         await setDoc(userDocRef, updatedData, { merge: true });
-
-        console.log("Datos de usuario actualizados con éxito");
     } catch (error) {
         console.error("Error al actualizar los datos del usuario:", error);
     }
@@ -189,15 +185,12 @@ export const sendResetEmailPassword = async (email) => {
 export const resetPassword = async (oobCode, newPassword) => {
     try {
         await confirmPasswordReset(auth, oobCode, newPassword)
-        console.log("Contraseña restablecida con éxito");
     } catch (error) {
         throw new Error("Error al confirmar el restablecimiento de contraseña. " + error.message);
     }
 }
 
 export const handleVerifyEmail = async (oobCode) => {
-    console.log(auth)
-    console.log(oobCode)
     applyActionCode(auth, oobCode)
 }
 

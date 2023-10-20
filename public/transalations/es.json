@@ -28,6 +28,7 @@
     "send": "Enviar"
   },
   "validations": {
+    "required": "Requerido",
     "name-required": "El nombre es requerido",
     "surnames-required": "Los apellidos son requeridos",
     "email-required": "El correo es requerido",
@@ -45,7 +46,7 @@
     "account-deleted": "Su cuenta se ha borrado correctamente",
     "user-edited": "Tu perfil ha sido editado exitosamente",
     "password-edited-correctly": "Contraseña editada correctamente",
-    "password-email-sended": "Se a enviado un correo a tu dirección, revisa tu casilla de spam.",
+    "password-email-sended": "Se ha enviado un correo a tu dirección, revisa tu casilla de spam.",
     "email-sended": "Correo enviado satisfactoriamente."
   },
   "errors": {
@@ -55,7 +56,7 @@
     "user-not-edited": "Tu perfil no ha sido editado exitosamente",
     "image-invalid": "El archivo seleccionado no es válido.",
     "password-not-edited-correctly": "No se pudo editar la contraseña correctamente.",
-    "password-email-not-sended": "The email could not be sent, try again later"
+    "password-email-not-sended": "No se pudo enviar el correo, inténtalo más tarde."
   },
   "config": {
     "language": "Lenguaje"
@@ -68,10 +69,27 @@
     "delete-account": "Eliminar cuenta",
     "change-password": "Cambiar contraseña",
     "send-email": "Enviar correo",
-    "return-to-login": "Volver al inicio de sesión"
+    "return-to-login": "Volver al inicio de sesión",
+    "new-category": "Nueva categoría"
+  },
+  "categories": {
+    "name": "Nombre de la categoría",
+    "description": "Descripción",
+    "image": "Imagen",
+    "actions": "Acciones",
+    "page-from": "Página a la que pertenece",
+    "cover-image": "Imagen de portada",
+    "add-image": "Añadir imagen",
+    "edit": "Editar categoría",
+    "delete": "¿Quieres eliminar la categoria",
+    "no-data": "Sin categorías",
+    "crud-create": "Categoría creada satisfactoriamente",
+    "crud-edit": "Categoría editada satisfactoriamente",
+    "crud-delete": "Categoría eliminada satisfactoriamente"
   },
   "search": {
-    "search-page": "Buscar página"
+    "search-page": "Buscar página",
+    "search-category": "Buscar categoría"
   },
   "user-data": {
     "name": "Nombre",
@@ -91,7 +109,8 @@
     "my-pages": "Mis páginas",
     "personalize": "Personalizar",
     "my-products": "Mis productos",
-    "my-categories": "Mis categorías"
+    "my-categories": "Mis categorías",
+    "no-data": "Sin páginas creadas"
   },
   "page-builder": {
     "new-page": "Página nueva"

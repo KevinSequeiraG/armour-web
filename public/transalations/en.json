@@ -28,6 +28,7 @@
         "send": "Send"
     },
     "validations": {
+        "required": "Required",
         "name-required": "Name is required",
         "surnames-required": "Surnames are required",
         "email-required": "Email is required",
@@ -68,10 +69,12 @@
         "delete-account": "Delete account",
         "change-password": "Change password",
         "send-email": "Send email",
-        "return-to-login": "Return to login"
+        "return-to-login": "Return to login",
+        "new-category": "New category"
     },
     "search": {
-        "search-page": "Search Page"
+        "search-page": "Search page",
+        "search-category": "Search category"
     },
     "user-data": {
         "name": "Name",
@@ -91,7 +94,23 @@
         "my-pages": "My pages",
         "personalize": "Personalize",
         "my-products": "My products",
-        "my-categories": "My categories"
+        "my-categories": "My categories",
+        "no-data": "No pages created"
+    },
+    "categories": {
+        "name": "Category name",
+        "description": "Description",
+        "image": "Image",
+        "actions": "Actions",
+        "page-from": "Page to which it belongs",
+        "cover-image": "Cover image",
+        "add-image": "Add image",
+        "edit": "Edit category",
+        "delete": "Do you want to delete the category",
+        "no-data": "No categories",
+        "crud-create": "Category created successfully",
+        "crud-edit": "Category edited successfully",
+        "crud-delete": "Category deleted successfully"
     },
     "page-builder": {
         "new-page": "New page"

@@ -36,7 +36,7 @@ const Home = () => {
             <div className="w-full px-4 py-7 bg-transparent">
                 <div className="flex justify-between">
                     <div>
-                        <p className="font-bold mb-2 text-center text-lg">{t("home.my-pages")}</p>
+                        <p className="font-semibold mb-2 text-center text-2xl">{t("home.my-pages")}</p>
                         <div className="relative">
                             <input
                                 type="text"
@@ -62,6 +62,7 @@ const Home = () => {
                         <WebPageCard key={i} webpageData={webpage} />
                     )
                 }))}
+                {webpageData.length === 0 && <p className='p-8 text-center col-span-full text-2xl font-semibold'>{t("home.no-data")}</p>}
             </div>
         </div>
     )

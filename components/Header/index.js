@@ -67,9 +67,6 @@ const Header = () => {
     return (
         <>
             {isAwPage || isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#f6f6f6] shadow border-b border-[#E6E6E6] h-[5rem] flex justify-end items-center px-4">
-                {/* <p className="font-medium text-xl">Mis páginas</p> */}
-                {/* Button for testing, if you need to reset the verify email with the logged user, log in and then press this button */}
-                {/* <button className="text-white border border-1 border-white mr-10 w-[10rem]" onClick={() => { updateEmailVerified(loggedUser.uid).then(() => { console.log("Pueso a false"); }).catch((e) => { console.log("e", e); }) }}>Reiniciar verificacion a false</button> */}
 
                 <div className="flex items-center">
                     <div className="flex flex-col text-right">

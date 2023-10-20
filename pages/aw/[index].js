@@ -21,12 +21,6 @@ function Webpage() {
         }
     }, [index])
 
-
-    useEffect(() => {
-        console.log(webpageData)
-    }, [webpageData])
-
-
     return (
         <>
             {webpageData ? <div className={`!overflow-hidden w-screen mx-3 h-screen ml-0 !my-auto shadow-md bg-white relative`}>

@@ -62,7 +62,6 @@ export default function ManagePageBuilder() {
     useEffect(() => {
         const dataToEdit = JSON.parse(window.localStorage.getItem("pageToEdit"))
         if (dataToEdit) {
-            console.log("dataToEdit", dataToEdit)
             setWebPageData(dataToEdit);
             setIsEdit(true);
         }

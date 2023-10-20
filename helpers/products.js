@@ -9,9 +9,7 @@ export const SaveProduct = async (product) => {
 
         const catToSave = { ...product, image: imageUrl }
         console.log("catToSave", catToSave)
-        await addDoc(productsTableRef, catToSave).then(async () => {
-            console.log("new product")
-        });
+        await addDoc(productsTableRef, catToSave)
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
     }
@@ -60,7 +58,7 @@ export const EditProductByUid = async (uid, data) => {
             const imageUrl = await uploadImageToFirebaseStorage(data.image)
             data.image = imageUrl
         }
-        await setDoc(productsTableRef, data)
+        await setDoc(productsTableRef, data, { merge: true })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
     }

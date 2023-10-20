@@ -23,8 +23,6 @@ const WebpageView = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.webPageData)
-        console.log(props.currentPage)
         GetCategoriesByWebpage(props?.webPageData?.name).then(data => {
             setCategories(data)
         })
@@ -80,8 +78,6 @@ const WebpageView = (props) => {
                         return (
                             <div className="flex w-full mt-2">
                                 {categories.map(cat => {
-                                    console.log("cat", cat)
-                                    console.log("data", data)
                                     return (
                                         // <div className="grid grid-cols-2 gap-4">
                                         <>

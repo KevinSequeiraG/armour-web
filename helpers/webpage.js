@@ -10,10 +10,7 @@ export const GetWebpage = async (webpageName) => {
 
         if (docSnap.exists()) {
             const data = docSnap.data();
-            console.log("Datos del documento:", data);
             return data;
-        } else {
-            console.log("El documento no existe.");
         }
     } catch (error) {
         console.error("Error al obtener el documento:", error);

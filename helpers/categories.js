@@ -8,10 +8,7 @@ export const SaveCategory = async (category) => {
         const categoriesTableRef = collection(database, `admin/data/categories`);
 
         const catToSave = { ...category, image: imageUrl }
-        console.log("catToSave", catToSave)
-        await addDoc(categoriesTableRef, catToSave).then(async () => {
-            console.log("new category")
-        });
+        await addDoc(categoriesTableRef, catToSave)
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
     }
@@ -39,7 +36,6 @@ export const GetCategoryByUid = async (uid) => {
     try {
         const categoriesTableRef = doc(database, `admin/data/categories`, uid);
         return await getDoc(categoriesTableRef).then(category => {
-            console.log(category.data())
             return category.data();
         })
     } catch (error) {
@@ -54,7 +50,7 @@ export const EditCategoryByUid = async (uid, data) => {
             const imageUrl = await uploadImageToFirebaseStorage(data.image)
             data.image = imageUrl
         }
-        await setDoc(categoriesTableRef, data)
+        await setDoc(categoriesTableRef, data, { merge: true })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
     }

@@ -9,10 +9,7 @@ const ProductsModal = (props) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        console.log(props.data)
-        console.log(props?.webPageData)
         GetProductsByCatUid(props?.sectionUid).then((data) => {
-            console.log("data", data)
             setProducts(data);
         })
     }, [])

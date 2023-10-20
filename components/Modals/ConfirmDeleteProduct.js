@@ -6,7 +6,6 @@ const ConfirmDeleteProduct = (props) => {
     const { t } = useTranslation();
 
     const handleConfirm = () => {
-        console.log(props.productId)
         DeleteProductByUid(props.productId).then(() => {
             props.getProducts();
             props.handleShow(false);

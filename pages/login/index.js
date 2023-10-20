@@ -88,7 +88,7 @@ export default function Login() {
                 <div className="loginMain">
                     <input className={`loginInput`} type="checkbox" id="chk" aria-hidden="true" />
 
-                    <div className="login relative">
+                    <form className="login relative" onSubmit={handleLogin}>
                         <label className='loginLabel' htmlFor="chk" aria-hidden="true">{t("login.log-in")}</label>
                         <div className='relative w-[60%] mx-auto'>
                             <input className={`loginInput ${formErrors.email && '!border-red-600'}`}
@@ -116,9 +116,9 @@ export default function Login() {
                             <p className="hover:cursor-pointer text-white font-semibold text-[12px]" htmlFor="flexCheckDefault">{t("login.remember-me")}</p>
                         </div>
 
-                        <button className='loginButton' onClick={(e) => handleLogin(e)}>{t("login.log-in")}</button>
+                        <button type="submit" className='loginButton'>{t("login.log-in")}</button>
                         <p onClick={() => { router.push("sendEmailPassword")}} className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
-                    </div>
+                    </form>
                     <div className="signup">
                         <RegisterForm />
                     </div>

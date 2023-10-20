@@ -3,14 +3,16 @@ import WebPageCard from "../../components/Cards/webPageCard";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
-import { GetWebpage, GetWebpagesByCreatedBy } from "@/helpers/webpage";
+import { GetWebpagesByCreatedBy } from "@/helpers/webpage";
 import { UserContext } from "@/context/UserContext";
+import { RiAddCircleLine } from "react-icons/ri";
 
 const Home = () => {
     const { t } = useTranslation();
     const router = useRouter();
     const [webpageData, setWebpageData] = useState([]);
     const { loggedUser } = useContext(UserContext);
+    const [searchInputFilter, setSearchInputFilter] = useState("");
 
     useEffect(() => {
         window.localStorage.removeItem("pageToEdit")
@@ -33,23 +35,31 @@ const Home = () => {
             </Head>
             <div className="w-full px-4 py-7 bg-transparent">
                 <div className="flex justify-between">
-                    <div className="relative">
-                        <input
-                            type="text"
-                            className="border-2 border-gray-300 bg-white w-[18rem] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
-                            placeholder={t("search.search-page")}
-                        />
-                        <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
-                            <img src="./svgs/search.svg" className="w-[1rem] h-[1rem]" alt="rar" />
-                        </button>
+                    <div>
+                        <p className="font-bold mb-2 text-center text-lg">{t("home.my-pages")}</p>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                className="border-2 border-gray-300 bg-white w-[18rem] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                                placeholder={t("search.search-page")}
+                                onChange={(e) => { setSearchInputFilter(e.target.value) }}
+                            />
+                            <button type="submit" className="absolute right-0 top-0 mt-3.5 mr-4">
+                                <img src="./svgs/search.svg" className="w-[1rem] h-[1rem]" alt="rar" />
+                            </button>
+                        </div>
                     </div>
-                    <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold" onClick={() => router.push('/managePageBuilder')}>{t("buttons.create-page")}</button>
+                    <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[10px] border border-1 border-[#212429] font-bold h-min flex items-center shadow-md" onClick={() => router.push('/managePageBuilder')}><RiAddCircleLine className="mr-1 w-5 h-5" />{t("buttons.create-page")}</button>
                 </div>
             </div>
             <div className="grid grid-cols-1 mdx800:grid-cols-2 mdx1100:grid-cols-3 mdx1400:grid-cols-4 mdx1900:grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
-                {webpageData?.map((webpage => {
+                {webpageData?.filter(data => {
+                    const normalizeNames = data?.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    const normalizeSearchInput = searchInputFilter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    return normalizeNames?.includes(normalizeSearchInput);
+                }).map(((webpage, i) => {
                     return (
-                        <WebPageCard webpageData={webpage} />
+                        <WebPageCard key={i} webpageData={webpage} />
                     )
                 }))}
             </div>

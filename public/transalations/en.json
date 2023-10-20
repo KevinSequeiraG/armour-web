@@ -87,6 +87,12 @@
         "id": "Identification",
         "undefined": "Undefined"
     },
+    "home": {
+        "my-pages": "My pages",
+        "personalize": "Personalize",
+        "my-products": "My products",
+        "my-categories": "My categories"
+    },
     "page-builder": {
         "new-page": "New page"
     },

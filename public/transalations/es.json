@@ -87,6 +87,12 @@
     "id": "Cédula",
     "undefined": "Sin definir"
   },
+  "home": {
+    "my-pages": "Mis páginas",
+    "personalize": "Personalizar",
+    "my-products": "Mis productos",
+    "my-categories": "Mis categorías"
+  },
   "page-builder": {
     "new-page": "Página nueva"
   },
@@ -105,7 +111,7 @@
   "verify-page": {
     "verify-your-email": "Verifica tu correo electrónico.",
     "we-need-to-know": "Necesitamos saber que eres tú, da click en el boton para que podamos enviarte un correo de verificación.",
-    "email-verified" : "Correo verificado",
+    "email-verified": "Correo verificado",
     "desc-verified": "Ahora puedes acceder a la plataforma y crear las páginas que quieras"
   }
 }

@@ -1,10 +1,10 @@
 import { database } from "@/lib/firebaseConfig";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const SaveCategory = async (category) => {
     try {
-        const imageUrl = await uploadImageToFirebaseStorage(category.image)
+        const imageUrl = category?.image ? await uploadImageToFirebaseStorage(category?.image) : ""
         const categoriesTableRef = collection(database, `admin/data/categories`);
 
         const catToSave = { ...category, image: imageUrl }
@@ -17,7 +17,7 @@ export const SaveCategory = async (category) => {
 export const GetCategoriesByWebpage = async (webpageName) => {
     try {
         const categoriesTableRef = collection(database, `admin/data/categories`);
-        const q = query(categoriesTableRef, where("webpageName", "==", webpageName))
+        const q = query(categoriesTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc"))
 
         return await getDocs(q).then(response => {
             let finalData = []
@@ -47,7 +47,7 @@ export const EditCategoryByUid = async (uid, data) => {
     try {
         const categoriesTableRef = doc(database, `admin/data/categories`, uid);
         if (!data.image.includes("https://firebasestorage")) {
-            const imageUrl = await uploadImageToFirebaseStorage(data.image)
+            const imageUrl = data?.image ? await uploadImageToFirebaseStorage(data?.image) : ""
             data.image = imageUrl
         }
         await setDoc(categoriesTableRef, data, { merge: true })

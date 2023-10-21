@@ -70,11 +70,13 @@
         "change-password": "Change password",
         "send-email": "Send email",
         "return-to-login": "Return to login",
-        "new-category": "New category"
+        "new-category": "New category",
+        "new-product": "New product"
     },
     "search": {
         "search-page": "Search page",
-        "search-category": "Search category"
+        "search-category": "Search category",
+        "search-product": "Search product"
     },
     "user-data": {
         "name": "Name",
@@ -111,6 +113,28 @@
         "crud-create": "Category created successfully",
         "crud-edit": "Category edited successfully",
         "crud-delete": "Category deleted successfully"
+    },
+    "products": {
+        "name": "Product name",
+        "description": "Description",
+        "base-price": "Base price",
+        "tax": "Tax",
+        "final-cost": "Final cost",
+        "linked-to": "Linked to",
+        "linked-to-category": "Associate to category",
+        "select-category": "Select category",
+        "select-page": "Select page",
+        "image": "Image",
+        "actions": "Actions",
+        "page-from": "Page to which it belongs",
+        "cover-image": "Cover image",
+        "add-image": "Add image",
+        "edit": "Edit product",
+        "delete": "Do you want to delete the product",
+        "no-data": "No products",
+        "crud-create": "Product created successfully",
+        "crud-edit": "Product edited successfully",
+        "crud-delete": "Product deleted successfully"
     },
     "page-builder": {
         "new-page": "New page"

@@ -13,6 +13,7 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
     const [imageSrc, setImageSrc] = useState(null);
     const fileInputRef = useRef();
     const [registrationError, setRegistrationError] = useState({});
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -42,6 +43,8 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
 
 
     const handleConfirm = async () => {
+        if (buttonDisabled) return;
+        setButtonDisabled(true);
         const validationsResult = await validateForm()
         if (validationsResult) {
             if (editCategory) {
@@ -50,15 +53,26 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
                     toast.success(t("categories.crud-edit"));
                     getCategories();
                     handleShow(false);
+                    setButtonDisabled(false);
+                    cleanStates()
                 }).catch((e) => console.log(e))
             } else {
                 SaveCategory({ name: name, desc: desc, webpageName: webpageName, image: imageSrc, webpagePage: pageSelected?.toString(), createdAt: new Date() }).then(() => {
                     toast.success(t("categories.crud-create"));
                     getCategories();
                     handleShow(false);
+                    setButtonDisabled(false);
+                    cleanStates()
                 })
             }
-        }
+        } else setButtonDisabled(false);
+    }
+
+    const cleanStates = () => {
+        setName("");
+        setImageSrc("");
+        setDesc("")
+        setPageSelected(pagesWithCategoryCards[0]?.id || null)
     }
 
     useEffect(() => {
@@ -66,15 +80,9 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
             setName(categoryToEdit.name);
             setImageSrc(categoryToEdit.image);
             setDesc(categoryToEdit.desc)
-            if (pagesWithCategoryCards.find(page => page.id == categoryToEdit?.webpagePage))
-                setPageSelected(categoryToEdit?.webpagePage)
-            else setPageSelected(pagesWithCategoryCards[0]?.id || null)
-        } else {
-            setName("");
-            setImageSrc("");
-            setDesc("")
-            setPageSelected(pagesWithCategoryCards[0]?.id || null)
-        }
+            setPageSelected(categoryToEdit?.webpagePage)
+        } else cleanStates()
+
     }, [])
 
 
@@ -197,7 +205,7 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
                 </div>
                 <div className="flex items-center mt-6">
                     <button onClick={() => handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[9rem] bg-red-500 border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-100">{t("buttons.cancel")}</button>
-                    <button onClick={handleConfirm} className="mx-auto cursor-pointer relative flex items-center justify-center w-[9rem] bg-green-600 border-2 border-gray-300 hover:bg-green-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-100">{t("buttons.confirm")}</button>
+                    <button disabled={buttonDisabled} onClick={handleConfirm} className="mx-auto cursor-pointer relative flex items-center justify-center w-[9rem] bg-green-600 border-2 border-gray-300 hover:bg-green-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-100">{t("buttons.confirm")}</button>
                 </div>
             </div>
         </div>

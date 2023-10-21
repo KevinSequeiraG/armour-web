@@ -1,10 +1,10 @@
 import { database } from "@/lib/firebaseConfig";
-import { addDoc, collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const SaveProduct = async (product) => {
     try {
-        const imageUrl = await uploadImageToFirebaseStorage(product.image)
+        const imageUrl = product?.image ? await uploadImageToFirebaseStorage(product.image) : "";
         const productsTableRef = collection(database, `admin/data/products`);
 
         const catToSave = { ...product, image: imageUrl }
@@ -18,7 +18,7 @@ export const SaveProduct = async (product) => {
 export const GetProductsByWebpage = async (webpageName) => {
     try {
         const productsTableRef = collection(database, `admin/data/products`);
-        const q = query(productsTableRef, where("webpageName", "==", webpageName))
+        const q = query(productsTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc"))
 
         return await getDocs(q).then(response => {
             let finalData = []
@@ -55,7 +55,7 @@ export const EditProductByUid = async (uid, data) => {
     try {
         const productsTableRef = doc(database, `admin/data/products`, uid);
         if (!data.image.includes("https://firebasestorage")) {
-            const imageUrl = await uploadImageToFirebaseStorage(data.image)
+            const imageUrl = data?.image ? await uploadImageToFirebaseStorage(data.image) : ""
             data.image = imageUrl
         }
         await setDoc(productsTableRef, data, { merge: true })

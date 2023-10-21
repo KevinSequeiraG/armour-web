@@ -5,9 +5,13 @@ import { GetProductsByWebpage } from '@/helpers/products';
 import { GetWebpage } from '@/helpers/webpage';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { RiAddCircleLine } from 'react-icons/ri';
 
 const EditProductPage = () => {
+    const { t } = useTranslation();
     const router = useRouter();
     const { webpageNameByRouter } = router.query;
     const [products, setProducts] = useState([]);
@@ -20,6 +24,7 @@ const EditProductPage = () => {
     const [productToDelete, setProductToDelete] = useState();
     const [pagesWithProductsCards, setPagesWithProductsCards] = useState([]);
     const [pageSelected, setPageSelected] = useState();
+    const [searchInputFilter, setSearchInputFilter] = useState("");
 
     // Función para cargar los productos
     const getProducts = async () => {
@@ -32,13 +37,20 @@ const EditProductPage = () => {
     };
 
     useEffect(() => {
-        if (products.length > 0) {
+        if (products?.length > 0) {
             const fetchData = async () => {
                 const completeData = await Promise.all(
                     products.map(async (product) => {
                         const productComplete = { ...product };
-                        const categoryData = await GetCategoryByUid(product?.categoryId);
-                        productComplete.categoryName = categoryData?.name;
+                        if (productComplete?.isFromCategory) {
+                            const categoryData = await GetCategoryByUid(product?.categoryId);
+                            productComplete.linkedTo = categoryData?.name;
+                        } else {
+                            console.log("pagesWithProductsCards.filter(page => page?.id == product?.webpagePage)", pagesWithProductsCards.filter(page => page?.id == product?.webpagePage));
+                            const pageData = pagesWithProductsCards.filter(page => page?.id == parseInt(product?.webpagePage));
+                            console.log("pageData?.name",pageData[0]?.name);
+                            productComplete.linkedTo = pageData[0]?.name;
+                        }
                         return productComplete;
                     })
                 );
@@ -48,7 +60,7 @@ const EditProductPage = () => {
 
             fetchData();
         }
-    }, [products]);
+    }, [products, pagesWithProductsCards]);
 
 
     useEffect(() => {
@@ -60,7 +72,7 @@ const EditProductPage = () => {
                         .filter(page => page.sections.some(section => section?.type === "card" && !section?.isCategory))
                         .map(page => ({ id: page?.id, name: page?.name }));
 
-                    if (pagesWithCategoryCards.length > 0) {
+                    if (pagesWithCategoryCards?.length > 0) {
                         setPagesWithProductsCards(pagesWithCategoryCards);
                         setPageSelected("");
                     }
@@ -91,49 +103,76 @@ const EditProductPage = () => {
     return (
         <>
             <div className="container mx-auto py-4 px-8">
-                <div className='flex justify-between items-center'>
-                    <h1 className="text-2xl font-semibold mb-4">Editar Productos</h1>
-                    <button onClick={() => setShowNewProduct(true)} className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] h-[2.5rem] w-[10rem] text-[#212429] px-4 py-2 rounded-[.5rem] border border-1 border-[#212429] font-semibold">Agregar +</button>
+                <div className='flex justify-between items-center mb-2'>
+                    <div>
+                        <div className='flex items-center space-x-11'>
+                            <BsFillArrowLeftCircleFill className='w-6 h-6 cursor-pointer' onClick={() => router.back()} />
+                            <p className="font-semibold mb-2 text-center text-2xl">{t("home.my-products")}</p>
+                        </div>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                className="border-2 border-gray-300 bg-white w-[18rem] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                                placeholder={t("search.search-product")}
+                                onChange={(e) => { setSearchInputFilter(e.target.value) }}
+                            />
+                            <button type="submit" className="absolute right-0 top-0 mt-3.5 mr-4">
+                                <img src="./svgs/search.svg" className="w-[1rem] h-[1rem]" alt="rar" />
+                            </button>
+                        </div>
+                    </div>
+                    <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[10px] border border-1 border-[#212429] font-bold h-min flex items-center shadow-md" onClick={() => setShowNewProduct(true)}><RiAddCircleLine className="mr-1 w-5 h-5" />{t("buttons.new-product")}</button>
                 </div>
-                <table className="w-full border-collapse border border-gray-300">
-                    <thead>
-                        <tr>
-                            <th className="p-2 border border-gray-300">Nombre del Producto</th>
-                            <th className="p-2 border border-gray-300">Descripción</th>
-                            <th className="p-2 border border-gray-300">Imagen</th>
-                            <th className="p-2 border border-gray-300">Precio base</th>
-                            <th className="p-2 border border-gray-300">Categoria</th>
-                            <th className="p-2 border border-gray-300">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {productToShow?.map((product) => (
-                            <tr key={product.id} className='text-center'>
-                                <td className="p-2 border border-gray-300">{product.name}</td>
-                                <td className="p-2 border border-gray-300">{product.desc}</td>
-                                <td className="p-2 border border-gray-300">
-                                    <img className="max-w-[4rem] mx-auto" src={product.image ? product.image : '/images/awLogo-nobg.png'} alt="Product Image" />
-                                </td>
-                                <td className="p-2 border border-gray-300">{product.prize}</td>
-                                <td className="p-2 border border-gray-300">{product.categoryName}</td>
-                                <td className="p-2 border border-gray-300">
-                                    <button
-                                        onClick={() => editProduct(product)}
-                                        className="text-blue-500 hover:text-blue-700 mr-2"
-                                    >
-                                        <FaEdit />
-                                    </button>
-                                    <button
-                                        onClick={() => deleteProduct(product)}
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        <FaTrash />
-                                    </button>
-                                </td>
+                <div className='max-h-[calc(100vh-13rem)] overflow-y-auto scrollbarDesign rounded-[10px]'>
+                    <table className="w-full border-collapse rounded-[10px] overflow-hidden bg-[#f5f5f5]">
+                        <thead>
+                            <tr className='bg-gray-800 text-white text-lg'>
+                                <th className="p-2 border border-gray-300">{t("products.name")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.description")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.image")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.base-price")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.tax")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.final-cost")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.linked-to")}</th>
+                                <th className="p-2 border border-gray-300">{t("products.actions")}</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {productToShow?.filter(data => {
+                                const normalizeNames = data?.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                const normalizeSearchInput = searchInputFilter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                return normalizeNames?.includes(normalizeSearchInput);
+                            }).map((product) => (
+                                <tr key={product.id} className='text-center'>
+                                    <td className="p-2 border border-gray-300">{product?.name}</td>
+                                    <td className="p-2 border border-gray-300">{product?.desc}</td>
+                                    <td className="p-2 border border-gray-300">
+                                        <img className="max-w-[4rem] mx-auto" src={product?.image ? product?.image : '/images/awLogo-nobg.png'} alt="Product Image" />
+                                    </td>
+                                    <td className="p-2 border border-gray-300">{product?.prize}</td>
+                                    <td className="p-2 border border-gray-300">{product?.tax}</td>
+                                    <td className="p-2 border border-gray-300">{parseFloat(product?.prize * product?.tax)}</td>
+                                    <td className="p-2 border border-gray-300">{product?.linkedTo}</td>
+                                    <td className="p-2 border border-gray-300">
+                                        <button
+                                            onClick={() => editProduct(product)}
+                                            className="text-blue-500 hover:text-blue-700 mr-2"
+                                        >
+                                            <FaEdit className='w-5 h-5' />
+                                        </button>
+                                        <button
+                                            onClick={() => deleteProduct(product)}
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            <FaTrash className='w-5 h-5' />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {productToShow?.length === 0 && <p className='p-8 text-center text-2xl font-semibold'>{t("products.no-data")}</p>}
             </div>
             <CreateProduct getProducts={getProducts} webpageName={webpageName} handleShow={setShowNewProduct} isOpen={showNewProduct} pagesWithProductsCards={pagesWithProductsCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
             <CreateProduct editProduct productToEdit={productToEdit} getProducts={getProducts} webpageName={webpageName} handleShow={setShowEditProduct} isOpen={showEditProduct} pagesWithProductsCards={pagesWithProductsCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />

@@ -57,9 +57,9 @@ const EditCategoryPage = () => {
                         .filter(page => page.sections.some(section => section?.type === "card" && section?.isCategory))
                         .map(page => ({ id: page?.id, name: page?.name }));
 
-                    if (pagesWithCategoryCards.length > 0) {
+                    if (pagesWithCategoryCards?.length > 0) {
                         setPagesWithCategoryCards(pagesWithCategoryCards);
-                        setPageSelected(pagesWithCategoryCards[0].id);
+                        setPageSelected(pagesWithCategoryCards[0]?.id);
                     }
                 }
             });
@@ -99,44 +99,46 @@ const EditCategoryPage = () => {
                     </div>
                     <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[10px] border border-1 border-[#212429] font-bold h-min flex items-center shadow-md" onClick={() => setShowNewCategory(true)}><RiAddCircleLine className="mr-1 w-5 h-5" />{t("buttons.new-category")}</button>
                 </div>
-                <table className="w-full border-collapse rounded-[10px] overflow-hidden bg-[#f5f5f5]">
-                    <thead>
-                        <tr className='bg-gray-800 text-white text-lg'>
-                            <th className="p-2 border border-gray-300">{t("categories.name")}</th>
-                            <th className="p-2 border border-gray-300">{t("categories.description")}</th>
-                            <th className="p-2 border border-gray-300">{t("categories.image")}</th>
-                            <th className="p-2 border border-gray-300">{t("categories.actions")}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories?.filter(data => {
-                            const normalizeNames = data?.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                            const normalizeSearchInput = searchInputFilter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                            return normalizeNames?.includes(normalizeSearchInput);
-                        }).map((category) => (
-                            <tr key={category.id} className='text-center'>
-                                <td className="p-2 border border-gray-300">{category?.name}</td>
-                                <td className="p-2 border border-gray-300">{category?.desc}</td>
-                                <td className="p-2 border border-gray-300"><img className="max-w-[4rem] mx-auto" src={category?.image ? category?.image : '/images/awLogo-nobg.png'} /></td>
-                                <td className="p-2 border border-gray-300">
-                                    <button
-                                        onClick={() => editCategory(category)}
-                                        className="text-blue-500 hover:text-blue-700 mr-2"
-                                    >
-                                        <FaEdit className='w-5 h-5' />
-                                    </button>
-                                    <button
-                                        onClick={() => deleteCategory(category)}
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        <FaTrash className='w-5 h-5' />
-                                    </button>
-                                </td>
+                <div className='max-h-[calc(100vh-13rem)] overflow-y-auto scrollbarDesign rounded-[10px]'>
+                    <table className="w-full border-collapse rounded-[10px] overflow-hidden bg-[#f5f5f5]">
+                        <thead>
+                            <tr className='bg-gray-800 text-white text-lg'>
+                                <th className="p-2 border border-gray-300">{t("categories.name")}</th>
+                                <th className="p-2 border border-gray-300">{t("categories.description")}</th>
+                                <th className="p-2 border border-gray-300">{t("categories.image")}</th>
+                                <th className="p-2 border border-gray-300">{t("categories.actions")}</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {categories.length === 0 && <p className='p-8 text-center text-2xl font-semibold'>{t("categories.no-data")}</p>}
+                        </thead>
+                        <tbody>
+                            {categories?.filter(data => {
+                                const normalizeNames = data?.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                const normalizeSearchInput = searchInputFilter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                return normalizeNames?.includes(normalizeSearchInput);
+                            }).map((category) => (
+                                <tr key={category.id} className='text-center'>
+                                    <td className="p-2 border border-gray-300">{category?.name}</td>
+                                    <td className="p-2 border border-gray-300">{category?.desc}</td>
+                                    <td className="p-2 border border-gray-300"><img className="max-w-[4rem] mx-auto" src={category?.image ? category?.image : '/images/awLogo-nobg.png'} /></td>
+                                    <td className="p-2 border border-gray-300">
+                                        <button
+                                            onClick={() => editCategory(category)}
+                                            className="text-blue-500 hover:text-blue-700 mr-2"
+                                        >
+                                            <FaEdit className='w-5 h-5' />
+                                        </button>
+                                        <button
+                                            onClick={() => deleteCategory(category)}
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            <FaTrash className='w-5 h-5' />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {categories?.length === 0 && <p className='p-8 text-center text-2xl font-semibold'>{t("categories.no-data")}</p>}
             </div>
             <CreateCategory getCategories={getCategories} webpageName={webpageName} handleShow={setShowNewCategory} isOpen={showNewCategory} pagesWithCategoryCards={pagesWithCategoryCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />
             <CreateCategory editCategory categoryToEdit={categoryToEdit} getCategories={getCategories} webpageName={webpageName} handleShow={setShowEditCategory} isOpen={showEditCategory} pagesWithCategoryCards={pagesWithCategoryCards} setPageSelected={setPageSelected} pageSelected={pageSelected} />

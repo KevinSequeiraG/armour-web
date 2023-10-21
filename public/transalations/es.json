@@ -70,7 +70,8 @@
     "change-password": "Cambiar contraseña",
     "send-email": "Enviar correo",
     "return-to-login": "Volver al inicio de sesión",
-    "new-category": "Nueva categoría"
+    "new-category": "Nueva categoría",
+    "new-product": "Nuevo producto"
   },
   "categories": {
     "name": "Nombre de la categoría",
@@ -87,9 +88,32 @@
     "crud-edit": "Categoría editada satisfactoriamente",
     "crud-delete": "Categoría eliminada satisfactoriamente"
   },
+  "products": {
+    "name": "Nombre",
+    "description": "Descripción",
+    "base-price": "Precio base",
+    "tax": "Impuesto",
+    "final-cost": "Precio final",
+    "linked-to": "Vinculado a",
+    "linked-to-category": "Asociar a categoría",
+    "select-category": "Seleccionar categoría",
+    "select-page": "Seleccionar página",
+    "image": "Imagen",
+    "actions": "Acciones",
+    "page-from": "Página a la que pertenece",
+    "cover-image": "Imagen de portada",
+    "add-image": "Añadir imagen",
+    "edit": "Editar producto",
+    "delete": "¿Quieres eliminar el producto",
+    "no-data": "Sin productos",
+    "crud-create": "Producto creado satisfactoriamente",
+    "crud-edit": "Producto editado satisfactoriamente",
+    "crud-delete": "Producto eliminado satisfactoriamente"
+  },
   "search": {
     "search-page": "Buscar página",
-    "search-category": "Buscar categoría"
+    "search-category": "Buscar categoría",
+    "search-product": "Buscar producto"
   },
   "user-data": {
     "name": "Nombre",

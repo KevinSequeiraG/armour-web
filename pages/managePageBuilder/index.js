@@ -1,3 +1,4 @@
+import ChangeLng from '@/components/ChangeLng';
 import FirstStep from '@/components/ManagePageBuilder/firstStep';
 import Navbar from '@/components/ManagePageBuilder/navbar';
 import SectionView from '@/components/ManagePageBuilder/sections/sectionView';
@@ -11,7 +12,9 @@ import { useTranslation } from 'react-i18next';
 export default function ManagePageBuilder() {
     const { loggedUser } = useContext(UserContext);
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const [lngEsp, setLngEsp] = useState(i18n.language == "es");
 
     const [logoPage, setLogoPage] = useState();
 
@@ -63,9 +66,22 @@ export default function ManagePageBuilder() {
         const dataToEdit = JSON.parse(window.localStorage.getItem("pageToEdit"))
         if (dataToEdit) {
             setWebPageData(dataToEdit);
+            setLogoPage(dataToEdit.logo)
             setIsEdit(true);
         }
     }, [])
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
+    useEffect(() => {
+        if (lngEsp) {
+            changeLanguage("es")
+        } else {
+            changeLanguage("en")
+        }
+    }, [lngEsp])
 
 
     return (
@@ -82,7 +98,19 @@ export default function ManagePageBuilder() {
 
                 <div className="w-[75%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
                     {/* <PersonalizationHeader /> */}
-                    <button className='bg-white text-black absolute right-5 top-5 px-4 py-2 rounded-xl' onClick={() => { SaveWebPage(webPageData, loggedUser.uid) }}>Save</button>
+                    <div className='absolute right-5 top-5 flex '>
+                        <div className='flex items-center bg-black px-4 rounded-xl border border-1 border-gray-400'>
+                            <span className="text-[1rem] text-gray-400 font-medium mr-3">EN</span>
+                            <label className="relative inline-flex items-center cursor-pointer" >
+                                <div>
+                                    <input type="checkbox" value="" className="sr-only peer" checked={lngEsp} onClick={(e) => setLngEsp(!lngEsp)} />
+                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-700 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-700"></div>
+                                </div>
+                                <span className="ml-3 text-[1rem] text-gray-400 font-medium">ES</span>
+                            </label>
+                        </div>
+                        <button className='bg-white text-black mx-2 px-4 py-2 rounded-xl' onClick={() => { SaveWebPage(webPageData, loggedUser.uid) }}>{t("buttons.save")}</button>
+                    </div>
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] max-h-[667px] h-full !overflow-hidden m-auto shadow-md bg-white relative" : "!overflow-hidden w-full max-w-full mx-3 h-full max-h-[calc(100vh-8rem)] !my-auto shadow-md bg-white relative"}`}>
 
                         <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>

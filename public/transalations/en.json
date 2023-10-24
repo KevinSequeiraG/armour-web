@@ -71,7 +71,8 @@
         "send-email": "Send email",
         "return-to-login": "Return to login",
         "new-category": "New category",
-        "new-product": "New product"
+        "new-product": "New product",
+        "save": "Save"
     },
     "search": {
         "search-page": "Search page",
@@ -137,7 +138,22 @@
         "crud-delete": "Product deleted successfully"
     },
     "page-builder": {
-        "new-page": "New page"
+        "new-page": "New page",
+        "height": "Height",
+        "width": "Width",
+        "filled": "Relleno",
+        "bg-color": "Color de fondo",
+        "txt-color": "Color de texto",
+        "bg-img": "Imagen de fondo",
+        "add-img": "Add image",
+        "my-pages": "My pages",
+        "content-position": "Content position",
+        "content": "Content",
+        "navigation-menu": "Navigation menu",
+        "top": "Top",
+        "left": "Left",
+        "bottom": "Bottom",
+        "right": "Right"
     },
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",

@@ -268,9 +268,9 @@ const Sidebar = (props) => {
     }, [props.currentMenuOption, props?.currentPage])
 
     useEffect(() => {
-      setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)
+        setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)
     }, [props.webPageData])
-    
+
 
     return (
         <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
@@ -281,11 +281,11 @@ const Sidebar = (props) => {
                         <img src="/images/awLogo-nobg.png" className="w-[6rem]" />
                     </div>
 
-                    <SidebarMenuOption label="Menú de navegación" isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0, "navbar-webpage")}>
+                    <SidebarMenuOption label={t("page-builder.navigation-menu")} isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0, "navbar-webpage")}>
                         <NavbarOptions />
                     </SidebarMenuOption>
 
-                    <SidebarMenuOption label="Mis páginas" isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
+                    <SidebarMenuOption label={t("page-builder.my-pages")} isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
 
                         {props?.webPageData?.pages?.map((pageData, i) => {
                             return (
@@ -300,7 +300,7 @@ const Sidebar = (props) => {
                 </div>
                 <button className="optionButton w-fit !ml-5 !flex !items-center !justify-center" onClick={handleCloseButton}>
                     <FiArrowLeftCircle className='mr-1 w-5 h-5' />
-                    Cancelar
+                    {t("buttons.cancel")}
                 </button>
             </div>
 
@@ -325,14 +325,14 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 0 && <>
                         <div className='flex flex-col items-start border space-y-2'>
-                            <p>Altura</p>
+                            <p>{t("page-builder.height")}</p>
                             <div className='flex justify-center items-center space-x-2'>
                                 <AiOutlineColumnHeight className='w-7 h-7' />
                                 <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
                             {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
-                                <p>Anchura</p>
+                                <p>{t("page-builder.width")}</p>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
                                     <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
@@ -348,7 +348,7 @@ const Sidebar = (props) => {
                     {activeButtonIndex !== 0 &&
                         <>
                             <div className='flex flex-col items-start border space-y-2'>
-                                <p>Relleno</p>
+                                <p>{t("page-builder.filled")}</p>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <BiArrowToLeft className='w-7 h-7' />
                                     <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
@@ -376,13 +376,13 @@ const Sidebar = (props) => {
                     }
 
                     <div className='flex flex-col items-start border space-y-2'>
-                        <p>Color de fondo</p>
+                        <p>{t("page-builder.bg-color")}</p>
                         <div className='flex justify-center items-center space-x-2 w-full px-2'>
                             <AiOutlineBgColors className='w-7 h-7' />
                             <input value={bgColor} onChange={(e) => { handleBGColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
                         </div>
                         {activeButtonIndex === 0 && <>
-                            <p>Color de texto</p>
+                            <p>{t("page-builder.txt-color")}</p>
                             <div className='flex justify-center items-center space-x-2 w-full px-2'>
                                 <AiOutlineFontColors className='w-7 h-7' />
                                 <input value={txtColor} onChange={(e) => { handleTxtColorChange(e.target.value) }} type="color" id="colorPicker" name="colorPicker" className='inputColor w-2/3 h-full' />
@@ -392,7 +392,7 @@ const Sidebar = (props) => {
 
                     <hr className='border border-[#224553]' />
 
-                    {activeButtonIndex === 0 && <label>Imagen de fondo</label>}
+                    {activeButtonIndex === 0 && <label>{t("page-builder.bg-img")}</label>}
                     {activeButtonIndex === 0 && <input
                         type="file"
                         accept="image/*"
@@ -443,7 +443,7 @@ const Sidebar = (props) => {
                             }}
                             className='w-full h-[12rem]'
                         >
-                            Añadir imagen
+                            {t("page-builder.add-img")}
                             <input
                                 type="file"
                                 accept="image/*"
@@ -453,7 +453,7 @@ const Sidebar = (props) => {
                         </label>
                     ) : null}
 
-                    {activeButtonIndex === 1 && <label>Imagen de fondo</label>}
+                    {activeButtonIndex === 1 && <label>{t("page-builder.bg-img")}</label>}
                     {activeButtonIndex === 1 && <input
                         type="file"
                         accept="image/*"
@@ -504,7 +504,7 @@ const Sidebar = (props) => {
                             }}
                             className='w-full h-[12rem]'
                         >
-                            Añadir imagen
+                            {t("page-builder.add-img")}
                             <input
                                 type="file"
                                 accept="image/*"
@@ -516,7 +516,7 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 0 &&
                         <div className='flex flex-col items-center'>
-                            Mis páginas
+                            {t("page-builder.my-pages")}
                             <MypagesDragDrop setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
                         </div>
                     }
@@ -525,7 +525,7 @@ const Sidebar = (props) => {
                         <>
                             <hr className='border border-[#224553]' />
                             <div className='flex flex-col items-center space-y-2'>
-                                <p>Posición del contenido</p>
+                                <p>{t("page-builder.content-position")}</p>
                                 <div className='flex justify-center items-center space-x-5'>
                                     {props.navbarPosition === "top" ?
                                         <>
@@ -547,7 +547,7 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 1 && !props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
                         <div className='flex flex-col items-center'>
-                            <p>Contenido</p>
+                            <p>{t("page-builder.content")}</p>
 
                             <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
 

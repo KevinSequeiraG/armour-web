@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const NavbarOptions = () => {
-    const options = [{ id: "top", text: "Arriba" }, { id: "right", text: "Derecha" }, { id: "left", text: "Izquierda" }]
+    const { t } = useTranslation();
+    const options = [{ id: "top", text: t("page-builder.top") }, { id: "right", text: t("page-builder.right") }, { id: "left", text: t("page-builder.left") }]
     const [selectedOption, setSelectedOption] = useState("top");
     useEffect(() => {
 

@@ -71,7 +71,8 @@
     "send-email": "Enviar correo",
     "return-to-login": "Volver al inicio de sesión",
     "new-category": "Nueva categoría",
-    "new-product": "Nuevo producto"
+    "new-product": "Nuevo producto",
+    "save": "Guardar"
   },
   "categories": {
     "name": "Nombre de la categoría",
@@ -137,7 +138,22 @@
     "no-data": "Sin páginas creadas"
   },
   "page-builder": {
-    "new-page": "Página nueva"
+    "new-page": "Página nueva",
+    "height": "Altura",
+    "width": "Anchura",
+    "filled": "Filled",
+    "bg-color": "Background color",
+    "txt-color": "Text color",
+    "bg-img": "Background image",
+    "add-img": "Añadir imagen",
+    "my-pages": "Mis páginas",
+    "content-position": "Posición del contenido",
+    "content": "Contenido",
+    "navigation-menu": "Menú de navegación",
+    "top": "Arriba",
+    "left": "Izquierda",
+    "bottom": "Abajo",
+    "right": "Derecha"
   },
   "delete-modal": {
     "sure": "¿Está seguro que desea eliminar su cuenta?",

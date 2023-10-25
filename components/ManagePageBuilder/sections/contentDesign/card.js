@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineBold, AiOutlineColumnHeight, AiOutlineFontColors, AiOutlineFontSize } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop } from 'react-icons/bi'
 import Switch from 'react-switch';
 
 export const Card = (props) => {
+    const { t } = useTranslation();
     const [showTitleDesign, setShowTitleDesign] = useState(false);
     const [showDescDesign, setShowDescDesign] = useState(false);
     const [showButtonDesign, setShowButtonDesign] = useState(false);
@@ -140,7 +142,7 @@ export const Card = (props) => {
                     </div>
                 </div>
                 <div className='mt-2'>
-                    <p className=''>Color de fondo</p>
+                    <p className=''>{t("page-builder.bg-color")}</p>
                     <div className='flex justify-center items-center w-full'>
                         <AiOutlineBgColors className='w-7 h-7' />
                         <input value={contentValues?.bgColorButton} onChange={handleInputChange} type="color" id="colorPicker" name="bgColor" className='inputColor w-2/3 h-[1.5rem]' />
@@ -213,7 +215,7 @@ export const Card = (props) => {
                         </div>
                     </div>
                     <div className='mx-2'>
-                        <p className=''>Color de fondo</p>
+                        <p className=''>{t("page-builder.bg-color")}</p>
                         <div className='flex justify-center items-center w-full'>
                             <AiOutlineBgColors className='w-7 h-7' />
                             <input value={contentValues?.bgColorButton} onChange={handleInputChange} type="color" id="colorPicker" name="bgColorButton" className='inputColor w-2/3 h-[1.5rem]' />

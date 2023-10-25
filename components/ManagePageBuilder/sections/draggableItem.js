@@ -8,8 +8,10 @@ import { Text } from "./contentDesign/text";
 import { TextArea } from "./contentDesign/textArea";
 import { Card } from "./contentDesign/card";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 function DraggableItem(props) {
+  const { t } = useTranslation();
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: props?.content?.id });
 
@@ -27,10 +29,10 @@ function DraggableItem(props) {
           <MdDragIndicator className="w-5 h-5" />
         </div>
         <div className="flex items-center uppercase">
-          {props?.content?.type == "image" && "Imagen"}
-          {props?.content?.type == "text" && "Texto"}
-          {props?.content?.type == "textArea" && "Párrafo"}
-          {props?.content?.type == "card" && "Tarjeta"}
+          {props?.content?.type == "image" && t("section.img")}
+          {props?.content?.type == "text" && t("section.txt")}
+          {props?.content?.type == "textArea" && t("section.paragraph")}
+          {props?.content?.type == "card" && t("section.card")}
         </div>
         <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500 hover:text-red-700" onClick={() => props.handleDeleteContent(props?.content?.id)} />
       </div>

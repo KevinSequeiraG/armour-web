@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineClose, AiOutlineColumnHeight } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
 
 export const Imagen = (props) => {
     const [imageSrc, setImageSrc] = useState(null);
+    const { t } = useTranslation();
     const [contentValues, setContentValues] = useState(props?.content);
     const fileInputRef = useRef();
 
@@ -110,7 +112,7 @@ export const Imagen = (props) => {
                     }}
                     className='w-full h-[12rem]'
                 >
-                    Añadir imagen
+                    {t("buttons.add-img")}
                     <input
                         type="file"
                         accept="image/*"

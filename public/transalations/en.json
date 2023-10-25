@@ -39,7 +39,9 @@
         "password-length": "You need a minimum of 8 characters",
         "password-dont-match": "Passwords do not match",
         "subject-is-required": "Subject is required",
-        "message-is-required": "You must type a message"
+        "message-is-required": "You must type a message",
+        "section-req-name": "The section requires a name.",
+        "section-already-exits": "There is already a page with that name."
     },
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
@@ -72,7 +74,11 @@
         "return-to-login": "Return to login",
         "new-category": "New category",
         "new-product": "New product",
-        "save": "Save"
+        "save": "Save",
+        "add-section": "Add section",
+        "add-img": "Add image",
+        "add-page": "Add page",
+        "add-contact-form": "Add contact form"
     },
     "search": {
         "search-page": "Search page",
@@ -141,10 +147,10 @@
         "new-page": "New page",
         "height": "Height",
         "width": "Width",
-        "filled": "Relleno",
-        "bg-color": "Color de fondo",
-        "txt-color": "Color de texto",
-        "bg-img": "Imagen de fondo",
+        "filled": "Filled",
+        "bg-color": "Background color",
+        "txt-color": "Text color",
+        "bg-img": "Background image",
         "add-img": "Add image",
         "my-pages": "My pages",
         "content-position": "Content position",
@@ -172,5 +178,22 @@
         "we-need-to-know": "We need to know it is you, click on the button so we can send you a verification email.",
         "email-verified": "Verified email",
         "desc-verified": "Now you can access the platform and create the pages you want"
+    },
+    "section": {
+        "img": "Image",
+        "txt": "Text",
+        "paragraph": "Paragraph",
+        "card": "Card"
+    },
+    "first-step": {
+        "lbl": "You are about to create your own website!",
+        "desc": "Enter the information required to continue",
+        "page-name": "Webage name",
+        "logo": "Logo"
+    },
+    "contact-form": {
+        "title": "Contact Form",
+        "web-page-name": "Name of the page",
+        "email-to-receive-comments": "Email to receive comments"
     }
 }

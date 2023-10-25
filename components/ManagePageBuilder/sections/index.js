@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Swal from 'sweetalert2'
+import { useTranslation } from 'react-i18next';
 
 const Section = (props) => {
+    const { t } = useTranslation();
     const [sections, setSections] = useState([
         {
             // pageFrom: "1",
@@ -209,7 +211,7 @@ const Section = (props) => {
                 className="optionButton mb-2 mr-2 truncate w-fit flex justify-center items-center !text-xs !py-1.5"
                 onClick={handleAddSection}
             >
-                <FiPlus className='text-base mr-1' />Añadir sección
+                <FiPlus className='text-base mr-1' />{t("buttons.add-section")}
             </button>
         </div>
     );

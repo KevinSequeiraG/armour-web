@@ -39,7 +39,11 @@
     "password-length": "Se requieren mínimo 8 caracteres.",
     "password-dont-match": "Las contraseñas no coinciden",
     "subject-is-required": "El asunto es requerido",
-    "message-is-required": "Debe digitar un mensaje"
+    "message-is-required": "Debe digitar un mensaje",
+    "section-req-name": "La sección requiere un nombre.",
+    "section-already-exits": "Ya existe una página con ese nombre.",
+    "complete-fields": "Por favor, completa todos los campos",
+    "email-not-valid": "El formato del email no es válido."
   },
   "success": {
     "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
@@ -72,7 +76,11 @@
     "return-to-login": "Volver al inicio de sesión",
     "new-category": "Nueva categoría",
     "new-product": "Nuevo producto",
-    "save": "Guardar"
+    "save": "Guardar",
+    "add-section": "Añadir sección",
+    "add-img": "Añadir imagen",
+    "add-page": "Añadir página",
+    "add-contact-form": "Añadir formulario contácto"
   },
   "categories": {
     "name": "Nombre de la categoría",
@@ -141,10 +149,10 @@
     "new-page": "Página nueva",
     "height": "Altura",
     "width": "Anchura",
-    "filled": "Filled",
-    "bg-color": "Background color",
-    "txt-color": "Text color",
-    "bg-img": "Background image",
+    "filled": "Relleno",
+    "bg-color": "Color de fondo",
+    "txt-color": "Color de texto",
+    "bg-img": "Imagen de fondo",
     "add-img": "Añadir imagen",
     "my-pages": "Mis páginas",
     "content-position": "Posición del contenido",
@@ -172,5 +180,22 @@
     "we-need-to-know": "Necesitamos saber que eres tú, da click en el boton para que podamos enviarte un correo de verificación.",
     "email-verified": "Correo verificado",
     "desc-verified": "Ahora puedes acceder a la plataforma y crear las páginas que quieras"
+  },
+  "section": {
+    "img": "Imagen",
+    "txt": "Texto",
+    "paragraph": "Párrafo",
+    "card": "Tarjeta"
+  },
+  "first-step": {
+    "lbl": "¡Estás a punto de crear tu propia página web!",
+    "desc": "Ingresa la informacion que se requiere para continuar",
+    "page-name": "Nombre de página",
+    "logo": "Logo"
+  },
+  "contact-form": {
+    "title": "Formulario de contacto",
+    "web-page-name": "Nombre de la página",
+    "email-to-receive-comments": "Correo para recibir comentarios"
   }
 }

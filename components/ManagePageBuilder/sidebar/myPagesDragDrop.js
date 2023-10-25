@@ -4,10 +4,11 @@ import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-ki
 import DraggableItem from "./draggableItem";
 import { FiPlus } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const MypagesDragDrop = (props) => {
   const [pages, setPages] = useState(props.webPageData.pages);
-
+  const { t } = useTranslation();
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (active.id !== over.id) {
@@ -33,14 +34,14 @@ const MypagesDragDrop = (props) => {
 
   const handleAddPage = async () => {
     const { value: sectionNameSelected } = await Swal.fire({
-      title: 'Nombre de la página',
+      title: t("contact-form.web-page-name"),
       input: 'text',
       showCloseButton: true,
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: t("buttons.confirm"),
       allowOutsideClick: false,
       inputValidator: (value) => {
-        if (!value) return 'La sección requiere un nombre.'
-        if (pages.findIndex((page) => page.name === value) != -1) return 'Ya existe una página con ese nombre.'
+        if (!value) return t("validations.section-req-name")
+        if (pages.findIndex((page) => page.name === value) != -1) return t("validations.section-already-exits")
       }
     })
 
@@ -65,14 +66,14 @@ const MypagesDragDrop = (props) => {
   const handleAddContactForm = async () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const { value: formValues } = await Swal.fire({
-      title: 'Formulario de contacto',
+      title: t("contact-form.title"),
       html:
-        '<label for="swal-input1">Nombre de la página:</label>' +
+        `<label for="swal-input1">${t("contact-form.web-page-name")}:</label>` +
         '<input id="swal-input1" class="swal2-input">' +
-        '<label for="swal-input2">Correo para recibir comentarios:</label>' +
+        `<label for="swal-input2">${t("contact-form.email-to-receive-comments")}:</label>` +
         '<input id="swal-input2" class="swal2-input">',
       showCloseButton: true,
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: t("buttons.confirm"),
       allowOutsideClick: false,
       customClass: {
         container: 'my-swal'
@@ -81,11 +82,11 @@ const MypagesDragDrop = (props) => {
         const input1 = document.getElementById('swal-input1').value;
         const input2 = document.getElementById('swal-input2').value;
 
-        if (!input1 || !input2) Swal.showValidationMessage('Por favor, completa todos los campos');
+        if (!input1 || !input2) Swal.showValidationMessage(t("validations.complete-fields"));
 
-        else if (pages.findIndex((page) => page.name === input1) != -1) Swal.showValidationMessage('Ya existe una página con ese nombre.')
+        else if (pages.findIndex((page) => page.name === input1) != -1) Swal.showValidationMessage(t("validations.section-already-exits"))
 
-        else if (!emailRegex.test(input2)) Swal.showValidationMessage('El formato del email no es válido.')
+        else if (!emailRegex.test(input2)) Swal.showValidationMessage(t("validations.email-not-valid"))
 
         return { name: input1, email: input2 };
       }
@@ -120,8 +121,8 @@ const MypagesDragDrop = (props) => {
       inputValue: pages.find((page) => page.id === pageId)?.name || '',
       allowOutsideClick: false,
       inputValidator: (value) => {
-        if (!value) return 'La sección requiere un nombre.'
-        if (pages.some((page) => page.name === value && page.id !== pageId)) return 'Ya existe una página con ese nombre.'
+        if (!value) return t("validations.section-req-name")
+        if (pages.some((page) => page.name === value && page.id !== pageId)) return t("validations.section-already-exits")
       }
     })
 
@@ -260,14 +261,14 @@ const MypagesDragDrop = (props) => {
         className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
         onClick={handleAddPage}
       >
-        <FiPlus className='text-base mr-1' />Añadir página
+        <FiPlus className='text-base mr-1' />{t("buttons.add-page")}
       </button>
       {!props?.webPageData?.pages?.find((page) => page.isContactPage === true) &&
         <button
           className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
           onClick={handleAddContactForm}
         >
-          <FiPlus className='text-base mr-1' />Añadir formulario contácto
+          <FiPlus className='text-base mr-1' />{t("buttons.add-contact-form")}
         </button>}
     </>
   );

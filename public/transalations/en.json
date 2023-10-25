@@ -78,7 +78,8 @@
         "add-section": "Add section",
         "add-img": "Add image",
         "add-page": "Add page",
-        "add-contact-form": "Add contact form"
+        "add-contact-form": "Add contact form",
+        "close": "Close"
     },
     "search": {
         "search-page": "Search page",

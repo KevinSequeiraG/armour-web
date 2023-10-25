@@ -5,11 +5,19 @@ import Option4 from "@/components/Cards/OptionalCards/option4"
 import { GetCategoriesByWebpage } from "@/helpers/categories"
 import { useEffect, useState } from "react"
 import { ContactUs } from "@/components/ManagePageBuilder/ContactUs/contactUs"
+import { GetProductsByWebpage } from "@/helpers/products"
+import ProductQuantity from "@/components/Modals/ProductQuantity"
+import SalesCartView from "@/components/Modals/SalesCartView"
+import { FaShoppingCart } from "react-icons/fa"
 
 const WebpageView = (props) => {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [cardsData, setCardsData] = useState([]);
+    const [showSalesCart, setShowSalesCart] = useState(false);
+    const [salesCart, setSalesCart] = useState([]);
+    const [showProdQuantity, setShowProdQuantity] = useState(false);
+    const [prodToAdd, setProdToAdd] = useState();
     const styles = {
         paddingTop: props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.paddingTop,
         paddingLeft: props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.paddingLeft,
@@ -23,8 +31,15 @@ const WebpageView = (props) => {
     }
 
     useEffect(() => {
+        console.log("web", props.webPageData)
         GetCategoriesByWebpage(props?.webPageData?.name).then(data => {
             setCategories(data)
+            console.log("cat", data)
+        })
+
+        GetProductsByWebpage(props?.webPageData?.name).then(data => {
+            setProducts(data)
+            console.log("pro", data)
         })
     }, [])
 
@@ -38,7 +53,10 @@ const WebpageView = (props) => {
     //     })
     // }, [categories])
 
-
+    useEffect(() => {
+      console.log("car", salesCart)
+    }, [salesCart])
+    
 
     return (
         <>
@@ -74,19 +92,33 @@ const WebpageView = (props) => {
                         return (
                             <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
                         )
-                    } else if (data.type === "card") {
+                    } else if (data.type === "card" && data.isCategory) {
                         return (
                             <div className="flex w-full mt-2">
                                 {categories.map(cat => {
                                     return (
-                                        // <div className="grid grid-cols-2 gap-4">
                                         <>
-                                            {(data.cardSelected === "card1" && data.isCategory) && <Option1 currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card2" && data.isCategory) && <Option2 currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card3" && data.isCategory) && <Option3 currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card4" && data.isCategory) && <Option4 currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
                                         </>
-                                        // </div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    } else if (data.type === "card" && !data.isCategory) {
+                        console.log(1, data)
+                        return (
+                            <div className="flex w-full mt-2">
+                                {products.map(prod => {
+                                    return (
+                                        <>
+                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                        </>
                                     )
                                 })}
                             </div>
@@ -95,6 +127,9 @@ const WebpageView = (props) => {
                 }) :
                     <ContactUs webPageData={props?.webPageData} currentPage={props?.currentPage} />
                 }
+                <button onClick={()=>{setShowSalesCart(true)}} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 right-5"><FaShoppingCart /></button>
+                <SalesCartView isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart}/>
+                <ProductQuantity salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity}/>
             </div>
         </>
     )

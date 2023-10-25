@@ -80,7 +80,8 @@
     "add-section": "Añadir sección",
     "add-img": "Añadir imagen",
     "add-page": "Añadir página",
-    "add-contact-form": "Añadir formulario contácto"
+    "add-contact-form": "Añadir formulario contácto",
+    "close": "Cerrar"
   },
   "categories": {
     "name": "Nombre de la categoría",

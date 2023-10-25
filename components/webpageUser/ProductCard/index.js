@@ -1,3 +1,5 @@
+import { FaShoppingCart } from "react-icons/fa"
+
 const ProductCard = (props) => {
     const titleStyles = {
         color: props?.data?.textColorTitle,
@@ -36,7 +38,7 @@ const ProductCard = (props) => {
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.sectionInfo.name ? props.sectionInfo.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.sectionInfo.desc ? props.sectionInfo.desc : 'Description'}</p>
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
             </div>}
@@ -49,7 +51,7 @@ const ProductCard = (props) => {
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
             </div>}
@@ -59,7 +61,7 @@ const ProductCard = (props) => {
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
                 <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="object-cover object-center w-1/2" />
@@ -70,7 +72,7 @@ const ProductCard = (props) => {
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
                 <div className="md:flex-shrink-0">

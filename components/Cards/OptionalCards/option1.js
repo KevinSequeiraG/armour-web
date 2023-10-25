@@ -1,5 +1,6 @@
 import ProductsModal from "@/components/webpageUser/ProductsModal"
 import { useState } from "react"
+import { FaShoppingCart } from "react-icons/fa";
 
 const Option1 = (props) => {
     const [showProducts, setShowProducts] = useState(false);
@@ -30,7 +31,7 @@ const Option1 = (props) => {
         marginRight: props.data.marginRight + '%',
         marginTop: props.data.marginTop + '%',
     }
-
+    
     return (
         <div style={cardStyles} className={`w-[15rem] ${props.sectionInfo ? "mx-4" : "mx-auto"} bg-white rounded-xl shadow-md overflow-hidden`}>
             <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="w-full" />
@@ -40,10 +41,10 @@ const Option1 = (props) => {
                 <div style={buttonPosition}>
                     {(props.data && props.data.isCategory) ? <button onClick={() => { if (props.sectionInfo) setShowProducts(true) }} style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
                         Ver
-                    </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>}
+                    </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>}
                 </div>
             </div>
-            {props.sectionInfo && <ProductsModal currentPage={props.currentPage} sectionUid={props.sectionInfo.id} data={props.data} webPageData={props.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
+            {props.sectionInfo && <ProductsModal setProdToAdd={props.setProdToAdd} setShowProdQuantity={props.setShowProdQuantity} currentPage={props.currentPage} sectionUid={props.sectionInfo.id} data={props.data} webPageData={props.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
         </div>
     )
 }

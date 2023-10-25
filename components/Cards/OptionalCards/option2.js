@@ -1,3 +1,5 @@
+import { FaShoppingCart } from "react-icons/fa"
+
 const Option2 = (props) => {
     const titleStyles = {
         color: props.data.textColorTitle,
@@ -30,15 +32,15 @@ const Option2 = (props) => {
     return (
         <div style={cardStyles} className="h-auto w-[36rem] flex mx-auto bg-white rounded-xl shadow-md overflow-hidden flex">
             {/* <div className="md:flex-shrink-0 w-1/2"> */}
-            <img src={props.data.image ? props.data.image : '/images/awLogo.png'} alt={props.data.textTitle} className="object-cover object-center w-1/2" />
+            <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="object-cover object-center w-1/2" />
             {/* </div> */}
             <div className="p-8 full">
-                <h2 style={titleStyles} className="text-xl font-semibold">{props.data.textTitle ? props.data.textTitle : 'Title'}</h2>
-                <p style={descStyles} className="text-gray-500 text-base">{props.data.textDesc ? props.data.textDesc : 'Description'}</p>
+                <h2 style={titleStyles} className="text-xl font-semibold">{(props.sectionInfo && props.sectionInfo.name) ? props.data.name : 'Title'}</h2>
+                <p style={descStyles} className="text-gray-500 text-base">{(props.sectionInfo && props.sectionInfo.desc) ? props.data.desc : 'Description'}</p>
                 <div style={buttonPosition}>
-                    {props.data.isCategory ? <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
+                    {props.sectionInfo.isCategory ? <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
                         Ver
-                    </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>}
+                    </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>}
                 </div>
             </div>
         </div>

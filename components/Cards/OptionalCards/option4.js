@@ -1,3 +1,5 @@
+import { FaShoppingCart } from "react-icons/fa"
+
 const Option4 = (props) => {
     const titleStyles = {
         color: props.data.textColorTitle,
@@ -30,16 +32,16 @@ const Option4 = (props) => {
     return (
         <div style={cardStyles} className="w-[15rem] mx-auto bg-white rounded-xl shadow-md overflow-hidden md:flex">
             <div className="p-8">
-                <h2 style={titleStyles} className="text-xl font-semibold">{props.data.textTitle ? props.data.textTitle : 'Title'}</h2>
-                <p style={descStyles} className="text-gray-500 text-base">{props.data.textDesc ? props.data.textDesc : 'Description'}</p>
+                <h2 style={titleStyles} className="text-xl font-semibold">{(props.sectionInfo && props.sectionInfo.name) ? props.sectionInfo.name : 'Title'}</h2>
+                <p style={descStyles} className="text-gray-500 text-base">{(props.sectionInfo && props.sectionInfo.desc) ? props.sectionInfo.desc : 'Description'}</p>
                 <div style={buttonPosition}>
                     {props.data.isCategory ? <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
                         Ver
-                    </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>"ico carrito :v"</button>}
+                    </button> : <button onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}} style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}><FaShoppingCart /></button>}
                 </div>
             </div>
             <div className="md:flex-shrink-0">
-                <img src={props.data.image ? props.data.image : '/images/awLogo.png'} alt={props.data.textTitle} className="w-full h-full object-cover object-center" />
+                <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="w-full h-full object-cover object-center" />
             </div>
         </div>
     )

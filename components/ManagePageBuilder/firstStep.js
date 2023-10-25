@@ -26,7 +26,6 @@ const FirstStep = (props) => {
 
             if (pageNameAlreadyInUse) toast.warning(t("validations.page-name-already-exits"))
             else {
-                console.log("newUrl", newUrl);
                 props.setWebPageData({ ...props.webPageData, pageUrl: newUrl })
                 props.setShowFirstStep(false)
             }

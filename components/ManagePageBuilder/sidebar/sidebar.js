@@ -18,8 +18,8 @@ const Sidebar = (props) => {
     const fileInputRefNavbar = useRef();
     const router = useRouter();
 
-    const [width, setWidth] = useState(5);
-    const [height, setHeight] = useState(5);
+    const [width, setWidth] = useState("");
+    const [height, setHeight] = useState("10");
     const [txtColor, setTxtColor] = useState("#ffffff");
     const [bgColor, setBgColor] = useState("#000000");
     const [imageSrc, setImageSrc] = useState(null);
@@ -265,7 +265,7 @@ const Sidebar = (props) => {
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
             setImageSrc(currentPageSectionsData?.bgImage)
         }
-    }, [props.currentMenuOption, props?.currentPage])
+    }, [props?.currentMenuOption, props?.currentPage, props?.webPageData?.navbar])
 
     useEffect(() => {
         setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)

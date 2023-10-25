@@ -54,7 +54,7 @@ const MypagesDragDrop = (props) => {
     const updatedWebPageData = { ...props.webPageData };
 
     // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
-    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "20%", paddingRight: "20%", paddingTop: "50%", paddingBottom: "50%", backgroundColor: "#ffffff", isContactPage: false, sections: [] };
+    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "10%", backgroundColor: "#ffffff", isContactPage: false, sections: [] };
 
     // Agrega el nuevo objeto 'page' al arreglo 'pages'
     updatedWebPageData.pages.push(newPage);
@@ -114,10 +114,10 @@ const MypagesDragDrop = (props) => {
 
   const handleEditPageName = async (pageId) => {
     const { value: sectionNameSelected } = await Swal.fire({
-      title: 'Editar nombre de la página',
+      title: t("contact-form.edit-web-page-name"),
       input: 'text',
       showCloseButton: true,
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: t("buttons.confirm"),
       inputValue: pages.find((page) => page.id === pageId)?.name || '',
       allowOutsideClick: false,
       inputValidator: (value) => {
@@ -146,11 +146,11 @@ const MypagesDragDrop = (props) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const currentPage = pages.find((page) => page.id === pageId);
     const { value: formValues } = await Swal.fire({
-      title: 'Formulario de contacto',
+      title: t("contact-form.edit-title"),
       html:
-        '<label for="swal-input1">Nombre de la página:</label>' +
+        `<label for="swal-input1">${t("contact-form.web-page-name")}:</label>` +
         `<input id="swal-input1" class="swal2-input" value="${currentPage?.name || ''}">` +
-        '<label for="swal-input2">Correo para recibir comentarios:</label>' +
+        `<label for="swal-input2">${t("contact-form.email-to-receive-comments")}:</label>` +
         `<input id="swal-input2" class="swal2-input" value="${currentPage?.emailRecieve || ''}">`,
       showCloseButton: true,
       confirmButtonText: 'Aceptar',

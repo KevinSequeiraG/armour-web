@@ -66,7 +66,7 @@
         "language": "Language"
     },
     "buttons": {
-        "create-page": "Create Page",
+        "create-page": "Create page",
         "confirm": "Confirm",
         "cancel": "Cancel",
         "edit": "Edit",
@@ -196,8 +196,10 @@
         "tooltip_logo": "Image you will see in the header"
     },
     "contact-form": {
-        "title": "Contact Form",
+        "title": "Contact form",
+        "edit-title": "Edit contact form",
         "web-page-name": "Name of the page",
+        "edit-web-page-name": "Edit name of the page",
         "email-to-receive-comments": "Email to receive comments"
     }
 }

@@ -90,7 +90,7 @@ export const SaveWebPage = async (webPageData, loggedUserUid) => {
         const dataToSave = { ...webPageData, createdBy: loggedUserUid }
         const updatedWebPageData = await processAndUploadWebPageImages(dataToSave);
         const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.pageUrl}`);
-        await setDoc(usersTableRef, updatedWebPageData).then(async () => {
+        await setDoc(usersTableRef, updatedWebPageData, { merge: true }).then(async () => {
             console.log("listo")
         });
         console.log('Objeto guardado exitosamente en Firestore');
@@ -101,7 +101,7 @@ export const SaveWebPage = async (webPageData, loggedUserUid) => {
 
 export const GetWebpageExists = async (webpageName) => {
     try {
-        const collectionRef = collection(database, "admin/data/webpages"); 
+        const collectionRef = collection(database, "admin/data/webpages");
         const docRef = doc(collectionRef, webpageName);
         const docSnap = await getDoc(docRef);
 

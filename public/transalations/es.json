@@ -28,6 +28,7 @@
     "send": "Enviar"
   },
   "validations": {
+    "optional": "Opcional",
     "required": "Requerido",
     "name-required": "El nombre es requerido",
     "surnames-required": "Los apellidos son requeridos",
@@ -42,6 +43,7 @@
     "message-is-required": "Debe digitar un mensaje",
     "section-req-name": "La sección requiere un nombre.",
     "section-already-exits": "Ya existe una página con ese nombre.",
+    "page-name-already-exits": "Ya existe una página con ese nombre. Intenta con otro.",
     "complete-fields": "Por favor, completa todos los campos",
     "email-not-valid": "El formato del email no es válido."
   },
@@ -189,9 +191,11 @@
   },
   "first-step": {
     "lbl": "¡Estás a punto de crear tu propia página web!",
-    "desc": "Ingresa la informacion que se requiere para continuar",
+    "desc": "Ingresa la información que se requiere para continuar",
     "page-name": "Nombre de página",
-    "logo": "Logo"
+    "logo": "Logo",
+    "alert": "Una vez configurados, no podrás modificarlos después",
+    "tooltip_logo": "Imagen que verás en el encabezado"
   },
   "contact-form": {
     "title": "Formulario de contacto",

@@ -372,3 +372,12 @@
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
+.tooltipDesign {
+  color: #fff;
+  background-color: rgb(55, 55, 55);
+}
+
+.tooltipDesign .tooltipArrowDesign {
+  background-color: #ffd000;
+}

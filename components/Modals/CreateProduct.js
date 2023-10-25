@@ -114,8 +114,8 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                 <p className="text-2xl font-semibold mb-6 flex items-center justify-center"><BsCart4 className="mr-1 h-7 w-7" />{editProduct ? t("products.edit") : t("buttons.new-product")}</p>
                 <div className="grid grid-cols-2 gap-x-5 gap-y-2 items-center">
                     <div className="relative">
-                        <label className="text-gray-700 font-bold mb-2 flex" htmlFor="nombre">
-                            {t("products.name")} <p className="text-red-500 ml-1">*</p>
+                        <label className="text-gray-700 font-bold mb-2 flex after:content-['*'] after:ml-0.5 after:text-red-500" htmlFor="nombre">
+                            {t("products.name")}
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
@@ -173,9 +173,7 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
 
                     <div className="col-span-2 w-1/2 mx-auto">
                         <div className='flex items-center space-x-2 my-1'>
-                            <div className="flex">
-                                <p className="text-gray-700 font-bold mb-2 flex">{t("products.linked-to-category")}</p><p className="text-red-500 ml-1">*</p>
-                            </div>
+                            <p className="text-gray-700 font-bold mb-2 flex after:content-['*'] after:ml-0.5 after:text-red-500">{t("products.linked-to-category")}</p>
                             <Switch name='cardType'
                                 onChange={value => setIsFromCategory(value)}
                                 checked={isFromCategory}

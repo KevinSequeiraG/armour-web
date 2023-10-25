@@ -1,4 +1,3 @@
-import ChangeLng from '@/components/ChangeLng';
 import FirstStep from '@/components/ManagePageBuilder/firstStep';
 import Navbar from '@/components/ManagePageBuilder/navbar';
 import SectionView from '@/components/ManagePageBuilder/sections/sectionView';
@@ -18,7 +17,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "10%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
+    const [webPageData, setWebPageData] = useState({ pagelngEsp: i18n.language == "es", pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "10%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -66,7 +65,7 @@ export default function ManagePageBuilder() {
         const dataToEdit = JSON.parse(window.localStorage.getItem("pageToEdit"))
         if (dataToEdit) {
             setWebPageData(dataToEdit);
-            setLogoPage(dataToEdit.logo)
+            setLogoPage(dataToEdit?.logo)
             setIsEdit(true);
         }
     }, [])

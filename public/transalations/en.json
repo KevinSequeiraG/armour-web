@@ -28,6 +28,7 @@
         "send": "Send"
     },
     "validations": {
+        "optional": "Optional",
         "required": "Required",
         "name-required": "Name is required",
         "surnames-required": "Surnames are required",
@@ -41,7 +42,8 @@
         "subject-is-required": "Subject is required",
         "message-is-required": "You must type a message",
         "section-req-name": "The section requires a name.",
-        "section-already-exits": "There is already a page with that name."
+        "section-already-exits": "There is already a page with that name.",
+        "page-name-already-exits": "There is already a page with that name. Try another one."
     },
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
@@ -188,8 +190,10 @@
     "first-step": {
         "lbl": "You are about to create your own website!",
         "desc": "Enter the information required to continue",
-        "page-name": "Webage name",
-        "logo": "Logo"
+        "page-name": "Webpage name",
+        "logo": "Logo",
+        "alert": "Once configured, you won't be able to modify them later",
+        "tooltip_logo": "Image you will see in the header"
     },
     "contact-form": {
         "title": "Contact Form",

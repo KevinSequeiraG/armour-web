@@ -89,7 +89,7 @@ export const SaveWebPage = async (webPageData, loggedUserUid) => {
     try {
         const dataToSave = { ...webPageData, createdBy: loggedUserUid }
         const updatedWebPageData = await processAndUploadWebPageImages(dataToSave);
-        const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.name}`);
+        const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.pageUrl}`);
         await setDoc(usersTableRef, updatedWebPageData).then(async () => {
             console.log("listo")
         });
@@ -98,3 +98,15 @@ export const SaveWebPage = async (webPageData, loggedUserUid) => {
         console.error('Error al guardar el objeto en Firestore:', error);
     }
 };
+
+export const GetWebpageExists = async (webpageName) => {
+    try {
+        const collectionRef = collection(database, "admin/data/webpages"); 
+        const docRef = doc(collectionRef, webpageName);
+        const docSnap = await getDoc(docRef);
+
+        return docSnap.exists()
+    } catch (error) {
+        console.error("Error al obtener el documento:", error);
+    }
+}

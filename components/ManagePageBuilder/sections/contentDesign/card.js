@@ -96,7 +96,7 @@ export const Card = (props) => {
                 <p>Categoría</p>
             </div>
 
-            <button onClick={() => { setShowCardDesign(!showCardDesign); }} className={`${showCardDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-4 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos card</button>
+            <button onClick={() => { setShowCardDesign(!showCardDesign); }} className={`${showCardDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-4 mb-2"} w-full py-2 border-2 border-gray-400 rounded-xl`}>Estilos card</button>
             {showCardDesign && <div className='mb-4'>
                 <div className="flex items-center space-x-1.5 justify-between mt-5">
 
@@ -151,7 +151,7 @@ export const Card = (props) => {
             </div>
             }
 
-            <button onClick={() => setShowTitleDesign(!showTitleDesign)} className={`${showTitleDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos titulo</button>
+            <button onClick={() => setShowTitleDesign(!showTitleDesign)} className={`${showTitleDesign ? "bg-gray-700 text-white mt-4 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mb-2"} w-full py-2 border-2 border-gray-400 rounded-xl`}>Estilos titulo</button>
             {showTitleDesign &&
                 <>
                     <div className='flex justify-between px-4 items-center mt-2'>
@@ -171,7 +171,7 @@ export const Card = (props) => {
                     </div>
                 </>}
 
-            <button onClick={() => setShowDescDesign(!showDescDesign)} className={`${showDescDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos Descripcion</button>
+            <button onClick={() => setShowDescDesign(!showDescDesign)} className={`${showDescDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border-2 border-gray-400 rounded-xl`}>Estilos Descripcion</button>
             {showDescDesign &&
                 <>
                     <div className='flex justify-between px-4 items-center mt-2'>
@@ -191,7 +191,7 @@ export const Card = (props) => {
                     </div>
                 </>}
 
-            <button onClick={() => setShowButtonDesign(!showButtonDesign)} className={`${showButtonDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border border-2 border-gray-400 rounded-xl`}>Estilos de boton</button>
+            <button onClick={() => setShowButtonDesign(!showButtonDesign)} className={`${showButtonDesign ? "bg-gray-700 text-white mt-2 hover:bg-gray-900" : "hover:bg-gray-200 bg-white text-black mt-0 mb-2"} w-full py-2 border-2 border-gray-400 rounded-xl`}>Estilos de boton</button>
             {showButtonDesign &&
                 <>
                     {!isCategory && <div className='relative mt-2'>

@@ -265,7 +265,7 @@ const Sidebar = (props) => {
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
             setImageSrc(currentPageSectionsData?.bgImage)
         }
-    }, [props.currentMenuOption, props?.currentPage])
+    }, [props?.currentMenuOption, props?.currentPage, props?.webPageData?.navbar])
 
     useEffect(() => {
         setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)
@@ -328,14 +328,14 @@ const Sidebar = (props) => {
                             <p>{t("page-builder.height")}</p>
                             <div className='flex justify-center items-center space-x-2'>
                                 <AiOutlineColumnHeight className='w-7 h-7' />
-                                <input value={height} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                <input value={height} min={5} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
                             {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
                                 <p>{t("page-builder.width")}</p>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
-                                    <input value={width} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={width} min={5} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                             </>
@@ -407,7 +407,7 @@ const Sidebar = (props) => {
                                 src={imageSrcNavbar}
                                 alt="Uploaded"
                                 // style={{ ...imageStyles }}
-                                className='object-cover w-full h-[12rem] rounded-[10px]'
+                                className='object-cover w-full max-h-[10rem] min-h-[10rem] rounded-[10px] border-2 border-dashed border-[#224553]'
                             />
                             <button
                                 onClick={handleDeleteBGImageNavbar}
@@ -420,7 +420,7 @@ const Sidebar = (props) => {
                                     border: 'none',
                                     borderRadius: '50%',
                                     cursor: 'pointer',
-                                    padding: '0.2rem 0.4rem',
+                                    padding: '0rem 0.45rem',
                                 }}
                             >
                                 X
@@ -441,9 +441,9 @@ const Sidebar = (props) => {
                                 border: '2px dashed #224553',
                                 borderRadius: '10px',
                             }}
-                            className='w-full h-[12rem]'
+                            className='w-full max-h-[10rem] min-h-[10rem] bg-[#f5f5f5]'
                         >
-                            {t("page-builder.add-img")}
+                            + {t("page-builder.add-img")}
                             <input
                                 type="file"
                                 accept="image/*"

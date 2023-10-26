@@ -32,13 +32,6 @@ const Option1 = (props) => {
         marginTop: props.data.marginTop + '%',
     }
 
-    useEffect(() => {
-        console.log(props.sectionInfo)
-        console.log(parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100)))
-        console.log("aa", parseFloat(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * parseInt(props.sectionInfo.tax)))
-    }, [])
-
-
     return (
         <div style={cardStyles} className={`w-[15rem] ${props.sectionInfo ? "mx-4" : "mx-auto"} bg-white rounded-xl shadow-md overflow-hidden`}>
             <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="w-full" />

@@ -18,16 +18,16 @@ const SalesCartView = (props) => {
                 <p className="text-[1.5rem] text-center font-semibold mb-4">{t("Carrito de compras")}</p>
                 <ul className="text-left w-auto">
                     {props.cartProducts.length < 1 && <div className="text-center">
-                        <p>No hay productos en el carrito</p>
+                        <p>{t("cart.no-prods")}</p>
                     </div>}
                     {props.cartProducts.map((product) => (
                         <li key={product.idProd} className="my-3 flex items-center justify-between border border-1 border-gray-300 px-4 py-4 rounded-xl">
                             <div className="">
                                 <p className="text-[1.2rem] font-semibold">{product.name}</p>
-                                <p>{t("Cantidad")}: {product.quantity}</p>
-                                <p>{t("Precio")}: ₡{product.prize}</p>
-                                <p>{t("Impuesto")}: {product.tax}%</p>
-                                <p>{t("total")}: ₡{parseInt(product.prize) + (parseInt(product.prize) * (parseInt(product.tax) / 100))}</p>
+                                <p>{t("cart.quantity")}: {product.quantity}</p>
+                                <p>{t("cart.prize")}: ₡{product.prize}</p>
+                                <p>{t("cart.taxes")}: {product.tax}%</p>
+                                <p>{t("cart.tot")}: ₡{parseInt(product.prize) + (parseInt(product.prize) * (parseInt(product.tax) / 100))}</p>
                                 {/* <p>{t("Descripción")}: {product.desc}</p> */}
                             </div>
                             <button

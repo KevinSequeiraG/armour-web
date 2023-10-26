@@ -1,208 +1,222 @@
 {
-  "navbar": {
-    "home": "Inicio",
-    "my-profile": "Mi perfil",
-    "contact-us": "Contáctanos",
-    "reports": "Reportes",
-    "pages-created": "Páginas creadas",
-    "products-and-categories": "Productos y categorías",
-    "interactions-on-social-networks": "Interacciones en redes sociales",
-    "sign-off": "Cerrar sesión",
-    "editProfile": "Editar perfil"
-  },
-  "login": {
-    "log-in": "Iniciar sesión",
-    "forgot-password": "Olvidé mi contraseña",
-    "remember-me": "Recuérdame",
-    "password": "Contraseña",
-    "email": "Correo electrónico",
-    "register": "Registrarme",
-    "name": "Nombre",
-    "surnames": "Apellidos",
-    "confirm-password": "Confirmar contraseña"
-  },
-  "contact-us": {
-    "subtitle": "A través de este formulario, puedes enviarnos tus consultas o comentarios por correo electrónico. Estamos aquí para atenderte y responderemos a la brevedad posible.",
-    "subject": "Asunto",
-    "message": "Mensaje",
-    "send": "Enviar"
-  },
-  "validations": {
-    "optional": "Opcional",
-    "required": "Requerido",
-    "name-required": "El nombre es requerido",
-    "surnames-required": "Los apellidos son requeridos",
-    "email-required": "El correo es requerido",
-    "email-invalid": "Correo no válido",
-    "email-already-exists": "El correo ingresado ya está asociado a otra cuenta.",
-    "email-in-use": "El correo ya está en uso",
-    "password-required": "La contraseña es requerida",
-    "password-length": "Se requieren mínimo 8 caracteres.",
-    "password-dont-match": "Las contraseñas no coinciden",
-    "subject-is-required": "El asunto es requerido",
-    "message-is-required": "Debe digitar un mensaje",
-    "section-req-name": "La sección requiere un nombre.",
-    "section-already-exits": "Ya existe una página con ese nombre.",
-    "page-name-already-exits": "Ya existe una página con ese nombre. Intenta con otro.",
-    "complete-fields": "Por favor, completa todos los campos",
-    "email-not-valid": "El formato del email no es válido."
-  },
-  "success": {
-    "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
-    "account-deleted": "Su cuenta se ha borrado correctamente",
-    "user-edited": "Tu perfil ha sido editado exitosamente",
-    "password-edited-correctly": "Contraseña editada correctamente",
-    "password-email-sended": "Se ha enviado un correo a tu dirección, revisa tu casilla de spam.",
-    "email-sended": "Correo enviado satisfactoriamente."
-  },
-  "errors": {
-    "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
-    "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
-    "unknown-error": "Ha sucedido un error desconocido.",
-    "user-not-edited": "Tu perfil no ha sido editado exitosamente",
-    "image-invalid": "El archivo seleccionado no es válido.",
-    "password-not-edited-correctly": "No se pudo editar la contraseña correctamente.",
-    "password-email-not-sended": "No se pudo enviar el correo, inténtalo más tarde."
-  },
-  "config": {
-    "language": "Lenguaje"
-  },
-  "buttons": {
-    "create-page": "Crear página",
-    "confirm": "Confirmar",
-    "cancel": "Cancelar",
-    "edit": "Editar",
-    "delete-account": "Eliminar cuenta",
-    "change-password": "Cambiar contraseña",
-    "send-email": "Enviar correo",
-    "return-to-login": "Volver al inicio de sesión",
-    "new-category": "Nueva categoría",
-    "new-product": "Nuevo producto",
-    "save": "Guardar",
-    "add-section": "Añadir sección",
-    "add-img": "Añadir imagen",
-    "add-page": "Añadir página",
-    "add-contact-form": "Añadir formulario contácto",
-    "close": "Cerrar"
-  },
-  "categories": {
-    "name": "Nombre de la categoría",
-    "description": "Descripción",
-    "image": "Imagen",
-    "actions": "Acciones",
-    "page-from": "Página a la que pertenece",
-    "cover-image": "Imagen de portada",
-    "add-image": "Añadir imagen",
-    "edit": "Editar categoría",
-    "delete": "¿Quieres eliminar la categoria",
-    "no-data": "Sin categorías",
-    "crud-create": "Categoría creada satisfactoriamente",
-    "crud-edit": "Categoría editada satisfactoriamente",
-    "crud-delete": "Categoría eliminada satisfactoriamente"
-  },
-  "products": {
-    "name": "Nombre",
-    "description": "Descripción",
-    "base-price": "Precio base",
-    "tax": "Impuesto",
-    "final-cost": "Precio final",
-    "linked-to": "Vinculado a",
-    "linked-to-category": "Asociar a categoría",
-    "select-category": "Seleccionar categoría",
-    "select-page": "Seleccionar página",
-    "image": "Imagen",
-    "actions": "Acciones",
-    "page-from": "Página a la que pertenece",
-    "cover-image": "Imagen de portada",
-    "add-image": "Añadir imagen",
-    "edit": "Editar producto",
-    "delete": "¿Quieres eliminar el producto",
-    "no-data": "Sin productos",
-    "crud-create": "Producto creado satisfactoriamente",
-    "crud-edit": "Producto editado satisfactoriamente",
-    "crud-delete": "Producto eliminado satisfactoriamente"
-  },
-  "search": {
-    "search-page": "Buscar página",
-    "search-category": "Buscar categoría",
-    "search-product": "Buscar producto"
-  },
-  "user-data": {
-    "name": "Nombre",
-    "lastname": "Apellidos",
-    "email": "Correo electrónico",
-    "social-network": "Redes sociales",
-    "phone": "Teléfono",
-    "basic-info": "Información básica",
-    "fb": "Facebook",
-    "twitter": "Twitter",
-    "linked-in": "Linked In",
-    "web-page": "Página web",
-    "id": "Cédula",
-    "undefined": "Sin definir"
-  },
-  "home": {
-    "my-pages": "Mis páginas",
-    "personalize": "Personalizar",
-    "my-products": "Mis productos",
-    "my-categories": "Mis categorías",
-    "no-data": "Sin páginas creadas"
-  },
-  "page-builder": {
-    "new-page": "Página nueva",
-    "height": "Altura",
-    "width": "Anchura",
-    "filled": "Relleno",
-    "bg-color": "Color de fondo",
-    "txt-color": "Color de texto",
-    "bg-img": "Imagen de fondo",
-    "add-img": "Añadir imagen",
-    "my-pages": "Mis páginas",
-    "content-position": "Posición del contenido",
-    "content": "Contenido",
-    "navigation-menu": "Menú de navegación",
-    "top": "Arriba",
-    "left": "Izquierda",
-    "bottom": "Abajo",
-    "right": "Derecha"
-  },
-  "delete-modal": {
-    "sure": "¿Está seguro que desea eliminar su cuenta?",
-    "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser vista por nadie"
-  },
-  "reset-password": {
-    "reset-passord": "Restablece tu contraseña",
-    "enter-password": "Ingresa la contraseña que quieres utilizar a partir de ahora.",
-    "new-password": "Nueva contraseña",
-    "repeat-password": "Repetir contraseña",
-    "recover-password": "¡Recupera tu contraseña!",
-    "instructions-to-send-email": "Para poder recuperar tu contraseña indicanos cual es tu correo electrónico para poder enviarte las indicaciones necesarias."
-  },
-  "verify-page": {
-    "verify-your-email": "Verifica tu correo electrónico.",
-    "we-need-to-know": "Necesitamos saber que eres tú, da click en el boton para que podamos enviarte un correo de verificación.",
-    "email-verified": "Correo verificado",
-    "desc-verified": "Ahora puedes acceder a la plataforma y crear las páginas que quieras"
-  },
-  "section": {
-    "img": "Imagen",
-    "txt": "Texto",
-    "paragraph": "Párrafo",
-    "card": "Tarjeta"
-  },
-  "first-step": {
-    "lbl": "¡Estás a punto de crear tu propia página web!",
-    "desc": "Ingresa la información que se requiere para continuar",
-    "page-name": "Nombre de página",
-    "logo": "Logo",
-    "alert": "Una vez configurados, no podrás modificarlos después",
-    "tooltip_logo": "Imagen que verás en el encabezado"
-  },
-  "contact-form": {
-    "title": "Formulario de contacto",
-    "edit-title": "Editar formulario de contacto",
-    "web-page-name": "Nombre de la página",
-    "edit-web-page-name": "Editar nombre de la página",
-    "email-to-receive-comments": "Correo para recibir comentarios"
-  }
+    "navbar": {
+        "home": "Inicio",
+        "my-profile": "Mi perfil",
+        "contact-us": "Contáctanos",
+        "reports": "Reportes",
+        "pages-created": "Páginas creadas",
+        "products-and-categories": "Productos y categorías",
+        "interactions-on-social-networks": "Interacciones en redes sociales",
+        "sign-off": "Cerrar sesión",
+        "editProfile": "Editar perfil"
+    },
+    "login": {
+        "log-in": "Iniciar sesión",
+        "forgot-password": "Olvidé mi contraseña",
+        "remember-me": "Recuérdame",
+        "password": "Contraseña",
+        "email": "Correo electrónico",
+        "register": "Registrarme",
+        "name": "Nombre",
+        "surnames": "Apellidos",
+        "confirm-password": "Confirmar contraseña"
+    },
+    "contact-us": {
+        "subtitle": "A través de este formulario, puedes enviarnos tus consultas o comentarios por correo electrónico. Estamos aquí para atenderte y responderemos a la brevedad posible.",
+        "subject": "Asunto",
+        "message": "Mensaje",
+        "send": "Enviar"
+    },
+    "validations": {
+        "optional": "Opcional",
+        "required": "Requerido",
+        "name-required": "El nombre es requerido",
+        "surnames-required": "Los apellidos son requeridos",
+        "email-required": "El correo es requerido",
+        "email-invalid": "Correo no válido",
+        "email-already-exists": "El correo ingresado ya está asociado a otra cuenta.",
+        "email-in-use": "El correo ya está en uso",
+        "password-required": "La contraseña es requerida",
+        "password-length": "Se requieren mínimo 8 caracteres.",
+        "password-dont-match": "Las contraseñas no coinciden",
+        "subject-is-required": "El asunto es requerido",
+        "message-is-required": "Debe digitar un mensaje",
+        "section-req-name": "La sección requiere un nombre.",
+        "section-already-exits": "Ya existe una página con ese nombre.",
+        "page-name-already-exits": "Ya existe una página con ese nombre. Intenta con otro.",
+        "complete-fields": "Por favor, completa todos los campos",
+        "email-not-valid": "El formato del email no es válido."
+    },
+    "success": {
+        "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
+        "account-deleted": "Su cuenta se ha borrado correctamente",
+        "user-edited": "Tu perfil ha sido editado exitosamente",
+        "password-edited-correctly": "Contraseña editada correctamente",
+        "password-email-sended": "Se ha enviado un correo a tu dirección, revisa tu casilla de spam.",
+        "email-sended": "Correo enviado satisfactoriamente."
+    },
+    "errors": {
+        "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
+        "user-not-found": "Usuario no encontrado. Por favor, confirma las credenciales o registra la cuenta.",
+        "unknown-error": "Ha sucedido un error desconocido.",
+        "user-not-edited": "Tu perfil no ha sido editado exitosamente",
+        "image-invalid": "El archivo seleccionado no es válido.",
+        "password-not-edited-correctly": "No se pudo editar la contraseña correctamente.",
+        "password-email-not-sended": "No se pudo enviar el correo, inténtalo más tarde."
+    },
+    "config": {
+        "language": "Lenguaje"
+    },
+    "buttons": {
+        "create-page": "Crear página",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "edit": "Editar",
+        "delete-account": "Eliminar cuenta",
+        "change-password": "Cambiar contraseña",
+        "send-email": "Enviar correo",
+        "return-to-login": "Volver al inicio de sesión",
+        "new-category": "Nueva categoría",
+        "new-product": "Nuevo producto",
+        "save": "Guardar",
+        "add-section": "Añadir sección",
+        "add-img": "Añadir imagen",
+        "add-page": "Añadir página",
+        "add-contact-form": "Añadir formulario contácto",
+        "close": "Cerrar"
+    },
+    "categories": {
+        "name": "Nombre de la categoría",
+        "description": "Descripción",
+        "image": "Imagen",
+        "actions": "Acciones",
+        "page-from": "Página a la que pertenece",
+        "cover-image": "Imagen de portada",
+        "add-image": "Añadir imagen",
+        "edit": "Editar categoría",
+        "delete": "¿Quieres eliminar la categoria",
+        "no-data": "Sin categorías",
+        "crud-create": "Categoría creada satisfactoriamente",
+        "crud-edit": "Categoría editada satisfactoriamente",
+        "crud-delete": "Categoría eliminada satisfactoriamente"
+    },
+    "products": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "base-price": "Precio base",
+        "tax": "Impuesto",
+        "final-cost": "Precio final",
+        "linked-to": "Vinculado a",
+        "linked-to-category": "Asociar a categoría",
+        "select-category": "Seleccionar categoría",
+        "select-page": "Seleccionar página",
+        "image": "Imagen",
+        "actions": "Acciones",
+        "page-from": "Página a la que pertenece",
+        "cover-image": "Imagen de portada",
+        "add-image": "Añadir imagen",
+        "edit": "Editar producto",
+        "delete": "¿Quieres eliminar el producto",
+        "no-data": "Sin productos",
+        "crud-create": "Producto creado satisfactoriamente",
+        "crud-edit": "Producto editado satisfactoriamente",
+        "crud-delete": "Producto eliminado satisfactoriamente"
+    },
+    "search": {
+        "search-page": "Buscar página",
+        "search-category": "Buscar categoría",
+        "search-product": "Buscar producto"
+    },
+    "user-data": {
+        "name": "Nombre",
+        "lastname": "Apellidos",
+        "email": "Correo electrónico",
+        "social-network": "Redes sociales",
+        "phone": "Teléfono",
+        "basic-info": "Información básica",
+        "fb": "Facebook",
+        "twitter": "Twitter",
+        "linked-in": "Linked In",
+        "web-page": "Página web",
+        "id": "Cédula",
+        "undefined": "Sin definir"
+    },
+    "home": {
+        "my-pages": "Mis páginas",
+        "personalize": "Personalizar",
+        "my-products": "Mis productos",
+        "my-categories": "Mis categorías",
+        "no-data": "Sin páginas creadas"
+    },
+    "page-builder": {
+        "new-page": "Página nueva",
+        "height": "Altura",
+        "width": "Anchura",
+        "filled": "Relleno",
+        "bg-color": "Color de fondo",
+        "txt-color": "Color de texto",
+        "bg-img": "Imagen de fondo",
+        "add-img": "Añadir imagen",
+        "my-pages": "Mis páginas",
+        "content-position": "Posición del contenido",
+        "content": "Contenido",
+        "navigation-menu": "Menú de navegación",
+        "top": "Arriba",
+        "left": "Izquierda",
+        "bottom": "Abajo",
+        "right": "Derecha"
+    },
+    "delete-modal": {
+        "sure": "¿Está seguro que desea eliminar su cuenta?",
+        "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser vista por nadie"
+    },
+    "reset-password": {
+        "reset-passord": "Restablece tu contraseña",
+        "enter-password": "Ingresa la contraseña que quieres utilizar a partir de ahora.",
+        "new-password": "Nueva contraseña",
+        "repeat-password": "Repetir contraseña",
+        "recover-password": "¡Recupera tu contraseña!",
+        "instructions-to-send-email": "Para poder recuperar tu contraseña indicanos cual es tu correo electrónico para poder enviarte las indicaciones necesarias."
+    },
+    "verify-page": {
+        "verify-your-email": "Verifica tu correo electrónico.",
+        "we-need-to-know": "Necesitamos saber que eres tú, da click en el boton para que podamos enviarte un correo de verificación.",
+        "email-verified": "Correo verificado",
+        "desc-verified": "Ahora puedes acceder a la plataforma y crear las páginas que quieras"
+    },
+    "section": {
+        "img": "Imagen",
+        "txt": "Texto",
+        "paragraph": "Párrafo",
+        "card": "Tarjeta"
+    },
+    "first-step": {
+        "lbl": "¡Estás a punto de crear tu propia página web!",
+        "desc": "Ingresa la información que se requiere para continuar",
+        "page-name": "Nombre de página",
+        "logo": "Logo",
+        "alert": "Una vez configurados, no podrás modificarlos después",
+        "tooltip_logo": "Imagen que verás en el encabezado"
+    },
+    "contact-form": {
+        "title": "Formulario de contacto",
+        "edit-title": "Editar formulario de contacto",
+        "web-page-name": "Nombre de la página",
+        "edit-web-page-name": "Editar nombre de la página",
+        "email-to-receive-comments": "Correo para recibir comentarios"
+    },
+    "cart": {
+        "no-prods": "No hay productos en el carrito",
+        "quantity": "Cantidad",
+        "prize": "Precio",
+        "taxes": "IVA",
+        "tot": "Total",
+        "quant-to-add-": "Cantidad a agregar al carrito del producto"
+    },
+    "card": {
+        "title": "Título",
+        "desc": "Descripción",
+        "see": "Ver",
+        "no-prods": ""
+    }
 }

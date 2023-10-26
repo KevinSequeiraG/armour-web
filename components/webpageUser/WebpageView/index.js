@@ -13,7 +13,6 @@ import { FaShoppingCart } from "react-icons/fa"
 const WebpageView = (props) => {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
-    const [cardsData, setCardsData] = useState([]);
     const [showSalesCart, setShowSalesCart] = useState(false);
     const [salesCart, setSalesCart] = useState([]);
     const [showProdQuantity, setShowProdQuantity] = useState(false);
@@ -42,21 +41,6 @@ const WebpageView = (props) => {
             console.log("pro", data)
         })
     }, [])
-
-    // useEffect(() => {
-    //     console.log(categories)
-    //     categories.map((cat) => {
-    //         let dataCompleted = { ...cat }
-    //         let sectionData = props?.webPageData?.pages[props.currentPage]?.sections?.find(section => section.type === "card" && section.isCategory);
-    //         console.log("sectionData", sectionData)
-
-    //     })
-    // }, [categories])
-
-    useEffect(() => {
-      console.log("car", salesCart)
-    }, [salesCart])
-    
 
     return (
         <>

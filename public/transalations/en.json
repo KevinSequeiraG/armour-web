@@ -202,5 +202,19 @@
         "web-page-name": "Name of the page",
         "edit-web-page-name": "Edit name of the page",
         "email-to-receive-comments": "Email to receive comments"
+    },
+    "cart": {
+        "no-prods": "There are no products in the cart",
+        "quantity": "Quantity",
+        "prize": "Prize",
+        "taxes": "Taxes",
+        "tot": "Total",
+        "quant-to-add-": "Quantity to add to the product cart"
+    },
+    "card": {
+        "title": "Title",
+        "desc": "Description",
+        "see": "See",
+        "no-prods": "There are no products in this category"
     }
 }

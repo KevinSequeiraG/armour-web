@@ -1,6 +1,11 @@
+import ProductsModal from "@/components/webpageUser/ProductsModal";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaShoppingCart } from "react-icons/fa"
 
 const Option2 = (props) => {
+    const [showProducts, setShowProducts] = useState(false);
+    const { t } = useTranslation();
     const titleStyles = {
         color: props.data.textColorTitle,
         fontSize: props.data.textSizeTitle + "px",
@@ -35,15 +40,16 @@ const Option2 = (props) => {
             <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="object-cover object-center w-1/2" />
             {/* </div> */}
             <div className="p-8 full">
-                <h2 style={titleStyles} className="text-xl font-semibold">{(props.sectionInfo && props.sectionInfo.name) ? props.data.name : 'Title'}</h2>
-                <p style={descStyles} className="text-gray-500 text-base">{(props.sectionInfo && props.sectionInfo.desc) ? props.data.desc : 'Description'}</p>
+                <h2 style={titleStyles} className="text-xl font-semibold">{(props.sectionInfo && props.sectionInfo.name) ? props.data.name : t("card.title")}</h2>
+                <p style={descStyles} className="text-gray-500 text-base">{(props.sectionInfo && props.sectionInfo.desc) ? props.data.desc : t("card.desc")}</p>
                 {((props.data && !props.data.isCategory) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                 <div style={buttonPosition}>
                     {props.data.isCategory ? <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
-                        Ver
+                        {t("card.see")}
                     </button> : <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={() => { props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo) }}><FaShoppingCart /></button>}
                 </div>
             </div>
+            {props.sectionInfo && <ProductsModal setProdToAdd={props.setProdToAdd} setShowProdQuantity={props.setShowProdQuantity} currentPage={props.currentPage} sectionUid={props.sectionInfo.id} data={props.data} webPageData={props.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
         </div>
     )
 }

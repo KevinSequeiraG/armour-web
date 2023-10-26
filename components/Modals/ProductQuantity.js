@@ -39,9 +39,6 @@ const ProductQuantity = (props) => {
 
             // Cierra el modal
             props.handleShow(false);
-        } else {
-            // props.salesCart no está definido o no es un array, puedes manejarlo como desees
-            // Puedes agregar una lógica adicional aquí si es necesario
         }
     };
 
@@ -49,9 +46,9 @@ const ProductQuantity = (props) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
             <div className="relative bg-white rounded-lg px-6 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500">
-                <p className="text-[1.5rem] text-center font-semibold mb-10">{t("Cantidad a agregar al carrito del producto ")} "{props.prodToAdd.name}"?</p>
+                <p className="text-[1.5rem] text-center font-semibold mb-10">{t("cart.quant-to-add")} "{props.prodToAdd.name}"?</p>
                 <div className="text-center my-6">
-                    <label className="font-semibold text-[1.2rem]">Cantidad:</label>
+                    <label className="font-semibold text-[1.2rem]">{t("cart.quantity")}</label>
                     <input className="border border-2 border-black rounded-xl px-3 py-1 mx-2" type="number" min={1} value={quantity} onChange={(e) => { setQuantity(e.target.value) }} />
                 </div>
                 <div className="flex">

@@ -25,7 +25,7 @@ const ProductsModal = (props) => {
                         </>
                     )
                 })}
-                </div> : <p>No hay productos en esta categoría</p>}
+                </div> : <p>{t("card.no-prods")}</p>}
                 <div className="flex">
                     <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.close")}</button>
                 </div>

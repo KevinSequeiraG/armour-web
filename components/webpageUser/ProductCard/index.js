@@ -37,6 +37,7 @@ const ProductCard = (props) => {
                 <div className="px-6 py-4 h-full">
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.sectionInfo.name ? props.sectionInfo.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.sectionInfo.desc ? props.sectionInfo.desc : 'Description'}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
                         <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
@@ -50,6 +51,7 @@ const ProductCard = (props) => {
                 <div className="p-8 full">
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
                         <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
@@ -60,6 +62,7 @@ const ProductCard = (props) => {
                 <div className="p-8 w-1/2">
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
                         <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
@@ -71,6 +74,7 @@ const ProductCard = (props) => {
                 <div className="p-8">
                     <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name : 'Title'}</h2>
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : 'Description'}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
                         <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>

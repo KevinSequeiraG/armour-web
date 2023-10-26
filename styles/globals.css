@@ -375,6 +375,7 @@
 
 .tooltipDesign {
   color: #fff;
+  padding: 4px 8px !important;
   background-color: rgb(55, 55, 55);
 }
 

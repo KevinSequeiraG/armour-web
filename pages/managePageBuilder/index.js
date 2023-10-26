@@ -95,7 +95,7 @@ export default function ManagePageBuilder() {
 
                 <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setCurrentPage={setCurrentPage} currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
 
-                <div className="w-[75%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
+                <div className="min-w-[69%] max-w-[69%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
                     {/* <PersonalizationHeader /> */}
                     <div className='absolute right-5 top-5 flex '>
                         <div className='flex items-center bg-black px-4 rounded-xl border border-1 border-gray-400'>

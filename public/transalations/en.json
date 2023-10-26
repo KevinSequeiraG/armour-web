@@ -43,7 +43,9 @@
         "message-is-required": "You must type a message",
         "section-req-name": "The section requires a name.",
         "section-already-exits": "There is already a page with that name.",
-        "page-name-already-exits": "There is already a page with that name. Try another one."
+        "page-name-already-exits": "There is already a page with that name. Try another one.",
+        "complete-fields": "Please complete all fields",
+        "email-not-valid": "The email format is invalid"
     },
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
@@ -70,6 +72,7 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "edit": "Edit",
+        "delete": "Delete",
         "delete-account": "Delete account",
         "change-password": "Change password",
         "send-email": "Send email",
@@ -162,7 +165,14 @@
         "top": "Top",
         "left": "Left",
         "bottom": "Bottom",
-        "right": "Right"
+        "right": "Right",
+        "center": "Center",
+        "last-page": "This is your last page",
+        "delete-page": "Do you want to delete the page?",
+        "irreversible": "This action is irreversible",
+        "tool-header-width": "Header width (%)",
+        "tool-header-height": "Header height (%)",
+        "tool-header-elements": "Header elements"
     },
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",

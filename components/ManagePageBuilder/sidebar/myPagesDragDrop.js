@@ -41,7 +41,7 @@ const MypagesDragDrop = (props) => {
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) return t("validations.section-req-name")
-        if (pages.findIndex((page) => page.name === value) != -1) return t("validations.section-already-exits")
+        if (pages.findIndex((page) => page?.name?.toLowerCase() === value?.toLowerCase()) != -1) return t("validations.section-already-exits")
       }
     })
 
@@ -84,7 +84,7 @@ const MypagesDragDrop = (props) => {
 
         if (!input1 || !input2) Swal.showValidationMessage(t("validations.complete-fields"));
 
-        else if (pages.findIndex((page) => page.name === input1) != -1) Swal.showValidationMessage(t("validations.section-already-exits"))
+        else if (pages.findIndex((page) => page?.name?.toLowerCase() === input1?.toLowerCase()) != -1) Swal.showValidationMessage(t("validations.section-already-exits"))
 
         else if (!emailRegex.test(input2)) Swal.showValidationMessage(t("validations.email-not-valid"))
 
@@ -94,7 +94,7 @@ const MypagesDragDrop = (props) => {
 
     if (!formValues || !formValues.email || !formValues.name) return;
 
-    const newPage = { id: pages?.length + 1, name: formValues.name, paddingLeft: "10%", paddingRight: "10%", paddingTop: "5%", paddingBottom: "0%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", google: "", emailRecieve: formValues.email, inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", language: "es", sections: [], bgImage: "" };
+    const newPage = { id: pages?.length + 1, name: formValues.name, paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "10%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", google: "", emailRecieve: formValues.email, inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", language: "es", sections: [], bgImage: "" };
 
     const newSections = [...pages, newPage];
     setPages(newSections);
@@ -122,7 +122,7 @@ const MypagesDragDrop = (props) => {
       allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) return t("validations.section-req-name")
-        if (pages.some((page) => page.name === value && page.id !== pageId)) return t("validations.section-already-exits")
+        if (pages.some((page) => page?.name?.toLowerCase() === value?.toLowerCase() && page?.id !== pageId)) return t("validations.section-already-exits")
       }
     })
 
@@ -153,7 +153,7 @@ const MypagesDragDrop = (props) => {
         `<label for="swal-input2">${t("contact-form.email-to-receive-comments")}:</label>` +
         `<input id="swal-input2" class="swal2-input" value="${currentPage?.emailRecieve || ''}">`,
       showCloseButton: true,
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: t("buttons.confirm"),
       allowOutsideClick: false,
       customClass: {
         container: 'my-swal'
@@ -162,11 +162,11 @@ const MypagesDragDrop = (props) => {
         const input1 = document.getElementById('swal-input1').value;
         const input2 = document.getElementById('swal-input2').value;
 
-        if (!input1 || !input2) Swal.showValidationMessage('Por favor, completa todos los campos');
+        if (!input1 || !input2) Swal.showValidationMessage(t("validations.complete-fields"));
 
-        else if (pages.some((page) => page?.name === input1 && page?.id !== pageId)) Swal.showValidationMessage('Ya existe una página con ese nombre.')
+        else if (pages.some((page) => page?.name?.toLowerCase() === input1?.toLowerCase() && page?.id !== pageId)) Swal.showValidationMessage(t("validations.section-already-exits"))
 
-        else if (!emailRegex.test(input2)) Swal.showValidationMessage('El formato del email no es válido.')
+        else if (!emailRegex.test(input2)) Swal.showValidationMessage(t("validations.email-not-valid"))
 
         return { name: input1, email: input2 };
       }
@@ -195,27 +195,26 @@ const MypagesDragDrop = (props) => {
     // Validates if is last page in array
     if (pages.length === 1) {
       Swal.fire({
-        text: 'Esta es tu única página',
+        text: t("page-builder.last-page"),
         icon: 'error',
-        confirmButtonText: 'Entendido',
+        confirmButtonText: t("buttons.confirm"),
         allowOutsideClick: false,
       });
       return;
     }
 
     Swal.fire({
-      title: '¿Desea eliminar la página creada?',
-      text: "Esta acción es irreversible",
+      title: t("page-builder.delete-page"),
+      text: t("page-builder.irreversible"),
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#3085d6',
       confirmButtonColor: '#d33',
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t("buttons.delete"),
+      cancelButtonText: t("buttons.cancel"),
       reverseButtons: true,
       allowOutsideClick: false,
     }).then((result) => {
-
       if (result.isConfirmed) {
         const updatedPages = pages.filter((page) => page.id !== pageId);
         setPages(updatedPages);
@@ -225,12 +224,8 @@ const MypagesDragDrop = (props) => {
         // Establece la copia actualizada como el nuevo estado
         props.setWebPageData(updatedWebPageData);
       }
-
     })
-
-
   };
-
 
   useEffect(() => {
     handleSetPagesOptions(pages)
@@ -258,17 +253,17 @@ const MypagesDragDrop = (props) => {
         </DndContext>
       </div>
       <button
-        className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
+        className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-[7px] !text-black hover:!text-white !border-2"
         onClick={handleAddPage}
       >
         <FiPlus className='text-base mr-1' />{t("buttons.add-page")}
       </button>
       {!props?.webPageData?.pages?.find((page) => page.isContactPage === true) &&
         <button
-          className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-1.5 !text-black hover:!text-white !border-2"
+          className="optionButton mt-3 truncate w-fit flex justify-center shadow-md drop-shadow-sm items-center !text-sm !py-[7px] !text-black hover:!text-white !border-2"
           onClick={handleAddContactForm}
         >
-          <FiPlus className='text-base mr-1' />{t("buttons.add-contact-form")}
+          <FiPlus className='text-base mr-1' /><p className="">{t("buttons.add-contact-form")}</p>
         </button>}
     </>
   );

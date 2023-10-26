@@ -72,6 +72,7 @@
         "confirm": "Confirmar",
         "cancel": "Cancelar",
         "edit": "Editar",
+        "delete": "Eliminar",
         "delete-account": "Eliminar cuenta",
         "change-password": "Cambiar contraseña",
         "send-email": "Enviar correo",
@@ -164,7 +165,14 @@
         "top": "Arriba",
         "left": "Izquierda",
         "bottom": "Abajo",
-        "right": "Derecha"
+        "right": "Derecha",
+        "center": "Centro",
+        "last-page": "Esta es tu última página",
+        "delete-page": "¿Deseas eliminar la página?",
+        "irreversible": "Esta acción es irreversible",
+        "tool-header-width": "Ancho del encabezado (%)",
+        "tool-header-height": "Alto del encabezado (%)",
+        "tool-header-elements": "Elementos del encabezado"
     },
     "delete-modal": {
         "sure": "¿Está seguro que desea eliminar su cuenta?",

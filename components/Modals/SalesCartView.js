@@ -17,7 +17,7 @@ const SalesCartView = (props) => {
             <div className="relative min-w-[30%] bg-white rounded-lg px-6 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500">
                 <p className="text-[1.5rem] text-center font-semibold mb-4">{t("Carrito de compras")}</p>
                 <ul className="text-left w-auto">
-                    {props.cartProducts.length < 1 && <div>
+                    {props.cartProducts.length < 1 && <div className="text-center">
                         <p>No hay productos en el carrito</p>
                     </div>}
                     {props.cartProducts.map((product) => (
@@ -25,8 +25,9 @@ const SalesCartView = (props) => {
                             <div className="">
                                 <p className="text-[1.2rem] font-semibold">{product.name}</p>
                                 <p>{t("Cantidad")}: {product.quantity}</p>
-                                <p>{t("Precio")}: ${product.prize}</p>
+                                <p>{t("Precio")}: ₡{product.prize}</p>
                                 <p>{t("Impuesto")}: {product.tax}%</p>
+                                <p>{t("total")}: ₡{parseInt(product.prize) + (parseInt(product.prize) * (parseInt(product.tax) / 100))}</p>
                                 {/* <p>{t("Descripción")}: {product.desc}</p> */}
                             </div>
                             <button

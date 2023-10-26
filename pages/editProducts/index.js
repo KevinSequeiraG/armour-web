@@ -151,7 +151,7 @@ const EditProductPage = () => {
                                     </td>
                                     <td className="p-2 border border-gray-300">{product?.prize}</td>
                                     <td className="p-2 border border-gray-300">{product?.tax}</td>
-                                    <td className="p-2 border border-gray-300">{parseFloat(product?.prize * product?.tax)}</td>
+                                    <td className="p-2 border border-gray-300">{parseInt(product?.prize) + (parseInt(product?.prize) * (parseInt(product?.tax) / 100))}</td>
                                     <td className="p-2 border border-gray-300">{product?.linkedTo}</td>
                                     <td className="p-2 border border-gray-300">
                                         <button

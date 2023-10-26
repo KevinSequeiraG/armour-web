@@ -108,7 +108,6 @@ const WebpageView = (props) => {
                             </div>
                         )
                     } else if (data.type === "card" && !data.isCategory) {
-                        console.log(1, data)
                         return (
                             <div className="flex w-full mt-2">
                                 {products.map(prod => {

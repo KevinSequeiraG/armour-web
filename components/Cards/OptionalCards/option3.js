@@ -34,10 +34,11 @@ const Option3 = (props) => {
             <div className="p-8 w-1/2">
                 <h2 style={titleStyles} className="text-xl font-semibold">{(props.sectionInfo && props.sectionInfo.name) ? props.sectionInfo.name : 'Title'}</h2>
                 <p style={descStyles} className="text-gray-500 text-base">{(props.sectionInfo && props.sectionInfo.desc) ? props.sectionInfo.desc : 'Description'}</p>
+                {((props.data && !props.data.isCategory) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                 <div style={buttonPosition}>
                     {props.data.isCategory ? <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}>
                         Ver
-                    </button> : <button onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}} style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}><FaShoppingCart /></button>}
+                    </button> : <button onClick={() => { props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo) }} style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`}><FaShoppingCart /></button>}
                 </div>
             </div>
             <img src={(props.sectionInfo && props.sectionInfo.image) ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo && props.sectionInfo.name} className="object-cover object-center w-1/2" />

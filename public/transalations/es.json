@@ -217,6 +217,6 @@
         "title": "Título",
         "desc": "Descripción",
         "see": "Ver",
-        "no-prods": ""
+        "no-prods": "No hay productos en esta categoría."
     }
 }

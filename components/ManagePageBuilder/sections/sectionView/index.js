@@ -77,12 +77,12 @@ const SectionView = (props) => {
         };
 
     }, []);
-    
+
     return (
         <>
             <div style={styles} className={`w-full h-full object-cover overflow-y-auto scrollbarDesign`}>
                 {props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage ?
-                    <ContactUsPreview isMobilePreview={props?.isMobilePreview} webPageData={props?.webPageData} currentPage={props?.currentPage}/>
+                    <ContactUsPreview isMobilePreview={props?.isMobilePreview} webPageData={props?.webPageData} currentPage={props?.currentPage} />
                     :
 
                     !props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
@@ -120,10 +120,10 @@ const SectionView = (props) => {
                             return (
                                 // <div className="grid grid-cols-2 gap-4">
                                 <>
-                                    {data.cardSelected === "card1" && <Option1 data={data} />}
-                                    {data.cardSelected === "card2" && <Option2 data={data} />}
-                                    {data.cardSelected === "card3" && <Option3 data={data} />}
-                                    {data.cardSelected === "card4" && <Option4 data={data} />}
+                                    {data.cardSelected === "card1" && <div className="grid grid-cols-4 gap-4"><Option1 data={data} /> <Option1 data={data} /> <Option1 data={data} /> <Option1 data={data} /></div>}
+                                    {data.cardSelected === "card2" && <div className="grid grid-cols-2 gap-4"><Option2 data={data} /> <Option2 data={data} /> <Option2 data={data} /> <Option2 data={data} /></div>}
+                                    {data.cardSelected === "card3" && <div className="grid grid-cols-2 gap-4"><Option3 data={data} /> <Option3 data={data} /> <Option3 data={data} /> <Option3 data={data} /></div>}
+                                    {data.cardSelected === "card4" && <div className="grid grid-cols-4 gap-4"><Option4 data={data} /> <Option4 data={data} /> <Option4 data={data} /> <Option4 data={data} /></div>}
                                 </>
                                 // </div>
                             )

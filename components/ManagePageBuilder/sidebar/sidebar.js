@@ -5,11 +5,12 @@ import SidebarMenuOption from './sidebarMenuOption';
 import NavbarOptions from '../navbar/navbarOptions';
 import { FiArrowLeftCircle } from 'react-icons/fi';
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineBgColors, AiOutlineColumnHeight, AiOutlineDesktop, AiOutlineFontColors, AiOutlineMobile } from 'react-icons/ai';
-import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
+import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiSolidInfoCircle, BiVerticalBottom, BiVerticalCenter, BiVerticalTop } from "react-icons/bi";
 import 'animate.css';
 import MypagesDragDrop from './myPagesDragDrop';
 import { ContentDragDrop } from '../sections/contentDragDrop';
 import { ContactUsSocialMediaAndColors } from '../ContactUs/SocialMediaAndColors';
+import { Tooltip } from 'react-tooltip';
 
 const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -273,8 +274,8 @@ const Sidebar = (props) => {
 
 
     return (
-        <aside className="bg-black w-full max-w-[30%] h-full flex !text-[#F5F5F5]">
-            <div className='flex flex-col h-full w-1/2 border-r border-[#EFE1A2] pr-3 shadow-2xl bg-black relative z-10'>
+        <aside className="bg-black w-full max-w-[30%] truncate min-w-[30%] h-full flex !text-[#F5F5F5]">
+            <div className='flex flex-col h-full max-w-[50%] truncate min-w-[50%] border-r border-[#EFE1A2] pr-3 shadow-2xl bg-black relative z-10'>
                 <div className='font-medium text-[17px] h-[calc(100vh-3.5rem)] scrollbarDesignTiny overflow-y-auto justify-center items-center'>
 
                     <div className='flex items-center my-2 -space-x-1 justify-center'>
@@ -304,7 +305,7 @@ const Sidebar = (props) => {
                 </button>
             </div>
 
-            <div className={`flex flex-col items-center w-1/2 max-w-[50%] overflow-x-hidden ml-3`}>
+            <div className={`flex flex-col items-center max-w-[50%] min-w-[50%] pl-3`}>
 
                 {/* Change mobile/desktop preview */}
                 <div className="flex justify-center items-center space-x-4 mt-8">
@@ -325,14 +326,22 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 0 && <>
                         <div className='flex flex-col items-start border space-y-2'>
-                            <p>{t("page-builder.height")}</p>
+                            <div className='flex items-center justify-between w-full'>
+                                <p>{t("page-builder.height")}</p>
+                                <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-height" data-tooltip-content={t("page-builder.tool-header-height")} />
+                                <Tooltip id="nav-height" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                            </div>
                             <div className='flex justify-center items-center space-x-2'>
                                 <AiOutlineColumnHeight className='w-7 h-7' />
                                 <input value={height} min={5} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
                             {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
-                                <p>{t("page-builder.width")}</p>
+                                <div className='flex items-center justify-between w-full pt-2'>
+                                    <p>{t("page-builder.width")}</p>
+                                    <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-width" data-tooltip-content={t("page-builder.tool-header-width")} />
+                                    <Tooltip id="nav-width" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                                </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
                                     <input value={width} min={5} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
@@ -516,7 +525,12 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 0 &&
                         <div className='flex flex-col items-center'>
-                            {t("page-builder.my-pages")}
+
+                            <div className='flex items-center justify-between w-full mb-1'>
+                                <p>{t("page-builder.my-pages")}</p>
+                                <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-mypages" data-tooltip-content={t("page-builder.tool-header-elements")} />
+                                <Tooltip id="nav-mypages" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                            </div>
                             <MypagesDragDrop setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
                         </div>
                     }
@@ -526,18 +540,28 @@ const Sidebar = (props) => {
                             <hr className='border border-[#224553]' />
                             <div className='flex flex-col items-center space-y-2'>
                                 <p>{t("page-builder.content-position")}</p>
-                                <div className='flex justify-center items-center space-x-5'>
+                                <div className='flex justify-center items-center '>
                                     {props.navbarPosition === "top" ?
                                         <>
-                                            <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
-                                            <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-center")} />
-                                            <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-right" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-right")} />
+                                            <AiOutlineAlignLeft data-tooltip-id="nav-left" data-tooltip-content={t("page-builder.left")} className={`w-8 h-8 mr-4 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
+                                            <Tooltip id="nav-left" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                                            <AiOutlineAlignCenter data-tooltip-id="nav-center" data-tooltip-content={t("page-builder.center")} className={`w-8 h-8 mr-4 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-center")} />
+                                            <Tooltip id="nav-center" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                                            <AiOutlineAlignRight data-tooltip-id="nav-right" data-tooltip-content={t("page-builder.right")} className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-right" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-right")} />
+                                            <Tooltip id="nav-right" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                         </>
                                         :
                                         <>
-                                            <BiVerticalTop className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "top" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("top")} />
-                                            <BiVerticalCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("center")} />
-                                            <BiVerticalBottom className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "bottom" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("bottom")} />
+                                            <BiVerticalTop data-tooltip-id="nav-top" data-tooltip-content={t("page-builder.top")} className={`w-8 h-8 mr-4 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "top" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("top")} />
+                                            <Tooltip id="nav-top" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                                            <BiVerticalCenter data-tooltip-id="nav-middle" data-tooltip-content={t("page-builder.center")} className={`w-8 h-8 mr-4 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "center" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("center")} />
+                                            <Tooltip id="nav-middle" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                                            <BiVerticalBottom data-tooltip-id="nav-bottom" data-tooltip-content={t("page-builder.bottom")} className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "bottom" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("bottom")} />
+                                            <Tooltip id="nav-bottom" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                         </>
                                     }
                                 </div>

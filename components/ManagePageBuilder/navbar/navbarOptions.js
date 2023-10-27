@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { BiCaretLeftCircle, BiCaretRightCircle, BiCaretUpCircle } from "react-icons/bi";
+import { BsFillCaretLeftFill, BsFillCaretRightFill, BsFillCaretUpFill } from "react-icons/bs";
 
 const NavbarOptions = () => {
     const { t } = useTranslation();
@@ -23,9 +25,12 @@ const NavbarOptions = () => {
                     <button
                         key={option.id}
                         onClick={() => handleOptionClick(option.id)}
-                        className={`optionButton flex justify-center w-full ${selectedOption === option.id && 'bg-[#C69434]'}`}
+                        className={`optionButton flex justify-center items-center w-full ${selectedOption === option.id && 'bg-[#C69434]'}`}
                         id={option.id}
                     >
+                        {option.id=="top" && <BiCaretUpCircle className="mr-1 w-5 h-5" />}
+                        {option.id=="left" && <BiCaretLeftCircle className="mr-1 w-5 h-5" />}
+                        {option.id=="right" && <BiCaretRightCircle className="mr-1 w-5 h-5" />}
                         {option.text}
                     </button>
                 );

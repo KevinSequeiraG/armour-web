@@ -87,6 +87,7 @@ const processAndUploadWebPageImages = async (webPageData) => {
 
 export const SaveWebPage = async (webPageData, loggedUserUid) => {
     try {
+        console.log(webPageData)
         const dataToSave = { ...webPageData, createdBy: loggedUserUid }
         const updatedWebPageData = await processAndUploadWebPageImages(dataToSave);
         const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.pageUrl}`);

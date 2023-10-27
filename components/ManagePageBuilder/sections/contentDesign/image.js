@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { AiOutlineAlignCenter, AiOutlineAlignLeft, AiOutlineAlignRight, AiOutlineClose, AiOutlineColumnHeight } from 'react-icons/ai'
 import { BiArrowToBottom, BiArrowToLeft, BiArrowToRight, BiArrowToTop, BiBorderRadius } from 'react-icons/bi'
+import { Tooltip } from 'react-tooltip';
 
 export const Imagen = (props) => {
-    const [imageSrc, setImageSrc] = useState(null);
     const { t } = useTranslation();
     const [contentValues, setContentValues] = useState(props?.content);
     const fileInputRef = useRef();
@@ -14,7 +14,6 @@ export const Imagen = (props) => {
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                // setImageSrc(e.target.result);
                 setContentValues((prevValues) => ({
                     ...prevValues,
                     imageUrl: e.target.result,
@@ -28,14 +27,12 @@ export const Imagen = (props) => {
         const { name, value } = e.target;
         setContentValues((prevValues) => ({
             ...prevValues,
-            [name]: value,
+            [name]: (!value||value < 0) ? 0 : value,
         }));
     };
 
     const handleDeleteImage = () => {
-        // setImageSrc(null);
         fileInputRef.current.value = '';
-
         setContentValues((prevValues) => ({
             ...prevValues,
             imageUrl: null,
@@ -55,14 +52,12 @@ export const Imagen = (props) => {
 
     useEffect(() => {
         const sectionToEdit = props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.find(section => section?.id === props?.content?.id);
-        if (sectionToEdit) {
-            setContentValues(sectionToEdit)
-            // setImageSrc(sectionToEdit?.imageUrl)
-        }
+        if (sectionToEdit) setContentValues(sectionToEdit)
+
     }, [props.currentPage])
 
     return (
-        <div>
+        <div className='mt-3.5'>
             <input
                 type="file"
                 accept="image/*"
@@ -76,7 +71,7 @@ export const Imagen = (props) => {
                         src={contentValues.imageUrl}
                         alt="Uploaded"
                         // style={{ ...imageStyles }}
-                        className='object-cover w-full h-[12rem] rounded-[10px]'
+                        className='object-cover w-full max-h-[7rem] min-h-[7rem] rounded-[10px] border-2 border-dashed border-[#224553]'
                     />
                     <button
                         onClick={handleDeleteImage}
@@ -89,7 +84,7 @@ export const Imagen = (props) => {
                             border: 'none',
                             borderRadius: '50%',
                             cursor: 'pointer',
-                            padding: '0.2rem 0.4rem',
+                            padding: '0rem 0.40rem',
                         }}
                     >
                         X
@@ -110,9 +105,9 @@ export const Imagen = (props) => {
                         border: '2px dashed #224553',
                         borderRadius: '10px',
                     }}
-                    className='w-full h-[12rem]'
+                    className='w-full max-h-[7rem] min-h-[7rem] bg-[#f5f5f5]'
                 >
-                    {t("buttons.add-img")}
+                    + {t("buttons.add-img")}
                     <input
                         type="file"
                         accept="image/*"
@@ -121,60 +116,72 @@ export const Imagen = (props) => {
                     />
                 </label>
             )}
-            <div className="flex items-center space-x-1.5 justify-between mt-5">
+            <div className="flex items-center justify-between mt-5">
 
-                <div className='flex justify-center items-center space-x-1'>
+                <div className='flex justify-center items-center space-x-1 mr-1'>
                     <AiOutlineColumnHeight className='w-5 h-5' />
-                    <input name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                    <input min={0} name="height" value={contentValues?.height} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-0.5 hide-spin-buttons text-center' data-tooltip-id="nav-content-image-h" data-tooltip-content={t("page-builder.tool-page-content-image-h")} />
                     <em className='font-normal text-xs'>px</em>
+                    <Tooltip id="nav-content-image-h" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
 
                 <div className='flex justify-center items-center space-x-1'>
                     <AiOutlineColumnHeight className='w-5 h-5 rotate-90' />
-                    <input name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' />
+                    <input min={0} name="width" value={contentValues?.width} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-1 hide-spin-buttons text-center' data-tooltip-id="nav-content-image-w" data-tooltip-content={t("page-builder.tool-page-content-image-w")} />
                     <em className='font-normal text-xs'>px</em>
+                    <Tooltip id="nav-content-image-w" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
 
             </div>
 
-            <div className='flex items-center space-x-1.5 justify-between mt-5'>
+            <div className='flex items-center space-x-1 justify-between mt-4'>
 
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToLeft className='w-5 h-5' />
-                    <input name="paddingRight" value={contentValues?.paddingRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input min={0} name="paddingRight" value={contentValues?.paddingRight} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] hide-spin-buttons text-center' data-tooltip-id="nav-content-image-pl" data-tooltip-content={t("page-builder.tool-page-padding-left")} />
                     <em className='font-normal text-xs'>%</em>
+                    <Tooltip id="nav-content-image-pl" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
 
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToBottom className='w-5 h-5' />
-                    <input name="paddingTop" value={contentValues?.paddingTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input min={0} name="paddingTop" value={contentValues?.paddingTop} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px]  hide-spin-buttons text-center' data-tooltip-id="nav-content-image-pb" data-tooltip-content={t("page-builder.tool-page-padding-bottom")} />
                     <em className='font-normal text-xs'>%</em>
+                    <Tooltip id="nav-content-image-pb" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
 
             </div>
 
-            <div className='flex items-center space-x-1.5 justify-between mt-2'>
+            <div className='flex items-center space-x-1 justify-between mt-1.5'>
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToRight className='w-5 h-5' />
-                    <input name="paddingLeft" value={contentValues?.paddingLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input min={0} name="paddingLeft" value={contentValues?.paddingLeft} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px]  hide-spin-buttons text-center' data-tooltip-id="nav-content-image-pr" data-tooltip-content={t("page-builder.tool-page-padding-right")} />
                     <em className='font-normal text-xs'>%</em>
+                    <Tooltip id="nav-content-image-pr" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
                 <div className='flex justify-center items-center space-x-1'>
                     <BiArrowToTop className='w-5 h-5' />
-                    <input name="paddingBottom" value={contentValues?.paddingBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                    <input min={0} name="paddingBottom" value={contentValues?.paddingBottom} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px]  hide-spin-buttons text-center' data-tooltip-id="nav-content-image-pt" data-tooltip-content={t("page-builder.tool-page-padding-top")} />
                     <em className='font-normal text-xs'>%</em>
+                    <Tooltip id="nav-content-image-pt" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 </div>
             </div>
 
-            <div className='flex justify-between px-4 items-center mt-5'>
-                <AiOutlineAlignLeft className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} />
-                <AiOutlineAlignCenter className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} />
-                <AiOutlineAlignRight className={`w-8 h-8 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} />
+            <div className='flex justify-between px-6 items-center mt-4'>
+                <AiOutlineAlignLeft className={`w-7 h-7 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "left" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("left")} data-tooltip-id="nav-content-image-left" data-tooltip-content={t("page-builder.left")} />
+                <Tooltip id="nav-content-image-left" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                <AiOutlineAlignCenter className={`w-7 h-7 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "center" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("center")} data-tooltip-id="nav-content-image-center" data-tooltip-content={t("page-builder.center")} />
+                <Tooltip id="nav-content-image-center" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+                <AiOutlineAlignRight className={`w-7 h-7 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${contentValues.position == "right" && "!bg-gray-800 text-white"}`} onClick={() => handleTextPositionChange("right")} data-tooltip-id="nav-content-image-right" data-tooltip-content={t("page-builder.right")} />
+                <Tooltip id="nav-content-image-right" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
             </div>
 
-            <div className='flex justify-center items-center space-x-1 my-5'>
+            <div className='flex justify-center items-center space-x-1 mt-4 mb-1'>
                 <BiBorderRadius className='w-5 h-5' />
-                <input name="rounded" value={contentValues?.rounded} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-2 hide-spin-buttons text-center' />
+                <input min={0} name="rounded" value={contentValues?.rounded} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] hide-spin-buttons text-center' data-tooltip-id="nav-content-image-rounded" data-tooltip-content={t("page-builder.tool-page-content-image-rounded")} />
+                <Tooltip id="nav-content-image-rounded" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                 <em className='font-normal text-xs'>%</em>
             </div>
         </div>

@@ -377,8 +377,11 @@
   color: #fff;
   padding: 4px 8px !important;
   background-color: rgb(55, 55, 55);
+  position: relative; /* Es necesario para que z-index funcione */
+  z-index: 9999;
 }
 
 .tooltipDesign .tooltipArrowDesign {
   background-color: #ffd000;
+  z-index: 10000;
 }

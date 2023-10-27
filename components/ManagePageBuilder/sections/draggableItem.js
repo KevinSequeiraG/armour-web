@@ -7,8 +7,8 @@ import { Imagen } from "./contentDesign/image";
 import { Text } from "./contentDesign/text";
 import { TextArea } from "./contentDesign/textArea";
 import { Card } from "./contentDesign/card";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Tooltip } from "react-tooltip";
 
 function DraggableItem(props) {
   const { t } = useTranslation();
@@ -23,20 +23,22 @@ function DraggableItem(props) {
   };
 
   return (
-    <div style={style} className="p-2 mdx1700:px-2 py-1 w-full rounded-[10px] shadow border border-black">
-      <div className="justify-between flex items-center space-x-3 mb-0.5">
+    <div style={style} className="px-1.5 mdx1700:px-2 py-1.5 w-full rounded-[10px] shadow-md border border-black border-dotted">
+      <div className="justify-between flex items-center">
         <div className="cursor-grab" {...attributes} {...listeners} ref={setNodeRef}>
-          <MdDragIndicator className="w-5 h-5" />
+          <MdDragIndicator className="w-5 h-5" data-tooltip-id="nav-content-drag" data-tooltip-content={t("page-builder.tool-page-content-drag")} />
+          <Tooltip id="nav-content-drag" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
         </div>
-        <div className="flex items-center uppercase">
+        <div className="flex items-center font-semibold">
           {props?.content?.type == "image" && t("section.img")}
           {props?.content?.type == "text" && t("section.txt")}
           {props?.content?.type == "textArea" && t("section.paragraph")}
           {props?.content?.type == "card" && t("section.card")}
         </div>
-        <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500 hover:text-red-700" onClick={() => props.handleDeleteContent(props?.content?.id)} />
+        <AiFillDelete className="w-5 h-5 cursor-pointer text-red-500 hover:text-red-700" onClick={() => props.handleDeleteContent(props?.content?.id)} data-tooltip-id="nav-content-delete" data-tooltip-content={t("buttons.delete")}/>
+        <Tooltip id="nav-content-delete" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
       </div>
-      <div className="relative mt-4">
+      <div className="relative mt-2 text-sm">
         {/* IMAGEN */}
         {props?.content?.type == "image" && <Imagen content={props?.content} position={props?.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections} currentPage={props?.currentPage} webPageData={props.webPageData} />}
 
@@ -47,7 +49,6 @@ function DraggableItem(props) {
         {props?.content?.type == "textArea" && <TextArea content={props?.content} position={props?.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections} currentPage={props?.currentPage} webPageData={props.webPageData} />}
 
         {/* CARD */}
-        {/* PENDIENTEEEEEEEEEEEEEEEEE */}
         {props?.content?.type == "card" && <Card contentComplete={props.contentComplete} position={props?.position} positionInContent={props.position} pageContentDataSections={props?.pageContentDataSections} setPageContentDataSections={props?.setPageContentDataSections}  setContent={props.setContent} currentPage={props.currentPage} content={props.content} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />}
 
       </div>

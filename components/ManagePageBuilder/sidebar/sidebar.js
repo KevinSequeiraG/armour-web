@@ -333,7 +333,7 @@ const Sidebar = (props) => {
                             </div>
                             <div className='flex justify-center items-center space-x-2'>
                                 <AiOutlineColumnHeight className='w-7 h-7' />
-                                <input value={height} min={5} onChange={(e) => handleHeightChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                <input value={height} min={5} onChange={(e) => handleHeightChange(e.target.value < 5 ? 5 : e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
                             {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
@@ -344,7 +344,7 @@ const Sidebar = (props) => {
                                 </div>
                                 <div className='flex justify-center items-center space-x-2'>
                                     <AiOutlineColumnHeight className='w-7 h-7 rotate-90' />
-                                    <input value={width} min={5} onChange={(e) => handleWidthChange(e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={width} min={5} onChange={(e) => handleWidthChange(e.target.value < 5 ? 5 : e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                             </>
@@ -357,26 +357,34 @@ const Sidebar = (props) => {
                     {activeButtonIndex !== 0 &&
                         <>
                             <div className='flex flex-col items-start border space-y-2'>
-                                <p>{t("page-builder.filled")}</p>
-                                <div className='flex justify-center items-center space-x-2'>
+                                <div className='flex items-center justify-between w-full'>
+                                    <p>{t("page-builder.filled")}</p>
+                                    <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-filled" data-tooltip-content={t("page-builder.tool-page-padding")} />
+                                    <Tooltip id="nav-filled" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                                </div>
+                                <div className='flex justify-center items-center'>
                                     <BiArrowToLeft className='w-7 h-7' />
-                                    <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mleft" data-tooltip-content={t("page-builder.tool-page-padding-left")} />
+                                    <Tooltip id="nav-mleft" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
-                                <div className='flex justify-center items-center space-x-2'>
+                                <div className='flex justify-center items-center'>
                                     <BiArrowToBottom className='w-7 h-7' />
-                                    <input value={pagePaddingTop} type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingTop} type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mBottom" data-tooltip-content={t("page-builder.tool-page-padding-top")} />
                                     <em className='font-normal text-sm'>%</em>
+                                    <Tooltip id="nav-mBottom" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>
-                                <div className='flex justify-center items-center space-x-2'>
+                                <div className='flex justify-center items-center'>
                                     <BiArrowToRight className='w-7 h-7' />
-                                    <input value={pagePaddingLeft} type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingLeft} type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mRight" data-tooltip-content={t("page-builder.tool-page-padding-right")} />
                                     <em className='font-normal text-sm'>%</em>
+                                    <Tooltip id="nav-mRight" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>
-                                <div className='flex justify-center items-center space-x-2'>
+                                <div className='flex justify-center items-center'>
                                     <BiArrowToTop className='w-7 h-7' />
-                                    <input value={pagePaddingBottom} type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
+                                    <input value={pagePaddingBottom} type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value < 15 ? 15 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mTop" data-tooltip-content={t("page-builder.tool-page-padding-bottom")} />
                                     <em className='font-normal text-sm'>%</em>
+                                    <Tooltip id="nav-mTop" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>
                             </div>
 
@@ -477,7 +485,7 @@ const Sidebar = (props) => {
                                 src={imageSrc}
                                 alt="Uploaded"
                                 // style={{ ...imageStyles }}
-                                className='object-cover w-full h-[12rem] rounded-[10px]'
+                                className='object-cover w-full max-h-[10rem] min-h-[10rem] rounded-[10px] border-2 border-dashed border-[#224553]'
                             />
                             <button
                                 onClick={handleDeleteBGImage}
@@ -490,7 +498,7 @@ const Sidebar = (props) => {
                                     border: 'none',
                                     borderRadius: '50%',
                                     cursor: 'pointer',
-                                    padding: '0.2rem 0.4rem',
+                                    padding: '0rem 0.45rem',
                                 }}
                             >
                                 X
@@ -511,9 +519,9 @@ const Sidebar = (props) => {
                                 border: '2px dashed #224553',
                                 borderRadius: '10px',
                             }}
-                            className='w-full h-[12rem]'
+                            className='w-full max-h-[10rem] min-h-[10rem] bg-[#f5f5f5]'
                         >
-                            {t("page-builder.add-img")}
+                            + {t("page-builder.add-img")}
                             <input
                                 type="file"
                                 accept="image/*"
@@ -571,8 +579,11 @@ const Sidebar = (props) => {
 
                     {activeButtonIndex === 1 && !props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && <>
                         <div className='flex flex-col items-center'>
-                            <p>{t("page-builder.content")}</p>
-
+                            <div className='flex items-center justify-between w-full'>
+                                <p>{t("page-builder.content")}</p>
+                                <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-content" data-tooltip-content={t("page-builder.tool-page-content-general")} />
+                                <Tooltip id="nav-content" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                            </div>
                             <ContentDragDrop currentPage={props.currentPage} setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
 
                         </div>

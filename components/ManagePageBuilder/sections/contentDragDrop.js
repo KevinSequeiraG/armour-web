@@ -6,9 +6,11 @@ import Swal from "sweetalert2";
 import { BsCardText, BsImage } from "react-icons/bs";
 import { BiBookmarks, BiText } from "react-icons/bi";
 import DraggableItem from "./draggableItem";
+import { useTranslation } from "react-i18next";
+import { Tooltip } from "react-tooltip";
 
 export const ContentDragDrop = (props) => {
-
+  const { t } = useTranslation();
   const [pageContentDataSections, setPageContentDataSections] = useState(props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections);
 
   useEffect(() => {
@@ -31,21 +33,22 @@ export const ContentDragDrop = (props) => {
     const newContent = [...pageContentDataSections];
     if (contentType == "image") {
       newContent.push({
-        type: "image", //image
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
-        imageUrl: "",
+        type: "image",
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
+        imageUrl: "https://firebasestorage.googleapis.com/v0/b/armourweb-7faf5.appspot.com/o/defaultImages%2Fawlogo-nobg.png?alt=media&token=b6210a3b-0a76-4514-a234-47ff1aa14949",
         width: "100",
         height: "100",
-        marginLeft: "0",
-        marginBottom: "0",
-        marginRight: "0",
-        marginTop: "0",
-        rounded: "0"
+        paddingLeft: "0",
+        paddingBottom: "0",
+        paddingRight: "0",
+        paddingTop: "0",
+        rounded: "10",
+        position: "center"
       })
     } else if (contentType == "text" || contentType == "textArea") {
       newContent.push({
-        type: contentType, //text or textArea
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
+        type: contentType,
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
         text: "",
         height: "0",
         width: "0",
@@ -54,21 +57,16 @@ export const ContentDragDrop = (props) => {
         marginRight: "0",
         marginTop: "0",
         marginBottom: "0",
-        color: "black",
-        textSize: "16", //px
+        color: "#000000",
+        textSize: "16",
         isBold: false
       })
     } else if (contentType == "card") {
       newContent.push({
-        type: "card", //card
+        type: "card",
         cardSelected: 'card1',
         isCategory: true,
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1, // drag And Drop
-        // cardSelected: "1",
-        // paddingLeft: "0",
-        // paddingRight: "0",
-        // paddingTop: "0",
-        // paddingBottom: "0",
+        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
       })
     }
 
@@ -79,23 +77,23 @@ export const ContentDragDrop = (props) => {
     // Validates if is last content in array
     if (pageContentDataSections?.length === 1) {
       Swal.fire({
-        text: 'Esta es tu último contenido',
+        text: t("page-builder.last-content"),
         icon: 'error',
-        confirmButtonText: 'Entendido',
+        confirmButtonText: t("buttons.confirm"),
         allowOutsideClick: false,
       });
       return;
     }
 
     Swal.fire({
-      title: '¿Desea eliminar el contenido?',
-      text: "Esta acción es irreversible",
+      title: t("page-builder.delete-content"),
+      text: t("page-builder.irreversible"),
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#3085d6',
       confirmButtonColor: '#d33',
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: t("buttons.delete"),
+      cancelButtonText: t("buttons.cancel"),
       reverseButtons: true,
       allowOutsideClick: false,
     }).then((result) => {
@@ -122,11 +120,11 @@ export const ContentDragDrop = (props) => {
 
     updatedWebPageData.pages = updatedPages;
     setWebPageData(updatedWebPageData);
-  }, [pageContentDataSections, props.currentPage]);
+  }, [pageContentDataSections, props?.currentPage]);
 
   return (
     <>
-      <div className="flex flex-col space-y-2 justify-center items-center w-full h-auto overflow-x-hidden  rounded-[10px] mt-1 p-1.5 overflow-hidden">
+      <div className={`mt-1 flex flex-col space-y-3 justify-center items-center w-full h-auto overflow-x-hidden rounded-[10px] overflow-hidden ${pageContentDataSections.length > 0 && "bg-gray-300 p-1 shadow-md border border-[#224553]"}`}>
 
         {pageContentDataSections !== null &&
           <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -141,10 +139,10 @@ export const ContentDragDrop = (props) => {
                     position={i}
                     pageContentDataSections={pageContentDataSections}
                     setPageContentDataSections={setPageContentDataSections}
-                    webPageData={props.webPageData}
-                    currentPage={props.currentPage}
+                    webPageData={props?.webPageData}
+                    currentPage={props?.currentPage}
                   />
-                  {i + 1 !== pageContentDataSections?.length && <hr className='border-2 rounded-full border-[#224553] w-full' />}
+                  {i + 1 !== pageContentDataSections?.length && <hr className='border-2 rounded-full border-[#224553] w-10/12' />}
                 </Fragment>
               ))}
 
@@ -154,10 +152,17 @@ export const ContentDragDrop = (props) => {
 
       {/* BOTONES PARA AGREGAR NUEVO ELEMENTO */}
       <div className='flex justify-center items-center space-x-3 mt-3'>
-        <BsImage className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("image")} />
-        <BiText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("text")} />
-        <BsCardText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("textArea")} />
-        <BiBookmarks className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("card")} />
+        <BsImage className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("image")} data-tooltip-id="nav-content" data-tooltip-content={t("page-builder.tool-page-content-img")} />
+        <Tooltip id="nav-content-img" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+        <BiText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("text")} data-tooltip-id="nav-content" data-tooltip-content={t("page-builder.tool-page-content-txt")} />
+        <Tooltip id="nav-content-txt" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+        <BsCardText className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("textArea")} data-tooltip-id="nav-content" data-tooltip-content={t("page-builder.tool-page-content-area")} />
+        <Tooltip id="nav-content-area" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+
+        <BiBookmarks className='w-8 h-8 cursor-pointer bg-white p-1.5 rounded-[10px] shadow-md hover:bg-gray-500 hover:text-white' onClick={() => handleAddContent("card")} data-tooltip-id="nav-content" data-tooltip-content={t("page-builder.tool-page-content-card")} />
+        <Tooltip id="nav-content-card" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
       </div>
     </>
   );

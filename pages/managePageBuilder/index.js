@@ -17,7 +17,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ pagelngEsp: i18n.language == "es", pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "10%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
+    const [webPageData, setWebPageData] = useState({ pagelngEsp: i18n.language == "es", pages: [{ id: 1, name: "Home", paddingLeft: "20%", paddingRight: "20%", paddingTop: "5%", paddingBottom: "15%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
 
     const [currentPage, setCurrentPage] = useState(1);
 

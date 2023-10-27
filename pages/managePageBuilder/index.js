@@ -64,6 +64,7 @@ export default function ManagePageBuilder() {
     useEffect(() => {
         const dataToEdit = JSON.parse(window.localStorage.getItem("pageToEdit"))
         if (dataToEdit) {
+            setNavbarPosition(dataToEdit.navbar.position)
             setWebPageData(dataToEdit);
             setLogoPage(dataToEdit?.logo)
             setIsEdit(true);

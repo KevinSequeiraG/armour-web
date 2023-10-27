@@ -44,7 +44,7 @@ const WebpageView = (props) => {
 
     return (
         <>
-            <div style={styles} className={`w-full h-full object-cover overflow-y-auto scrollbarDesign`}>
+            <div style={styles} className={`w-full object-cover overflow-y-auto scrollbarDesign h-[calc(100%-${props?.webPageData?.navbar.minHeight})]`}>
                 {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {
@@ -78,7 +78,7 @@ const WebpageView = (props) => {
                         )
                     } else if (data.type === "card" && data.isCategory) {
                         return (
-                            <div className="flex w-full mt-2">
+                            <div className="flex md:flex-row flex-col items-center mx-auto md:w-full mt-2">
                                 {categories.map(cat => {
                                     return (
                                         <>
@@ -93,7 +93,7 @@ const WebpageView = (props) => {
                         )
                     } else if (data.type === "card" && !data.isCategory) {
                         return (
-                            <div className="flex w-full mt-2">
+                            <div className="flex md:flex-row flex-col items-center mx-auto md:w-full mt-2">
                                 {products.map(prod => {
                                     return (
                                         <>
@@ -110,10 +110,10 @@ const WebpageView = (props) => {
                 }) :
                     <ContactUs webPageData={props?.webPageData} currentPage={props?.currentPage} />
                 }
-                <button onClick={()=>{setShowSalesCart(true)}} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 right-5"><FaShoppingCart /></button>
-                <SalesCartView isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart}/>
-                <ProductQuantity salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity}/>
             </div>
+            <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 right-5"><FaShoppingCart /></button>
+            <SalesCartView isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} />
+            <ProductQuantity salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
         </>
     )
 }

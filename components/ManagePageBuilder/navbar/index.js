@@ -83,6 +83,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         minHeight: navbarHeight,
         backgroundImage: bgImage,
         contentPosition: contentPosition,
+        position: position
         // navbarOptions: navbarOptions
         // O si deseas actualizar el título del navbar, puedes hacerlo así:
 
@@ -120,7 +121,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     useEffect(() => {
         setWebPageData()
         updateNavbarData()
-    }, [navbarTextColor, navbarBGColor, navbarWidth, navbarHeight, bgImage, contentPosition, navbarOptions, position])
+    }, [navbarTextColor, navbarBGColor, navbarWidth, navbarHeight, bgImage, contentPosition, navbarOptions])
 
     useEffect(() => {
         setBgImage(webPageData?.navbar?.backgroundImage)

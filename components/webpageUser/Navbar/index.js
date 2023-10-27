@@ -1,3 +1,4 @@
+import { NavbarIcon } from "@/public/svgs/dinamicIcons";
 import { useEffect, useState } from "react"
 
 const Navbar = ({ children, webpageData, setCurrentPage }) => {
@@ -13,6 +14,16 @@ const Navbar = ({ children, webpageData, setCurrentPage }) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover"
+    }
+
+    const mobileMenuStyles = {
+        color: webpageData?.navbar?.color,
+        backgroundColor: webpageData?.navbar?.backgroundColor,
+        // border: "1px solid " + navbarTextColor
+    }
+
+    const mobileOptionInMenuStyle = {
+        borderBottom: "1px solid " + webpageData?.navbar?.color
     }
 
     useEffect(() => {
@@ -31,23 +42,26 @@ const Navbar = ({ children, webpageData, setCurrentPage }) => {
             <div style={styles} className={`${("flex")}`}>
                 <div className={`flex items-center w-full ${(webpageData?.navbar?.position === "top") ? "flex-row" : ""} ${(webpageData?.navbar?.position === "top" && webpageData?.navbar?.contentPosition === "t-center") ? "justify-center" : ""} ${(webpageData?.navbar?.position === "top" && webpageData?.navbar?.contentPosition === "t-left") ? "justify-start mx-3" : ""} ${(webpageData?.navbar?.position === "top" && webpageData?.navbar?.contentPosition === "t-right") ? "justify-end mr-3" : ""} ${(webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "center") ? "justify-center" : ""} ${(webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "top") ? "justify-start" : ""} ${(webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "bottom") ? "justify-end" : ""}  ${(webpageData?.navbar?.position === "left") ? "flex-col" : ""} ${(webpageData?.navbar?.position === "right") ? "flex-col" : ""}`}>
                     {(webpageData?.logo && webpageData?.navbar?.contentPosition !== "bottom" && webpageData?.navbar?.contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "top") ? "mt-3" : (webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "bottom") ? "mb-3" : "x"} ${webpageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={webpageData?.logo} alt="logo" />}
-                    {navbarOptions.map(option => {
-                        return (
-                            <button onClick={() => { setCurrentPage(option.id) }} className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
-                        )
-                    })}
+                    <button className="md:hidden block ml-2" onClick={() => { setMenuVisible(!menuVisible) }}><NavbarIcon color={webpageData?.navbar?.color} /></button>
+                    <div className="hidden md:block">
+                        {navbarOptions.map(option => {
+                            return (
+                                <button onClick={() => { setCurrentPage(option.id) }} className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
+                            )
+                        })}
+                    </div>
                     {(webpageData?.logo && (webpageData?.navbar?.contentPosition === "bottom" || webpageData?.navbar?.contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "top") ? "mt-3" : (webpageData?.navbar?.position !== "top" && webpageData?.navbar?.contentPosition === "bottom") ? "mb-3" : "x"} ${webpageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={webpageData?.logo} alt="logo" />}
                 </div>
             </div>
             {
                 menuVisible && (
-                    <div style={mobileMenuStyles} className={`flex flex-col w-auto`}>
+                    <div style={mobileMenuStyles} className={`flex flex-col w-auto absolute w-full`}>
                         {/* Aquí coloca las opciones del menú que deseas mostrar */}
                         {/* <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
                         <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button> */}
                         {navbarOptions.map(option => {
                             return (
-                                <button onClick={() => { setCurrentPage(option.id)}} style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
+                                <button onClick={() => { setCurrentPage(option.id) }} style={mobileOptionInMenuStyle} className={`px-4 !py-3 !border-none font-semibold`}>{option.name}</button>
                             )
                         })}
                         {/* ... */}

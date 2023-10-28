@@ -20,12 +20,12 @@ const WebPageCard = (props) => {
                 <button onClick={handleEditPage} className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-1 justify-center py-2 rounded-[10px] my-1 border border-white flex items-center"><BiPaint className="mr-1" />{t("home.personalize")}</button>
                 <Link href={{
                     pathname: "/editCategories",
-                    query: { webpageNameByRouter: props.webpageData?.name },
+                    query: { webpageNameByRouter: props.webpageData?.pageUrl },
                 }}
                     as={"/editCategories"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-1 justify-center py-2 rounded-[10px] my-1 border border-white flex items-center"><BiCategoryAlt className="mr-1" />{t("home.my-categories")}</button></Link>
                 <Link href={{
                     pathname: "/editProducts",
-                    query: { webpageNameByRouter: props.webpageData?.name },
+                    query: { webpageNameByRouter: props.webpageData?.pageUrl },
                 }} as={"/editProducts"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-1 justify-center py-2 rounded-[10px] my-1 border border-white flex items-center"><BsCart4 className="mr-1" />{t("home.my-products")}</button></Link>
             </div>
         </div>

@@ -81,7 +81,9 @@ const CreateCategory = ({ editCategory, categoryToEdit, isOpen, handleShow, webp
             setImageSrc(categoryToEdit.image);
             setDesc(categoryToEdit.desc)
             setPageSelected(categoryToEdit?.webpagePage)
+            
         } else cleanStates()
+        console.log(":pagesWithCategoryCards", pagesWithCategoryCards)
 
     }, [])
 

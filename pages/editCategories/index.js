@@ -51,7 +51,9 @@ const EditCategoryPage = () => {
     useEffect(() => {
         if (webpageName) {
             getCategories();
+            console.log("we", webpageName)
             GetWebpage(webpageName).then(data => {
+                console.log(1)
                 if (data && data.pages) {
                     const pagesWithCategoryCards = data.pages
                         .filter(page => page.sections.some(section => section?.type === "card" && section?.isCategory))

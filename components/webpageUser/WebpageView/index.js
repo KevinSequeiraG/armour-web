@@ -44,7 +44,7 @@ const WebpageView = (props) => {
 
     return (
         <>
-            <div style={styles} className={` flex-1 w-full object-cover overflow-y-auto scrollbarDesign h-[calc(100%-${props?.webPageData?.navbar.minHeight})]`}>
+            <div style={styles} className={` flex-1 w-full object-cover overflow-y-auto scrollbarDesign h-screen`}>
                 {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {

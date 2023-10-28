@@ -113,7 +113,7 @@ const WebpageView = (props) => {
                     <ContactUs webPageData={props?.webPageData} currentPage={props?.currentPage} />
                 }
             </div>
-            <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 right-5"><FaShoppingCart /></button>
+            <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-14 w-14 h-14 flex items-center justify-center right-5"><FaShoppingCart /></button>
             <SalesCartView isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} />
             <ProductQuantity salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
         </>

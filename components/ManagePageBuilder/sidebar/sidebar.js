@@ -382,7 +382,7 @@ const Sidebar = (props) => {
                                 </div>
                                 <div className='flex justify-center items-center'>
                                     <BiArrowToTop className='w-7 h-7' />
-                                    <input value={pagePaddingBottom} type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value < 15 ? 15 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mTop" data-tooltip-content={t("page-builder.tool-page-padding-bottom")} />
+                                    <input value={pagePaddingBottom} type='number' onChange={(e) => { handleChangePadding("bottom", e.target.value < 18 ? 18 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mTop" data-tooltip-content={t("page-builder.tool-page-padding-bottom")} />
                                     <em className='font-normal text-sm'>%</em>
                                     <Tooltip id="nav-mTop" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>

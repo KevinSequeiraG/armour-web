@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { FaXTwitter } from 'react-icons/fa6';
 import { FcGoogle } from "react-icons/fc";
 export const ContactUsPreview = (props) => {
 
@@ -46,12 +47,12 @@ export const ContactUsPreview = (props) => {
 
                     <div className='relative col-span-2'>
                         <p className='font-semibold'>{t("contact-us.subject")}</p>
-                        <input style={inputStyles} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2`} type="text" disabled value='Este es el tema' />
+                        <input style={inputStyles} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2`} type="text" disabled value={props?.webPageData.isSpanish ? "Este es el tema" : "This is the subject"} />
                     </div>
 
                     <div className='relative col-span-2'>
                         <p className='font-semibold'>{t("contact-us.message")}</p>
-                        <textarea style={inputStyles} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2`} type="text" rows="5" disabled value='Escribe un mensaje...' />
+                        <textarea style={inputStyles} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2`} type="text" rows="5" disabled value={props?.webPageData.isSpanish ? "Escribe un mensaje..." : "Write a message..."} />
                     </div>
 
                     <div className="col-span-2 w-full flex justify-end mt-3">
@@ -70,13 +71,7 @@ export const ContactUsPreview = (props) => {
                             <p>Facebook</p>
                         </div>
                         <div className='flex flex-col items-center space-y-1'>
-                            <svg className='w-9 h-9 fill-blue-400'
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-
-                                <path
-                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                            </svg>
+                            <FaXTwitter className='w-9 h-9 fill-black' />
                             <p>Twitter</p>
                         </div>
                         <div className='flex flex-col items-center space-y-1'>

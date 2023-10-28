@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Switch from 'react-switch';
 import SocialMediaInput from './socialMediaInputs';
 import { AiOutlineBgColors, AiOutlineFontColors } from 'react-icons/ai';
+import { useTranslation } from 'react-i18next';
 
 export const ContactUsSocialMediaAndColors = (props) => {
+    const { t } = useTranslation();
     const [pageContactUs, setPageContactUs] = useState(props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage)));
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
     return (
         <div>
             <div className='relative flex items-center justify-center space-x-4'>
-                <p>Redes sociales</p>
+                <p>{t("user-data.social-network")}</p>
                 <Switch name='cardType'
                     onChange={(value) => setPageContactUs(prevValues => ({ ...prevValues, showSocialMedia: value }))}
                     checked={pageContactUs?.showSocialMedia}
@@ -75,7 +77,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
             <hr className='border border-[#224553] my-5' />
 
             <div className='flex flex-col items-start border space-y-2'>
-                <p>Color de encabezados</p>
+                <p>{t("page-builder.contact-title-color")}</p>
                 <div className='flex justify-center items-center space-x-2 w-full h-full px-2 pb-2'>
                     <AiOutlineFontColors className='w-7 h-7' />
                     <input
@@ -87,7 +89,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
 
                 <hr className='border border-[#224553] w-full' />
 
-                <p>Fondo del formulario</p>
+                <p>{t("page-builder.contact-bg-color")}</p>
                 <div className='flex justify-center items-center space-x-2 w-full px-2 pb-2'>
 
                     <AiOutlineBgColors className='w-7 h-7' />
@@ -98,7 +100,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
                     />
                 </div>
 
-                <p>Texto en formulario</p>
+                <p>{t("page-builder.contact-text-color")}</p>
                 <div className='flex justify-center items-center space-x-2 w-full h-full px-2 pb-2'>
                     <AiOutlineFontColors className='w-7 h-7' />
                     <input
@@ -110,7 +112,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
 
                 <hr className='border border-[#224553] w-full' />
 
-                <p>Color del botón</p>
+                <p>{t("page-builder.contact-button-color")}</p>
                 <div className='flex justify-center items-center space-x-2 w-full px-2 pb-2'>
                     <AiOutlineBgColors className='w-7 h-7' />
                     <input
@@ -120,7 +122,7 @@ export const ContactUsSocialMediaAndColors = (props) => {
                     />
                 </div>
 
-                <p>Color texto del botón</p>
+                <p>{t("page-builder.contact-button-text-color")}</p>
                 <div className='flex justify-center items-center space-x-2 w-full px-2 pb-2'>
                     <AiOutlineFontColors className='w-7 h-7' />
                     <input

@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineFacebook, AiOutlineGoogle, AiOutlineLinkedin, AiOutlineTwitter } from "react-icons/ai";
-
+import { FaXTwitter } from "react-icons/fa6";
+import { Tooltip } from "react-tooltip";
 export default function SocialMediaInput({
   facebookIcon,
   twitterIcon,
@@ -16,13 +17,25 @@ export default function SocialMediaInput({
         {/* SVG */}
         <div>
           {facebookIcon ? (
-            <AiOutlineFacebook className="w-8 h-8 text-[#899592]" />
+            <>
+              <AiOutlineFacebook className="w-8 h-8 text-[#899592]" data-tooltip-id="facebook" data-tooltip-content={"Facebook"} />
+              <Tooltip id="facebook" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+            </>
           ) : twitterIcon ? (
-            <AiOutlineTwitter className="w-8 h-8 text-[#899592]" />
+            <>
+              <FaXTwitter className="w-8 h-8 text-[#899592]" data-tooltip-id="twitter" data-tooltip-content={"Twitter"} />
+              <Tooltip id="twitter" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+            </>
           ) : linkedInIcon ? (
-            <AiOutlineLinkedin className="w-8 h-8 text-[#899592]" />
+            <>
+            <AiOutlineLinkedin className="w-8 h-8 text-[#899592]" data-tooltip-id="linkedin" data-tooltip-content={"LinkedIn"} />
+            <Tooltip id="linkedin" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+            </>
           ) : googleIcon ? (
-            <AiOutlineGoogle className="w-8 h-8 text-[#899592]" />
+            <>
+            <AiOutlineGoogle className="w-8 h-8 text-[#899592]" data-tooltip-id="google" data-tooltip-content={"Google"} />
+            <Tooltip id="google" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+            </>
           ) : null}
         </div>
 

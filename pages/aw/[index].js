@@ -8,7 +8,7 @@ function Webpage() {
     const router = useRouter();
     const { index } = router.query;
     const [webpageData, setWebpageData] = useState();
-    const [currentPage, setCurrentPage] = useState(2);
+    const [currentPage, setCurrentPage] = useState(1);
     // El valor de slug será un array con las partes dinámicas de la URL (por ejemplo, ["ksg", "home"]).
 
     // Aquí puedes utilizar el valor de slug para cargar la página deseada desde Firebase o tu base de datos.
@@ -30,7 +30,7 @@ function Webpage() {
                         <h1>{webpageData?.name}</h1>
                     </div> */}
                 </Navbar>
-            </div> : <div>cargando...</div>}
+            </div> : <div>Cargando...</div>}
         </>
     );
 }

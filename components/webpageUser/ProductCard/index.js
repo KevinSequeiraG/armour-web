@@ -3,32 +3,27 @@ import { FaShoppingCart } from "react-icons/fa"
 
 const ProductCard = (props) => {
     const { t } = useTranslation();
+    
     const titleStyles = {
-        color: props?.data?.textColorTitle,
-        fontSize: props?.data?.textSizeTitle + "px",
-        textAlign: props?.data?.titlePosition
+        color: props?.data.textColorTitle,
+        fontSize: props?.data.textSizeTitle + "px",
+        textAlign: props?.data.titlePosition
     }
     const descStyles = {
-        color: props?.data?.textColorDesc,
-        fontSize: props?.data?.textSizeDesc + "px",
-        textAlign: props?.data?.descPosition
+        color: props?.data.textColorDesc,
+        fontSize: props?.data.textSizeDesc + "px",
+        textAlign: props?.data.descPosition
     }
     const buttonStyles = {
-        color: props?.data?.textColorButton,
-        fontSize: props?.data?.textSizeButton + "px",
-        backgroundColor: props?.data?.bgColorButton
+        color: props?.data.textColorButton,
+        fontSize: props?.data.textSizeButton + "px",
+        backgroundColor: props?.data.bgColorButton
     }
     const buttonPosition = {
-        textAlign: props?.data?.buttonPosition,
+        textAlign: props?.data.buttonPosition,
     }
     const cardStyles = {
-        height: props?.data?.height + "%",
-        width: props?.data?.width + "%",
-        backgroundColor: props?.data?.bgColor,
-        marginBottom: props?.data?.marginBottom + '%',
-        marginLeft: props?.data?.marginLeft + '%',
-        marginRight: props?.data?.marginRight + '%',
-        marginTop: props?.data?.marginTop + '%',
+        backgroundColor: props?.data.bgColor,
     }
 
     return (

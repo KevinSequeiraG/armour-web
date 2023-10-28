@@ -1,6 +1,7 @@
 import { database } from '@/lib/firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
+import { FaXTwitter } from 'react-icons/fa6';
 import { FcGoogle } from "react-icons/fc";
 import { toast } from 'react-toastify';
 
@@ -66,11 +67,11 @@ export const ContactUs = (props) => {
                         emailToRecieve: pageDesign?.emailToRecieve,
                         subject: formValues.subject,
                         message: formValues.message,
-                        language: pageDesign?.language
+                        language: props?.webPageData?.isSpanish ? "es" : "en"
                     }),
                 });
                 setFormValues({ name: '', email: '', subject: '', message: '' });
-                toast.success(pageDesign?.language == "es" ? "Correo enviado" : "Email sent");
+                toast.success(props?.webPageData?.isSpanish ? "Correo enviado" : "Email sent");
             } catch (error) {
                 console.error('Error al enviar correo:', error);
             }
@@ -122,7 +123,7 @@ export const ContactUs = (props) => {
     return (
         <div className={`flex flex-col`} style={divStyles}>
             <div className="mx-auto !text-4xl italic">
-                <p className="font-bold">{pageDesign.language == "es" ? "Contácto" : "Contact us"}</p>
+                <p className="font-bold">{props?.webPageData?.isSpanish ? "Contácto" : "Contact us"}</p>
             </div>
 
             <div className={`flex flex-col mdx1000:!flex-row`}>
@@ -130,33 +131,33 @@ export const ContactUs = (props) => {
                 <div className="w-full mx-auto rounded-[10px] pt-8 pb-14 grid grid-cols-2 gap-4">
 
                     <div className='relative col-span-2 mdx1000:col-span-1'>
-                        <p className='font-semibold'>{pageDesign?.language == "es" ? "Tu nombre" : "Your name"}</p>
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Tu nombre" : "Your name"}</p>
                         <input style={inputStyles} name="name" value={formValues.name} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.name && 'border !border-red-400'}`} type="text" placeholder={"Ana Mary"} />
                         {formError.name && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>
 
                     <div className='relative col-span-2 mdx1000:col-span-1'>
-                        <p className='font-semibold'>{pageDesign?.language == "es" ? "Correo" : "Contact us"}</p>
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Correo" : "Contact us"}</p>
                         <input style={inputStyles} name="email" value={formValues.email} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-400'}`} type="email" placeholder='armour@web.com' />
                         {formError.email && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>
 
                     <div className='relative col-span-2'>
-                        <p className='font-semibold'>{pageDesign?.language == "es" ? "Asunto" : "Subject"}</p>
-                        <input style={inputStyles} name="subject" value={formValues.subject} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-400'}`} type="text" placeholder={pageDesign?.language == "es" ? "Este es el tema" : "This is the subject"} />
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Asunto" : "Subject"}</p>
+                        <input style={inputStyles} name="subject" value={formValues.subject} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-400'}`} type="text" placeholder={props?.webPageData?.isSpanish ? "Este es el tema" : "This is the subject"} />
                         {formError.subject && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>
 
                     <div className='relative col-span-2'>
-                        <p className='font-semibold'>{pageDesign?.language == "es" ? "Mansaje" : "Message"}</p>
-                        <textarea style={inputStyles} name="message" value={formValues.message} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-400'}`} type="text" rows="5" placeholder={pageDesign?.language == "es" ? "Escribe un mensaje..." : "Write a message..."} />
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Mansaje" : "Message"}</p>
+                        <textarea style={inputStyles} name="message" value={formValues.message} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-400'}`} type="text" rows="5" placeholder={props?.webPageData?.isSpanish ? "Escribe un mensaje..." : "Write a message..."} />
                         {formError.message && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>
 
                     <div className="col-span-2 w-full flex justify-end mt-3">
                         <button style={buttonStyles} onClick={handleRegister} disabled={isLoading}
                             className='w-min px-12 py-1.5 shadow-md rounded-[10px] font-bold text-lg'>
-                            {pageDesign?.language == "es" ? "Enviar" : "Send"}
+                            {props?.webPageData?.isSpanish ? "Enviar" : "Send"}
                         </button>
                     </div>
                 </div>
@@ -169,13 +170,7 @@ export const ContactUs = (props) => {
                             <p>Facebook</p>
                         </div>}
                         {pageDesign?.twitter && <div className='flex flex-col items-center space-y-1 h-min cursor-pointer' onClick={() => redirectToSocialMedia("twitter")}>
-                            <svg className='w-9 h-9 fill-blue-400'
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24">
-
-                                <path
-                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
-                            </svg>
+                            <FaXTwitter className='w-9 h-9' />
                             <p>Twitter</p>
                         </div>}
                         {pageDesign?.linkedIn && <div className='flex flex-col items-center space-y-1 h-min cursor-pointer' onClick={() => redirectToSocialMedia("linkedIn")}>

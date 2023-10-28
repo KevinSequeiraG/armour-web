@@ -119,12 +119,15 @@ const SectionView = (props) => {
                         } else if (data.type === "card") {
                             return (
                                 // <div className="grid grid-cols-2 gap-4">
-                                <>
-                                    {data.cardSelected === "card1" && <div className="grid grid-cols-4 gap-4"><Option1 data={data} /> <Option1 data={data} /> <Option1 data={data} /> <Option1 data={data} /></div>}
-                                    {data.cardSelected === "card2" && <div className="grid grid-cols-2 gap-4"><Option2 data={data} /> <Option2 data={data} /> <Option2 data={data} /> <Option2 data={data} /></div>}
-                                    {data.cardSelected === "card3" && <div className="grid grid-cols-2 gap-4"><Option3 data={data} /> <Option3 data={data} /> <Option3 data={data} /> <Option3 data={data} /></div>}
-                                    {data.cardSelected === "card4" && <div className="grid grid-cols-4 gap-4"><Option4 data={data} /> <Option4 data={data} /> <Option4 data={data} /> <Option4 data={data} /></div>}
-                                </>
+                                <div className="w-full mx-auto">
+                                    {data.cardSelected === "card1" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option1 isMobilePreview={props?.isMobilePreview} data={data} /> <Option1 isMobilePreview={props?.isMobilePreview} data={data} /> <Option1 isMobilePreview={props?.isMobilePreview} data={data} /> </div>}
+
+                                    {data.cardSelected === "card2" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option2 data={data} isMobilePreview={props?.isMobilePreview} /> <Option2 data={data} isMobilePreview={props?.isMobilePreview} /> <Option2 data={data} isMobilePreview={props?.isMobilePreview} /> </div>}
+
+                                    {data.cardSelected === "card3" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option3 data={data} isMobilePreview={props?.isMobilePreview} /> <Option3 data={data} isMobilePreview={props?.isMobilePreview} /> <Option3 data={data} isMobilePreview={props?.isMobilePreview} /></div>}
+
+                                    {data.cardSelected === "card4" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option4 data={data} isMobilePreview={props?.isMobilePreview} /> <Option4 data={data} isMobilePreview={props?.isMobilePreview} /> <Option4 data={data} isMobilePreview={props?.isMobilePreview} /> </div>}
+                                </div>
                                 // </div>
                             )
                         }

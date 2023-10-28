@@ -95,7 +95,7 @@
         "name": "Name",
         "lastname": "Last Names",
         "email": "Email",
-        "social-network": "Social Network",
+        "social-network": "Social network",
         "phone": "Phone",
         "basic-info": "Basic information",
         "fb": "Facebook",
@@ -103,7 +103,7 @@
         "linked-in": "Linked In",
         "web-page": "Web page",
         "id": "Identification",
-        "undefined": "Undefined"
+        "undefined": "Empty"
     },
     "home": {
         "my-pages": "My pages",
@@ -172,6 +172,16 @@
         "delete-page": "Do you want to delete the page?",
         "delete-content": "Do you want to delete the content element?",
         "irreversible": "This action is irreversible",
+        "card-isCategory": "Category card",
+        "card-isProduct": "Products card",
+        "card-title-styles": "Title styles",
+        "card-desc-styles": "Description styles",
+        "card-button-styles": "Button styles",
+        "contact-title-color": "Titles color",
+        "contact-bg-color": "Form background",
+        "contact-text-color": "Text in form",
+        "contact-button-color": "Button color",
+        "contact-button-text-color": "Text in button color",
         "tool-header-width": "Header width (%)",
         "tool-header-height": "Header height (%)",
         "tool-header-elements": "Header elements",
@@ -190,7 +200,12 @@
         "tool-page-content-image-w": "Image width",
         "tool-page-content-image-rounded": "Rounded corners",
         "tool-page-content-text-bold": "Bold text",
-        "tool-page-content-text-size": "Text size"
+        "tool-page-content-text-size": "Text size",
+        "tool-page-content-card-isCategory": "Cards for categories",
+        "tool-page-content-card-isProduct": "Cards for products",
+        "tool-page-content-card-desing": "Card design",
+        "tool-page-content-card-option": "Option",
+        "tool-page-content-card-color": "Card color"
     },
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",

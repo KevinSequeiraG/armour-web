@@ -79,15 +79,15 @@ const WebpageView = (props) => {
                     } else if (data.type === "card" && data.isCategory) {
                         console.log(2)
                         return (
-                            <div className="flex mdx600:flex-row flex-col gap-4 items-center mx-auto mdx600:w-full mt-2">
-                                {categories.map(cat => {
+                            <div className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
+                                {categories.map((cat,i) => {
                                     return (
-                                        <>
+                                        <div key={i}>
                                             {(data.cardSelected === "card1" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
                                             {(data.cardSelected === "card2" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
                                             {(data.cardSelected === "card3" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
                                             {(data.cardSelected === "card4" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                        </>
+                                        </div>
                                     )
                                 })}
                             </div>

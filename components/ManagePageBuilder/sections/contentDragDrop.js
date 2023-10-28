@@ -64,9 +64,20 @@ export const ContentDragDrop = (props) => {
     } else if (contentType == "card") {
       newContent.push({
         type: "card",
-        cardSelected: 'card1',
-        isCategory: true,
         id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
+        isCategory: true,
+        cardSelected: 'card1',
+        bgColor: "#ffffff",
+        titlePosition: "left",
+        textSizeTitle: "20",
+        textColorTitle: "#000000",
+        descPosition: "left",
+        textSizeDesc: "16",
+        textColorDesc: "#000000",
+        buttonPosition: "right",
+        textSizeButton: "16",
+        textColorButton: "#ffffff",
+        bgColorButton: "#224553"
       })
     }
 

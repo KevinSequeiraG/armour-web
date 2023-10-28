@@ -14,7 +14,7 @@ const SalesCartView = (props) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
-            <div className="relative min-w-[30%] bg-white rounded-lg px-6 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500">
+            <div className="relative min-w-[30%] max-h-[80%] overflow-y-auto bg-white rounded-lg px-6 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500">
                 <p className="text-[1.5rem] text-center font-semibold mb-4">{t("Carrito de compras")}</p>
                 <ul className="text-left w-auto">
                     {props.cartProducts.length < 1 && <div className="text-center">

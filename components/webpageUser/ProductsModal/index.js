@@ -17,8 +17,8 @@ const ProductsModal = (props) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
-            <div className="relative bg-white rounded-lg p-5 py-[3rem] mx-auto z-50 border border-[.2rem] border-gray-500">
-                {products.length > 0 ? <div className="flex">{products.map((prod) => {
+            <div className="relative bg-white rounded-lg p-5 py-[3rem] mx-auto z-50 border border-[.2rem] border-gray-500 overflow-auto max-h-[80vh]">
+                {products.length > 0 ? <div className="flex mdx600:flex-row flex-col gap-4">{products.map((prod) => {
                     return (
                         <>
                             <ProductCard setProdToAdd={props.setProdToAdd} setShowProdQuantity={props.setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={props.data} sectionInfo={prod} />

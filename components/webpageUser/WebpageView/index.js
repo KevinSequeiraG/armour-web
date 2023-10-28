@@ -31,12 +31,12 @@ const WebpageView = (props) => {
 
     useEffect(() => {
         console.log("web", props.webPageData)
-        GetCategoriesByWebpage(props?.webPageData?.name).then(data => {
+        GetCategoriesByWebpage(props?.webPageData?.pageUrl).then(data => {
             setCategories(data)
             console.log("cat", data)
         })
 
-        GetProductsByWebpage(props?.webPageData?.name).then(data => {
+        GetProductsByWebpage(props?.webPageData?.pageUrl).then(data => {
             setProducts(data)
             console.log("pro", data)
         })
@@ -77,8 +77,9 @@ const WebpageView = (props) => {
                             <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
                         )
                     } else if (data.type === "card" && data.isCategory) {
+                        console.log(2)
                         return (
-                            <div className="flex md:flex-row flex-col items-center mx-auto md:w-full mt-2">
+                            <div className="flex mdx600:flex-row flex-col gap-4 items-center mx-auto mdx600:w-full mt-2">
                                 {categories.map(cat => {
                                     return (
                                         <>
@@ -92,8 +93,9 @@ const WebpageView = (props) => {
                             </div>
                         )
                     } else if (data.type === "card" && !data.isCategory) {
+                        console.log(1)
                         return (
-                            <div className="flex md:flex-row flex-col items-center mx-auto md:w-full mt-2">
+                            <div className="flex mdx600:flex-row flex-col gap-4 items-center mx-auto mdx600:w-full mt-2">
                                 {products.map(prod => {
                                     return (
                                         <>

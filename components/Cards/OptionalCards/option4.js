@@ -37,7 +37,7 @@ const Option4 = (props) => {
                 <div style={buttonPosition}>
                     {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) setShowProducts(true) }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
                         {t("card.see")}
-                    </button> : <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={() => { props?.setShowProdQuantity(true); props?.setProdToAdd(props?.sectionInfo) }}><FaShoppingCart /></button>}
+                    </button> : <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={() => { props?.setShowProdQuantity && props?.setShowProdQuantity(true); props?.setProdToAdd && props?.setProdToAdd(props?.sectionInfo) }}><FaShoppingCart /></button>}
                 </div>
             </div>
             <img src={(props?.sectionInfo && props?.sectionInfo?.image) ? props?.sectionInfo?.image : '/images/awLogo.png'} alt={props?.sectionInfo && props?.sectionInfo?.name} className="w-full min-h-[9rem] max-h-36 object-cover" />

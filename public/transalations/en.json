@@ -84,7 +84,8 @@
         "add-img": "Add image",
         "add-page": "Add page",
         "add-contact-form": "Add contact form",
-        "close": "Close"
+        "close": "Close",
+        "create": "Create website"
     },
     "search": {
         "search-page": "Search page",
@@ -210,6 +211,17 @@
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",
         "alert": "This means that all your created pages and your information cannot be seen by anyone."
+    },
+    "create-modal": {
+        "sure": "Have you finished designing your website?",
+        "alert": "Don't worry, you can come back to edit it later."
+    },
+    "share-modal": {
+        "title": "Share your website!",
+        "subtitle": "Save the link to share it among those interested.",
+        "download-title": "Download the QR code with the page link",
+        "download": "Download",
+        "your-link": "Your link for the page:"
     },
     "reset-password": {
         "reset-passord": "Reset your password",

@@ -52,7 +52,7 @@ const Home = () => {
                     <button className="hover:bg-[#a39869] hover:text-gray-100 hover:border-gray-100 bg-[#EFE1A2] text-[#212429] px-4 py-2 rounded-[10px] border border-1 border-[#212429] font-bold h-min flex items-center shadow-md" onClick={() => router.push('/managePageBuilder')}><RiAddCircleLine className="mr-1 w-5 h-5" />{t("buttons.create-page")}</button>
                 </div>
             </div>
-            <div className="grid grid-cols-1 mdx800:grid-cols-2 mdx1100:grid-cols-3 mdx1400:grid-cols-4 mdx1900:grid-cols-5 mx-auto justify-items-center overflow-y-auto h-[82vh] scrollbar">
+            <div className="grid grid-cols-1 mdx800:grid-cols-2 mdx1100:grid-cols-3 mdx1400:grid-cols-4 mdx1900:grid-cols-5 justify-items-center overflow-y-auto h-[calc(100vh-13.5rem)] scrollbar gap-x-5 mx-auto mb-4 px-4">
                 {webpageData?.filter(data => {
                     const normalizeNames = data?.name?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                     const normalizeSearchInput = searchInputFilter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");

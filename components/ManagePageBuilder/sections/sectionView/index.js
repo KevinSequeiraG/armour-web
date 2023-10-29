@@ -119,7 +119,7 @@ const SectionView = (props) => {
                         } else if (data.type === "card") {
                             return (
                                 // <div className="grid grid-cols-2 gap-4">
-                                <div className="w-full mx-auto">
+                                <div className="w-full mx-auto mb-4">
                                     {data.cardSelected === "card1" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option1 isMobilePreview={props?.isMobilePreview} data={data} /> <Option1 isMobilePreview={props?.isMobilePreview} data={data} /> <Option1 isMobilePreview={props?.isMobilePreview} data={data} /> </div>}
 
                                     {data.cardSelected === "card2" && <div className="flex flex-wrap gap-4 justify-center mx-auto w-full"><Option2 data={data} isMobilePreview={props?.isMobilePreview} /> <Option2 data={data} isMobilePreview={props?.isMobilePreview} /> <Option2 data={data} isMobilePreview={props?.isMobilePreview} /> </div>}

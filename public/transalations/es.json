@@ -84,7 +84,8 @@
         "add-img": "Añadir imagen",
         "add-page": "Añadir página",
         "add-contact-form": "Añadir contácto",
-        "close": "Cerrar"
+        "close": "Cerrar",
+        "create": "Crear página web"
     },
     "categories": {
         "name": "Nombre de la categoría",
@@ -210,6 +211,17 @@
     "delete-modal": {
         "sure": "¿Está seguro que desea eliminar su cuenta?",
         "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser vista por nadie"
+    },
+    "create-modal": {
+        "sure": "¿Terminaste de diseñar tu página web?",
+        "alert": "No te preocupes, puedes volver para editarlo luego."
+    },
+    "share-modal": {
+        "title": "¡Comparte tu página web!",
+        "subtitle": "Guarda el enlace para compartirlo entre los interesados.",
+        "download-title": "Descarga el código QR con el enlace de la página",
+        "download": "Descargar",
+        "your-link": "Tu enlace para la página:"
     },
     "reset-password": {
         "reset-passord": "Restablece tu contraseña",

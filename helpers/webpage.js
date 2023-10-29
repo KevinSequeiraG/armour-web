@@ -53,6 +53,8 @@ const uploadImageToFirebaseStorage = async (imageUrl) => {
 const processAndUploadWebPageImages = async (webPageData) => {
     const newWebPageData = { ...webPageData };
 
+    newWebPageData.createdAt = new Date();
+
     if (webPageData?.logo?.includes("https://firebasestorage")) {
         newWebPageData.logo = webPageData?.logo;
     } else {

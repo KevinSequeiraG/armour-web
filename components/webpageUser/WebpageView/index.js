@@ -45,7 +45,7 @@ const WebpageView = (props) => {
     return (
         <>
             <div style={styles} className={` flex-1 w-full object-cover overflow-y-auto scrollbarDesign h-screen`}>
-                {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map(data => {
+                {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map((data, i) => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {
                             height: data.height + "px",
@@ -59,7 +59,7 @@ const WebpageView = (props) => {
                             paddingTop: data.paddingTop + '%',
                         }
                         return (
-                            <div style={stylesForContainter} className="w-full">
+                            <div key={i} style={stylesForContainter} className="w-full">
                                 <img style={styles} className={`object-cover ${data.position === "right" ? "ml-auto" : data.position === "left" ? "mr-auto" : "mx-auto"}`} src={data.imageUrl} />
                             </div>
                         )
@@ -74,12 +74,12 @@ const WebpageView = (props) => {
                             marginTop: data.marginTop + '%',
                         }
                         return (
-                            <p style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
+                            <p key={i} style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
                         )
                     } else if (data.type === "card" && data.isCategory) {
                         console.log(2)
                         return (
-                            <div className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
+                            <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
                                 {categories.map((cat,i) => {
                                     return (
                                         <div key={i}>
@@ -95,15 +95,15 @@ const WebpageView = (props) => {
                     } else if (data.type === "card" && !data.isCategory) {
                         console.log(1)
                         return (
-                            <div className="flex mdx600:flex-row flex-col gap-4 items-center mx-auto mdx600:w-full mt-2">
-                                {products.map(prod => {
+                            <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
+                                {products.map((prod, i) => {
                                     return (
-                                        <>
+                                        <div key={i}>
                                             {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
                                             {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
                                             {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
                                             {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                        </>
+                                        </div>
                                     )
                                 })}
                             </div>

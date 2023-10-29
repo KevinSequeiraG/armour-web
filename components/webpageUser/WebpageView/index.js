@@ -77,7 +77,6 @@ const WebpageView = (props) => {
                             <p key={i} style={styles} className={`${data.isBold ? "font-bold" : ""}`}>{data.text}</p>
                         )
                     } else if (data.type === "card" && data.isCategory) {
-                        console.log(2)
                         return (
                             <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
                                 {categories.map((cat,i) => {
@@ -93,7 +92,6 @@ const WebpageView = (props) => {
                             </div>
                         )
                     } else if (data.type === "card" && !data.isCategory) {
-                        console.log(1)
                         return (
                             <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
                                 {products.map((prod, i) => {

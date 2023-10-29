@@ -1,4 +1,5 @@
 import ProductsModal from "@/components/webpageUser/ProductsModal";
+import { increaseCounterForCategoryWatched, increaseCounterForProductWatched } from "@/helpers/reports";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaShoppingCart } from "react-icons/fa"
@@ -35,9 +36,9 @@ const Option4 = (props) => {
                 <p style={descStyles} className="pt-1">{(props?.sectionInfo && props?.sectionInfo?.desc) ? props?.sectionInfo?.desc : t("card.desc")}</p>
                 {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{parseInt(props?.sectionInfo?.prize) + (parseInt(props?.sectionInfo?.prize) * (parseInt(props?.sectionInfo?.tax) / 100))}</p>}
                 <div style={buttonPosition}>
-                    {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) setShowProducts(true) }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
+                    {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) { setShowProducts(true); increaseCounterForCategoryWatched(props?.sectionInfo?.id) } }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
                         {t("card.see")}
-                    </button> : <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={() => { props?.setShowProdQuantity && props?.setShowProdQuantity(true); props?.setProdToAdd && props?.setProdToAdd(props?.sectionInfo) }}><FaShoppingCart /></button>}
+                    </button> : <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={() => { increaseCounterForProductWatched(props?.sectionInfo?.id); props?.setShowProdQuantity && props?.setShowProdQuantity(true); props?.setProdToAdd && props?.setProdToAdd(props?.sectionInfo) }}><FaShoppingCart /></button>}
                 </div>
             </div>
             <img src={(props?.sectionInfo && props?.sectionInfo?.image) ? props?.sectionInfo?.image : '/images/awLogo.png'} alt={props?.sectionInfo && props?.sectionInfo?.name} className="w-full min-h-[9rem] max-h-36 object-cover" />

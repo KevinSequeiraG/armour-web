@@ -1,5 +1,5 @@
 import { database } from "@/lib/firebaseConfig";
-import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const SaveProduct = async (product) => {
@@ -44,6 +44,18 @@ export const GetProductsByCatUid = async (uid) => {
                 finalData.push({ ...product.data(), id: product.id })
             })
             return finalData;
+        }
+        );
+    } catch (error) {
+        console.error('Error al guardar el objeto en Firestore:', error);
+    }
+}
+
+export const GetProductByUid = async (uid) => {
+    try {
+        const productsTableRef = doc(database, `admin/data/products`, uid);
+        return await getDoc(productsTableRef).then(response => {
+            return response.data()
         }
         );
     } catch (error) {

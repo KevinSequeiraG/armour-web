@@ -271,5 +271,15 @@
         "desc": "Descripción",
         "see": "Ver",
         "no-prods": "No hay productos en esta categoría."
+    },
+    "reports": {
+        "products": "Productos",
+        "name": "Nombre",
+        "counter": "Contador",
+        "no-prods": "No hay productos",
+        "most-consulted-prod": "Producto mas consultado",
+        "categories": "Categorías",
+        "no-cats": "No hay categorías",
+        "most-consulted-cars": "Categoría mas consultada"
     }
 }

@@ -1,3 +1,4 @@
+import { increaseCounterForProductWatched } from "@/helpers/reports";
 import { useTranslation } from "react-i18next";
 import { FaShoppingCart } from "react-icons/fa"
 
@@ -36,7 +37,7 @@ const ProductCard = (props) => {
                     <p style={descStyles} className="text-gray-500 text-base">{props.sectionInfo.desc ? props.sectionInfo.desc : t("card.desc")}</p>
                     {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
             </div>}
@@ -50,7 +51,7 @@ const ProductCard = (props) => {
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
                     {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
             </div>}
@@ -61,7 +62,7 @@ const ProductCard = (props) => {
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
                     {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
                 <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="object-cover object-center w-1/2" />
@@ -73,7 +74,7 @@ const ProductCard = (props) => {
                     <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
                     {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
                 <div className="md:flex-shrink-0">

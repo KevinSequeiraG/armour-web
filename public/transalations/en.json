@@ -271,5 +271,15 @@
         "desc": "Description",
         "see": "See",
         "no-prods": "There are no products in this category"
+    },
+    "reports": {
+        "products": "Products",
+        "name": "Name",
+        "counter": "Counter",
+        "no-prods": "There are no products",
+        "most-consulted-prod": "Most consulted product",
+        "categories": "Categories",
+        "no-cats": "There are no categories",
+        "most-consulted-cars": "Most consulted category"
     }
 }

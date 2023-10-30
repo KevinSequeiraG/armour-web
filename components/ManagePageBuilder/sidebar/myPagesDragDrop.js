@@ -54,7 +54,7 @@ const MypagesDragDrop = (props) => {
     const updatedWebPageData = { ...props.webPageData };
 
     // Crea un nuevo objeto 'page' (puedes personalizar esto según tus necesidades)
-    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "18%", backgroundColor: "#ffffff", isContactPage: false, sections: [] };
+    const newPage = { id: pages?.length + 1, name: sectionNameSelected, paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "20%", backgroundColor: "#ffffff", isContactPage: false, sections: [] };
 
     // Agrega el nuevo objeto 'page' al arreglo 'pages'
     updatedWebPageData.pages.push(newPage);

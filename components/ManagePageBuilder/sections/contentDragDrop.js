@@ -1,7 +1,7 @@
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { Fragment, useEffect, useState } from "react";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
-
+import { v4 as uuidv4 } from 'uuid';
 import Swal from "sweetalert2";
 import { BsCardText, BsImage } from "react-icons/bs";
 import { BiBookmarks, BiText } from "react-icons/bi";
@@ -34,7 +34,7 @@ export const ContentDragDrop = (props) => {
     if (contentType == "image") {
       newContent.push({
         type: "image",
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
+        id: uuidv4(),
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/armourweb-7faf5.appspot.com/o/defaultImages%2Fawlogo-nobg.png?alt=media&token=b6210a3b-0a76-4514-a234-47ff1aa14949",
         width: "100",
         height: "100",
@@ -48,7 +48,7 @@ export const ContentDragDrop = (props) => {
     } else if (contentType == "text" || contentType == "textArea") {
       newContent.push({
         type: contentType,
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
+        id: uuidv4(),
         text: "",
         height: "0",
         width: "0",
@@ -64,7 +64,7 @@ export const ContentDragDrop = (props) => {
     } else if (contentType == "card") {
       newContent.push({
         type: "card",
-        id: parseInt(props?.currentPage)?.toString() + pageContentDataSections?.length + 1,
+        id: uuidv4(),
         isCategory: true,
         cardSelected: 'card1',
         bgColor: "#ffffff",
@@ -142,7 +142,7 @@ export const ContentDragDrop = (props) => {
             <SortableContext items={pageContentDataSections} strategy={verticalListSortingStrategy}>
 
               {pageContentDataSections?.map((content, i) => (
-                <Fragment key={i}>
+                <Fragment key={content?.id}>
                   <DraggableItem
                     handleDeleteContent={handleDeleteContent}
                     key={content?.id}

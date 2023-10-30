@@ -1,7 +1,6 @@
 import html2canvas from "html2canvas";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import QRCode from "react-qr-code";
 
@@ -20,11 +19,7 @@ const ShareWebPage = ({ isOpen, setShowShareModal, webPageData }) => {
         link.click();
         document.body.removeChild(link);
     };
-    useEffect(() => {
-      console.log("webPageData",webPageData);
-    }, [webPageData])
     
-
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
             <div className="relative rounded-[10px] bg-white text-black p-5 w-auto min-w-[32rem] max-w-lg mx-auto z-50 border-[.2rem]">

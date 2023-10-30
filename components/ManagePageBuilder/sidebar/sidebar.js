@@ -19,8 +19,8 @@ const Sidebar = (props) => {
     const fileInputRefNavbar = useRef();
     const router = useRouter();
 
-    const [width, setWidth] = useState("");
-    const [height, setHeight] = useState("10");
+    const [width, setWidth] = useState();
+    const [height, setHeight] = useState();
     const [txtColor, setTxtColor] = useState("#ffffff");
     const [bgColor, setBgColor] = useState("#000000");
     const [imageSrc, setImageSrc] = useState(null);
@@ -185,10 +185,7 @@ const Sidebar = (props) => {
     }
 
     // pone color a la opción seleccionada (solo visual)
-    const [posiitionDesignColor, setPosiitionDesignColor] = useState(props.navbarPosition == "top" ? "t-left" : "top");
-    useEffect(() => {
-        setPosiitionDesignColor(props.navbarPosition == "top" ? "t-left" : "top")
-    }, [props.navbarPosition])
+    const [posiitionDesignColor, setPosiitionDesignColor] = useState(props?.webPageData?.navbar?.contentPosition);
 
     const handleChangeContentPosition = (newPosition) => {
         setPosiitionDesignColor(newPosition);
@@ -252,11 +249,11 @@ const Sidebar = (props) => {
 
     useEffect(() => {
         if (props?.currentMenuOption === "navbar-webpage") {
-            setWidth(parseInt(props?.webPageData?.navbar?.minWidth.replace('%', '')));
-            setHeight(parseInt(props?.webPageData?.navbar?.minHeight.replace('%', '')));
+            setWidth(parseInt(props?.webPageData?.navbar?.minWidth?.replace('%', '')));
+            setHeight(parseInt(props?.webPageData?.navbar?.minHeight?.replace('%', '')));
             setTxtColor(props?.webPageData?.navbar?.color);
             setBgColor(props?.webPageData?.navbar?.backgroundColor);
-
+            setPosiitionDesignColor(props?.webPageData?.navbar?.contentPosition);
         } else if (props?.currentMenuOption === "sections-webpage") {
             const currentPageSectionsData = props?.webPageData?.pages?.find((pagesData) => pagesData?.id == props?.currentPage);
             setBgColor(currentPageSectionsData?.backgroundColor);
@@ -266,7 +263,7 @@ const Sidebar = (props) => {
             setPagePaddingBottom(parseInt(currentPageSectionsData?.paddingBottom?.replace('%', '')));
             setImageSrc(currentPageSectionsData?.bgImage)
         }
-    }, [props?.currentMenuOption, props?.currentPage, props?.webPageData?.navbar])
+    }, [props?.currentMenuOption, props?.currentPage, props?.webPageData?.navbar, props?.webPageData])
 
     useEffect(() => {
         setImageSrcNavbar(props?.webPageData?.navbar?.backgroundImage)
@@ -283,7 +280,7 @@ const Sidebar = (props) => {
                     </div>
 
                     <SidebarMenuOption label={t("page-builder.navigation-menu")} isActive={activeButtonIndex === 0} onClick={() => handleTabMenuClick(0, "navbar-webpage")}>
-                        <NavbarOptions />
+                        <NavbarOptions navbarData={props?.webPageData?.navbar} />
                     </SidebarMenuOption>
 
                     <SidebarMenuOption label={t("page-builder.my-pages")} isActive={activeButtonIndex === 1} onClick={() => handleTabMenuClick(1, "sections-webpage")}>
@@ -336,7 +333,7 @@ const Sidebar = (props) => {
                                 <input value={height} min={5} onChange={(e) => handleHeightChange(e.target.value < 5 ? 5 : e.target.value)} type='number' className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center' />
                                 <em className='font-normal text-sm'>%</em>
                             </div>
-                            {(activeButtonIndex === 0 && props.navbarPosition !== "top") && <>
+                            {(activeButtonIndex === 0 && props?.webPageData?.navbar?.position !== "top") && <>
                                 <div className='flex items-center justify-between w-full pt-2'>
                                     <p>{t("page-builder.width")}</p>
                                     <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-width" data-tooltip-content={t("page-builder.tool-header-width")} />
@@ -364,19 +361,19 @@ const Sidebar = (props) => {
                                 </div>
                                 <div className='flex justify-center items-center'>
                                     <BiArrowToLeft className='w-7 h-7' />
-                                    <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mleft" data-tooltip-content={t("page-builder.tool-page-padding-left")} />
+                                    <input value={pagePaddingRight} type='number' onChange={(e) => { handleChangePadding("right", !e.target.value ? 0 : e.target.value < 0 ? 0 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mleft" data-tooltip-content={t("page-builder.tool-page-padding-left")} />
                                     <Tooltip id="nav-mleft" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                     <em className='font-normal text-sm'>%</em>
                                 </div>
                                 <div className='flex justify-center items-center'>
                                     <BiArrowToBottom className='w-7 h-7' />
-                                    <input value={pagePaddingTop} type='number' onChange={(e) => { handleChangePadding("top", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mBottom" data-tooltip-content={t("page-builder.tool-page-padding-top")} />
+                                    <input value={pagePaddingTop} type='number' onChange={(e) => { handleChangePadding("top", !e.target.value ? 0 : e.target.value < 0 ? 0 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mBottom" data-tooltip-content={t("page-builder.tool-page-padding-top")} />
                                     <em className='font-normal text-sm'>%</em>
                                     <Tooltip id="nav-mBottom" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>
                                 <div className='flex justify-center items-center'>
                                     <BiArrowToRight className='w-7 h-7' />
-                                    <input value={pagePaddingLeft} type='number' onChange={(e) => { handleChangePadding("left", e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mRight" data-tooltip-content={t("page-builder.tool-page-padding-right")} />
+                                    <input value={pagePaddingLeft} type='number' onChange={(e) => { handleChangePadding("left", !e.target.value ? 0 : e.target.value < 0 ? 0 : e.target.value) }} className='w-1/2 bg-[#F5F5F5] border-2 border-[#224553] rounded-[10px] px-2 hide-spin-buttons text-center mx-2' data-tooltip-id="nav-mRight" data-tooltip-content={t("page-builder.tool-page-padding-right")} />
                                     <em className='font-normal text-sm'>%</em>
                                     <Tooltip id="nav-mRight" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                                 </div>
@@ -549,7 +546,7 @@ const Sidebar = (props) => {
                             <div className='flex flex-col items-center space-y-2'>
                                 <p>{t("page-builder.content-position")}</p>
                                 <div className='flex justify-center items-center '>
-                                    {props.navbarPosition === "top" ?
+                                    {props?.webPageData?.navbar?.position === "top" ?
                                         <>
                                             <AiOutlineAlignLeft data-tooltip-id="nav-left" data-tooltip-content={t("page-builder.left")} className={`w-8 h-8 mr-4 cursor-pointer bg-white rounded-full p-1.5 shadow-md ${posiitionDesignColor == "t-left" && "!bg-gray-700 text-white"}`} onClick={() => handleChangeContentPosition("t-left")} />
                                             <Tooltip id="nav-left" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />

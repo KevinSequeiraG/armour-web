@@ -1,5 +1,5 @@
 import { database } from "@/lib/firebaseConfig";
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const GetWebpage = async (webpageName) => {
@@ -22,7 +22,9 @@ export const GetWebpagesByCreatedBy = async (userUid) => {
         const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
         const q = query(
             collectionRef,
-            where("createdBy", "==", userUid)
+            where("createdBy", "==", userUid),
+            where("active", "==", true),
+            orderBy("createdAt", "desc")
         ); // Construir la referencia al documento
         return await getDocs(q).then(response => {
             const resp = []
@@ -54,6 +56,7 @@ const processAndUploadWebPageImages = async (webPageData) => {
     const newWebPageData = { ...webPageData };
 
     newWebPageData.createdAt = new Date();
+    newWebPageData.active = true;
 
     if (webPageData?.logo?.includes("https://firebasestorage")) {
         newWebPageData.logo = webPageData?.logo;
@@ -89,14 +92,12 @@ const processAndUploadWebPageImages = async (webPageData) => {
 
 export const SaveWebPage = async (webPageData, loggedUserUid) => {
     try {
-        console.log(webPageData)
         const dataToSave = { ...webPageData, createdBy: loggedUserUid }
         const updatedWebPageData = await processAndUploadWebPageImages(dataToSave);
         const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.pageUrl}`);
         await setDoc(usersTableRef, updatedWebPageData, { merge: true }).then(async () => {
             console.log("listo")
         });
-        console.log('Objeto guardado exitosamente en Firestore');
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
     }
@@ -111,5 +112,17 @@ export const GetWebpageExists = async (webpageName) => {
         return docSnap.exists()
     } catch (error) {
         console.error("Error al obtener el documento:", error);
+    }
+}
+
+export const deleteWebpage = async (uid) => {
+    try {
+        const userDocRef = doc(database, `admin/data/webpages/${uid}`);
+
+        const updatedData = { active: false };
+
+        await setDoc(userDocRef, updatedData, { merge: true });
+    } catch (error) {
+        console.error("Error al actualizar los datos del usuario:", error);
     }
 }

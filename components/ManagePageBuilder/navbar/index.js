@@ -1,17 +1,17 @@
 import { NavbarIcon } from "@/public/svgs/dinamicIcons";
 import { useEffect, useState } from "react";
 
-const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, setWebPageData, currentPage }) => {
+const Navbar = ({ logoPage, children, isMobilePreview, webPageData, setWebPageData, isEdit }) => {
     const [menuVisible, setMenuVisible] = useState(false);
 
     // Colors Styles
-    const [navbarTextColor, setNavbarTextColor] = useState("#ffffff");
-    const [navbarBGColor, setNavbarBGColor] = useState("#000000");
-    const [navbarWidth, setNavbarWidth] = useState("5%");
-    const [navbarHeight, setNavbarHeight] = useState("5%");
+    const [navbarTextColor, setNavbarTextColor] = useState(webPageData?.navbar?.color);
+    const [navbarBGColor, setNavbarBGColor] = useState(webPageData?.navbar?.backgroundColor);
+    const [navbarWidth, setNavbarWidth] = useState(webPageData?.navbar?.minWidth);
+    const [navbarHeight, setNavbarHeight] = useState(webPageData?.navbar?.minHeight);
     const [bgImage, setBgImage] = useState(webPageData?.navbar?.backgroundImage)
-    const [contentPosition, setContentPosition] = useState(position === "top" ? "t-left" : "top")
-    const [navbarOptions, setNavbarOptions] = useState(webPageData.pages)
+    const [contentPosition, setContentPosition] = useState(webPageData?.navbar?.contentPosition)
+    const [navbarOptions, setNavbarOptions] = useState(webPageData?.pages)
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);
@@ -58,8 +58,8 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     const styles = {
         color: navbarTextColor,
         backgroundColor: navbarBGColor,
-        minWidth: position !== "top" && navbarWidth,
-        minHeight: !isMobilePreview && position === "top" && navbarHeight,
+        minWidth: webPageData?.navbar?.position !== "top" && navbarWidth,
+        minHeight: !isMobilePreview && webPageData?.navbar?.position === "top" && navbarHeight,
         backgroundImage: `url(${bgImage})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -83,7 +83,7 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
         minHeight: navbarHeight,
         backgroundImage: bgImage,
         contentPosition: contentPosition,
-        position: position
+        position: webPageData?.navbar?.position
         // navbarOptions: navbarOptions
         // O si deseas actualizar el título del navbar, puedes hacerlo así:
 
@@ -114,38 +114,55 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
     }, [])
 
     useEffect(() => {
-        if (position === "top") setContentPosition("t-left")
-        if (position === "left" || position === "right") setContentPosition("top")
-    }, [position])
+        setNavbarTextColor(webPageData?.navbar?.color)
+    }, [webPageData?.navbar?.color])
 
     useEffect(() => {
-        setWebPageData()
+        setNavbarBGColor(webPageData?.navbar?.backgroundColor)
+    }, [webPageData?.navbar?.backgroundColor])
+
+    useEffect(() => {
+        setNavbarWidth(webPageData?.navbar?.minWidth)
+    }, [webPageData?.navbar?.minWidth])
+
+    useEffect(() => {
+        setNavbarHeight(webPageData?.navbar?.minHeight)
+    }, [webPageData?.navbar?.minHeight])
+    useEffect(() => {
+        setBgImage(webPageData?.navbar?.backgroundImage)
+    }, [webPageData?.navbar?.backgroundImage])
+    useEffect(() => {
+        setContentPosition(webPageData?.navbar?.contentPosition)
+    }, [webPageData?.navbar?.contentPosition])
+
+    useEffect(() => {
+        setNavbarOptions(webPageData?.pages)
+    }, [webPageData?.pages])
+
+    useEffect(() => {
+        // setWebPageData()
         updateNavbarData()
     }, [navbarTextColor, navbarBGColor, navbarWidth, navbarHeight, bgImage, contentPosition, navbarOptions])
 
-    useEffect(() => {
-        setBgImage(webPageData?.navbar?.backgroundImage)
-    }, [webPageData?.navbar])    
-
     return (
-        <div className={`relative w-full h-full ${position === "top" ? "" : position === "left" ? "flex" : "flex flex-row-reverse"}`}>
+        <div className={`relative w-full h-full ${webPageData?.navbar?.position === "top" ? "" : webPageData?.navbar?.position === "left" ? "flex" : "flex flex-row-reverse"}`}>
             <div style={styles} className={`${!isMobilePreview && ("flex")}`}>
                 {isMobilePreview ? (
-                    <div className={`flex items-center ${position === "top" ? "w-full" : "h-full flex-col"} ${((position === "top" && contentPosition === "t-center") || (position !== "top" && contentPosition === "center")) ? "justify-center" : ((position === "top" && contentPosition === "t-left") || (position !== "top" && contentPosition === "top")) ? "justify-start" : ((position === "top" && contentPosition === "t-right") || (position !== "top" && contentPosition === "bottom")) ? "justify-end" : ""}`}>
-                        {(logoPage && contentPosition !== "bottom" && contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
+                    <div className={`flex items-center ${webPageData?.navbar?.position === "top" ? "w-full" : "h-full flex-col"} ${((webPageData?.navbar?.position === "top" && contentPosition === "t-center") || (webPageData?.navbar?.position !== "top" && contentPosition === "center")) ? "justify-center" : ((webPageData?.navbar?.position === "top" && contentPosition === "t-left") || (webPageData?.navbar?.position !== "top" && contentPosition === "top")) ? "justify-start" : ((webPageData?.navbar?.position === "top" && contentPosition === "t-right") || (webPageData?.navbar?.position !== "top" && contentPosition === "bottom")) ? "justify-end" : ""}`}>
+                        {(logoPage && contentPosition !== "bottom" && contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(webPageData?.navbar?.position !== "top" && contentPosition === "top") ? "mt-3" : (webPageData?.navbar?.position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${webPageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
                         <button onClick={toggleMenu} className={`px-4 h-[2rem] py-2 ${isMobilePreview ? "my-2" : ""}`}>
                             <NavbarIcon color={navbarTextColor} />
                         </button>
-                        {(logoPage && (contentPosition === "bottom" || contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
+                        {(logoPage && (contentPosition === "bottom" || contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(webPageData?.navbar?.position !== "top" && contentPosition === "top") ? "mt-3" : (webPageData?.navbar?.position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${webPageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
                     </div>
-                ) : (<div className={`flex items-center w-full ${(position === "top") ? "flex-row" : ""} ${(position === "top" && contentPosition === "t-center") ? "justify-center" : ""} ${(position === "top" && contentPosition === "t-left") ? "justify-start mx-3" : ""} ${(position === "top" && contentPosition === "t-right") ? "justify-end mr-3" : ""} ${(position !== "top" && contentPosition === "center") ? "justify-center" : ""} ${(position !== "top" && contentPosition === "top") ? "justify-start" : ""} ${(position !== "top" && contentPosition === "bottom") ? "justify-end" : ""}  ${(position === "left") ? "flex-col" : ""} ${(position === "right") ? "flex-col" : ""}`}>
-                    {(logoPage && contentPosition !== "bottom" && contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
+                ) : (<div className={`flex items-center w-full ${(webPageData?.navbar?.position === "top") ? "flex-row" : ""} ${(webPageData?.navbar?.position === "top" && contentPosition === "t-center") ? "justify-center" : ""} ${(webPageData?.navbar?.position === "top" && contentPosition === "t-left") ? "justify-start mx-3" : ""} ${(webPageData?.navbar?.position === "top" && contentPosition === "t-right") ? "justify-end mr-3" : ""} ${(webPageData?.navbar?.position !== "top" && contentPosition === "center") ? "justify-center" : ""} ${(webPageData?.navbar?.position !== "top" && contentPosition === "top") ? "justify-start" : ""} ${(webPageData?.navbar?.position !== "top" && contentPosition === "bottom") ? "justify-end" : ""}  ${(webPageData?.navbar?.position === "left") ? "flex-col" : ""} ${(webPageData?.navbar?.position === "right") ? "flex-col" : ""}`}>
+                    {(logoPage && contentPosition !== "bottom" && contentPosition !== "t-right") && <img className={`max-w-[3rem] max-h-[3rem] ${(webPageData?.navbar?.position !== "top" && contentPosition === "top") ? "mt-3" : (webPageData?.navbar?.position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${webPageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
                     {navbarOptions.map((option, i) => {
                         return (
                             <button key={i} className={`px-4 py-2 border-y-1 font-semibold`}>{option.name}</button>
                         )
                     })}
-                    {(logoPage && (contentPosition === "bottom" || contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(position !== "top" && contentPosition === "top") ? "mt-3" : (position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
+                    {(logoPage && (contentPosition === "bottom" || contentPosition === "t-right")) && <img className={`max-w-[3rem] max-h-[3rem] ${(webPageData?.navbar?.position !== "top" && contentPosition === "top") ? "mt-3" : (webPageData?.navbar?.position !== "top" && contentPosition === "bottom") ? "mb-3" : "x"} ${webPageData?.navbar?.position === "top" ? "my-3" : "mx-auto"}`} src={logoPage} alt="logo" />}
                 </div>)}
             </div>
             {
@@ -154,9 +171,9 @@ const Navbar = ({ logoPage, position, children, isMobilePreview, webPageData, se
                         {/* Aquí coloca las opciones del menú que deseas mostrar */}
                         {/* <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
                         <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button> */}
-                        {navbarOptions.map(option => {
+                        {navbarOptions.map((option,) => {
                             return (
-                                <button style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
+                                <button key={i} style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
                             )
                         })}
                         {/* ... */}

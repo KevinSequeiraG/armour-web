@@ -50,6 +50,7 @@
     "success": {
         "user-registered": "User registered successfully. You can now log in.",
         "account-deleted": "Your account has been successfully deleted",
+        "page-deleted": "Your web page has been successfully deleted",
         "user-edited": "Your profile has been successfully edited",
         "password-edited-correctly": "Password edited correctly",
         "password-email-sended": "An email has been sent to your address, check your spam box.",
@@ -210,7 +211,11 @@
     },
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",
-        "alert": "This means that all your created pages and your information cannot be seen by anyone."
+        "alert": "This means that all your created pages and your information cannot be maintained by anyone."
+    },
+    "deleteweb-modal": {
+        "sure": "Are you sure you want to delete the web page called",
+        "alert": "This means that the website cannot be seen by anyone."
     },
     "create-modal": {
         "sure": "Have you finished designing your website?",

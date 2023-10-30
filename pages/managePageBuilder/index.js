@@ -19,7 +19,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "18%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
+    const [webPageData, setWebPageData] = useState({ isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "18%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalInstagramRedirects: 0 });
 
     const [currentPage, setCurrentPage] = useState(1);
 

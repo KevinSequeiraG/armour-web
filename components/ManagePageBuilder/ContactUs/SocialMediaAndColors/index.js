@@ -66,9 +66,9 @@ export const ContactUsSocialMediaAndColors = (props) => {
                     </div>
                     <div>
                         <SocialMediaInput
-                            socialMediaName="google"
-                            googleIcon
-                            inputValue={pageContactUs?.google}
+                            socialMediaName="instagram"
+                            instagramIcon
+                            inputValue={pageContactUs?.instagram}
                             setInputValue={setPageContactUs}
                         />
                     </div>

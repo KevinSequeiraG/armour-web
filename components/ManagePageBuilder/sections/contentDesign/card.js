@@ -20,7 +20,7 @@ export const Card = (props) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setContentValues((prevValues) => ({ ...prevValues, [name]: value }));
+        setContentValues((prevValues) => ({ ...prevValues, [name]: (!isNaN(value) && (!value || value < 0)) ? 0 : value }));
     };
 
     const handleTextPositionChange = (newPosition, name) => {

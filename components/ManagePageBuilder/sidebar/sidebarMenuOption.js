@@ -9,7 +9,7 @@ const SidebarMenuOption = ({ label, isActive, onClick, children }) => {
                 <FiArrowDownCircle className={`rotate-0 absolute right-2.5 top-1.5 h-8 ${isActive && "!rotate-180"}`} />
             </button>
 
-            <div className={`scrollbarDesignTiny space-y-2 mx-2 mb-2 px-2 pb-2 border border-transparent animate__animated ${isActive ? "animate__fadeIn max-h-64 mdx1600:max-h-72 overflow-y-auto" : "hidden max-h-0"}`}>
+            <div className={`scrollbarDesignTiny space-y-2 mx-2 mb-2 px-2 pb-2 border border-transparent animate__animated ${isActive ? "animate__fadeIn max-h-96 overflow-y-auto" : "hidden max-h-0"}`}>
                 {children}
             </div>
         </div>

@@ -30,15 +30,12 @@ const WebpageView = (props) => {
     }
 
     useEffect(() => {
-        console.log("web", props.webPageData)
         GetCategoriesByWebpage(props?.webPageData?.pageUrl).then(data => {
             setCategories(data)
-            console.log("cat", data)
         })
 
         GetProductsByWebpage(props?.webPageData?.pageUrl).then(data => {
             setProducts(data)
-            console.log("pro", data)
         })
     }, [])
 

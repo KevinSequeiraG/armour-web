@@ -19,7 +19,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "18%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
+    const [webPageData, setWebPageData] = useState({ navbar: { backgroundColor: "#000000", backgroundImage: "", color: "#ffffff", contentPosition: "top", minHeight: "10%", minWidth: "5%", position: "top" }, isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "20%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalGoogleRedirects: 0 });
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,8 +29,6 @@ export default function ManagePageBuilder() {
 
     const [isMobilePreview, setIsMobilePreview] = useState(false);
 
-    const [navbarPosition, setNavbarPosition] = useState("top");
-
     const [isEdit, setIsEdit] = useState(false);
 
     const [showShareModal, setShowShareModal] = useState(false);
@@ -39,7 +37,13 @@ export default function ManagePageBuilder() {
     useEffect(() => {
         const handleNavbarPositionChange = (event) => {
             const selectedOption = event.option;
-            setNavbarPosition(selectedOption);
+            setWebPageData(prevData => ({
+                ...prevData,
+                navbar: {
+                    ...prevData.navbar,
+                    position: selectedOption
+                }
+            }));
         };
 
         window.addEventListener("navbarPositionChange", handleNavbarPositionChange);
@@ -68,7 +72,6 @@ export default function ManagePageBuilder() {
     useEffect(() => {
         const dataToEdit = JSON.parse(window.localStorage.getItem("pageToEdit"))
         if (dataToEdit) {
-            setNavbarPosition(dataToEdit?.navbar?.position)
             setWebPageData(dataToEdit);
             setLogoPage(dataToEdit?.logo)
             setIsEdit(true);
@@ -124,7 +127,7 @@ export default function ManagePageBuilder() {
             <div className="bg-black h-screen w-screen flex">
                 {(showFirstStep && !isEdit) && <FirstStep setWebPageData={setWebPageData} webPageData={webPageData} setLogoPage={setLogoPage} setShowFirstStep={setShowFirstStep} />}
 
-                <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setCurrentPage={setCurrentPage} currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} navbarPosition={navbarPosition} />
+                <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setCurrentPage={setCurrentPage} currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} />
 
                 <div className="min-w-[69%] max-w-[69%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
 
@@ -143,7 +146,7 @@ export default function ManagePageBuilder() {
                     </div>
                     <div className={`${isMobilePreview ? "w-full max-w-[375px] max-h-[667px] h-full !overflow-hidden m-auto shadow-md bg-white relative" : "!overflow-hidden w-full max-w-full mx-3 h-full max-h-[calc(100vh-8rem)] !my-auto shadow-md bg-white relative"}`}>
 
-                        <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} position={navbarPosition} isMobilePreview={isMobilePreview}>
+                        <Navbar currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} logoPage={logoPage} isMobilePreview={isMobilePreview} isEdit={isEdit}>
 
                             <SectionView currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} />
 

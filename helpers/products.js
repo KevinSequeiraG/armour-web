@@ -8,7 +8,6 @@ export const SaveProduct = async (product) => {
         const productsTableRef = collection(database, `admin/data/products`);
 
         const catToSave = { ...product, image: imageUrl }
-        console.log("catToSave", catToSave)
         await addDoc(productsTableRef, catToSave)
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);

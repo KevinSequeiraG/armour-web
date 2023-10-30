@@ -18,7 +18,7 @@ const Home = () => {
         window.localStorage.removeItem("pageToEdit")
         window.localStorage.removeItem("webpageName")
         if (loggedUser) {
-            GetWebpagesByCreatedBy(loggedUser.uid).then((data) => {
+            GetWebpagesByCreatedBy(loggedUser?.uid).then((data) => {
                 setWebpageData(data)
             })
         }
@@ -62,7 +62,7 @@ const Home = () => {
                         <WebPageCard key={i} webpageData={webpage} />
                     )
                 }))}
-                {webpageData.length === 0 && <p className='p-8 text-center col-span-full text-2xl font-semibold'>{t("home.no-data")}</p>}
+                {webpageData?.length === 0 && <p className='p-8 text-center col-span-full text-2xl font-semibold'>{t("home.no-data")}</p>}
             </div>
         </div>
     )

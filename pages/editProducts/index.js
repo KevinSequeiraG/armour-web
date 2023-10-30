@@ -46,9 +46,7 @@ const EditProductPage = () => {
                             const categoryData = await GetCategoryByUid(product?.categoryId);
                             productComplete.linkedTo = categoryData?.name;
                         } else {
-                            console.log("pagesWithProductsCards.filter(page => page?.id == product?.webpagePage)", pagesWithProductsCards.filter(page => page?.id == product?.webpagePage));
                             const pageData = pagesWithProductsCards.filter(page => page?.id == parseInt(product?.webpagePage));
-                            console.log("pageData?.name",pageData[0]?.name);
                             productComplete.linkedTo = pageData[0]?.name;
                         }
                         return productComplete;

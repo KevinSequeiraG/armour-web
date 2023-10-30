@@ -50,6 +50,7 @@
     "success": {
         "user-registered": "Usuario registrado con éxito. Puede iniciar sesión.",
         "account-deleted": "Su cuenta se ha borrado correctamente",
+        "page-deleted": "Su página web se ha eliminado correctamente",
         "user-edited": "Tu perfil ha sido editado exitosamente",
         "password-edited-correctly": "Contraseña editada correctamente",
         "password-email-sended": "Se ha enviado un correo a tu dirección, revisa tu casilla de spam.",
@@ -209,8 +210,12 @@
         "tool-page-content-card-color": "Color de la tarjeta"
     },
     "delete-modal": {
-        "sure": "¿Está seguro que desea eliminar su cuenta?",
-        "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser vista por nadie"
+        "sure": "¿Está seguro de desear eliminar su cuenta?",
+        "alert": "Esto implica que todas tus páginas creadas y tu información no podrá ser mantenida por nadie"
+    },
+    "deleteweb-modal": {
+        "sure": "¿Está seguro de desear eliminar la página web",
+        "alert": "Esto implica que la página web no podrá ser vista por nadie."
     },
     "create-modal": {
         "sure": "¿Terminaste de diseñar tu página web?",

@@ -285,6 +285,7 @@
         "most-consulted-prod": "Producto mas consultado",
         "categories": "Categorías",
         "no-cats": "No hay categorías",
-        "most-consulted-cars": "Categoría mas consultada"
+        "most-consulted-cars": "Categoría mas consultada",
+        "total-redirected-users": "Total de usuarios redirigidos"
     }
 }

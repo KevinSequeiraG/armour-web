@@ -40,8 +40,11 @@ const SalesCartView = (props) => {
                     ))}
                 </ul>
                 <div className="flex justify-center mt-4">
-                    <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer w-[9rem] bg-red-500 border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center py-2 px-4 rounded-xl text-gray-100">
+                    <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer w-[9rem] bg-red-500 border-2 border-gray-100 hover:bg-red-700 text-[1rem] text-center py-2 px-4 rounded-xl text-gray-100">
                         {t("buttons.close")}
+                    </button>
+                    <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer w-[9rem] bg-green-500 border-2 border-gray-100 hover:bg-green-700 text-[1rem] text-center py-2 px-4 rounded-xl text-gray-100">
+                        {t("buttons.confirm")}
                     </button>
                 </div>
             </div>

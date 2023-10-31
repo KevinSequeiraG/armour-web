@@ -36,7 +36,7 @@ const WebPageCard = (props) => {
                 }} as={"/editProducts"}><button className="hover:bg-gray-800 text-white italic bg-black w-[10rem] mx-auto px-1 justify-center py-2 rounded-[10px] my-1 border border-white flex items-center"><BsCart4 className="mr-1" />{t("home.my-products")}</button></Link>
             </div>
             {showShareModal && <ShareWebPage setShowShareModal={setShowShareModal} isOpen={showShareModal} webPageData={props.webpageData} />}
-            {showDeleteModal && <DeleteWebpage setShowDeleteModal={setShowDeleteModal} isOpen={showDeleteModal} webPageData={props.webpageData} />}
+            {showDeleteModal && <DeleteWebpage setShowDeleteModal={setShowDeleteModal} isOpen={showDeleteModal} webPageData={props.webpageData} refreshData={props.refreshData}/>}
         </div>
     )
 }

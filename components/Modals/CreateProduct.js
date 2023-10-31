@@ -53,7 +53,7 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
         const validationsResult = await validateForm()
         if (validationsResult) {
             if (editProduct) {
-                const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected ? categorySelected : "", prize: prize, tax: tax, image: imageSrc, isFromCategory: isFromCategory, webpagePage: pageSelected ? pageSelected?.toString() : "" }
+                const dataToSave = { name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected ? categorySelected : "", prize: prize ? prize : 0, tax: tax ? tax : 0, image: imageSrc, isFromCategory: isFromCategory, webpagePage: pageSelected ? pageSelected?.toString() : "" }
                 EditProductByUid(productToEdit.id, dataToSave).then(() => {
                     toast.success(t("products.crud-edit"));
                     getProducts();
@@ -62,7 +62,7 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                     cleanStates();
                 }).catch((e) => console.log(e))
             } else {
-                SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected ? categorySelected : "", prize: prize, tax: tax, image: imageSrc, isFromCategory: isFromCategory, webpagePage: pageSelected ? pageSelected?.toString() : "", createdAt: new Date() }).then(() => {
+                SaveProduct({ name: name, desc: desc, webpageName: webpageName, categoryId: categorySelected ? categorySelected : "", prize: prize ? prize : 0, tax: tax ? tax : 0, image: imageSrc, isFromCategory: isFromCategory, webpagePage: pageSelected ? pageSelected?.toString() : "", createdAt: new Date() }).then(() => {
                     toast.success(t("products.crud-create"));
                     getProducts();
                     handleShow(false);
@@ -153,7 +153,8 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                             type="number"
                             placeholder={t("products.base-price")}
                             value={prize}
-                            onChange={(e) => setPrize(e.target.value)}
+                            min={0}
+                            onChange={(e) => setPrize(e.target.value < 0 ? 0 : e.target.value)}
                         />
                     </div>
 
@@ -165,9 +166,10 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
                             id="tax"
                             type="number"
+                            min={0}
                             placeholder={t("products.tax")}
                             value={tax}
-                            onChange={(e) => setTax(e.target.value)}
+                            onChange={(e) => setTax(e.target.value < 0 ? 0 : e.target.value)}
                         />
                     </div>
 

@@ -94,7 +94,7 @@ const MypagesDragDrop = (props) => {
 
     if (!formValues || !formValues.email || !formValues.name) return;
 
-    const newPage = { id: pages?.length + 1, name: formValues.name, paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "20%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", google: "", emailRecieve: formValues.email, inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", sections: [], bgImage: "" };
+    const newPage = { id: pages?.length + 1, name: formValues.name, paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "18%", backgroundColor: "#ffffff", isContactPage: true, showSocialMedia: true, fb: "", twitter: "", linkedIn: "", instagram: "", emailRecieve: formValues.email, inputTextColor: "#5e5e5e", buttonTextColor: "#f5f5f5", inputColor: "#f5f5f5", textColor: "#000000", buttonColor: "#00CC88", sections: [], bgImage: "" };
 
     const newSections = [...pages, newPage];
     setPages(newSections);

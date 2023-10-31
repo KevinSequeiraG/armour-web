@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
+import { BsInstagram } from 'react-icons/bs';
 import { FaXTwitter } from 'react-icons/fa6';
-import { FcGoogle } from "react-icons/fc";
 export const ContactUsPreview = (props) => {
 
     const { t } = useTranslation();
@@ -81,8 +81,8 @@ export const ContactUsPreview = (props) => {
                             <p>LinkedIn</p>
                         </div>
                         <div className='flex flex-col items-center space-y-1'>
-                            <FcGoogle className='w-9 h-9' />
-                            <p>Google</p>
+                            <BsInstagram className='w-9 h-9' />
+                            <p>Instagram</p>
                         </div>
                     </div>}
             </div>

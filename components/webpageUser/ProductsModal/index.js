@@ -17,7 +17,7 @@ const ProductsModal = (props) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
-            <div className="relative bg-white rounded-lg p-5 py-[3rem] mx-auto z-50 border border-[.2rem] border-gray-500 overflow-auto max-h-[80vh]">
+            <div className="relative bg-white rounded-lg p-5 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500 overflow-auto max-h-[80vh]">
                 {products.length > 0 ? <div className="flex mdx600:flex-row flex-col gap-4">{products.map((prod) => {
                     return (
                         <>
@@ -25,9 +25,9 @@ const ProductsModal = (props) => {
                         </>
                     )
                 })}
-                </div> : <p>{t("card.no-prods")}</p>}
+                </div> : <p>{props?.isSpanish ? "No hay productos en esta categoría." : "There are no products in this category."}</p>}
                 <div className="flex">
-                    <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{t("buttons.close")}</button>
+                    <button onClick={() => props.handleShow(false)} className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-500 border-2 border-gray-300 hover:bg-red-700 text-[1rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">{props?.isSpanish ? "Cerrar" : "Close"}</button>
                 </div>
             </div>
         </div>

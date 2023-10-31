@@ -81,7 +81,7 @@ export const ContactUs = (props) => {
 
     const redirectToSocialMedia = async (socialMediaSelected) => {
         try {
-            const databaseWebPageRef = doc(database, `admin/data/webpages/${props?.webPageData?.name}`);
+            const databaseWebPageRef = doc(database, `admin/data/webpages/${props?.webPageData?.pageUrl}`);
             await getDoc(databaseWebPageRef).then((doc) => {
                 let webpageData = doc.data();
                 switch (socialMediaSelected) {
@@ -137,7 +137,7 @@ export const ContactUs = (props) => {
                     </div>
 
                     <div className='relative col-span-2 mdx1000:col-span-1'>
-                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Correo" : "Contact us"}</p>
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Correo" : "Email"}</p>
                         <input style={inputStyles} name="email" value={formValues.email} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-400'}`} type="email" placeholder='armour@web.com' />
                         {formError.email && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>

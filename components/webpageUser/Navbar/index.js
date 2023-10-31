@@ -26,6 +26,10 @@ const Navbar = ({ children, webpageData, setCurrentPage }) => {
         borderBottom: "1px solid " + webpageData?.navbar?.color
     }
 
+    const childrenStyles = {
+        height: webpageData?.navbar?.position === "top" && `calc(100vh - ${webpageData?.navbar?.minHeight})`,
+    }
+
     useEffect(() => {
         if (webpageData) {
             let fullArray = []
@@ -69,7 +73,9 @@ const Navbar = ({ children, webpageData, setCurrentPage }) => {
                 )
             }
 
-            {children}
+            <div style={childrenStyles} className="w-full overflow-y-auto scrollbarDesign">
+                {children}
+            </div>
         </div >
     )
 }

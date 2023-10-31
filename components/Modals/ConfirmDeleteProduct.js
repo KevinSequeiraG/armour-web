@@ -1,6 +1,7 @@
 import { DeleteProductByUid } from "@/helpers/products";
 import { useTranslation } from "react-i18next";
 import { AiFillDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const ConfirmDeleteProduct = (props) => {
     if (!props.isOpen) return null;

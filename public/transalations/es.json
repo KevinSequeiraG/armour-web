@@ -63,7 +63,8 @@
         "user-not-edited": "Tu perfil no ha sido editado exitosamente",
         "image-invalid": "El archivo seleccionado no es válido.",
         "password-not-edited-correctly": "No se pudo editar la contraseña correctamente.",
-        "password-email-not-sended": "No se pudo enviar el correo, inténtalo más tarde."
+        "password-email-not-sended": "No se pudo enviar el correo, inténtalo más tarde.",
+        "page-not-found": "¡Página no encontrada!"
     },
     "config": {
         "language": "Lenguaje"

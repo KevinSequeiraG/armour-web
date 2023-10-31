@@ -1,3 +1,4 @@
+import WebpageNotFound from '@/components/Modals/WebpageNotFound';
 import Navbar from '@/components/webpageUser/Navbar';
 import WebpageView from '@/components/webpageUser/WebpageView';
 import { increaseCounterForWebpageVisited } from '@/helpers/reports';
@@ -10,12 +11,17 @@ function Webpage() {
     const { index } = router.query;
     const [webpageData, setWebpageData] = useState();
     const [currentPage, setCurrentPage] = useState(1);
+    const [showPageNotFound, setShowPageNotFound] = useState(false);
 
     useEffect(() => {
         if (index) {
             GetWebpage(index).then((data) => {
-                setWebpageData(data);
-                increaseCounterForWebpageVisited(data.pageUrl)
+                if (data.active) {
+                    setWebpageData(data);
+                    increaseCounterForWebpageVisited(data.pageUrl)
+                } else {
+                    setShowPageNotFound(true);
+                }
             })
         }
     }, [index])
@@ -30,6 +36,7 @@ function Webpage() {
                     </div> */}
                 </Navbar>
             </div> : <div>Cargando...</div>}
+            <WebpageNotFound isOpen={showPageNotFound} />
         </>
     );
 }

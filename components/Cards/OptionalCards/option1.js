@@ -38,11 +38,11 @@ const Option1 = (props) => {
                 {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{parseInt(props?.sectionInfo?.prize) + (parseInt(props?.sectionInfo?.prize) * (parseInt(props?.sectionInfo?.tax) / 100))}</p>}
                 <div style={buttonPosition}>
                     {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) { increaseCounterForCategoryWatched(props?.sectionInfo?.id); setShowProducts(true) } }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
-                        {t("card.see")}
+                        {props?.sectionInfo ? props?.isSpanish ? "Ver" : "See" : t("card.see")}
                     </button> : <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={() => { increaseCounterForProductWatched(props?.sectionInfo?.id); props?.setShowProdQuantity && props?.setShowProdQuantity(true); props?.setProdToAdd && props?.setProdToAdd(props?.sectionInfo) }}><FaShoppingCart /></button>}
                 </div>
             </div>
-            {props?.sectionInfo && <ProductsModal setProdToAdd={props?.setProdToAdd} setShowProdQuantity={props?.setShowProdQuantity} currentPage={props?.currentPage} sectionUid={props?.sectionInfo?.id} data={props?.data} webPageData={props?.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
+            {props?.sectionInfo && <ProductsModal isSpanish={props?.isSpanish} setProdToAdd={props?.setProdToAdd} setShowProdQuantity={props?.setShowProdQuantity} currentPage={props?.currentPage} sectionUid={props?.sectionInfo?.id} data={props?.data} webPageData={props?.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
         </div>
     )
 }

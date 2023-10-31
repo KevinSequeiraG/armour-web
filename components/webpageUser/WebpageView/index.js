@@ -41,7 +41,7 @@ const WebpageView = (props) => {
 
     return (
         <>
-            <div style={styles} className={` flex-1 w-full object-cover overflow-y-auto scrollbarDesign h-screen`}>
+            <div style={styles}>
                 {!props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.isContactPage && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections !== null && props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.length > 0 ? props?.webPageData?.pages?.find(page => page?.id == parseInt(props?.currentPage))?.sections?.map((data, i) => {
                     if (data.type === "image" && data.imageUrl !== null && data.imageUrl !== "") {
                         const styles = {
@@ -76,13 +76,13 @@ const WebpageView = (props) => {
                     } else if (data.type === "card" && data.isCategory) {
                         return (
                             <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
-                                {categories.map((cat,i) => {
+                                {categories.map((cat, i) => {
                                     return (
                                         <div key={i}>
-                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
-                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option1 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option2 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option3 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
+                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(cat.webpagePage))) && <Option4 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={cat} />}
                                         </div>
                                     )
                                 })}
@@ -94,10 +94,10 @@ const WebpageView = (props) => {
                                 {products.map((prod, i) => {
                                     return (
                                         <div key={i}>
-                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
                                         </div>
                                     )
                                 })}
@@ -108,9 +108,9 @@ const WebpageView = (props) => {
                     <ContactUs webPageData={props?.webPageData} currentPage={props?.currentPage} />
                 }
             </div>
-            <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-14 w-14 h-14 flex items-center justify-center right-5"><FaShoppingCart /></button>
-            <SalesCartView isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} />
-            <ProductQuantity salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
+            <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 w-14 h-14 flex items-center justify-center right-5"><FaShoppingCart /></button>
+            <SalesCartView isSpanish={props?.webPageData?.isSpanish} isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} />
+            <ProductQuantity isSpanish={props?.webPageData?.isSpanish} salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
         </>
     )
 }

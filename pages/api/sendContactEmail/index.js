@@ -19,7 +19,9 @@ export default async function handler(req, res) {
                 to: emailToRecieve ? emailToRecieve : "erickvrp25@gmail.com",
                 subject: subject,
                 text: `${name} ${language == "es" ? "te ha enviado un mensaje:" : "has sent you a message:"} 
-                ${message}`,
+                ${message}
+                
+                ${language == "es" ? "Contácto del usuario:" : "User contact:"} ${email}`,
             });
 
             res.status(200).json({ message: 'Correo electrónico enviado con éxito' });

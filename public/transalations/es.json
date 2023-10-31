@@ -286,6 +286,11 @@
         "categories": "Categorías",
         "no-cats": "No hay categorías",
         "most-consulted-cars": "Categoría mas consultada",
-        "total-redirected-users": "Total de usuarios redirigidos"
+        "total-redirected-users": "Total de usuarios redirigidos",
+        "link": "Enlace",
+        "visitors": "Visitantes",
+        "creation-date": "Fecha de Creación",
+        "webpagename": "Nombre de página web",
+        "created-by": "Creada por"
     }
 }

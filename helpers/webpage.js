@@ -17,6 +17,24 @@ export const GetWebpage = async (webpageName) => {
     }
 }
 
+export const getAllWebpages = async () => {
+    try {
+        const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
+        const q = query(collectionRef); // Obtener todos los documentos de la colección
+        const querySnapshot = await getDocs(q); // Obtener el snapshot de la consulta
+
+        const webpages = [];
+        querySnapshot.forEach((doc) => {
+            webpages.push(doc.data());
+        });
+
+        return webpages;
+    } catch (error) {
+        console.error("Error al obtener los documentos:", error);
+        return []; // Devolver un array vacío en caso de error
+    }
+};
+
 export const GetWebpagesByCreatedBy = async (userUid) => {
     try {
         const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección

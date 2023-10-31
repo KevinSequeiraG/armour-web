@@ -1,5 +1,6 @@
 import Navbar from '@/components/webpageUser/Navbar';
 import WebpageView from '@/components/webpageUser/WebpageView';
+import { increaseCounterForWebpageVisited } from '@/helpers/reports';
 import { GetWebpage } from '@/helpers/webpage';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -9,14 +10,12 @@ function Webpage() {
     const { index } = router.query;
     const [webpageData, setWebpageData] = useState();
     const [currentPage, setCurrentPage] = useState(1);
-    // El valor de slug será un array con las partes dinámicas de la URL (por ejemplo, ["ksg", "home"]).
-
-    // Aquí puedes utilizar el valor de slug para cargar la página deseada desde Firebase o tu base de datos.
 
     useEffect(() => {
         if (index) {
             GetWebpage(index).then((data) => {
                 setWebpageData(data);
+                increaseCounterForWebpageVisited(data.pageUrl)
             })
         }
     }, [index])

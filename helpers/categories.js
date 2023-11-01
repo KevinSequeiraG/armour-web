@@ -42,16 +42,23 @@ export const GetCategoriesByWebpage = async (webpageName) => {
 export const GetCategoryByUid = async (uid) => {
     try {
         const categoriesTableRef = doc(database, `admin/data/categories`, uid);
-        return await getDoc(categoriesTableRef).then(category => {
-            return category.data();
-        }).then(() => {
+        const categorySnapshot = await getDoc(categoriesTableRef);
+
+        if (categorySnapshot.exists()) {
+            const categoryData = categorySnapshot.data();
+
             const date = new Date();
             addProcessStatus({ process: "GetCategoryByUid", status: "success", date: date });
-        })
+
+            return categoryData; // Devuelve los datos de la categoría obtenida
+        } else {
+            throw new Error("No existe la categoría con el UID proporcionado");
+        }
     } catch (error) {
         console.error('Error al traer el objeto en Firestore:', error);
         const date = new Date();
-        addProcessStatus({ process: "GetCategoryByUid", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "GetCategoryByUid", status: "error: " + error, date: date });
+        throw error; // Asegúrate de lanzar el error para que se maneje externamente si es necesario.
     }
 }
 

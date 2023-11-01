@@ -110,17 +110,28 @@ const uploadImageInDB = async (file) => {
 };
 
 export const getUserByUid = async (uid) => {
-    const userRef = doc(database, `admin/data/users/${uid}`)
+    try {
+        const userRef = doc(database, `admin/data/users/${uid}`);
+        const userSnapshot = await getDoc(userRef);
 
-    return await getDoc(userRef).then((user) => {
-        return { ...user.data(), uid: user.id };
-    }).then(() => {
+        if (userSnapshot.exists()) {
+            const userData = { ...userSnapshot.data(), uid: userSnapshot.id };
+
+            const date = new Date();
+            addProcessStatus({ process: "getUserByUid", status: "success", date: date });
+
+            return userData;
+        } else {
+            throw new Error("No existe el usuario con el UID proporcionado");
+        }
+    } catch (error) {
+        console.error('Error al obtener el usuario desde Firestore:', error);
+
         const date = new Date();
-        addProcessStatus({ process: "getUserByUid", status: "success", date: date });
-    }).catch((error) => {
-        const date = new Date();
-        addProcessStatus({ process: "getUserByUid", status: ("error:" + error), date: date });
-    })
+        addProcessStatus({ process: "getUserByUid", status: "error: " + error, date: date });
+
+        throw error; // Asegúrate de lanzar el error para que sea manejado externamente si es necesario.
+    }
 }
 
 

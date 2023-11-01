@@ -118,3 +118,25 @@ export const addProcessStatus = async (process) => {
         // Manejar el error de acuerdo a tus requerimientos
     }
 }
+
+export const downloadTableData = async (tableName) => {
+    try {
+        const tableRef = collection(database, `admin/data/${tableName}`);
+        const querySnapshot = await getDocs(tableRef);
+
+        const data = [];
+        querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+        });
+
+        // Convierte los datos en formato JSON
+        const jsonData = JSON.stringify(data);
+
+        // Crea un Blob con los datos y lo descarga como un archivo JSON
+        const blob = new Blob([jsonData], { type: "application/json" });
+        saveAs(blob, `${tableName}.json`);
+    } catch (error) {
+        console.error('Error al descargar la tabla:', error);
+        // Maneja el error según tus necesidades
+    }
+};

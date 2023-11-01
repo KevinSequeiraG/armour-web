@@ -5,72 +5,75 @@ import { addProcessStatus } from "./reports";
 
 export const GetWebpage = async (webpageName) => {
     try {
-        const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
-        const docRef = doc(collectionRef, webpageName); // Construir la referencia al documento
-        const docSnap = await getDoc(docRef).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "GetWebpage", status: "success", date: date });
-        });
+        const collectionRef = collection(database, "admin/data/webpages");
+        const docRef = doc(collectionRef, webpageName);
+        const docSnap = await getDoc(docRef);
 
+        const date = new Date();
         if (docSnap.exists()) {
             const data = docSnap.data();
+            addProcessStatus({ process: "GetWebpage", status: "success", date: date });
             return data;
+        } else {
+            addProcessStatus({ process: "GetWebpage", status: "error: Document does not exist", date: date });
         }
     } catch (error) {
         console.error("Error al obtener el documento:", error);
         const date = new Date();
-        addProcessStatus({ process: "GetWebpage", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "GetWebpage", status: "error: " + error, date: date });
+        throw error; // Asegúrate de lanzar el error para que sea manejado externamente si es necesario.
     }
 }
 
 export const getAllWebpages = async () => {
     try {
-        const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
-        const q = query(collectionRef); // Obtener todos los documentos de la colección
-        const querySnapshot = await getDocs(q).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "getAllWebpages", status: "success", date: date });
-        }); // Obtener el snapshot de la consulta
+        const collectionRef = collection(database, "admin/data/webpages");
+        const querySnapshot = await getDocs(collectionRef);
 
         const webpages = [];
         querySnapshot.forEach((doc) => {
-            webpages.push(doc.data());
+            webpages.push({ ...doc.data(), id: doc.id });
         });
+
+        const date = new Date();
+        addProcessStatus({ process: "getAllWebpages", status: "success", date: date });
 
         return webpages;
     } catch (error) {
         console.error("Error al obtener los documentos:", error);
         const date = new Date();
-        addProcessStatus({ process: "getAllWebpages", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "getAllWebpages", status: "error: " + error, date: date });
         return []; // Devolver un array vacío en caso de error
     }
 };
 
 export const GetWebpagesByCreatedBy = async (userUid) => {
     try {
-        const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
+        const collectionRef = collection(database, "admin/data/webpages");
         const q = query(
             collectionRef,
             where("createdBy", "==", userUid),
             where("active", "==", true),
             orderBy("createdAt", "desc")
-        ); // Construir la referencia al documento
-        return await getDocs(q).then(response => {
-            const resp = []
-            response.docs.map(data => {
-                resp.push(data.data())
-            })
-            return resp;
-        }).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "GetWebpagesByCreatedBy", status: "success", date: date });
-        });
-    } catch (error) {
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        const webpages = querySnapshot.docs.map(doc => doc.data());
+
         const date = new Date();
-        addProcessStatus({ process: "GetWebpagesByCreatedBy", status: ("error:" + error), date: date });
-        console.error("Error al obtener el documento:", error);
+        addProcessStatus({ process: "GetWebpagesByCreatedBy", status: "success", date: date });
+
+        return webpages;
+    } catch (error) {
+        console.error("Error al obtener los documentos:", error);
+
+        const date = new Date();
+        addProcessStatus({ process: "GetWebpagesByCreatedBy", status: "error: " + error, date: date });
+
+        return [];
     }
-}
+};
 
 //Coverts imageUrl to blob
 const uploadImageToFirebaseStorage = async (imageUrl) => {
@@ -147,18 +150,21 @@ export const GetWebpageExists = async (webpageName) => {
     try {
         const collectionRef = collection(database, "admin/data/webpages");
         const docRef = doc(collectionRef, webpageName);
-        const docSnap = await getDoc(docRef).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "GetWebpageExists", status: "success", date: date });
-        });
+        const docSnap = await getDoc(docRef);
 
-        return docSnap.exists()
-    } catch (error) {
         const date = new Date();
-        addProcessStatus({ process: "GetWebpageExists", status: ("error:" + error), date: date });
-        console.error("Error al obtener el documento:", error);
+        addProcessStatus({ process: "GetWebpageExists", status: "success", date: date });
+
+        return docSnap.exists;
+    } catch (error) {
+        console.error("Error al verificar la existencia del documento:", error);
+
+        const date = new Date();
+        addProcessStatus({ process: "GetWebpageExists", status: "error: " + error, date: date });
+
+        return false; // Devolver false en caso de error
     }
-}
+};
 
 export const deleteWebpage = async (uid) => {
     try {

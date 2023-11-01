@@ -23,63 +23,67 @@ export const SaveProduct = async (product) => {
 export const GetProductsByWebpage = async (webpageName) => {
     try {
         const productsTableRef = collection(database, `admin/data/products`);
-        const q = query(productsTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc"))
+        const querySnapshot = await getDocs(query(productsTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc")));
 
-        return await getDocs(q).then(response => {
-            let finalData = []
-            response.docs.map(product => {
-                finalData.push({ ...product.data(), id: product.id })
-            })
-            return finalData;
-        }
-        ).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "GetProductsByWebpage", status: "success", date: date });
-        });
-    } catch (error) {
-        console.error('Error al guardar el objeto en Firestore:', error);
+        const finalData = querySnapshot.docs.map(product => ({ ...product.data(), id: product.id }));
+
         const date = new Date();
-        addProcessStatus({ process: "GetProductsByWebpage", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "GetProductsByWebpage", status: "success", date: date });
+
+        return finalData;
+    } catch (error) {
+        console.error('Error al obtener productos desde Firestore:', error);
+
+        const date = new Date();
+        addProcessStatus({ process: "GetProductsByWebpage", status: "error: " + error, date: date });
+
+        throw error; // Asegúrate de lanzar el error para que sea manejado externamente si es necesario.
     }
 }
 
 export const GetProductsByCatUid = async (uid) => {
     try {
         const productsTableRef = collection(database, `admin/data/products`);
-        const q = query(productsTableRef, where("categoryId", "==", uid))
+        const querySnapshot = await getDocs(query(productsTableRef, where("categoryId", "==", uid)));
 
-        return await getDocs(q).then(response => {
-            let finalData = []
-            response.docs.map(product => {
-                finalData.push({ ...product.data(), id: product.id })
-            })
-            return finalData;
-        }
-        ).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "GetProductsByCatUid", status: "success", date: date });
-        });
-    } catch (error) {
-        console.error('Error al guardar el objeto en Firestore:', error);
+        const finalData = querySnapshot.docs.map(product => ({ ...product.data(), id: product.id }));
+
         const date = new Date();
-        addProcessStatus({ process: "GetProductsByCatUid", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "GetProductsByCatUid", status: "success", date: date });
+
+        return finalData;
+    } catch (error) {
+        console.error('Error al obtener productos por categoría desde Firestore:', error);
+
+        const date = new Date();
+        addProcessStatus({ process: "GetProductsByCatUid", status: "error: " + error, date: date });
+
+        throw error; // Asegúrate de lanzar el error para que sea manejado externamente si es necesario.
     }
 }
 
 export const GetProductByUid = async (uid) => {
     try {
         const productsTableRef = doc(database, `admin/data/products`, uid);
-        return await getDoc(productsTableRef).then(response => {
-            return response.data()
-        }
-        ).then(() => {
+        const productSnapshot = await getDoc(productsTableRef);
+
+        if (productSnapshot.exists()) {
+            const productData = productSnapshot.data();
+
             const date = new Date();
             addProcessStatus({ process: "GetProductByUid", status: "success", date: date });
-        });
+
+            return productData;
+        } else {
+            throw new Error("No existe el producto con el UID proporcionado");
+        }
     } catch (error) {
-        console.error('Error al guardar el objeto en Firestore:', error);
+        console.error('Error al obtener el producto desde Firestore:', error);
+
         const date = new Date();
-        addProcessStatus({ process: "GetProductByUid", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "GetProductByUid", status: "error: " + error, date: date });
+
+        throw error; // Asegúrate de lanzar el error para que sea manejado externamente si es necesario.
     }
 }
 

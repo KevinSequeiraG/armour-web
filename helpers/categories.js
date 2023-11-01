@@ -1,6 +1,7 @@
 import { database } from "@/lib/firebaseConfig";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { addProcessStatus } from "./reports";
 
 export const SaveCategory = async (category) => {
     try {
@@ -8,27 +9,33 @@ export const SaveCategory = async (category) => {
         const categoriesTableRef = collection(database, `admin/data/categories`);
 
         const catToSave = { ...category, image: imageUrl }
-        await addDoc(categoriesTableRef, catToSave)
+        await addDoc(categoriesTableRef, catToSave).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "SaveCategory", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "SaveCategory", status: ("error:" + error), date: date });
     }
 }
 
 export const GetCategoriesByWebpage = async (webpageName) => {
     try {
         const categoriesTableRef = collection(database, `admin/data/categories`);
-        const q = query(categoriesTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc"))
+        const q = query(categoriesTableRef, where("webpageName", "==", webpageName), orderBy("createdAt", "desc"));
 
-        return await getDocs(q).then(response => {
-            let finalData = []
-            response.docs.map(category => {
-                finalData.push({ ...category.data(), id: category.id })
-            })
-            return finalData;
-        }
-        );
+        const response = await getDocs(q);
+        const finalData = response.docs.map(category => ({ ...category.data(), id: category.id }));
+        console.log("finalData", finalData);
+
+        const date = new Date();
+        addProcessStatus({ process: "GetCategoriesByWebpage", status: "success", date: date });
+        return finalData;
     } catch (error) {
-        console.error('Error al guardar el objeto en Firestore:', error);
+        console.error('Error al obtener categorías desde Firestore:', error);
+        addProcessStatus({ process: "GetCategoriesByWebpage", status: ("error:" + error), date: date });
+        throw error;
     }
 }
 
@@ -37,9 +44,14 @@ export const GetCategoryByUid = async (uid) => {
         const categoriesTableRef = doc(database, `admin/data/categories`, uid);
         return await getDoc(categoriesTableRef).then(category => {
             return category.data();
+        }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetCategoryByUid", status: "success", date: date });
         })
     } catch (error) {
         console.error('Error al traer el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "GetCategoryByUid", status: ("error:" + error), date: date });
     }
 }
 
@@ -50,18 +62,28 @@ export const EditCategoryByUid = async (uid, data) => {
             const imageUrl = data?.image ? await uploadImageToFirebaseStorage(data?.image) : ""
             data.image = imageUrl
         }
-        await setDoc(categoriesTableRef, data, { merge: true })
+        await setDoc(categoriesTableRef, data, { merge: true }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "EditCategoryByUid", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "EditCategoryByUid", status: ("error:" + error), date: date });
     }
 }
 
 export const DeleteCategoryByUid = async (uid) => {
     try {
         const categoriesTableRef = doc(database, `admin/data/categories`, uid);
-        await deleteDoc(categoriesTableRef)
+        await deleteDoc(categoriesTableRef).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "DeleteCategoryByUid", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "DeleteCategoryByUid", status: ("error:" + error), date: date });
     }
 }
 

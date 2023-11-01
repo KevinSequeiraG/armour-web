@@ -1,7 +1,7 @@
-const { GetCategoryByUid } = require("./categories");
-const { GetProductByUid } = require("./products");
+import GetCategoryByUid from "./categories";
+import GetProductByUid from "./products";
 import { database } from "@/lib/firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { GetWebpage } from "./webpage";
 
 export const increaseCounterForProductWatched = async (productUid) => {
@@ -9,10 +9,15 @@ export const increaseCounterForProductWatched = async (productUid) => {
         await GetProductByUid(productUid).then(async (product) => {
             const productsTableRef = doc(database, `admin/data/products`, productUid);
             const newCounter = product.watchedCounter ? (parseInt(product.watchedCounter) + 1) : 1
-            await setDoc(productsTableRef, { watchedCounter: newCounter }, { merge: true })
+            await setDoc(productsTableRef, { watchedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "increaseCounterForProductWatched", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "increaseCounterForProductWatched", status: ("error:" + error), date: date });
     }
 };
 
@@ -21,10 +26,15 @@ export const decreaseCounterForProductWatched = async (productUid) => {
         await GetProductByUid(productUid).then(async (product) => {
             const productsTableRef = doc(database, `admin/data/products`, productUid);
             const newCounter = product.watchedCounter ? (parseInt(product.watchedCounter) - 1) : 1
-            await setDoc(productsTableRef, { watchedCounter: newCounter }, { merge: true })
+            await setDoc(productsTableRef, { watchedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "decreaseCounterForProductWatched", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "decreaseCounterForProductWatched", status: ("error:" + error), date: date });
     }
 }
 
@@ -33,10 +43,15 @@ export const increaseCounterForCategoryWatched = async (categoryUid) => {
         await GetCategoryByUid(categoryUid).then(async (category) => {
             const categoryTableRef = doc(database, `admin/data/categories`, categoryUid);
             const newCounter = category.watchedCounter ? (parseInt(category.watchedCounter) + 1) : 1
-            await setDoc(categoryTableRef, { watchedCounter: newCounter }, { merge: true })
+            await setDoc(categoryTableRef, { watchedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "increaseCounterForCategoryWatched", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "increaseCounterForCategoryWatched", status: ("error:" + error), date: date });
     }
 }
 
@@ -45,10 +60,15 @@ export const decreaseCounterForCategoryWatched = async (categoryUid) => {
         await GetCategoryByUid(categoryUid).then(async (category) => {
             const categoryTableRef = doc(database, `admin/data/categories`, categoryUid);
             const newCounter = category.watchedCounter ? (parseInt(category.watchedCounter) - 1) : 1
-            await setDoc(categoryTableRef, { watchedCounter: newCounter }, { merge: true })
+            await setDoc(categoryTableRef, { watchedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "decreaseCounterForCategoryWatched", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "decreaseCounterForCategoryWatched", status: ("error:" + error), date: date });
     }
 }
 
@@ -57,10 +77,15 @@ export const increaseCounterForWebpageVisited = async (webpageName) => {
         await GetWebpage(webpageName).then(async (webpage) => {
             const webpageTableRef = doc(database, `admin/data/webpages`, webpageName);
             const newCounter = webpage.visitedCounter ? (parseInt(webpage.visitedCounter) + 1) : 1
-            await setDoc(webpageTableRef, { visitedCounter: newCounter }, { merge: true })
+            await setDoc(webpageTableRef, { visitedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "increaseCounterForWebpageVisited", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "increaseCounterForWebpageVisited", status: ("error:" + error), date: date });
     }
 }
 
@@ -69,9 +94,27 @@ export const decreaseCounterForWebpageVisited = async (webpageName) => {
         await GetWebpage(webpageName).then(async (webpage) => {
             const webpageTableRef = doc(database, `admin/data/webpages`, webpageName);
             const newCounter = webpage.visitedCounter ? (parseInt(webpage.visitedCounter) - 1) : 1
-            await setDoc(webpageTableRef, { visitedCounter: newCounter }, { merge: true })
+            await setDoc(webpageTableRef, { visitedCounter: newCounter }, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "decreaseCounterForWebpageVisited", status: "success", date: date });
+            })
         })
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "decreaseCounterForWebpageVisited", status: ("error:" + error), date: date });
+    }
+}
+
+export const addProcessStatus = async (process) => {
+    try {
+        const loggeUserUid = window.localStorage.getItem("memory_lu");
+        const dataToSave = { ...process, userUid: loggeUserUid }
+        const processesCollectionRef = collection(database, 'admin/data/processes');
+        await addDoc(processesCollectionRef, dataToSave);
+        console.log("Documento agregado correctamente a la colección 'processes'.");
+    } catch (error) {
+        console.error('Error al agregar el documento a Firestore:', error);
+        // Manejar el error de acuerdo a tus requerimientos
     }
 }

@@ -34,7 +34,7 @@ export default function Login() {
         if (validateForm()) {
             try {
                 await Login(loginFormValues.email, loginFormValues.password).then(async (user) => {
-                    
+
                     await UpdateUser(user.user.uid).then(() => {
                         if (rememberMeChecked) {
                             localStorage.setItem("rememberMe", JSON.stringify(rememberMeChecked));
@@ -44,8 +44,9 @@ export default function Login() {
                             localStorage.removeItem("rememberMeEmail");
                         }
                         if (user.user.emailVerified) {
+                            window.localStorage.setItem("memory_lu", user.user.uid)
                             router.push('/home');
-                        }else{
+                        } else {
                             router.push('/emailNoVerified');
                         }
                     })
@@ -117,7 +118,7 @@ export default function Login() {
                         </div>
 
                         <button type="submit" className='loginButton'>{t("login.log-in")}</button>
-                        <p onClick={() => { router.push("sendEmailPassword")}} className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
+                        <p onClick={() => { router.push("sendEmailPassword") }} className='text-white font-medium text-xs pt-14 text-center cursor-pointer'>{t("login.forgot-password")}</p>
                     </form>
                     <div className="signup">
                         <RegisterForm />

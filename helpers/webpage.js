@@ -1,12 +1,16 @@
 import { database } from "@/lib/firebaseConfig";
 import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { addProcessStatus } from "./reports";
 
 export const GetWebpage = async (webpageName) => {
     try {
         const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
         const docRef = doc(collectionRef, webpageName); // Construir la referencia al documento
-        const docSnap = await getDoc(docRef);
+        const docSnap = await getDoc(docRef).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetWebpage", status: "success", date: date });
+        });
 
         if (docSnap.exists()) {
             const data = docSnap.data();
@@ -14,6 +18,8 @@ export const GetWebpage = async (webpageName) => {
         }
     } catch (error) {
         console.error("Error al obtener el documento:", error);
+        const date = new Date();
+        addProcessStatus({ process: "GetWebpage", status: ("error:" + error), date: date });
     }
 }
 
@@ -21,7 +27,10 @@ export const getAllWebpages = async () => {
     try {
         const collectionRef = collection(database, "admin/data/webpages"); // Obtener una referencia a la colección
         const q = query(collectionRef); // Obtener todos los documentos de la colección
-        const querySnapshot = await getDocs(q); // Obtener el snapshot de la consulta
+        const querySnapshot = await getDocs(q).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "getAllWebpages", status: "success", date: date });
+        }); // Obtener el snapshot de la consulta
 
         const webpages = [];
         querySnapshot.forEach((doc) => {
@@ -31,6 +40,8 @@ export const getAllWebpages = async () => {
         return webpages;
     } catch (error) {
         console.error("Error al obtener los documentos:", error);
+        const date = new Date();
+        addProcessStatus({ process: "getAllWebpages", status: ("error:" + error), date: date });
         return []; // Devolver un array vacío en caso de error
     }
 };
@@ -50,8 +61,13 @@ export const GetWebpagesByCreatedBy = async (userUid) => {
                 resp.push(data.data())
             })
             return resp;
+        }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetWebpagesByCreatedBy", status: "success", date: date });
         });
     } catch (error) {
+        const date = new Date();
+        addProcessStatus({ process: "GetWebpagesByCreatedBy", status: ("error:" + error), date: date });
         console.error("Error al obtener el documento:", error);
     }
 }
@@ -116,8 +132,13 @@ export const SaveWebPage = async (webPageData, loggedUserUid) => {
         const usersTableRef = doc(database, `admin/data/webpages/${webPageData?.pageUrl}`);
         await setDoc(usersTableRef, updatedWebPageData, { merge: true }).then(async () => {
             console.log("listo")
+        }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "SaveWebPage", status: "success", date: date });
         });
     } catch (error) {
+        const date = new Date();
+        addProcessStatus({ process: "SaveWebPage", status: ("error:" + error), date: date });
         console.error('Error al guardar el objeto en Firestore:', error);
     }
 };
@@ -126,10 +147,15 @@ export const GetWebpageExists = async (webpageName) => {
     try {
         const collectionRef = collection(database, "admin/data/webpages");
         const docRef = doc(collectionRef, webpageName);
-        const docSnap = await getDoc(docRef);
+        const docSnap = await getDoc(docRef).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetWebpageExists", status: "success", date: date });
+        });
 
         return docSnap.exists()
     } catch (error) {
+        const date = new Date();
+        addProcessStatus({ process: "GetWebpageExists", status: ("error:" + error), date: date });
         console.error("Error al obtener el documento:", error);
     }
 }
@@ -140,8 +166,13 @@ export const deleteWebpage = async (uid) => {
 
         const updatedData = { active: false };
 
-        await setDoc(userDocRef, updatedData, { merge: true });
+        await setDoc(userDocRef, updatedData, { merge: true }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "deleteWebpage", status: "success", date: date });
+        });
     } catch (error) {
+        const date = new Date();
+        addProcessStatus({ process: "deleteWebpage", status: ("error:" + error), date: date });
         console.error("Error al actualizar los datos del usuario:", error);
     }
 }

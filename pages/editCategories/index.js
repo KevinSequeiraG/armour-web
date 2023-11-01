@@ -27,9 +27,9 @@ const EditCategoryPage = () => {
     const getCategories = () => {
         const fetchCategories = async () => {
             try {
-                await GetCategoriesByWebpage(webpageName).then(categories => {
-                    setCategories(categories)
-                })
+                const categories = await GetCategoriesByWebpage(webpageName);
+                console.log(categories);
+                setCategories(categories);
             } catch (error) {
                 console.error('Error al cargar categorias:', error);
             }

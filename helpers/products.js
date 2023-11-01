@@ -1,6 +1,7 @@
 import { database } from "@/lib/firebaseConfig";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { addProcessStatus } from "./reports";
 
 export const SaveProduct = async (product) => {
     try {
@@ -8,9 +9,14 @@ export const SaveProduct = async (product) => {
         const productsTableRef = collection(database, `admin/data/products`);
 
         const catToSave = { ...product, image: imageUrl }
-        await addDoc(productsTableRef, catToSave)
+        await addDoc(productsTableRef, catToSave).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "SaveProduct", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "SaveProduct", status: ("error:" + error), date: date });
     }
 }
 
@@ -26,9 +32,14 @@ export const GetProductsByWebpage = async (webpageName) => {
             })
             return finalData;
         }
-        );
+        ).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetProductsByWebpage", status: "success", date: date });
+        });
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "GetProductsByWebpage", status: ("error:" + error), date: date });
     }
 }
 
@@ -44,9 +55,14 @@ export const GetProductsByCatUid = async (uid) => {
             })
             return finalData;
         }
-        );
+        ).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetProductsByCatUid", status: "success", date: date });
+        });
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "GetProductsByCatUid", status: ("error:" + error), date: date });
     }
 }
 
@@ -56,9 +72,14 @@ export const GetProductByUid = async (uid) => {
         return await getDoc(productsTableRef).then(response => {
             return response.data()
         }
-        );
+        ).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "GetProductByUid", status: "success", date: date });
+        });
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "GetProductByUid", status: ("error:" + error), date: date });
     }
 }
 
@@ -69,18 +90,28 @@ export const EditProductByUid = async (uid, data) => {
             const imageUrl = data?.image ? await uploadImageToFirebaseStorage(data.image) : ""
             data.image = imageUrl
         }
-        await setDoc(productsTableRef, data, { merge: true })
+        await setDoc(productsTableRef, data, { merge: true }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "EditProductByUid", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "EditProductByUid", status: ("error:" + error), date: date });
     }
 }
 
 export const DeleteProductByUid = async (uid) => {
     try {
         const productsTableRef = doc(database, `admin/data/products`, uid);
-        await deleteDoc(productsTableRef)
+        await deleteDoc(productsTableRef).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "DeleteProductByUid", status: "success", date: date });
+        })
     } catch (error) {
         console.error('Error al guardar el objeto en Firestore:', error);
+        const date = new Date();
+        addProcessStatus({ process: "DeleteProductByUid", status: ("error:" + error), date: date });
     }
 }
 

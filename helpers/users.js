@@ -2,6 +2,7 @@ import { auth, database, storage } from "@/lib/firebaseConfig";
 import { applyActionCode, confirmPasswordReset, sendPasswordResetEmail } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { addProcessStatus } from "./reports";
 
 export const userAlreadyExists = async (email) => {
     let exists = false;
@@ -26,10 +27,15 @@ export const userAlreadyExists = async (email) => {
                     userRecord = {};
                     return { userUid: null, userExist: false };
                 }
+            }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "userAlreadyExists", status: "success", date: date });
             })
         return { userUid: userRecord, userExist: exists };
     } catch (error) {
         console.error("User no exist");
+        const date = new Date();
+        addProcessStatus({ process: "userAlreadyExists", status: ("error:" + error), date: date });
     }
 };
 
@@ -71,6 +77,9 @@ export const createUserFromLogin = async (newUser) => {
                 // localStorage.setItem("mainEmail", mainEmail);
                 // localStorage.setItem("identification", identification);
                 // router.push("/preguntas");
+            }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "createUserFromLogin", status: "success", date: date });
             });
             return;
         } else {
@@ -79,16 +88,23 @@ export const createUserFromLogin = async (newUser) => {
         return;
     }).catch((er) => {
         console.log(er);
+        const date = new Date();
+        addProcessStatus({ process: "createUserFromLogin", status: ("error:" + error), date: date });
     });
 }
 const uploadImageInDB = async (file) => {
     try {
         const storageRef = ref(storage, "images/" + file.name);
         await uploadBytes(storageRef, file);
-        const downloadURL = await getDownloadURL(storageRef);
+        const downloadURL = await getDownloadURL(storageRef).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "uploadImageInDB", status: "success", date: date });
+        });
         return downloadURL;
     } catch (error) {
         console.error(error);
+        const date = new Date();
+        addProcessStatus({ process: "uploadImageInDB", status: ("error:" + error), date: date });
         return null;
     }
 };
@@ -98,6 +114,12 @@ export const getUserByUid = async (uid) => {
 
     return await getDoc(userRef).then((user) => {
         return { ...user.data(), uid: user.id };
+    }).then(() => {
+        const date = new Date();
+        addProcessStatus({ process: "getUserByUid", status: "success", date: date });
+    }).catch((error) => {
+        const date = new Date();
+        addProcessStatus({ process: "getUserByUid", status: ("error:" + error), date: date });
     })
 }
 
@@ -121,7 +143,10 @@ export const updateUserData = async (user) => {
             };
 
             // Actualiza los datos del usuario en Firestore con merge: true
-            await setDoc(userDocRef, updatedData, { merge: true });
+            await setDoc(userDocRef, updatedData, { merge: true }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "updateUserData", status: "success", date: date });
+            });
 
         }
         if (typeof user.imageProfileUrl === 'object') {
@@ -139,8 +164,14 @@ export const updateUserData = async (user) => {
                 };
 
                 // Actualiza los datos del usuario en Firestore con merge: true
-                await setDoc(userDocRef, updatedData, { merge: true });
+                await setDoc(userDocRef, updatedData, { merge: true }).then(() => {
+                    const date = new Date();
+                    addProcessStatus({ process: "updateUserData", status: "success", date: date });
+                });;
 
+            }).then(() => {
+                const date = new Date();
+                addProcessStatus({ process: "updateUserData", status: "success", date: date });
             });
         }
 
@@ -149,6 +180,8 @@ export const updateUserData = async (user) => {
 
     } catch (error) {
         console.error("Error al actualizar los datos del usuario:", error);
+        const date = new Date();
+        addProcessStatus({ process: "updateUserData", status: ("error:" + error), date: date });
     }
 }
 
@@ -163,9 +196,14 @@ export const deleteMyAccount = async (uid) => {
         };
 
         // Actualiza los datos del usuario en Firestore con merge: true
-        await setDoc(userDocRef, updatedData, { merge: true });
+        await setDoc(userDocRef, updatedData, { merge: true }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "deleteMyAccount", status: "success", date: date });
+        });
     } catch (error) {
         console.error("Error al actualizar los datos del usuario:", error);
+        const date = new Date();
+        addProcessStatus({ process: "deleteMyAccount", status: ("error:" + error), date: date });
     }
 }
 
@@ -176,16 +214,26 @@ export const sendResetEmailPassword = async (email) => {
             url: "http://localhost:5050/",
             handleCodeInApp: false,
         };
-        await sendPasswordResetEmail(auth, email, actionCodeSettings);
+        await sendPasswordResetEmail(auth, email, actionCodeSettings).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "sendResetEmailPassword", status: "success", date: date });
+        });
     } catch (error) {
         console.log(error);
+        const date = new Date();
+        addProcessStatus({ process: "sendResetEmailPassword", status: ("error:" + error), date: date });
     }
 }
 
 export const resetPassword = async (oobCode, newPassword) => {
     try {
-        await confirmPasswordReset(auth, oobCode, newPassword)
+        await confirmPasswordReset(auth, oobCode, newPassword).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "resetPassword", status: "success", date: date });
+        })
     } catch (error) {
+        const date = new Date();
+        addProcessStatus({ process: "resetPassword", status: ("error:" + error), date: date });
         throw new Error("Error al confirmar el restablecimiento de contraseña. " + error.message);
     }
 }
@@ -212,7 +260,13 @@ export const updateEmailVerified = async (userUid) => {
                 exists = false;
                 return false;
             }
+        }).then(() => {
+            const date = new Date();
+            addProcessStatus({ process: "updateEmailVerified", status: "success", date: date });
         })
-        .catch();
+        .catch((error) => {
+            const date = new Date();
+            addProcessStatus({ process: "updateEmailVerified", status: ("error:" + error), date: date });
+        });
     return exists;
 };

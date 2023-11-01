@@ -37,7 +37,7 @@ const Option3 = (props) => {
             <div className="p-8 w-1/2">
                 <h2 style={titleStyles} className="text-lg font-semibold">{(props?.sectionInfo && props?.sectionInfo?.name) ? props?.sectionInfo?.name : t("card.title")}</h2>
                 <p style={descStyles} className="pt-1">{(props?.sectionInfo && props?.sectionInfo?.desc) ? props?.sectionInfo?.desc : t("card.desc")}</p>
-                {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{parseInt(props?.sectionInfo?.prize) + (parseInt(props?.sectionInfo?.prize) * (parseInt(props?.sectionInfo?.tax) / 100))}</p>}
+                {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{parseFloat(props?.sectionInfo?.prize) + (parseFloat(props?.sectionInfo?.prize) * (parseFloat(props?.sectionInfo?.tax) / 100))}</p>}
                 <div style={buttonPosition}>
                     {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) { setShowProducts(true); increaseCounterForCategoryWatched(props?.sectionInfo?.id) } }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
                         {props?.sectionInfo ? props.isSpanish ? "Ver" : "See" : t("card.see")}
@@ -45,7 +45,7 @@ const Option3 = (props) => {
                 </div>
             </div>
             <img src={(props?.sectionInfo && props?.sectionInfo?.image) ? props?.sectionInfo?.image : '/images/awLogo.png'} alt={props?.sectionInfo && props?.sectionInfo?.name} className="w-1/2 min-h-full object-cover" />
-            {props?.sectionInfo && <ProductsModal isSpanish={props?.isSpanish} setProdToAdd={props?.setProdToAdd} setShowProdQuantity={props?.setShowProdQuantity} currentPage={props?.currentPage} sectionUid={props?.sectionInfo?.id} data={props?.data} webPageData={props?.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
+            {props?.sectionInfo && <ProductsModal sectionInfo={props?.sectionInfo} isSpanish={props?.isSpanish} setProdToAdd={props?.setProdToAdd} setShowProdQuantity={props?.setShowProdQuantity} currentPage={props?.currentPage} sectionUid={props?.sectionInfo?.id} data={props?.data} webPageData={props?.webPageData} isOpen={showProducts} handleShow={setShowProducts} />}
         </div>
     )
 }

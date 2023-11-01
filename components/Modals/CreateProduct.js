@@ -160,7 +160,7 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
 
                     <div>
                         <label className="text-gray-700 font-bold mb-2 flex" htmlFor="tax">
-                            {t("products.tax")}
+                            {t("products.tax")} (%)
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
@@ -169,7 +169,7 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                             min={0}
                             placeholder={t("products.tax")}
                             value={tax}
-                            onChange={(e) => setTax(e.target.value < 0 ? 0 : e.target.value)}
+                            onChange={(e) => setTax(e.target.value)}
                         />
                     </div>
 

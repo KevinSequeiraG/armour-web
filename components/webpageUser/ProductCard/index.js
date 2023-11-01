@@ -30,55 +30,55 @@ const ProductCard = (props) => {
     return (
         <>
 
-            {props?.data?.cardSelected === "card1" && <div style={cardStyles} className="w-[15rem] mx-4 bg-white rounded-xl shadow-md overflow-hidden">
-                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-full" />
-                <div className="px-6 py-4 h-full">
-                    <h2 style={titleStyles} className="text-xl font-semibold">{props.sectionInfo.name ? props.sectionInfo.name :  t("card.title")}</h2>
-                    <p style={descStyles} className="text-gray-500 text-base">{props.sectionInfo.desc ? props.sectionInfo.desc : t("card.desc")}</p>
-                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
+            {props?.data?.cardSelected === "card1" && <div style={cardStyles} className="w-full h-auto mdx600:w-[14rem] rounded-[10px] shadow-md overflow-hidden flex flex-col border">
+                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-full min-h-[9rem] max-h-36 object-cover" />
+                <div className="px-4 py-3">
+                    <h2 style={titleStyles} className="text-lg font-semibold">{props.sectionInfo.name ? props.sectionInfo.name :  t("card.title")}</h2>
+                    <p style={descStyles} className="pt-1">{props.sectionInfo.desc ? props.sectionInfo.desc : t("card.desc")}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{(parseFloat(props.sectionInfo.prize) + (parseFloat(props.sectionInfo.prize) * (parseFloat(props.sectionInfo.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
             </div>}
 
-            {props?.data?.cardSelected === "card2" && <div style={cardStyles} className="h-auto w-[36rem] flex mx-4 bg-white rounded-xl shadow-md overflow-hidden flex">
+            {props?.data?.cardSelected === "card2" && <div style={cardStyles} className="w-full h-auto mdx600:w-[36rem] rounded-[10px] shadow-md border overflow-hidden flex">
                 {/* <div className="md:flex-shrink-0 w-1/2"> */}
-                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="object-cover object-center w-1/2" />
+                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-1/2 min-h-full object-cover" />
                 {/* </div> */}
-                <div className="p-8 full">
-                    <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
-                    <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
-                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
-                    <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
-                    </div>
-                </div>
-            </div>}
-
-            {props?.data?.cardSelected === "card3" && <div style={cardStyles} className="h-auto w-[36rem] mx-4 bg-white rounded-xl shadow-md overflow-hidden flex">
                 <div className="p-8 w-1/2">
-                    <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
-                    <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
-                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
+                    <h2 style={titleStyles} className="text-lg font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
+                    <p style={descStyles} className="pt-1">{props.data.desc ? props.data.desc : t("card.desc")}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{(parseFloat(props.sectionInfo.prize) + (parseFloat(props.sectionInfo.prize) * (parseFloat(props.sectionInfo.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
-                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="object-cover object-center w-1/2" />
             </div>}
 
-            {props?.data?.cardSelected === "card4" && <div style={cardStyles} className="w-[15rem] mx-4 bg-white rounded-xl shadow-md overflow-hidden md:flex">
-                <div className="p-8">
-                    <h2 style={titleStyles} className="text-xl font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
-                    <p style={descStyles} className="text-gray-500 text-base">{props.data.desc ? props.data.desc : t("card.desc")}</p>
-                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{parseInt(props.sectionInfo.prize) + (parseInt(props.sectionInfo.prize) * (parseInt(props.sectionInfo.tax) / 100))}</p>}
+            {props?.data?.cardSelected === "card3" && <div style={cardStyles} className="w-full h-auto mdx600:w-[36rem] rounded-[10px] shadow-md border overflow-hidden flex">
+                <div className="p-8 w-1/2">
+                    <h2 style={titleStyles} className="text-lg font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
+                    <p style={descStyles} className="pt-1">{props.data.desc ? props.data.desc : t("card.desc")}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{(parseFloat(props.sectionInfo.prize) + (parseFloat(props.sectionInfo.prize) * (parseFloat(props.sectionInfo.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
                     <div style={buttonPosition}>
-                        <button style={buttonStyles} className={`mt-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                        <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
+                    </div>
+                </div>
+                <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-1/2 min-h-full object-cover" />
+            </div>}
+
+            {props?.data?.cardSelected === "card4" && <div style={cardStyles} className="w-full h-auto mdx600:w-[14rem] rounded-[10px] shadow-md overflow-hidden flex flex-col border">
+                <div className="px-4 py-3">
+                    <h2 style={titleStyles} className="text-lg font-semibold">{props.data.name ? props.data.name :  t("card.title")}</h2>
+                    <p style={descStyles} className="pt-1">{props.data.desc ? props.data.desc : t("card.desc")}</p>
+                    {((props.data) && props.sectionInfo) && <p style={descStyles}>₡{(parseFloat(props.sectionInfo.prize) + (parseFloat(props.sectionInfo.prize) * (parseFloat(props.sectionInfo.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>}
+                    <div style={buttonPosition}>
+                        <button style={buttonStyles} className={`mt-4 font-semibold py-2 px-4 rounded-[10px]`} onClick={()=>{props.setShowProdQuantity(true); increaseCounterForProductWatched(props?.sectionInfo?.id); props.setProdToAdd(props.sectionInfo)}}><FaShoppingCart /></button>
                     </div>
                 </div>
                 <div className="md:flex-shrink-0">
-                    <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-full h-full object-cover object-center" />
+                    <img src={props.sectionInfo.image ? props.sectionInfo.image : '/images/awLogo.png'} alt={props.sectionInfo.name} className="w-full min-h-[9rem] max-h-36 object-cover" />
                 </div>
             </div>}
         </>

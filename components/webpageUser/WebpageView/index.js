@@ -109,7 +109,7 @@ const WebpageView = (props) => {
                 }
             </div>
             <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 w-14 h-14 flex items-center justify-center right-5"><FaShoppingCart /></button>
-            <SalesCartView isSpanish={props?.webPageData?.isSpanish} isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} />
+            <SalesCartView isSpanish={props?.webPageData?.isSpanish} isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} webPageData={props?.webPageData}/>
             <ProductQuantity isSpanish={props?.webPageData?.isSpanish} salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
         </>
     )

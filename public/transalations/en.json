@@ -292,6 +292,12 @@
         "visitors": "Visitors",
         "creation-date": "Creation date",
         "webpagename": "Webpage name",
-        "created-by": "Create by"
+        "created-by": "Create by",
+        "download-data": "Download database information",
+        "download-categories": "Download categories data",
+        "download-processes": "Download processes data",
+        "download-products": "Download products data",
+        "download-users": "Download users data",
+        "download-webpages": "Download web pages data"
     }
 }

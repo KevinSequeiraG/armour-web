@@ -292,6 +292,12 @@
         "visitors": "Visitantes",
         "creation-date": "Fecha de Creación",
         "webpagename": "Nombre de página web",
-        "created-by": "Creada por"
+        "created-by": "Creada por",
+        "download-data": "Descargar información de base de datos",
+        "download-categories": "Descargar información categorías",
+        "download-processes": "Descargar información procesos",
+        "download-products": "Descargar información productos",
+        "download-users": "Descargar información usuarios",
+        "download-webpages": "Descargar información páginas web"
     }
 }

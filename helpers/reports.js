@@ -1,8 +1,9 @@
 import GetCategoryByUid from "./categories";
 import GetProductByUid from "./products";
 import { database } from "@/lib/firebaseConfig";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { GetWebpage } from "./webpage";
+import { saveAs } from 'file-saver';
 
 export const increaseCounterForProductWatched = async (productUid) => {
     try {

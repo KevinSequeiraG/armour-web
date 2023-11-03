@@ -147,9 +147,9 @@ const EditProductPage = () => {
                                     <td className="p-2 border border-gray-300">
                                         <img className="max-w-[4rem] mx-auto" src={product?.image ? product?.image : '/images/awLogo-nobg.png'} alt="Product Image" />
                                     </td>
-                                    <td className="p-2 border border-gray-300">	₡{product?.prize}</td>
+                                    <td className="p-2 border border-gray-300">	₡{product?.prize.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                     <td className="p-2 border border-gray-300">{product?.tax}%</td>
-                                    <td className="p-2 border border-gray-300">₡{parseFloat(product?.prize) + (parseFloat(product?.prize) * (parseFloat(product?.tax) / 100))}</td>
+                                    <td className="p-2 border border-gray-300">₡{(parseFloat(product?.prize) + (parseFloat(product?.prize) * (parseFloat(product?.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                     <td className="p-2 border border-gray-300">{product?.linkedTo}</td>
                                     <td className="p-2 border border-gray-300">
                                         <button

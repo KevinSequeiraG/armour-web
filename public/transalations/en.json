@@ -155,7 +155,8 @@
         "no-data": "No products",
         "crud-create": "Product created successfully",
         "crud-edit": "Product edited successfully",
-        "crud-delete": "Product deleted successfully"
+        "crud-delete": "Product deleted successfully",
+        "tooltip_tax": "Integer value equivalent to percentage % (example: 10)"
     },
     "page-builder": {
         "new-page": "New page",

@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import { EditProductByUid, SaveProduct } from "@/helpers/products";
 import Switch from 'react-switch';
 import { BsCart4 } from "react-icons/bs";
+import { Tooltip } from "react-tooltip";
+import { BiSolidInfoCircle } from "react-icons/bi";
 
 const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpageName, getProducts, pagesWithProductsCards, setPageSelected, pageSelected }) => {
     if (!isOpen) return null;
@@ -159,9 +161,13 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                     </div>
 
                     <div>
-                        <label className="text-gray-700 font-bold mb-2 flex" htmlFor="tax">
-                            {t("products.tax")} (%)
+                        <div className="flex items-center mb-2">
+                        <label className="text-gray-700 font-bold mr-2 flex" htmlFor="tax">
+                            {t("products.tax")}
                         </label>
+                        <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="tax" data-tooltip-content={t("products.tooltip_tax")} />
+                        </div>
+                        <Tooltip id="tax" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
                             id="tax"

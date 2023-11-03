@@ -129,7 +129,8 @@
         "no-data": "Sin productos",
         "crud-create": "Producto creado satisfactoriamente",
         "crud-edit": "Producto editado satisfactoriamente",
-        "crud-delete": "Producto eliminado satisfactoriamente"
+        "crud-delete": "Producto eliminado satisfactoriamente",
+        "tooltip_tax": "Valor entero equivalente a porcentaje % (eje: 10)"
     },
     "search": {
         "search-page": "Buscar página",

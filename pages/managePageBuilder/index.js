@@ -103,7 +103,7 @@ export default function ManagePageBuilder() {
             showCancelButton: true,
             cancelButtonColor: '#9b9b9b',
             confirmButtonColor: '#24a424',
-            confirmButtonText: t("buttons.create"),
+            confirmButtonText: t("buttons.confirm"),
             cancelButtonText: t("buttons.cancel"),
             reverseButtons: true,
             allowOutsideClick: false,

@@ -10,11 +10,11 @@ import { useTranslation } from "react-i18next";
 import { toast } from 'react-toastify';
 
 const EditProfile = () => {
-    const [newPhoto, setNewPhoto] = useState(false)
     const router = useRouter();
     const { loggedUser } = useContext(UserContext);
     const { t } = useTranslation();
 
+    const [registrationError, setRegistrationError] = useState({});
     const [formData, setFormData] = useState({
         imageProfileUrl: '',
         name: '',
@@ -37,15 +37,26 @@ const EditProfile = () => {
 
     // Función para actualizar el estado de la imagen
     const handleImage = (imageUrl) => {
+        console.log("imageUrl", imageUrl);
         setFormData({
             ...formData,
             imageProfileUrl: imageUrl,
         });
-        setNewPhoto(true);
     };
 
-    const handleSubmit = (e) => {
+    const validateForm = async () => {
+        const errors = {};
+        if (!formData.name) errors.name = t("validations.name-required");
+        if (!formData.lastname) errors.lastname = t("validations.surnames-required");
+
+        setRegistrationError(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const validationsResult = await validateForm();
+        if (!validationsResult) return;
         updateUserData(formData).then(() => {
             toast.success(t("success.user-edited"));
             router.back()
@@ -89,7 +100,7 @@ const EditProfile = () => {
                     <ImageUploader divDesign="mb-10 w-[12rem] h-[12rem] bg-gray-800 rounded-full mx-auto shadow-md" setImage={handleImage} image={formData?.imageProfileUrl} />
                     <p className="text-[1.8rem] font-bold mb-1">{t('user-data.basic-info')}</p>
                     <hr className='border border-[#224553] mb-5 w-5/12' />
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3 relative">
                         <label htmlFor="name" className="text-[1.5rem] font-semibold">
                             {t('user-data.name')}:
                         </label>
@@ -99,10 +110,11 @@ const EditProfile = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
+                            className={`text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4 ${registrationError.name && '!border-red-400'}`}
                         />
+                        {registrationError.name && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-3 right-0 text-red-600">{registrationError.name}</p>}
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3 relative">
                         <label htmlFor="lastname" className="text-[1.5rem] font-semibold">
                             {t('user-data.lastname')}:
                         </label>
@@ -112,10 +124,11 @@ const EditProfile = () => {
                             name="lastname"
                             value={formData.lastname}
                             onChange={handleChange}
-                            className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
+                            className={`text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4 ${registrationError.lastname && '!border-red-400'}`}
                         />
+                        {registrationError.lastname && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-3 right-0 text-red-600">{registrationError.lastname}</p>}
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="phone" className="text-[1.5rem] font-semibold">
                             {t('user-data.phone')}:
                         </label>
@@ -128,7 +141,7 @@ const EditProfile = () => {
                             className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
                         />
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="lastname" className="text-[1.5rem] font-semibold">
                             {t('user-data.id')}:
                         </label>
@@ -144,20 +157,20 @@ const EditProfile = () => {
 
                     <p className="text-[1.8rem] font-bold mt-12 mb-1">{t("user-data.social-network")}</p>
                     <hr className='border border-[#224553] mb-5 w-5/12' />
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="phone" className="text-[1.5rem] font-semibold">
                             {t('user-data.fb')}:
                         </label>
                         <input
                             type="text"
-                            id="facebook"
-                            name="facebook"
-                            value={formData.facebook}
+                            id="fb"
+                            name="fb"
+                            value={formData.fb}
                             onChange={handleChange}
                             className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
                         />
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="phone" className="text-[1.5rem] font-semibold">
                             {t('user-data.twitter')}:
                         </label>
@@ -170,7 +183,7 @@ const EditProfile = () => {
                             className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
                         />
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="phone" className="text-[1.5rem] font-semibold">
                             {t('user-data.linked-in')}:
                         </label>
@@ -183,7 +196,7 @@ const EditProfile = () => {
                             className="text-[1.2rem] font-semibold bg-transparent border border-3 border-gray-800 rounded-xl text-black px-4"
                         />
                     </div>
-                    <div className="flex items-center justify-between my-2">
+                    <div className="flex items-center justify-between my-3">
                         <label htmlFor="phone" className="text-[1.5rem] font-semibold">
                             {t('user-data.web-page')}:
                         </label>
@@ -198,15 +211,15 @@ const EditProfile = () => {
                     </div>
                 </div>
                 <div className="flex w-[35%] mx-auto mt-10">
-                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-700 border-2 border-gray-300 hover:bg-red-800 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
-                        <Link href={"/myProfile"}>
-                            <button className="flex items-center">
+                    <Link href={"/myProfile"}>
+                        <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-red-700 border-2 border-gray-300 hover:bg-red-800 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
+                            <button className="flex items-center h-full">
                                 {t('buttons.cancel')}
                             </button>
-                        </Link>
-                    </div>
-                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-700 border-2 border-gray-300 hover:bg-green-800 text-[1.4rem] text-center mt-3 py-2 px-4 rounded-xl text-gray-200">
-                        <button type="submit" className="flex items-center">
+                        </div>
+                    </Link>
+                    <div className="mx-auto cursor-pointer relative flex items-center justify-center w-[8rem] bg-green-700 border-2 border-gray-300 hover:bg-green-800 text-[1.4rem] text-center mt-3 rounded-xl text-gray-200">
+                        <button type="submit" className="py-2 px-4 flex items-center w-full h-full">
                             {t('buttons.confirm')}
                         </button>
                     </div>

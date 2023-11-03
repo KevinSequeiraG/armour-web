@@ -1,6 +1,6 @@
 import { resetPassword } from "@/helpers/users";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import ChangeLng from "../ChangeLng";
@@ -26,19 +26,52 @@ const ResetPasswordSection = (props) => {
     };
 
     const handleSavePassword = () => {
-        if (password.length < 8) {
-            setPasswordError("La contraseña debe tener al menos 8 caracteres.");
-        } else if (password !== confirmPassword) {
-            setConfirmPasswordError("Las contraseñas no coinciden.");
-        } else {
-            resetPassword(props.oob, password).then(() => {
-                toast.success(t("success.password-edited-correctly"));
-                router.push("login");
-            }).catch((e) => {
-                toast.error(t("errors.password-not-edited-correctly"));
-                console.log(e);
-            })
+        const passwordRegex = {
+            lower: /[a-z]/,
+            upper: /[A-Z]/,
+            number: /[0-9]/,
+            special: /[!¡@#$%^&*(),.?¿":{}|<>-]/
+        };
+
+        if (!password) {
+            setPasswordError(t("validations.password-required"));
+            return; // Detiene la ejecución si no hay contraseña
         }
+
+        if (password.length < 9) {
+            setPasswordError(t("validations.password-length"));
+            return; // Detiene la ejecución si la longitud es insuficiente
+        } else if (!passwordRegex.lower.test(password)) {
+            setPasswordError(t("validations.password-lowercase-required"));
+            return; // Detiene la ejecución si falta una minúscula
+        } else if (!passwordRegex.upper.test(password)) {
+            setPasswordError(t("validations.password-uppercase-required"));
+            return; // Detiene la ejecución si falta una mayúscula
+        } else if (!passwordRegex.number.test(password)) {
+            setPasswordError(t("validations.password-number-required"));
+            return; // Detiene la ejecución si falta un número
+        } else if (!passwordRegex.special.test(password)) {
+            setPasswordError(t("validations.password-special-required"));
+            return; // Detiene la ejecución si falta un caracter especial
+        }
+
+        if (!confirmPassword) {
+            setConfirmPasswordError(t("validations.confirm-password-required"));
+            return; // Detiene la ejecución si no hay confirmación de contraseña
+        } else if (password !== confirmPassword) {
+            setConfirmPasswordError(t("validations.password-dont-match"));
+            setPasswordError(t("validations.password-dont-match"));
+            return; // Detiene la ejecución si las contraseñas no coinciden
+        }
+
+        // Intenta resetear la contraseña si todas las validaciones son correctas
+        resetPassword(props.oob, password).then(() => {
+            toast.success(t("success.password-edited-correctly"));
+            router.push("login");
+        }).catch((e) => {
+            toast.error(t("errors.password-not-edited-correctly"));
+            console.log(e);
+        });
     };
 
     return (
@@ -72,8 +105,8 @@ const ResetPasswordSection = (props) => {
                                 value={password}
                                 onChange={handlePasswordChange}
                             />
-                            {!showPassword ? <button className="bg-transparent right-3 top-3 absolute" onClick={() => { setShowPassword(true) }}><img src="./svgs/pwdEyeClose.svg" className="w-5"></img></button>
-                                : <button className="bg-transparent right-3 top-3 absolute" onClick={() => { setShowPassword(false) }}><img src="./svgs/pwdEyeOpen.svg" className="w-5"></img></button>}
+                            {!showPassword ? <button className="bg-transparent right-3 top-4 absolute" onClick={() => { setShowPassword(true) }}><img src="./svgs/pwdEyeClose.svg" className="w-5"></img></button>
+                                : <button className="bg-transparent right-3 top-4 absolute" onClick={() => { setShowPassword(false) }}><img src="./svgs/pwdEyeOpen.svg" className="w-5"></img></button>}
                         </div>
                         <div className="text-right">
                             <label className="text-[#FE3A5C] text-[12px] ">
@@ -94,8 +127,8 @@ const ResetPasswordSection = (props) => {
                                 value={confirmPassword}
                                 onChange={handleConfirmPasswordChange}
                             />
-                            {!showConfirmPassword ? <button className="bg-transparent right-3 top-3 absolute" onClick={() => { setShowConfirmPassword(true) }}><img src="./svgs/pwdEyeClose.svg" className="w-5"></img></button>
-                                : <button className="bg-transparent right-3 top-3 absolute" onClick={() => { setShowConfirmPassword(false) }}><img src="./svgs/pwdEyeOpen.svg" className="w-5"></img></button>}
+                            {!showConfirmPassword ? <button className="bg-transparent right-3 top-4 absolute" onClick={() => { setShowConfirmPassword(true) }}><img src="./svgs/pwdEyeClose.svg" className="w-5"></img></button>
+                                : <button className="bg-transparent right-3 top-4 absolute" onClick={() => { setShowConfirmPassword(false) }}><img src="./svgs/pwdEyeOpen.svg" className="w-5"></img></button>}
                         </div>
                         <div className="text-right">
                             <label className="text-[#FE3A5C] text-[12px] ">

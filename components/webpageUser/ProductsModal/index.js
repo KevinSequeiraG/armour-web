@@ -12,9 +12,23 @@ const ProductsModal = (props) => {
     useEffect(() => {
         GetProductsByCatUid(props?.sectionUid).then((data) => {
             setProducts(data);
-            const [minPrice, maxPrice] = calculatePriceRange(data);
-            setPriceRange([minPrice, maxPrice]);
-            setSelectedRange([minPrice, maxPrice]);
+            if (data.length > 0) {
+                const [minPrice, maxPrice] = calculatePriceRange(data);
+                // Verifica si minPrice es igual a maxPrice
+                if (minPrice < maxPrice) {
+                    setPriceRange([minPrice, maxPrice]);
+                    setSelectedRange([minPrice, maxPrice]);
+                } else {
+                    // Manejar el caso donde min y max son iguales, por ejemplo:
+                    setPriceRange([minPrice, minPrice + 1]); // Asumiendo que minPrice es tu precio base.
+                    setSelectedRange([minPrice, minPrice + 1]);
+                }
+            } else {
+                // Manejar el caso donde no hay productos
+                // Por ejemplo, podrías establecer un rango predeterminado o no mostrar el deslizador
+                setPriceRange([0, 1]); // Rango predeterminado para representar "no hay datos"
+                setSelectedRange([0, 1]);
+            }
         })
     }, [])
 

@@ -58,10 +58,10 @@ const MyProfile = () => {
                 </div>
                 <p className="text-[1.8rem] font-bold mt-12 mb-1">{t("user-data.social-network")}</p>
                 <hr className='border border-[#224553] mb-5' />
-                <SocialNetworkCard type="fb" />
-                <SocialNetworkCard type="twitter" />
-                <SocialNetworkCard type="linkedIn" />
-                <SocialNetworkCard type="web" />
+                <SocialNetworkCard type="fb" data={userData?.fb} />
+                <SocialNetworkCard type="twitter" data={userData?.twitter}/>
+                <SocialNetworkCard type="linkedIn" data={userData?.linkedin}/>
+                <SocialNetworkCard type="web" data={userData?.webpage}/>
             </div>
             <DeleteAccount setShowDeleteModal={setShowDeleteModal} isOpen={showDeleteModal} />
         </div>

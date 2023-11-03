@@ -10,7 +10,7 @@ const ContactUs = () => {
     const { loggedUser } = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(false);
     const [formError, setFormError] = useState({});
-    const [formValues, setFormValues] = useState({ email: `${loggedUser?.email}`, phone: `${loggedUser?.phone}`, subject: '', message: '' });
+    const [formValues, setFormValues] = useState({ email: loggedUser?.email, phone: `${loggedUser?.phone}`, subject: '', message: '' });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -66,15 +66,15 @@ const ContactUs = () => {
             </Head>
             <div className="flex items-center mx-auto italic rounded-[.5rem] border-2 border-black w-[20rem] h-[6rem] justify-center"><h1 className="m-0 font-bold text-[3rem] ">{t("navbar.contact-us")}</h1></div>
 
-            <div className="text-base font-medium my-8 leading-6 text-center w-3/6 mx-auto">
+            <div className="text-base font-medium my-8 leading-6 text-center w-4/6 mx-auto">
                 {t("contact-us.subtitle")}
             </div>
 
-            <div className="w-3/5 mx-auto !bg-gray-600 rounded-[10px] p-8 shadow-md text-white grid grid-cols-2 gap-4">
+            <div className="w-4/5 mx-auto !bg-gray-600 rounded-[10px] p-8 shadow-md text-white grid grid-cols-2 gap-4">
                 <div className='relative'>
                     <p className='font-semibold'>{t("login.email")}</p>
-                    <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues.email} onChange={handleInputChange} />
-                    {formError.email && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.email}</p>}
+                    <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues?.email || "erickvrp25@gmail.com"} onChange={handleInputChange} />
+                    {formError.email && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-5 right-0 text-red-200">{formError.email}</p>}
                 </div>
 
                 <div className='relative'>
@@ -85,12 +85,12 @@ const ContactUs = () => {
                 <div className='relative col-span-2'>
                     <p className='font-semibold'>{t("contact-us.subject")}</p>
                     <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.subject")} name="subject" value={formValues.subject} onChange={handleInputChange} />
-                    {formError.subject && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.subject}</p>}
+                    {formError.subject && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-5 right-0 text-red-200">{formError.subject}</p>}
                 </div>
 
                 <div className='relative col-span-2'>
                     <p className='font-semibold'>{t("contact-us.message")}</p>
-                    <textarea className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.message") + "..."} name="message" value={formValues.message} onChange={handleInputChange} rows="5" />
+                    <textarea className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.message") + "..."} name="message" value={formValues.message} onChange={handleInputChange} rows="3" />
                     {formError.message && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.message}</p>}
                 </div>
 

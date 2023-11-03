@@ -20,6 +20,13 @@ export default function RegisterForm() {
     const validateForm = async () => {
         const errors = {};
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const passwordRegex = {
+            lower: /[a-z]/,
+            upper: /[A-Z]/,
+            number: /[0-9]/,
+            special: /[!¡@#$%^&*(),.?¿":{}|<>-]/
+        };
+
         if (!registerFormValues.name) errors.name = t("validations.name-required");
         if (!registerFormValues.lastname) errors.lastname = t("validations.surnames-required");
         if (!registerFormValues.email) errors.email = t("validations.email-required");
@@ -33,8 +40,15 @@ export default function RegisterForm() {
         }
 
         if (!registerFormValues.password) errors.password = t("validations.password-required");
-        else if (registerFormValues.password.length < 8) errors.password = t("validations.password-length");
-        if (!registerFormValues.confirmPassword) errors.confirmPassword = t("validations.email-required");
+        else {
+            if (registerFormValues.password.length < 9) errors.password = t("validations.password-length");
+            else if (!passwordRegex.lower.test(registerFormValues.password)) errors.password = t("validations.password-lowercase-required");
+            else if (!passwordRegex.upper.test(registerFormValues.password)) errors.password = t("validations.password-uppercase-required");
+            else if (!passwordRegex.number.test(registerFormValues.password)) errors.password = t("validations.password-number-required");
+            else if (!passwordRegex.special.test(registerFormValues.password)) errors.password = t("validations.password-special-required");
+        }
+
+        if (!registerFormValues.confirmPassword) errors.confirmPassword = t("validations.confirm-password-required");
         else if (registerFormValues.password !== registerFormValues.confirmPassword) { errors.confirmPassword = t("validations.password-dont-match"); errors.password = t("validations.password-dont-match"); }
 
         setRegistrationError(errors);

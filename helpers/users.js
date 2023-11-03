@@ -96,10 +96,9 @@ const uploadImageInDB = async (file) => {
     try {
         const storageRef = ref(storage, "images/" + file.name);
         await uploadBytes(storageRef, file);
-        const downloadURL = await getDownloadURL(storageRef).then(() => {
-            const date = new Date();
-            addProcessStatus({ process: "uploadImageInDB", status: "success", date: date });
-        });
+        const downloadURL = await getDownloadURL(storageRef);
+        const date = new Date();
+        await addProcessStatus({ process: "uploadImageInDB", status: "success", date: date });
         return downloadURL;
     } catch (error) {
         console.error(error);
@@ -145,7 +144,7 @@ export const updateUserData = async (user) => {
                 imageProfileUrl: user.imageProfileUrl,
                 name: user.name.trim().toLocaleLowerCase(),
                 lastname: user.lastname.trim().toLocaleLowerCase(),
-                identification: "",
+                identification: user.identification || "",
                 phone: user.phone || "", // Agrega el campo "phone"
                 fb: user.fb || "", // Agrega el campo "fb"
                 twitter: user.twitter || "", // Agrega el campo "twitter"
@@ -166,7 +165,7 @@ export const updateUserData = async (user) => {
                     imageProfileUrl: imageProfileUrlInDB,
                     name: user.name.trim().toLocaleLowerCase(),
                     lastname: user.lastname.trim().toLocaleLowerCase(),
-                    identification: "",
+                    identification: user.identification || "",
                     phone: user.phone || "", // Agrega el campo "phone"
                     fb: user.fb || "", // Agrega el campo "fb"
                     twitter: user.twitter || "", // Agrega el campo "twitter"

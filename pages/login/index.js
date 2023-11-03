@@ -34,7 +34,7 @@ export default function Login() {
         if (validateForm()) {
             try {
                 await Login(loginFormValues.email, loginFormValues.password).then(async (user) => {
-
+console.log("user.user", user);
                     await UpdateUser(user.user.uid).then(() => {
                         if (rememberMeChecked) {
                             localStorage.setItem("rememberMe", JSON.stringify(rememberMeChecked));

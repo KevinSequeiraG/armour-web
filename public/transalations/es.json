@@ -22,7 +22,7 @@
         "confirm-password": "Confirmar contraseña"
     },
     "contact-us": {
-        "subtitle": "A través de este formulario, puedes enviarnos tus consultas o comentarios por correo electrónico. Estamos aquí para atenderte y responderemos a la brevedad posible.",
+        "subtitle": "A través de este formulario puedes enviarnos tus consultas o comentarios por correo electrónico. Estamos aquí para atenderte y responderemos a la brevedad posible.",
         "subject": "Asunto",
         "message": "Mensaje",
         "send": "Enviar"
@@ -37,7 +37,12 @@
         "email-already-exists": "El correo ingresado ya está asociado a otra cuenta.",
         "email-in-use": "El correo ya está en uso",
         "password-required": "La contraseña es requerida",
-        "password-length": "Se requieren mínimo 8 caracteres.",
+        "password-length": "Se requieren mínimo 9 caracteres.",
+        "password-lowercase-required": "Debe contener al menos una letra minúscula.",
+        "password-uppercase-required": "Debe contener al menos una letra mayúscula.",
+        "password-number-required": "La contraseña debe contener al menos un número.",
+        "password-special-required": "La contraseña debe contener al menos un carácter especial (!#$^.?<>).",
+        "confirm-password-required": "Confirmar la contraseña es requerido",
         "password-dont-match": "Las contraseñas no coinciden",
         "subject-is-required": "El asunto es requerido",
         "message-is-required": "Debe digitar un mensaje",
@@ -279,13 +284,14 @@
         "no-prods": "No hay productos en esta categoría."
     },
     "reports": {
+        "select-page": "Selecciona la página web",
         "products": "Productos",
         "name": "Nombre",
         "counter": "Contador",
-        "no-prods": "No hay productos",
+        "no-prods": "No hay productos para mostrar",
         "most-consulted-prod": "Producto mas consultado",
         "categories": "Categorías",
-        "no-cats": "No hay categorías",
+        "no-cats": "No hay categorías para mostrar",
         "most-consulted-cars": "Categoría mas consultada",
         "total-redirected-users": "Total de usuarios redirigidos",
         "link": "Enlace",

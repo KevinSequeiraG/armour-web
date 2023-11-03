@@ -155,7 +155,7 @@ export const GetWebpageExists = async (webpageName) => {
         const date = new Date();
         addProcessStatus({ process: "GetWebpageExists", status: "success", date: date });
 
-        return docSnap.exists;
+        return docSnap.exists();
     } catch (error) {
         console.error("Error al verificar la existencia del documento:", error);
 

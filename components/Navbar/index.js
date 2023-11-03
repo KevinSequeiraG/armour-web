@@ -27,7 +27,7 @@ const Navbar = () => {
                     <Link href={"/contactUs"}><button className="button !py-2.5 !rounded-[10px] w-full"><img src="/svgs/Phone.svg" className="mr-2" />{t("navbar.contact-us")}</button></Link>
                     <div className="relative">
                         <button onClick={() => setShowReportsOptions(!showReportsOptions)} className="button !py-2.5 !rounded-[10px] w-full"><img src="/svgs/Report.svg" className="mr-2 w-[1.5rem]" />{t("navbar.reports")}</button>
-                        <div className={`flex flex-col animate__animated ${showReportsOptions ? "animate__fadeInLeft" : "animate__fadeOutLeft"} transition-max-height duration-1000 ease-in-out ${showReportsOptions ? "max-h-[40rem]" : "max-h-0"}`}>
+                        <div className={`flex flex-col animate__animated ${showReportsOptions ? "animate__fadeInLeft" : "animate__fadeOutLeft"} transition-max-height duration-1000 ease-in-out ${showReportsOptions ? " max-h-64 overflow-y-auto scrollbarDesignTiny pr-1" : "max-h-0"}`}>
                             <Link href={"/repProductAndCategories"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/Car.svg" className="mr-2 w-[1.5rem]" />{t("navbar.products-and-categories")}</button></Link>
                             <Link href={"/repSocialNetwork"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/Arroba.svg" className="mr-2 w-[1.5rem]" />{t("navbar.interactions-on-social-networks")}</button></Link>
                             <Link href={"/repUserWebPages"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/webIcon.svg" className="mr-2 w-[1.5rem]" />{t("navbar.pages-created")}</button></Link>

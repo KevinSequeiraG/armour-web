@@ -16,7 +16,7 @@ function Webpage() {
     useEffect(() => {
         if (index) {
             GetWebpage(index).then((data) => {
-                if (data.active) {
+                if (data?.active) {
                     setWebpageData(data);
                     increaseCounterForWebpageVisited(data.pageUrl)
                 } else {

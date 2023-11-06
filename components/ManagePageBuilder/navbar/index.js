@@ -171,7 +171,7 @@ const Navbar = ({ logoPage, children, isMobilePreview, webPageData, setWebPageDa
                         {/* Aquí coloca las opciones del menú que deseas mostrar */}
                         {/* <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Home</button>
                         <button style={mobileOptionInMenuStyle} className={`px-4 py-2 border-y-1 font-semibold`}>Ubicacion</button> */}
-                        {navbarOptions.map((option,) => {
+                        {navbarOptions.map((option, i) => {
                             return (
                                 <button key={i} style={mobileOptionInMenuStyle} className={`px-4 !pb-3 !border-none font-semibold`}>{option.name}</button>
                             )

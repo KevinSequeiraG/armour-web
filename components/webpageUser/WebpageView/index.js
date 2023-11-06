@@ -27,6 +27,7 @@ const WebpageView = (props) => {
         backgroundPosition: "center", /* Center the image */
         backgroundRepeat: "no-repeat", /* Do not repeat the image */
         backgroundSize: "cover",
+        minHeight: "100%"
     }
 
     useEffect(() => {

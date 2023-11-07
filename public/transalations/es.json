@@ -214,7 +214,9 @@
         "tool-page-content-card-isProduct": "Tarjetas para productos",
         "tool-page-content-card-desing": "Diseño de tarjeta",
         "tool-page-content-card-option": "Opción",
-        "tool-page-content-card-color": "Color de la tarjeta"
+        "tool-page-content-card-color": "Color de la tarjeta",
+        "navbar-loginButton": "Incluir iniciar sesión",
+        "tool-page-navbar-loginButton": "Botón de inicio de sesión"
     },
     "delete-modal": {
         "sure": "¿Está seguro de desear eliminar su cuenta?",

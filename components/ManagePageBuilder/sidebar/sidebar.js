@@ -11,6 +11,7 @@ import MypagesDragDrop from './myPagesDragDrop';
 import { ContentDragDrop } from '../sections/contentDragDrop';
 import { ContactUsSocialMediaAndColors } from '../ContactUs/SocialMediaAndColors';
 import { Tooltip } from 'react-tooltip';
+import Switch from 'react-switch';
 
 const Sidebar = (props) => {
     const [activeButtonIndex, setActiveButtonIndex] = useState(-1);
@@ -123,6 +124,14 @@ const Sidebar = (props) => {
             setTxtColor(color);
             const customEvent = new Event("changeNavbarTextColor");
             customEvent.option = color;
+            window.dispatchEvent(customEvent);
+        }
+    };
+
+    const handleLoginButtonSwitch = (value) => {
+        if (props.currentMenuOption === "navbar-webpage") {
+            const customEvent = new Event("changeNavbarLoginButtonValue");
+            customEvent.option = value;
             window.dispatchEvent(customEvent);
         }
     };
@@ -538,6 +547,29 @@ const Sidebar = (props) => {
                             </div>
                             <MypagesDragDrop setWebPageData={props.setWebPageData} webPageData={props.webPageData} />
                         </div>
+                    }
+
+                    {activeButtonIndex === 0 &&
+                        <>
+                            <hr className='border border-[#224553]' />
+                            <div className='flex items-start justify-between w-full mb-1'>
+                                <div className='flex flex-col items-center'>
+                                    <p className='mb-2'>{t("page-builder.navbar-loginButton")}</p>
+                                    <Switch name='loginChecked'
+                                        onChange={(value) => {props.setWebPageData((prevWebPageData) => ({
+                                            ...prevWebPageData,
+                                            navbar: {
+                                                ...prevWebPageData.navbar,
+                                                loginButton: value,
+                                            },
+                                        })); handleLoginButtonSwitch(value)}}
+                                        checked={props?.webPageData?.navbar?.loginButton}
+                                    />
+                                </div>
+                                <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="nav-loginButton" data-tooltip-content={t("page-builder.tool-page-navbar-loginButton")} />
+                                <Tooltip id="nav-loginButton" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
+                            </div>
+                        </>
                     }
 
                     {activeButtonIndex === 0 &&

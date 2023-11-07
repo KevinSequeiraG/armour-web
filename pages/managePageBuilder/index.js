@@ -19,7 +19,7 @@ export default function ManagePageBuilder() {
 
     const [logoPage, setLogoPage] = useState();
 
-    const [webPageData, setWebPageData] = useState({ navbar: { backgroundColor: "#000000", backgroundImage: "", color: "#ffffff", contentPosition: "top", minHeight: "10%", minWidth: "5%", position: "top" }, isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "5%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalInstagramRedirects: 0 });
+    const [webPageData, setWebPageData] = useState({ navbar: { backgroundColor: "#000000", backgroundImage: "", color: "#ffffff", contentPosition: "top", minHeight: "10%", minWidth: "5%", position: "top", loginButton: false }, isSpanish: i18n.language == "es", pages: [{ id: 1, name: t("navbar.home"), paddingLeft: "15%", paddingRight: "15%", paddingTop: "5%", paddingBottom: "5%", backgroundColor: "#ffffff", sections: [] }], totalFacebookRedirects: 0, totalTwitterRedirects: 0, totalLinkedInRedirects: 0, totalInstagramRedirects: 0 });
 
     const [currentPage, setCurrentPage] = useState(1);
 

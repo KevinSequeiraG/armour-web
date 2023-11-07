@@ -214,7 +214,9 @@
         "tool-page-content-card-isProduct": "Cards for products",
         "tool-page-content-card-desing": "Card design",
         "tool-page-content-card-option": "Option",
-        "tool-page-content-card-color": "Card color"
+        "tool-page-content-card-color": "Card color",
+        "navbar-loginButton": "Include login",
+        "tool-page-navbar-loginButton": "Login button"
     },
     "delete-modal": {
         "sure": "Are you sure you want to delete your account?",

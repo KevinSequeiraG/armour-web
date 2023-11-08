@@ -307,6 +307,7 @@
         "download-processes": "Download processes data",
         "download-products": "Download products data",
         "download-users": "Download users data",
-        "download-webpages": "Download web pages data"
+        "download-webpages": "Download web pages data",
+        "download-from-firebase": "Download from firebase"
     }
 }

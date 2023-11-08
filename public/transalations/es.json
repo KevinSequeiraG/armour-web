@@ -307,6 +307,7 @@
         "download-processes": "Descargar información procesos",
         "download-products": "Descargar información productos",
         "download-users": "Descargar información usuarios",
-        "download-webpages": "Descargar información páginas web"
+        "download-webpages": "Descargar información páginas web",
+        "download-from-firebase": "Descarga de firebase"
     }
 }

@@ -32,7 +32,7 @@ const Navbar = () => {
                             <Link href={"/repSocialNetwork"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/Arroba.svg" className="mr-2 w-[1.5rem]" />{t("navbar.interactions-on-social-networks")}</button></Link>
                             <Link href={"/repUserWebPages"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/webIcon.svg" className="mr-2 w-[1.5rem]" />{t("navbar.pages-created")}</button></Link>
                             {loggedUser?.userType === "admin" && <Link href={"/repAdminWebPages"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/webIcon.svg" className="mr-2 w-[1.5rem]" />{t("navbar.pages-created")}</button></Link>}
-                            {loggedUser?.userType === "admin" && <Link href={"/downloadData"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/webIcon.svg" className="mr-2 w-[1.5rem]" />{t("descarga")}</button></Link>}
+                            {loggedUser?.userType === "admin" && <Link href={"/downloadData"}><button className="button !py-2.5 !rounded-[10px] w-[90%] "><img src="/svgs/webIcon.svg" className="mr-2 w-[1.5rem]" />{t("reports.download-from-firebase")}</button></Link>}
                         </div>
                     </div>
                 </div>

@@ -27,9 +27,13 @@ const ProductAndCategories = () => {
             GetProductsByWebpage(pageSelected).then(data => {
                 setprodsDataToShow(data);
                 if (data.length > 0) {
+                    console.log(data)
                     const productWithMaxCounter = data.reduce((prev, current) => {
-                        return (prev.watchedCounter > current.watchedCounter) ? prev : current;
+                        if (current.watchedCounter) {
+                            return (prev.watchedCounter > current.watchedCounter) ? prev : current;
+                        }
                     });
+                    console.log(productWithMaxCounter)
                     setMostVisitedProduct(productWithMaxCounter);
                 }
             })
@@ -39,7 +43,9 @@ const ProductAndCategories = () => {
                 setCatsDataToShow(data);
                 if (data.length > 0) {
                     const categoryWithMaxCounter = data.reduce((prev, current) => {
-                        return (prev.watchedCounter > current.watchedCounter) ? prev : current;
+                        if (current.watchedCounter) {
+                            return (prev.watchedCounter > current.watchedCounter) ? prev : current;
+                        }
                     });
                     setMostVisitedCategory(categoryWithMaxCounter);
                 }
@@ -57,7 +63,7 @@ const ProductAndCategories = () => {
             </Head>
             <p className="ml-16 mt-10 mb-3 font-bold text-2xl">{t("navbar.products-and-categories")}</p>
             <select className="ml-16 shadow border w-[20rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 rounded-[10px]" value={pageSelected} onChange={(e) => { setPageSelected(e.target.value) }}>
-            <option value="None">{t("reports.select-page")}</option>
+                <option value="None">{t("reports.select-page")}</option>
                 {webpagesData?.map((webpage, i) => {
                     return (<option key={i} value={webpage?.pageUrl}>{webpage?.name}</option>)
                 })}

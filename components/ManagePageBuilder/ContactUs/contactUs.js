@@ -64,7 +64,7 @@ export const ContactUs = (props) => {
                     body: JSON.stringify({
                         name: formValues.name,
                         email: formValues.email,
-                        emailToRecieve: pageDesign?.emailToRecieve,
+                        emailToRecieve: pageDesign?.emailRecieve,
                         subject: formValues.subject,
                         message: formValues.message,
                         language: props?.webPageData?.isSpanish ? "es" : "en"

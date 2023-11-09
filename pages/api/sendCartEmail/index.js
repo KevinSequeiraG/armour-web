@@ -16,7 +16,7 @@ export default async function handler(req, res) {
             // Enviar el correo electrónico
             await transporter.sendMail({
                 from: "armourwebsoporte@gmail.com",
-                to: "erickvrp25@gmail.com",
+                to: emailToRecieve,
                 subject: subject,
                 html: content
             });

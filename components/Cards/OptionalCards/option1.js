@@ -29,13 +29,20 @@ const Option1 = (props) => {
         backgroundColor: props?.data.bgColor,
     }
 
+    const formatCurrency = () => {
+        const number = parseFloat(props?.sectionInfo?.prize) + (parseFloat(props?.sectionInfo?.prize) * (parseFloat(props?.sectionInfo?.tax) / 100))
+        let parts = number.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
     return (
         <div style={cardStyles} className={`${props?.isMobilePreview && "w-full"} w-full h-auto mdx600:w-[14rem] rounded-[10px] shadow-md overflow-hidden flex flex-col border`}>
             <img src={(props?.sectionInfo && props?.sectionInfo?.image) ? props?.sectionInfo?.image : '/images/awLogo.png'} alt={props?.sectionInfo && props?.sectionInfo?.name} className="w-full min-h-[9rem] max-h-36 object-cover" />
             <div className="px-4 py-3">
                 <h2 style={titleStyles} className="text-lg font-semibold">{(props?.sectionInfo && props?.sectionInfo?.name) ? props?.sectionInfo?.name : t("card.title")}</h2>
                 <p style={descStyles} className="pt-1">{(props?.sectionInfo && props?.sectionInfo?.desc) ? props?.sectionInfo?.desc : t("card.desc")}</p>
-                {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{parseFloat(props?.sectionInfo?.prize) + (parseFloat(props?.sectionInfo?.prize) * (parseFloat(props?.sectionInfo?.tax) / 100))}</p>}
+                {((props?.data && !props?.data?.isCategory) && props?.sectionInfo) && <p style={descStyles}>₡{formatCurrency()}</p>}
                 <div style={buttonPosition}>
                     {(props?.data && props?.data?.isCategory) ? <button onClick={() => { if (props?.sectionInfo) { increaseCounterForCategoryWatched(props?.sectionInfo?.id); setShowProducts(true) } }} style={buttonStyles} className={`mt-4 font-semibold py-1 px-4 rounded-[10px]`}>
                         {props?.sectionInfo ? props?.isSpanish ? "Ver" : "See" : t("card.see")}

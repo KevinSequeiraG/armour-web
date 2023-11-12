@@ -98,6 +98,12 @@ const EditProductPage = () => {
         setShowDeleteProduct(true);
     };
 
+    const formatCurrency = (number) => {
+        let parts = number.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
     return (
         <>
             <div className="container mx-auto py-4 px-8">
@@ -147,9 +153,9 @@ const EditProductPage = () => {
                                     <td className="p-2 border border-gray-300">
                                         <img className="max-w-[4rem] mx-auto" src={product?.image ? product?.image : '/images/awLogo-nobg.png'} alt="Product Image" />
                                     </td>
-                                    <td className="p-2 border border-gray-300">	₡{product?.prize.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                                    <td className="p-2 border border-gray-300">{product?.tax}%</td>
-                                    <td className="p-2 border border-gray-300">₡{(parseFloat(product?.prize) + (parseFloat(product?.prize) * (parseFloat(product?.tax) / 100))).toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                    <td className="p-2 border border-gray-300 text-end pr-3">₡{formatCurrency(parseFloat(product?.prize))}</td>
+                                    <td className="p-2 border border-gray-300 text-end pr-3">{formatCurrency(parseFloat(product?.tax))}%</td>
+                                    <td className="p-2 border border-gray-300 text-end pr-3">₡{formatCurrency(parseFloat(product?.prize) + (parseFloat(product?.prize) * (parseFloat(product?.tax) / 100)))}</td>
                                     <td className="p-2 border border-gray-300">{product?.linkedTo}</td>
                                     <td className="p-2 border border-gray-300">
                                         <button

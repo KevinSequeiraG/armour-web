@@ -53,6 +53,12 @@ const ProductsModal = (props) => {
         return finalPrice >= selectedRange[0] && finalPrice <= selectedRange[1];
     };
 
+    const formatCurrency = (number) => {
+        let parts = number.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60">
             <div className={`relative bg-white rounded-[10px] p-5 py-[3rem] mx-auto z-50 border-[.2rem] border-gray-500 overflow-auto max-w-[90%] max-h-[90vh] scrollbarDesign ${products?.length > 0 ? "min-w-[90%] min-h-[90vh]" : ""}`}>
@@ -107,7 +113,7 @@ const ProductsModal = (props) => {
                                 )}
                             />
                             <div className="mt-2">
-                                {props?.isSpanish ? "Rango de precios:" : "Price range:"} ₡{selectedRange[0].toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} - ₡{selectedRange[1].toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                {props?.isSpanish ? "Rango de precios:" : "Price range:"} ₡{formatCurrency(selectedRange[0])} - ₡{formatCurrency(selectedRange[1])}
                             </div>
                         </div>
                     </div>

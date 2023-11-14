@@ -147,10 +147,10 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
 
                     <div>
                         <label className="text-gray-700 font-bold mb-2 flex" htmlFor="prize">
-                            {t("products.base-price")}
+                            {t("products.base-price")} ₡
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4 text-end"
                             id="prize"
                             type="number"
                             placeholder={t("products.base-price")}
@@ -163,13 +163,13 @@ const CreateProduct = ({ editProduct, productToEdit, isOpen, handleShow, webpage
                     <div>
                         <div className="flex items-center mb-2">
                         <label className="text-gray-700 font-bold mr-2 flex" htmlFor="tax">
-                            {t("products.tax")}
+                            {t("products.tax")} ₡
                         </label>
                         <BiSolidInfoCircle className="w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="tax" data-tooltip-content={t("products.tooltip_tax")} />
                         </div>
                         <Tooltip id="tax" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700  focus:outline-none focus:shadow-outline mb-4 text-end"
                             id="tax"
                             type="number"
                             min={0}

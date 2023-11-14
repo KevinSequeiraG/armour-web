@@ -41,6 +41,12 @@ const SalesCartView = (props) => {
         }
     }
 
+    const formatCurrency = (number) => {
+        let parts = number.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
     const generateInvoiceContent = async (cartProducts) => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const { value: formValues } = await Swal.fire({
@@ -87,12 +93,12 @@ const SalesCartView = (props) => {
             content += `<tr>`;
             content += `<td>${product?.name}</td>`;
             content += `<td style="text-align: center;">${product?.quantity}</td>`;
-            content += `<td style="text-align: right;">₡${productTotal?.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>`;
+            content += `<td style="text-align: right;">₡${formatCurrency(productTotal)}</td>`;
             content += `</tr>`;
         });
 
         content += '</tbody>';
-        content += `<tfoot><tr><td colspan="2">${props?.webPageData?.isSpanish ? 'Total' : 'Total'}</td><td>₡${total.toLocaleString('es-CR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td></tr></tfoot>`;
+        content += `<tfoot><tr><td colspan="2">${props?.webPageData?.isSpanish ? 'Total' : 'Total'}</td><td>₡${formatCurrency(total)}</td></tr></tfoot>`;
         content += '</table>';
 
         content += `<br><p><strong>${props?.webPageData?.isSpanish ? 'Contacto del interesado:' : 'Client contact information:'}</strong></p>`;
@@ -115,9 +121,9 @@ const SalesCartView = (props) => {
                             <div className="">
                                 <p className="text-[1.2rem] font-semibold">{product.name}</p>
                                 <p>{props?.isSpanish ? "Cantidad" : "Quantity"}: {product.quantity}</p>
-                                <p>{props?.isSpanish ? "Precio" : "Prize"}: ₡{product.prize}</p>
-                                <p>{props?.isSpanish ? "Impuesto" : "Taxes"}: {product.tax}%</p>
-                                <p>Total: ₡{parseFloat(product.prize) + (parseFloat(product.prize) * (parseFloat(product.tax) / 100))}</p>
+                                <p>{props?.isSpanish ? "Precio" : "Prize"}: ₡{formatCurrency(parseFloat(product?.prize))}</p>
+                                <p>{props?.isSpanish ? "Impuesto" : "Taxes"}: {formatCurrency(parseFloat(product?.tax))}%</p>
+                                <p>Total: ₡{formatCurrency(parseFloat(product.prize) + (parseFloat(product.prize) * (parseFloat(product.tax) / 100)))}</p>
                             </div>
                             <button
                                 onClick={() => handleRemoveFromCart(product.idProd)}

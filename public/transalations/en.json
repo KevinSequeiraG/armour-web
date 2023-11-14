@@ -308,6 +308,14 @@
         "download-products": "Download products data",
         "download-users": "Download users data",
         "download-webpages": "Download web pages data",
-        "download-from-firebase": "Download from firebase"
+        "download-from-firebase": "Download from firebase",
+
+        "upload-data": "Upload database information",
+        "upload-categories": "Upload categories data",
+        "upload-processes": "Upload processes data",
+        "upload-products": "Upload products data",
+        "upload-users": "Upload users data",
+        "upload-webpages": "Upload web pages data",
+        "upload-from-firebase": "Upload from firebase"
     }
 }

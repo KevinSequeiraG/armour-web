@@ -308,6 +308,14 @@
         "download-products": "Descargar información productos",
         "download-users": "Descargar información usuarios",
         "download-webpages": "Descargar información páginas web",
-        "download-from-firebase": "Descarga de firebase"
+        "download-from-firebase": "Descarga de firebase",
+        
+        "upload-data": "Cargar información a base de datos",
+        "upload-categories": "Cargar información categorías",
+        "upload-processes": "Cargar información procesos",
+        "upload-products": "Cargar información productos",
+        "upload-users": "Cargar información usuarios",
+        "upload-webpages": "Cargar información páginas web",
+        "upload-from-firebase": "Carga a firebase"
     }
 }

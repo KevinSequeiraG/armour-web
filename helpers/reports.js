@@ -1,9 +1,10 @@
-import { database } from "@/lib/firebaseConfig";
-import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { database, storage } from "@/lib/firebaseConfig";
+import { addDoc, collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { GetWebpage } from "./webpage";
 import { saveAs } from 'file-saver';
 import { GetCategoryByUid } from "./categories";
 import { GetProductByUid } from "./products";
+import { ref, uploadString } from "firebase/storage";
 
 export const increaseCounterForProductWatched = async (productUid) => {
     try {
@@ -127,7 +128,7 @@ export const downloadTableData = async (tableName) => {
 
         const data = [];
         querySnapshot.forEach((doc) => {
-            data.push(doc.data());
+            data.push({ ...doc.data(), uid: doc.id });
         });
 
         // Convierte los datos en formato JSON
@@ -139,5 +140,34 @@ export const downloadTableData = async (tableName) => {
     } catch (error) {
         console.error('Error al descargar la tabla:', error);
         // Maneja el error según tus necesidades
+    }
+};
+
+export const uploadJsonToFirestore = async (tableName, jsonData) => {
+    try {
+        const tableRef = collection(database, `admin/data/${tableName}`);
+
+        // Agregar nuevos documentos desde el archivo JSON
+        for (const data of jsonData) {
+            // Utiliza el campo 'uid' como identificador del documento si está presente
+            const documentUid = data.uid;
+            const documentRef = documentUid ? doc(tableRef, documentUid) : doc(tableRef);
+
+            // Verificar la existencia del documento antes de agregarlo
+            const documentSnapshot = await getDoc(documentRef);
+
+            if (!documentSnapshot.exists()) {
+                // Agregar el documento solo si no existe
+                await setDoc(documentRef, data, { merge: true });
+                console.log(`Documento con uid '${documentUid}' agregado en la colección '${tableName}'.`);
+            } else {
+                console.log(`Documento con uid '${documentUid}' ya existe en la colección '${tableName}', se ha ignorado.`);
+            }
+        }
+
+        console.log(`Datos cargados exitosamente en la colección '${tableName}'.`);
+    } catch (error) {
+        console.error(`Error al cargar datos en la colección '${tableName}':`, error);
+        throw error;
     }
 };

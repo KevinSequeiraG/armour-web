@@ -77,22 +77,22 @@ export default function RegisterForm() {
             <label className='loginLabelRegister' htmlFor="chk" aria-hidden="true" id="registerLabel">{t("login.register")}</label>
             <div className='max-h-[21rem] overflow-y-auto scrollbarDesign'>
                 <div className='relative w-[60%] mx-auto'>
-                    <p className='text-[#11131C] font-semibold text-sm'>{t("login.name")}</p>
+                    <p className='text-[#11131C] font-semibold text-sm after:content-["*"] after:ml-0.5 after:text-red-500'>{t("login.name")}</p>
                     <input className={`loginInput ${registrationError.name && '!border-red-400'}`} type="text" name="name" placeholder={t("login.name")} value={registerFormValues.name} onChange={handleInputChange} />
                     {registrationError.name && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.name}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
-                    <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.surnames")}</p>
+                    <p className='text-[#11131C] font-semibold text-sm after:content-["*"] after:ml-0.5 after:text-red-500 -mt-1.5'>{t("login.surnames")}</p>
                     <input className={`loginInput ${registrationError.lastname && '!border-red-400'}`} type="text" name="lastname" placeholder={t("login.surnames")} value={registerFormValues.lastname} onChange={handleInputChange} />
                     {registrationError.lastname && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.lastname}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
-                    <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.email")}</p>
+                    <p className='text-[#11131C] font-semibold text-sm after:content-["*"] after:ml-0.5 after:text-red-500 -mt-1.5'>{t("login.email")}</p>
                     <input className={`loginInput ${registrationError.email && '!border-red-400'}`} type="email" name="email" placeholder={t("login.email")} value={registerFormValues.email} onChange={handleInputChange} />
                     {registrationError.email && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.email}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
-                    <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.password")}</p>
+                    <p className='text-[#11131C] font-semibold text-sm after:content-["*"] after:ml-0.5 after:text-red-500 -mt-1.5'>{t("login.password")}</p>
                     <input className={`loginInput ${registrationError.password && '!border-red-400'}`} type={isPasswordVisible ? "text" : "password"} name="password" placeholder={t("login.password")} value={registerFormValues.password} onChange={handleInputChange} />
                     {isPasswordVisible ?
                         <img src="/svgs/pwdEyeOpenBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />
@@ -102,7 +102,7 @@ export default function RegisterForm() {
                     {registrationError.password && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-600">{registrationError.password}</p>}
                 </div>
                 <div className='relative w-[60%] mx-auto'>
-                    <p className='text-[#11131C] font-semibold text-sm -mt-1.5'>{t("login.confirm-password")}</p>
+                    <p className='text-[#11131C] font-semibold text-sm after:content-["*"] after:ml-0.5 after:text-red-500 -mt-1.5'>{t("login.confirm-password")}</p>
                     <input className={`loginInput ${registrationError.confirmPassword && '!border-red-400'}`} type={isConfirmPasswordVisible ? "text" : "password"} name="confirmPassword" placeholder={t("login.confirm-password")} value={registerFormValues.confirmPassword} onChange={handleInputChange} />
                     {isConfirmPasswordVisible ?
                         <img src="/svgs/pwdEyeOpenBlack.svg" className="right-3.5 top-8 h-5 w-4 absolute" onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)} />

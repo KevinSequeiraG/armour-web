@@ -19,13 +19,50 @@ const UserWebPages = () => {
         return `${day}-${month}-${year}`; // Formato YYYY-MM-DD
     };
 
+    async function downloadExcel() {
+        // Tus datos como un array de objetos
+        const data = [];
+        let fileName = '';
+        fileName = "Reporte de usuarios"
+        webpageData.map((webpage) => {
+            data.push({
+                Nombre: webpage.name,
+                Contador: webpage.visitedCounter,
+                FechaCreacion : formatCreatedAt(webpage.createdAt),
+                URL: `https://armour-web.vercel.app/aw/${webpage.pageUrl}`,
+            });
+        });
+        
+        // Enviar solicitud POST a la ruta API
+        const response = await fetch("/api/exportExcel", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data), // Convertir tus datos a JSON
+        });
+
+        if (response.status === 200) {
+            // Recibir la respuesta y crear una URL para descargar el archivo
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = downloadUrl;
+            link.download = `${fileName}.xlsx`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } else {
+            console.error("No se pudo descargar el archivo Excel.");
+        }
+    }
+
     useEffect(() => {
         if (loggedUser) {
             GetWebpagesByCreatedBy(loggedUser?.uid).then((data) => {
                 setWebpageData(data)
             })
         }
-
     }, [loggedUser])
 
     return (
@@ -66,6 +103,7 @@ const UserWebPages = () => {
                     </tbody>
                 </table>
             </div>
+            <div className="flex justify-center mt-10"><button className="mx-auto w-[10rem] bg-green-500 text-white rounded-xl py-2 px-2" onClick={downloadExcel}>Descargar información</button></div>
         </div>
     )
 }

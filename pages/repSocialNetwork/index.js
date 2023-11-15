@@ -12,6 +12,43 @@ const SocialNetwork = () => {
     const [pageSelected, setPageSelected] = useState();
     const [pageToShow, setPageToShow] = useState();
 
+    async function downloadExcel() {
+        // Tus datos como un array de objetos
+        const data = [];
+        let fileName = '';
+        fileName = "Reporte de usuarios"
+
+        data.push({
+            Facebook: pageToShow.totalFacebookRedirects,
+            Instagram: pageToShow.totalInstagramRedirects,
+            X: pageToShow.totalTwitterRedirects,
+            LinkedIn: pageToShow.totalLinkedInRedirects,
+        });
+
+        // Enviar solicitud POST a la ruta API
+        const response = await fetch("/api/exportExcel", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data), // Convertir tus datos a JSON
+        });
+
+        if (response.status === 200) {
+            // Recibir la respuesta y crear una URL para descargar el archivo
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = downloadUrl;
+            link.download = `${fileName}.xlsx`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        } else {
+            console.error("No se pudo descargar el archivo Excel.");
+        }
+    }
+
     useEffect(() => {
         if (loggedUser) {
             GetWebpagesByCreatedBy(loggedUser?.uid).then(webpages => {
@@ -36,7 +73,7 @@ const SocialNetwork = () => {
             </Head>
             <p className="ml-16 mt-10 mb-3 font-bold text-2xl">{t("navbar.interactions-on-social-networks")}</p>
             <select className="ml-16 shadow border w-[20rem] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 rounded-[10px]" value={pageSelected} onChange={(e) => { setPageSelected(e.target.value) }}>
-            <option value="None">{t("reports.select-page")}</option>
+                <option value="None">{t("reports.select-page")}</option>
                 {webpagesData?.map((webpage, i) => {
                     return (<option key={i} value={webpage?.pageUrl}>{webpage?.name}</option>)
                 })}
@@ -48,6 +85,7 @@ const SocialNetwork = () => {
                 <SocialMediaReportCard cardType="X" webpage={pageToShow} />
                 <SocialMediaReportCard cardType="LinkedIn" webpage={pageToShow} />
             </div>
+            <div className="flex justify-center mt-10"><button className="mx-auto w-[10rem] bg-green-500 text-white rounded-xl py-2 px-2" onClick={downloadExcel}>Descargar información</button></div>
         </div >
     )
 }

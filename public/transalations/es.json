@@ -326,6 +326,8 @@
         "report-mypages": "Reporte de mis páginas",
         "report-general-pages": "Reporte general de páginas",
         "report-filter": "Filtrar",
-        "report-clear-filter": "Limpiar filtro"
+        "report-clear-filter": "Limpiar filtro",
+        "report-start-date": "Fecha inicial",
+        "report-end-date": "Fecha final"
     }
 }

@@ -9,6 +9,10 @@ const AdminWebPages = () => {
     const { t } = useTranslation();
     const { loggedUser } = useContext(UserContext);
     const [webpageData, setWebpageData] = useState([]);
+    const [webpageDataNoFilter, setWebpageDataNoFilter] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [clearFilter, setClearFilter] = useState(false);
 
     const formatCreatedAt = (createdAt) => {
         const unixTime = createdAt.seconds;
@@ -71,15 +75,44 @@ const AdminWebPages = () => {
 
     useEffect(() => {
         if (loggedUser) {
+            setStartDate("");
+            setEndDate("");
             getAllWebpages().then(async (data) => {
                 const updatedData = await Promise.all(data.map(async (item) => {
                     const userName = await getUserName(item.createdBy);
                     return { ...item, userName };
                 }));
                 setWebpageData(updatedData);
+                setWebpageDataNoFilter(updatedData)
             });
         }
-    }, [loggedUser]);
+    }, [loggedUser, clearFilter]);
+
+    const applyDateFilter = () => {
+        if (!startDate || !endDate) return;
+
+        const normalizeDate = (dateString) => {
+            const [year, month, day] = dateString.split("-").map(num => parseInt(num, 10));
+            // Crear una nueva fecha usando el constructor de Date que toma año, mes, día
+            // Los meses en JavaScript son de 0 a 11, por lo que se resta 1 al mes
+            const date = new Date(year, month - 1, day);
+            date.setHours(0, 0, 0, 0); // Establece la hora a medianoche
+            return date;
+        };
+
+        const normalizedStartDate = normalizeDate(startDate);
+        const normalizedEndDate = normalizeDate(endDate);
+
+        const filteredData = webpageDataNoFilter.filter(item => {
+            const itemDateSeconds = item.createdAt.seconds;
+            const itemDate = new Date(itemDateSeconds * 1000);
+            itemDate.setHours(0, 0, 0, 0); // Normalizar la fecha de creación del elemento
+
+            return itemDate >= normalizedStartDate && itemDate <= normalizedEndDate;
+        });
+
+        setWebpageData(filteredData);
+    };
 
     return (
         <div className="">
@@ -89,7 +122,25 @@ const AdminWebPages = () => {
                 <link rel="icon" href="/images/awLogo-nobg.png" />
             </Head>
             <p className="font-bold text-2xl text-center mt-10">{t("navbar.pages-created")}</p>
-            <div className="flex justify-end"><button className="mr-8 bg-green-500 text-white rounded-[10px] shadow-md hover:bg-green-700 py-2 px-4" onClick={downloadExcel}>{t("reports.download-report")}</button></div>
+            <div className="flex items-center justify-between mx-14 mt-8">
+                <div className="space-x-5">
+                    <input
+                        className="bg-[#f5f5f5] py-2 px-3 rounded-[10px] border-2 border-[#E9E9E9] cursor-pointer"
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                    <input
+                        className="bg-[#f5f5f5] py-2 px-3 rounded-[10px] border-2 border-[#E9E9E9] cursor-pointer"
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                    <button onClick={applyDateFilter} className="bg-gray-600 text-white px-3 py-1 rounded-[5px] font-medium hover:bg-gray-500">{t("reports.report-filter")}</button>
+                    <button onClick={() => setClearFilter(!clearFilter)} className="bg-gray-500 text-white px-2 py-1 rounded-[5px] font-medium hover:bg-gray-400">{t("reports.report-clear-filter")}</button>
+                </div>
+                <div className="flex justify-end"><button className="bg-green-500 text-white rounded-[10px] shadow-md hover:bg-green-700 py-2 px-4" onClick={downloadExcel}>{t("reports.download-report")}</button></div>
+            </div>
             <div className="container mt-10">
 
                 <table className="mx-auto rounded-[10px] overflow-hidden shadow-md">

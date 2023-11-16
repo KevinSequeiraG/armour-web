@@ -60,7 +60,8 @@
         "user-edited": "Your profile has been successfully edited",
         "password-edited-correctly": "Password edited correctly",
         "password-email-sended": "An email has been sent to your address, check your spam box.",
-        "email-sended": "Mail sent successfully."
+        "email-sended": "Mail sent successfully.",
+        "upload-to-firebase": "Data upload was successful"
     },
     "errors": {
         "wrong-password": "Incorrect password. Please try again.",
@@ -304,6 +305,7 @@
         "webpagename": "Webpage name",
         "created-by": "Create by",
         "download-data": "Download database information",
+        "download-report": "Download report",
         "download-categories": "Download categories data",
         "download-processes": "Download processes data",
         "download-products": "Download products data",

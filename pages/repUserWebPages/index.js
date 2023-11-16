@@ -28,11 +28,11 @@ const UserWebPages = () => {
             data.push({
                 Nombre: webpage.name,
                 Contador: webpage.visitedCounter,
-                FechaCreacion : formatCreatedAt(webpage.createdAt),
+                FechaCreacion: formatCreatedAt(webpage.createdAt),
                 URL: `https://armour-web.vercel.app/aw/${webpage.pageUrl}`,
             });
         });
-        
+
         // Enviar solicitud POST a la ruta API
         const response = await fetch("/api/exportExcel", {
             method: "POST",
@@ -73,6 +73,7 @@ const UserWebPages = () => {
                 <link rel="icon" href="/images/awLogo-nobg.png" />
             </Head>
             <p className="font-bold text-2xl text-center mt-10">{t("navbar.pages-created")}</p>
+            <div className="flex justify-end"><button className="mr-8 bg-green-500 text-white rounded-[10px] shadow-md hover:bg-green-700 py-2 px-4" onClick={downloadExcel}>{t("reports.download-report")}</button></div>
             <div className="container mt-8">
                 <table className="mx-auto rounded-[10px] overflow-hidden shadow-md">
                     <thead>
@@ -103,7 +104,6 @@ const UserWebPages = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="flex justify-center mt-10"><button className="mx-auto w-[10rem] bg-green-500 text-white rounded-xl py-2 px-2" onClick={downloadExcel}>Descargar información</button></div>
         </div>
     )
 }

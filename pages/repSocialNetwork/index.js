@@ -13,6 +13,7 @@ const SocialNetwork = () => {
     const [pageToShow, setPageToShow] = useState();
 
     async function downloadExcel() {
+        if (!pageToShow) return;
         // Tus datos como un array de objetos
         const data = [];
         let fileName = '';
@@ -78,6 +79,7 @@ const SocialNetwork = () => {
                     return (<option key={i} value={webpage?.pageUrl}>{webpage?.name}</option>)
                 })}
             </select>
+            <div className="flex justify-end"><button className="mr-8 bg-green-500 text-white rounded-[10px] shadow-md hover:bg-green-700 py-2 px-4" onClick={downloadExcel}>{t("reports.download-report")}</button></div>
             <p className="text-center text-[2rem] font-bold my-10">{pageToShow?.name}</p>
             <div className="grid grid-cols-4 mx-[8rem] justify-items-center gap-y-4">
                 <SocialMediaReportCard cardType="Facebook" webpage={pageToShow} />
@@ -85,7 +87,6 @@ const SocialNetwork = () => {
                 <SocialMediaReportCard cardType="X" webpage={pageToShow} />
                 <SocialMediaReportCard cardType="LinkedIn" webpage={pageToShow} />
             </div>
-            <div className="flex justify-center mt-10"><button className="mx-auto w-[10rem] bg-green-500 text-white rounded-xl py-2 px-2" onClick={downloadExcel}>Descargar información</button></div>
         </div >
     )
 }

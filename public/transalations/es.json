@@ -60,7 +60,8 @@
         "user-edited": "Tu perfil ha sido editado exitosamente",
         "password-edited-correctly": "Contraseña editada correctamente",
         "password-email-sended": "Se ha enviado un correo a tu dirección, revisa tu casilla de spam.",
-        "email-sended": "Correo enviado satisfactoriamente."
+        "email-sended": "Correo enviado satisfactoriamente.",
+        "upload-to-firebase": "Datos cargados satisfactoriamente"
     },
     "errors": {
         "wrong-password": "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
@@ -304,6 +305,7 @@
         "webpagename": "Nombre de página web",
         "created-by": "Creada por",
         "download-data": "Descargar información de base de datos",
+        "download-report": "Descargar reporte",
         "download-categories": "Descargar información categorías",
         "download-processes": "Descargar información procesos",
         "download-products": "Descargar información productos",

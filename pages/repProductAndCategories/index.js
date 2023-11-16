@@ -17,19 +17,20 @@ const ProductAndCategories = () => {
     const [mostVisitedCategory, setMostVisitedCategory] = useState();
 
     async function downloadExcel() {
+        if (!prodsDataToShow || !catsDataToShow) return;
         // Tus datos como un array de objetos
         const data = [];
         const data2 = [];
         let fileName = '';
         fileName = "Reporte de usuarios"
-        prodsDataToShow.map((prod) => {
+        prodsDataToShow?.map((prod) => {
             data.push({
                 Nombre: prod.name,
                 Contador: prod.watchedCounter
             });
         });
 
-        catsDataToShow.map((cat) => {
+        catsDataToShow?.map((cat) => {
             data2.push({
                 Nombre: cat.name,
                 Contador: cat.watchedCounter
@@ -134,10 +135,10 @@ const ProductAndCategories = () => {
                     return (<option key={i} value={webpage?.pageUrl}>{webpage?.name}</option>)
                 })}
             </select>
-            <div className="flex justify-center mt-10"><button className="mx-auto w-[10rem] bg-green-500 text-white rounded-xl py-2 px-2" onClick={downloadExcel}>Descargar información</button></div>
+            <div className="flex justify-end"><button className="mr-8 bg-green-500 text-white rounded-[10px] shadow-md hover:bg-green-700 py-2 px-4" onClick={downloadExcel}>{t("reports.download-report")}</button></div>
 
-            <div className="flex mx-auto max-w-min mt-16">
-                <div className="mr-16 border border-1 border-gray-400 px-4 py-4 rounded-[10px] shadow-md min-w-[20rem]">
+            <div className="flex mx-auto max-w-min mt-0 max-h-[calc(100vh-18rem)] overflow-y-auto scrollbarDesign px-5 space-x-16">
+                <div className="mr-0 border border-1 border-gray-400 px-4 py-4 rounded-[10px] shadow-md min-w-[20rem] h-full">
                     <p className="mb-4 text-center font-bold text-lg">{t("reports.products")}</p>
                     {prodsDataToShow?.length > 0 ? (
                         <table className="min-w-full divide-y divide-gray-200 border border-1 border-gray-300">
@@ -169,7 +170,7 @@ const ProductAndCategories = () => {
                     )}
                     <p className="mt-6 text-center">{t("reports.most-consulted-prod")}: <span className="font-bold">{mostVisitedProduct ? mostVisitedProduct.name : ""}</span></p>
                 </div>
-                <div className="ml-16 border border-1 border-gray-400 px-4 py-4 rounded-[10px] shadow-md min-w-[20rem]">
+                <div className="ml-0 border border-1 border-gray-400 px-4 py-4 rounded-[10px] shadow-md min-w-[20rem] h-full">
                     <p className="mb-4 text-center font-bold text-lg">{t("reports.categories")}</p>
                     {catsDataToShow?.length > 0 ? (
                         <table className="min-w-full divide-y divide-gray-200 border border-1 border-gray-300">

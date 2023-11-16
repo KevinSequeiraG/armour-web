@@ -22,7 +22,7 @@ const ProductAndCategories = () => {
         const data = [];
         const data2 = [];
         let fileName = '';
-        fileName = "Reporte de usuarios"
+        fileName = t("reports.report-products")
         prodsDataToShow?.map((prod) => {
             data.push({
                 Nombre: prod.name,
@@ -36,7 +36,8 @@ const ProductAndCategories = () => {
                 Contador: cat.watchedCounter
             });
         });
-
+        let fileName2 = '';
+        fileName2 = t("reports.report-categories")
         // Enviar solicitud POST a la ruta API
         const response = await fetch("/api/exportExcel", {
             method: "POST",
@@ -74,7 +75,7 @@ const ProductAndCategories = () => {
             const downloadUrl = window.URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = downloadUrl;
-            link.download = `${fileName}.xlsx`;
+            link.download = `${fileName2}.xlsx`;
             document.body.appendChild(link);
             link.click();
             link.remove();

@@ -319,6 +319,11 @@
         "upload-products": "Cargar información productos",
         "upload-users": "Cargar información usuarios",
         "upload-webpages": "Cargar información páginas web",
-        "upload-from-firebase": "Carga a firebase"
+        "upload-from-firebase": "Carga a firebase",
+        "report-categories": "Reporte de categorías",
+        "report-products": "Reporte de productos",
+        "report-socialnetwork": "Reporte de redes sociales",
+        "report-mypages": "Reporte de mis páginas",
+        "report-general-pages": "Reporte general de páginas"
     }
 }

@@ -319,6 +319,11 @@
         "upload-products": "Upload products data",
         "upload-users": "Upload users data",
         "upload-webpages": "Upload web pages data",
-        "upload-from-firebase": "Upload from firebase"
+        "upload-from-firebase": "Upload from firebase",
+        "report-categories": "Categories report",
+        "report-products": "Products report",
+        "report-socialnetwork": "Social network report",
+        "report-mypages": "My pages report",
+        "report-general-pages": "All pages report"
     }
 }

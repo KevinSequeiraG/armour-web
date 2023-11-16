@@ -24,11 +24,11 @@ const AdminWebPages = () => {
         // Tus datos como un array de objetos
         const data = [];
         let fileName = '';
-        fileName = "Reporte de usuarios"
+        fileName = t("reports.report-general-pages")
         webpageData.map((webpage) => {
             data.push({
                 Nombre: webpage.name,
-                Contador: webpage.visitedCounter,
+                Visitantes: webpage.visitedCounter,
                 FechaCreacion: formatCreatedAt(webpage.createdAt),
                 URL: webpage.pageUrl,
                 Usuario: webpage.userName

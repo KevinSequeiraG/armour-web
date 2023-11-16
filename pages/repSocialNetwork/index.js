@@ -17,7 +17,7 @@ const SocialNetwork = () => {
         // Tus datos como un array de objetos
         const data = [];
         let fileName = '';
-        fileName = "Reporte de usuarios"
+        fileName = t("reports.report-socialnetwork")
 
         data.push({
             Facebook: pageToShow.totalFacebookRedirects,

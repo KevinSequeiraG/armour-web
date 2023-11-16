@@ -63,7 +63,7 @@ const DownloadData = () => {
                                 onClick={() => {
                                     downloadTableData(tableName);
                                 }}
-                                className="bg-gray-500 px-4 py-2 mx-2 text-white rounded-[10px] min-w-[220px] my-2"
+                                className="bg-gray-500 px-4 py-2 mx-2 text-white rounded-[10px] min-w-[285px] my-2"
                             >
                                 {t(`reports.download-${tableName}`)}
                             </button>
@@ -71,7 +71,7 @@ const DownloadData = () => {
                                 onClick={() => {
                                     handleUpload(tableName);
                                 }}
-                                className="bg-green-600 px-4 py-2 mx-2 text-white rounded-[10px] min-w-[220px] my-2"
+                                className="bg-green-600 px-4 py-2 mx-2 text-white rounded-[10px] min-w-[285px] my-2"
                             >
                                 {t(`reports.upload-${tableName}`)}
                             </button>

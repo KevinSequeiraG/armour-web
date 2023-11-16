@@ -136,7 +136,7 @@ export const downloadTableData = async (tableName) => {
 
         // Crea un Blob con los datos y lo descarga como un archivo JSON
         const blob = new Blob([jsonData], { type: "application/json" });
-        saveAs(blob, `${tableName}.json`);
+        saveAs(blob, `${tableName+" - ArmourWeb"}.json`);
     } catch (error) {
         console.error('Error al descargar la tabla:', error);
         // Maneja el error según tus necesidades

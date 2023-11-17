@@ -176,8 +176,8 @@ const AdminWebPages = () => {
                                 <td className="px-6 py-4 whitespace-nowrap capitalize">{item.userName}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
                                 <td className="px-6 py-4 whitespace-nowrap mx-auto">
-                                    <a href={`https://armour-web.vercel.app/aw/${item.pageUrl}`} target="_blank" rel="noopener noreferrer" className="text-white cursor-pointer hover:underline">
-                                        https://armour-web.vercel.app/aw/{item.pageUrl}
+                                    <a href={`https://armour-web-byi6.vercel.app/aw/${item.pageUrl}`} target="_blank" rel="noopener noreferrer" className="text-white cursor-pointer hover:underline">
+                                        https://armour-web-byi6.vercel.app/aw/{item.pageUrl}
                                     </a>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">

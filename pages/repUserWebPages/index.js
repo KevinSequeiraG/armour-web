@@ -29,7 +29,7 @@ const UserWebPages = () => {
                 Nombre: webpage.name,
                 Visitantes: webpage.visitedCounter,
                 FechaCreacion: formatCreatedAt(webpage.createdAt),
-                URL: `https://armour-web.vercel.app/aw/${webpage.pageUrl}`,
+                URL: `https://armour-web-byi6.vercel.app/aw/${webpage.pageUrl}`,
             });
         });
 
@@ -90,8 +90,8 @@ const UserWebPages = () => {
                             <tr className="bg-gray-500 text-white" key={index}>
                                 <td className="px-6 py-4 whitespace-nowrap">{item.name}</td>
                                 <td className="px-6 py-4 whitespace-nowrap mx-auto">
-                                    <a href={`https://armour-web.vercel.app/aw/${item.pageUrl}`} target="_blank" rel="noopener noreferrer" className="text-white cursor-pointer hover:underline">
-                                        https://armour-web.vercel.app/aw/{item.pageUrl}
+                                    <a href={`https://armour-web-byi6.vercel.app/aw/${item.pageUrl}`} target="_blank" rel="noopener noreferrer" className="text-white cursor-pointer hover:underline">
+                                        https://armour-web-byi6.vercel.app/aw/{item.pageUrl}
                                     </a>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">

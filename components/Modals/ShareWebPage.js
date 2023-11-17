@@ -34,7 +34,7 @@ const ShareWebPage = ({ isOpen, setShowShareModal, webPageData }) => {
                                 size={150}
                                 style={{ height: "auto", margin: "0 auto" }}
                                 title="QR Code"
-                                value={`https://armour-web.vercel.app/aw/${webPageData?.pageUrl}`}
+                                value={`https://armour-web-byi6.vercel.app/aw/${webPageData?.pageUrl}`}
                                 viewBox={`0 0 200 200`}
                             />
                         </div>
@@ -42,7 +42,7 @@ const ShareWebPage = ({ isOpen, setShowShareModal, webPageData }) => {
                     <p onClick={() => handleDownloadImageQR()} className={`w-min truncate rounded-[5px] bg-[#C69434] cursor-pointer  hover:shadow-md mt-3 px-9 font-semibold text-center text-white py-1.5`}>{t("share-modal.download")}</p>
                 </div>
                 <p className="text-[1.2rem] pl-2 mt-4 font-semibold">{t("share-modal.your-link")}</p>
-                <Link href={`https://armour-web.vercel.app/aw/${webPageData?.pageUrl}`} target="_blank"><p target="_blank" className="bg-[#f5f5f5] underline hover:text-blue-700 shadow-sm border px-3 py-2 truncate rounded-[10px] font-medium text-[1.2rem] text-start mt-1 mb-3">{`https://armour-web.vercel.app/aw/${webPageData?.pageUrl}`}</p></Link>
+                <Link href={`https://armour-web-byi6.vercel.app/aw/${webPageData?.pageUrl}`} target="_blank"><p target="_blank" className="bg-[#f5f5f5] underline hover:text-blue-700 shadow-sm border px-3 py-2 truncate rounded-[10px] font-medium text-[1.2rem] text-start mt-1 mb-3">{`https://armour-web-byi6.vercel.app/aw/${webPageData?.pageUrl}`}</p></Link>
 
             </div>
         </div>

@@ -130,6 +130,7 @@ export const Card = (props) => {
                             <div className='flex justify-center items-center space-x-1'>
                                 <AiOutlineFontSize className='w-4 h-4' />
                                 <input min={0} name="textSizeTitle" value={contentValues?.textSizeTitle} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-0.5 hide-spin-buttons text-center' data-tooltip-id="nav-content-text-size" data-tooltip-content={t("page-builder.tool-page-content-text-size")} />
+                                <em className='font-normal text-xs'>px</em>
                                 <Tooltip id="nav-content-text-size" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                             </div>
 
@@ -158,6 +159,7 @@ export const Card = (props) => {
                             <div className='flex justify-center items-center space-x-1'>
                                 <AiOutlineFontSize className='w-4 h-4' />
                                 <input min={0} name="textSizeDesc" value={contentValues?.textSizeDesc} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-0.5 hide-spin-buttons text-center' data-tooltip-id="nav-content-text-size" data-tooltip-content={t("page-builder.tool-page-content-text-size")} />
+                                <em className='font-normal text-xs'>px</em>
                                 <Tooltip id="nav-content-text-size" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                             </div>
 
@@ -186,6 +188,7 @@ export const Card = (props) => {
                             <div className='flex justify-center items-center space-x-1'>
                                 <AiOutlineFontSize className='w-4 h-4' />
                                 <input min={0} name="textSizeButton" value={contentValues?.textSizeButton} onChange={handleInputChange} type='number' className='w-1/2 bg-white border border-[#224553] rounded-[5px] px-0.5 hide-spin-buttons text-center' data-tooltip-id="nav-content-text-size" data-tooltip-content={t("page-builder.tool-page-content-text-size")} />
+                                <em className='font-normal text-xs'>px</em>
                                 <Tooltip id="nav-content-text-size" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                             </div>
 

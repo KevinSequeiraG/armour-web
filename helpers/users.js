@@ -89,7 +89,7 @@ export const createUserFromLogin = async (newUser) => {
     }).catch((er) => {
         console.log(er);
         const date = new Date();
-        addProcessStatus({ process: "createUserFromLogin", status: ("error:" + error), date: date });
+        addProcessStatus({ process: "createUserFromLogin", status: ("error:" + er), date: date });
     });
 }
 const uploadImageInDB = async (file) => {

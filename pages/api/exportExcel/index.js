@@ -1,4 +1,4 @@
-var XLSX = require("xlsx");
+import * as XLSX from 'xlsx';
 
 export default function handler(req, res) {
   // Método para convertir array de datos a Excel

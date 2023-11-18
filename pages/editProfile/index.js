@@ -101,7 +101,7 @@ const EditProfile = () => {
                     <p className="text-[1.8rem] font-bold mb-1">{t('user-data.basic-info')}</p>
                     <hr className='border border-[#224553] mb-5 w-5/12' />
                     <div className="flex items-center justify-between my-3 relative">
-                        <label htmlFor="name" className="text-[1.5rem] font-semibold">
+                        <label htmlFor="name" className="text-[1.5rem] font-semibold after:content-['*'] after:ml-0.5 after:text-red-500">
                             {t('user-data.name')}:
                         </label>
                         <input
@@ -115,7 +115,7 @@ const EditProfile = () => {
                         {registrationError.name && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-3 right-0 text-red-600">{registrationError.name}</p>}
                     </div>
                     <div className="flex items-center justify-between my-3 relative">
-                        <label htmlFor="lastname" className="text-[1.5rem] font-semibold">
+                        <label htmlFor="lastname" className="text-[1.5rem] font-semibold after:content-['*'] after:ml-0.5 after:text-red-500">
                             {t('user-data.lastname')}:
                         </label>
                         <input

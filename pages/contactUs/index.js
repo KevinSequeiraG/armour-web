@@ -72,8 +72,8 @@ const ContactUs = () => {
 
             <div className="w-4/5 mx-auto !bg-gray-600 rounded-[10px] p-8 shadow-md text-white grid grid-cols-2 gap-4">
                 <div className='relative'>
-                    <p className='font-semibold'>{t("login.email")}</p>
-                    <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues?.email || "erickvrp25@gmail.com"} onChange={handleInputChange} />
+                    <p className='font-semibold after:content-["*"] after:ml-0.5 after:text-red-500'>{t("login.email")}</p>
+                    <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.email && 'border !border-red-200'}`} type="email" placeholder={t("login.email")} name="email" value={formValues?.email} onChange={handleInputChange} />
                     {formError.email && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-5 right-0 text-red-200">{formError.email}</p>}
                 </div>
 
@@ -83,13 +83,13 @@ const ContactUs = () => {
                 </div>
 
                 <div className='relative col-span-2'>
-                    <p className='font-semibold'>{t("contact-us.subject")}</p>
+                    <p className='font-semibold after:content-["*"] after:ml-0.5 after:text-red-500'>{t("contact-us.subject")}</p>
                     <input className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.subject && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.subject")} name="subject" value={formValues.subject} onChange={handleInputChange} />
                     {formError.subject && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-5 right-0 text-red-200">{formError.subject}</p>}
                 </div>
 
                 <div className='relative col-span-2'>
-                    <p className='font-semibold'>{t("contact-us.message")}</p>
+                    <p className='font-semibold after:content-["*"] after:ml-0.5 after:text-red-500'>{t("contact-us.message")}</p>
                     <textarea className={`w-full rounded-[10px] bg-[#f5f5f5] text-black font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-200'}`} type="text" placeholder={t("contact-us.message") + "..."} name="message" value={formValues.message} onChange={handleInputChange} rows="3" />
                     {formError.message && <p className="animate__animated animate__flipInX absolute text-xs font-medium -bottom-4 right-0 text-red-200">{formError.message}</p>}
                 </div>

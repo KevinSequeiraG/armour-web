@@ -21,7 +21,7 @@ export default async function handler(req, res) {
                 text: `${name} ${language == "es" ? "te ha enviado un mensaje:" : "has sent you a message:"} 
                 ${message}
                 
-                ${language == "es" ? "Contácto del usuario:" : "User contact:"} ${email}`,
+                ${language == "es" ? "Contacto del usuario:" : "User contact:"} ${email}`,
             });
 
             res.status(200).json({ message: 'Correo electrónico enviado con éxito' });

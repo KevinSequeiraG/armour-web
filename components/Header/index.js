@@ -1,10 +1,13 @@
 import { UserContext } from "@/context/UserContext";
 import { getUserByUid } from "@/helpers/users";
+import Link from "next/link";
 //No borrar el import, es para devs 
 // import { updateEmailVerified } from "@/helpers/users";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { BiSolidInfoCircle } from "react-icons/bi";
+import { Tooltip } from "react-tooltip";
 
 const Header = () => {
     const router = useRouter();
@@ -66,11 +69,15 @@ const Header = () => {
 
     return (
         <>
-            {isAwPage || isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#f6f6f6] shadow border-b border-[#E6E6E6] h-[5rem] flex justify-end items-center px-4">
+            {isAwPage || isLandingPage || isEmailNoVerified || isSendEmailPassword || isUserActionPage || isLoginPage || isBuilderPage ? null : <div className="bg-[#f6f6f6] shadow border-b border-[#E6E6E6] h-[5rem] flex justify-end items-center px-6">
 
                 <div className="flex items-center">
                     <div className="flex flex-col text-right">
                         <p className="mr-4 text-[#767B92] font-bold capitalize">{userData?.name + " " + userData?.lastname}</p>
+                        <Link href={`https://drive.google.com/file/d/1DCabHO98zDxzZrnIaQ_gzk2W206ZH6SG/view?usp=sharing`} target="_blank">
+                            <BiSolidInfoCircle className="absolute top-1 right-1 w-6 h-6 text-gray-500 hover:text-gray-600 cursor-pointer" data-tooltip-id="manual" data-tooltip-content={t("navbar.manual-link")} />
+                        </Link>
+                        <Tooltip id="manual" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                         <div className="relative mr-4" ref={configRef}>
                             <button onClick={() => setShowConfig(!showConfig)} className="mt-0.5 text-[#767B92] bg-gray-700 rounded-full p-1.5"><img className="w-5 h-5" src="./svgs/config.svg"></img></button>
                             {showConfig && <div className="border border-1 border-[#F5F5F5] bg-gray-800 min-h-[5rem] min-w-[5rem] absolute right-3 px-3 py-4 rounded-xl text-left shadow-md">
@@ -88,7 +95,7 @@ const Header = () => {
                             </div>}
                         </div>
                     </div>
-                    {userData?.imageProfileUrl === "" ? <div className="rounded-full w-[3.5rem] h-[3.5rem] bg-[#EFE1A2]"></div> : <img className="rounded-full w-[3.5rem] h-[3.5rem]" src={userData?.imageProfileUrl} />}
+                    {userData?.imageProfileUrl !== "" ? <div className="rounded-full w-[3.5rem] h-[3.5rem] bg-[#EFE1A2]"></div> : <img className="rounded-full w-[3.5rem] h-[3.5rem]" src={userData?.imageProfileUrl} />}
                 </div>
             </div>}
         </>

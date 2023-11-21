@@ -6,8 +6,11 @@ import ShareWebPage from '@/components/Modals/ShareWebPage';
 import { UserContext } from '@/context/UserContext';
 import { SaveWebPage } from '@/helpers/webpage';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BiSolidInfoCircle } from 'react-icons/bi';
+import { Tooltip } from 'react-tooltip';
 import Swal from 'sweetalert2';
 
 export default function ManagePageBuilder() {
@@ -130,8 +133,11 @@ export default function ManagePageBuilder() {
                 <Sidebar currentMenuOption={currentMenuOption} setCurrentMenuOption={setCurrentMenuOption} setCurrentPage={setCurrentPage} currentPage={currentPage} setWebPageData={setWebPageData} webPageData={webPageData} isMobilePreview={isMobilePreview} />
 
                 <div className="min-w-[69%] max-w-[69%] ml-3 shadow-2xl drop-shadow-2xl bg-gray-900 h-full flex">
-
                     <div className='absolute right-5 top-3 flex '>
+                    <Link href={`https://drive.google.com/file/d/1DCabHO98zDxzZrnIaQ_gzk2W206ZH6SG/view?usp=sharing`} target="_blank">
+                        <BiSolidInfoCircle className="mr-3 mt-1.5 w-7 h-7 text-gray-300 hover:text-gray-400 cursor-pointer" data-tooltip-id="manual" data-tooltip-content={t("navbar.manual-link")} />
+                    </Link>
+                    <Tooltip id="manual" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
                         <div className='flex items-center bg-black px-4 rounded-xl border border-1 border-gray-300'>
                             <span className="text-[1rem] text-gray-200 font-medium mr-3">EN</span>
                             <label className="relative inline-flex items-center cursor-pointer" >

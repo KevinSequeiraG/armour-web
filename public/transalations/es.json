@@ -9,7 +9,8 @@
         "products-and-categories": "Productos y categorías",
         "interactions-on-social-networks": "Interacciones en redes sociales",
         "sign-off": "Cerrar sesión",
-        "editProfile": "Editar perfil"
+        "editProfile": "Editar perfil",
+        "manual-link": "Manual de usuario"
     },
     "login": {
         "log-in": "Iniciar sesión",
@@ -92,7 +93,7 @@
         "add-section": "Añadir sección",
         "add-img": "Añadir imagen",
         "add-page": "Añadir página",
-        "add-contact-form": "Añadir contácto",
+        "add-contact-form": "Añadir contacto",
         "close": "Cerrar",
         "create": "Crear página web"
     },

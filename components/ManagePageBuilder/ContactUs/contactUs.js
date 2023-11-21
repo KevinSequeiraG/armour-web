@@ -123,7 +123,7 @@ export const ContactUs = (props) => {
     return (
         <div className={`flex flex-col`} style={divStyles}>
             <div className="mx-auto !text-4xl italic">
-                <p className="font-bold">{props?.webPageData?.isSpanish ? "Contácto" : "Contact us"}</p>
+                <p className="font-bold">{props?.webPageData?.isSpanish ? "Contacto" : "Contact us"}</p>
             </div>
 
             <div className={`flex flex-col mdx1000:!flex-row`}>

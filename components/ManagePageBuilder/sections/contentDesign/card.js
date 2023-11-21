@@ -93,7 +93,7 @@ export const Card = (props) => {
             <div className='flex flex-col mt-4'>
                 <label>{t("page-builder.tool-page-content-card-desing")}</label>
                 <select
-                    className="px-1 py-0.5 border rounded-lg w-2/3 mx-auto  mt-1 border-black"
+                    className="px-1 py-0.5 border rounded-lg w-2/3 mx-auto cursor-pointer mt-1 border-black"
                     value={contentValues?.cardSelected}
                     name="cardSelected"
                     onChange={handleInputChange}

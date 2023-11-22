@@ -95,7 +95,7 @@ const Header = () => {
                             </div>}
                         </div>
                     </div>
-                    {userData?.imageProfileUrl !== "" ? <div className="rounded-full w-[3.5rem] h-[3.5rem] bg-[#EFE1A2]"></div> : <img className="rounded-full w-[3.5rem] h-[3.5rem]" src={userData?.imageProfileUrl} />}
+                    {userData?.imageProfileUrl === "" ? <div className="rounded-full w-[3.5rem] h-[3.5rem] bg-[#EFE1A2]"></div> : <img className="rounded-full w-[3.5rem] h-[3.5rem]" src={userData?.imageProfileUrl} />}
                 </div>
             </div>}
         </>

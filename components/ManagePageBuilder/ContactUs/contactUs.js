@@ -171,7 +171,7 @@ export const ContactUs = (props) => {
                         </div>}
                         {pageDesign?.twitter && <div className='flex flex-col items-center space-y-1 h-min cursor-pointer' onClick={() => redirectToSocialMedia("twitter")}>
                             <FaXTwitter className='w-9 h-9' />
-                            <p>Twitter</p>
+                            <p>X</p>
                         </div>}
                         {pageDesign?.linkedIn && <div className='flex flex-col items-center space-y-1 h-min cursor-pointer' onClick={() => redirectToSocialMedia("linkedIn")}>
                             <svg className="w-8 h-8 fill-blue-600" role="img" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">

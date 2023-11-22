@@ -72,7 +72,7 @@ export const ContactUsPreview = (props) => {
                         </div>
                         <div className='flex flex-col items-center space-y-1'>
                             <FaXTwitter className='w-9 h-9 fill-black' />
-                            <p>Twitter</p>
+                            <p>X</p>
                         </div>
                         <div className='flex flex-col items-center space-y-1'>
                             <svg className="w-8 h-8 fill-blue-600" role="img" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">

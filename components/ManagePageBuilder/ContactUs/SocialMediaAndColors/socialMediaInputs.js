@@ -23,7 +23,7 @@ export default function SocialMediaInput({
             </>
           ) : twitterIcon ? (
             <>
-              <FaXTwitter className="w-8 h-8 text-[#899592]" data-tooltip-id="twitter" data-tooltip-content={"Twitter"} />
+              <FaXTwitter className="w-8 h-8 text-[#899592]" data-tooltip-id="twitter" data-tooltip-content={"X"} />
               <Tooltip id="twitter" className="tooltipDesign" classNameArrow="tooltipArrowDesign" />
             </>
           ) : linkedInIcon ? (

@@ -14,7 +14,7 @@ const ProductQuantity = (props) => {
             desc: props?.prodToAdd?.desc,
             image: props?.prodToAdd?.image,
             idProd: props?.prodToAdd?.id,
-            quantity: quantity < 1 ? 1 : quantity,
+            quantity: quantity < 1 ? 1 : parseInt(quantity),
         };
 
         // Comprueba si props.salesCart está definido y es un array

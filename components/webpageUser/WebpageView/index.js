@@ -93,14 +93,16 @@ const WebpageView = (props) => {
                         return (
                             <div key={i} className="flex-col mdx600:flex-row items-center mt-2 flex flex-wrap gap-4 justify-center mx-auto w-full">
                                 {products.map((prod, i) => {
-                                    return (
-                                        <div key={i}>
-                                            {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                            {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
-                                        </div>
-                                    )
+                                    if ((props?.currentPage === parseInt(prod.webpagePage))) {
+                                        return (
+                                            <div key={i}>
+                                                {(data.cardSelected === "card1" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option1 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                                {(data.cardSelected === "card2" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option2 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                                {(data.cardSelected === "card3" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option3 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                                {(data.cardSelected === "card4" && (props?.currentPage === parseInt(prod.webpagePage))) && <Option4 isSpanish={props?.webPageData?.isSpanish} setProdToAdd={setProdToAdd} setShowProdQuantity={setShowProdQuantity} currentPage={props.currentPage} webPageData={props.webPageData} data={data} sectionInfo={prod} />}
+                                            </div>
+                                        )
+                                    }
                                 })}
                             </div>
                         )
@@ -110,7 +112,7 @@ const WebpageView = (props) => {
                 }
             </div>
             <button onClick={() => { setShowSalesCart(true) }} className="text-white px-3 py-2 bg-black rounded-full text-[1.5rem] p-4 absolute bottom-5 w-14 h-14 flex items-center justify-center right-5"><FaShoppingCart /></button>
-            <SalesCartView isSpanish={props?.webPageData?.isSpanish} isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} webPageData={props?.webPageData}/>
+            <SalesCartView isSpanish={props?.webPageData?.isSpanish} isOpen={showSalesCart} setSalesCart={setSalesCart} cartProducts={salesCart} handleShow={setShowSalesCart} webPageData={props?.webPageData} />
             <ProductQuantity isSpanish={props?.webPageData?.isSpanish} salesCart={salesCart} prodToAdd={prodToAdd} setSalesCart={setSalesCart} handleShow={setShowProdQuantity} isOpen={showProdQuantity} />
         </>
     )

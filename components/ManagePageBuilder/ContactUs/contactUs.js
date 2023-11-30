@@ -149,7 +149,7 @@ export const ContactUs = (props) => {
                     </div>
 
                     <div className='relative col-span-2'>
-                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Mansaje" : "Message"}</p>
+                        <p className='font-semibold'>{props?.webPageData?.isSpanish ? "Mensaje" : "Message"}</p>
                         <textarea style={inputStyles} name="message" value={formValues.message} onChange={handleInputChange} className={`w-full rounded-[10px] font-medium shadow mt-1 px-3 py-2 ${formError.message && 'border !border-red-400'}`} type="text" rows="5" placeholder={props?.webPageData?.isSpanish ? "Escribe un mensaje..." : "Write a message..."} />
                         {formError.message && <p className="animate__animated animate__flipInX absolute text-lg font-bold top-7 right-2 text-red-500">*</p>}
                     </div>
